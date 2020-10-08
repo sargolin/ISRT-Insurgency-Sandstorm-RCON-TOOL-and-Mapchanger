@@ -52,7 +52,7 @@ The first stage will be the minimum viable product (MVP - see 2.) so you can see
 tbd
 
 ## 5. General Remarks, Feedback and stuff...
-If you have any questions or feedback, please send me an e-mail to: oe-at-edelmeier.org - In case of feature requests or find any error in the software, please open an issue or in any other case, just write a comment.
+If you have any questions or feedback, please send me an e-mail to: oe-at-edelmeier.org - In case of feature requests or find any error in the software, please open an issue or in any other case, just write to me on our Discord: https://discord.gg/zEdTrgg
 
 If you think that my software is cool and helps you do your daily tasks, why not buy me a coffee ;-) You can do so here: https://www.buymeacoffee.com/oedelmeier or just click the button below
 
