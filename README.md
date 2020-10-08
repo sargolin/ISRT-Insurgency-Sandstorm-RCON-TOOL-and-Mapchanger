@@ -56,7 +56,7 @@ If you have any questions or feedback, please send me an e-mail to: oe-at-edelme
 
 If you think that my software is cool and helps you do your daily tasks, why not buy me a coffee ;-) You can do so here: https://www.buymeacoffee.com/oedelmeier
 
-![Buy me a Coffee!](<a href="https://www.buymeacoffee.com/oedelmeier" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>)
+![](<a href="https://www.buymeacoffee.com/oedelmeier" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>)
 
 Thanks and have a lovely day!
 Oliver
