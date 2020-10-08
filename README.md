@@ -4,9 +4,9 @@ This is a python-based RCON Tool for mapchanging and other basic RCON functional
 For the tracking of development and progress, as well as integrated feature requests, look here: https://trello.com/b/BHMJLISQ/isrt-insurgency-sandstorm-rcon-tool-ins
 
 ## 1. Introduction
-The first stage will be the minimum viable product (MVP - see 2.1) so can see its basic functionality and have it working correctly, without any basic installation routine. I'll just pre-compile it and zip it up. IN the future I'll add more and more functionality described in the features list and also add a proper installation/deinstallation routine:
+The first stage will be the minimum viable product (MVP - see 2.) so you can see and try-out its basic functionality and have it working correctly, without any basic installation routine. I'll just pre-compile it for Windows 10 and zip it (+ the required modules) up. In the future I'll add more and more functionality described in the features list and also add a proper installation/deinstallation routine:
 
-#### Status: In design phase
+#### Status: In creativity/design phase - open for all ideas
 
 ## 2. MVP - first trial release - basic functionality:
 - Actual Code for Mapchanger
