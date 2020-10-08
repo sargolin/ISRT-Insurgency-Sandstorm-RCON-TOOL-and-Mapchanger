@@ -3,7 +3,7 @@ This is a python-based RCON Tool for mapchanging and other basic RCON functional
 
 For the tracking of development and progress, as well as integrated feature requests, look here: https://trello.com/b/BHMJLISQ/isrt-insurgency-sandstorm-rcon-tool-ins
 
-![alt text](https://cdn.discordapp.com/attachments/763816083890110465/763816129399095366/dev1.JPG)
+![Trello Map](https://cdn.discordapp.com/attachments/763816083890110465/763816129399095366/dev1.JPG)
 
 ## 1. Introduction
 The first stage will be the minimum viable product (MVP - see 2.) so you can see and try-out its basic functionality and have it working correctly, without any basic installation routine. I'll just pre-compile it for Windows 10 and zip it (+ the required modules) up. In the future I'll add more and more functionality described in the features list and also add a proper installation/deinstallation routine:
@@ -55,6 +55,8 @@ tbd
 If you have any questions or feedback, please send me an e-mail to: oe-at-edelmeier.org - In case of feature requests or find any error in the software, please open an issue or in any other case, just write a comment.
 
 If you think that my software is cool and helps you do your daily tasks, why not buy me a coffee ;-) You can do so here: https://www.buymeacoffee.com/oedelmeier
+
+![Buy me a Coffee!](<a href="https://www.buymeacoffee.com/oedelmeier" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>)
 
 Thanks and have a lovely day!
 Oliver
