@@ -1,4 +1,4 @@
-# Work in Progress - not yeat released - ISRT-Insurgency-Sandstorm-RCON-TOOL-and-Mapchanger
+# Work in Progress - not yet released - ISRT-Insurgency-Sandstorm-RCON-TOOL-and-Mapchanger
 This is a python-based RCON Tool for mapchanging and other basic RCON functionalities that help administering and controlling Insurgency Sandstorm Servers. The first version will be based on zWolfi's INS_WEB (https://github.com/zWolfi/INS_Web) and Tiifo's MCRCON (https://github.com/Tiiffi/mcrcon) - in the future this will be replaced by similar integrated python-based modules to get rid of third party modules I don't have any control over.
 
 For the tracking of development and progress, as well as integrated feature requests, look here: https://trello.com/b/BHMJLISQ/isrt-insurgency-sandstorm-rcon-tool-ins
