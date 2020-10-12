@@ -36,10 +36,12 @@ The first stage will be the minimum viable product (MVP - see 2.) so you can see
 - Integrate custom maps
 - Let users add own maps
 - Allow custom travel commands
-- Allow say and other rcon commands
-- Integrate Kick and Ban
-- Integrate Reason why kicked/banned
+- Allow say command
+- Integrate other rcon commands
+- Integrate Kick
+- Integrate Ban
 - Allow Ban for specific time
+- Integrate Reason why kicked/banned
 - Select game mode for next map
 - Using a minimalistic Discord Bot for map changes - role-based
 - Database for all maps and travel commands
