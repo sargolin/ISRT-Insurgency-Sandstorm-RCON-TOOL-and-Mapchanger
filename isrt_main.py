@@ -7,7 +7,11 @@
 #Imported classes/functions/libraries:
 
 #Importing required classes and libraries
-import PyQt5, sys, os
+from PyQt5 import QtCore, QtGui, QtWidgets
+import sys, subprocess, shlex, os, requests, platform
+
+
+
 
 
 
