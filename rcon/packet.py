@@ -40,6 +40,7 @@ class Packet():
         )
 
     def print(self):
-        print('id:', self.id)
-        print('type:', self.type)
-        print('body:', self.body)
+        #print('id:', self.id)
+        #print('type:', self.type)
+        #print('body:', self.body)
+        print(self.body)
