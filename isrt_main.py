@@ -1,14 +1,13 @@
 #ISRT - Insurgency Sandstorm RCon Tool; 12.10.2020, Sargolin aka @ Madman
 #In case of questions: oe@edelmeier.org
 #Git: https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-TOOL-and-Mapchanger.git
-#v0.2 -Creation of basic structure plus database file
+#v0.2 - Integration of RCOn and QUERY options
 #Database: ./db/isrt_data.db
-#Main-program: This File
-#Imported classes/functions/libraries:
+#This is open Source, you may use, copy, modify it as you wish - feel free!
 
 #Importing required classes and libraries
-from PyQt5 import QtCore, QtGui, QtWidgets
 import sys, subprocess, shlex, os, requests, platform, query
+from PyQt5 import QtCore, QtGui, QtWidgets
 from rcon import Console
 
 
