@@ -166,7 +166,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QPushButton" name="submitbutton_2">
+   <widget class="QPushButton" name="rconsubmitbutton">
     <property name="geometry">
      <rect>
       <x>404</x>

@@ -11,15 +11,36 @@ from PyQt5.QtWidgets import QMainWindow, QApplication
 from rcon import Console
 from isrt_gui import Ui_MainWindow
 
+
+#Define variables
+serverhost = "93.186.198.185"
+queryport = 27016
+rconport = 27017
+rconpassword = "Rfcd2025"
+rconcommand = "help"
+
+
+
+
 #PyQt5 Widget Setup
+class maingui(QMainWindow):
 
-class MyWindow(QMainWindow):
-    
-    def __init__(self):
-        super(MyWindow,self).__init__()
-        self.initUI(self)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-    
+        self.gui = Ui_MainWindow()
+        self.gui.setupUi(self)
+
+
+
+
+
+
+
+
+
+
+
 
 
     #Execute RCON Command, when called
@@ -27,6 +48,8 @@ class MyWindow(QMainWindow):
         console = Console(host=serverhost, password=rconpassword, port=rconport)
         console.command(rconcommand)
         console.close() 
+
+
 
     #Execute Query Command, when called
     def queryserver(self):
@@ -86,15 +109,28 @@ class MyWindow(QMainWindow):
         else:
             pass
 
-#Define variables
-serverhost = "93.186.198.185"
-queryport = 27016
-rconport = 27017
-rconpassword = "Rfcd2025"
-rconcommand = "help"
 
-#Call main functions
-#rconserver()
-#queryserver()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Call main functions ### saved: #rconserver() #queryserver()
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    mgui = maingui()
+    mgui.show()
+    sys.exit(app.exec_())
 
 
