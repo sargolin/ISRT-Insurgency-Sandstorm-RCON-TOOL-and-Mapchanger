@@ -3,7 +3,7 @@ from rcon.packet import Packet, PacketType
 
 
 class Console():
-    def __init__(self, host, password, port=27017):
+    def __init__(self, host, password, port):
         self._conn = Connection(host, port)
         self._id = 0
         self._login(password)
