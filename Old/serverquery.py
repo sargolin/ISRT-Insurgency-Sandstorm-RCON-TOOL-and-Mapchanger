@@ -20,6 +20,8 @@ def getdata():
     versus = (serverruledetails['Versus_b'])
     mods = (serverruledetails['Mods_b'])
    
+
+
 #Check for correct setting of Servervars and assign Yes/No to these
 def checkservervars():
     global servermodcheck, serverpwcheck, servervaccheck, serverrulecheck, servercoopcheck

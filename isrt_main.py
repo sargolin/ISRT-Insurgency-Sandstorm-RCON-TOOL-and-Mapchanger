@@ -6,74 +6,85 @@
 #This is open Source, you may use, copy, modify it as you wish - feel free!
 
 #Importing required classes and libraries
-import sys, subprocess, shlex, os, requests, platform, query
-from PyQt5 import QtCore, QtGui, QtWidgets
+import sys, query
+from PyQt5.QtWidgets import QMainWindow, QApplication
 from rcon import Console
+from isrt_gui import Ui_MainWindow
+
+#PyQt5 Widget Setup
+
+class MyWindow(QMainWindow):
+    
+    def __init__(self):
+        super(MyWindow,self).__init__()
+        self.initUI(self)
+
+    
 
 
-#Execute RCON Command, when called
-def rconserver():
-    console = Console(host=serverhost, password=rconpassword, port=rconport)
-    console.command(rconcommand)
-    console.close() 
+    #Execute RCON Command, when called
+    def rconserver(self):
+        console = Console(host=serverhost, password=rconpassword, port=rconport)
+        console.command(rconcommand)
+        console.close() 
 
-#Execute Query Command, when called
-def queryserver():
-    server = query.Query(serverhost, queryport)
-    serverinfo = (server.info())
-    servergamedetails = (serverinfo['info'])
-    serverrules = (server.rules())
-    serverruledetails = (serverrules['rules'])
-    servernetworkdetails = (serverinfo['server'])
-    pwcheck = (servergamedetails['server_password_protected'])
-    vaccheck = (servergamedetails['server_vac_secured'])
-    ranked = (serverruledetails['RankedServer_b'])
-    coop = (serverruledetails['Coop_b'])
-    mods = (serverruledetails['Mods_b'])    
+    #Execute Query Command, when called
+    def queryserver(self):
+        server = query.Query(serverhost, queryport)
+        serverinfo = (server.info())
+        servergamedetails = (serverinfo['info'])
+        serverrules = (server.rules())
+        serverruledetails = (serverrules['rules'])
+        servernetworkdetails = (serverinfo['server'])
+        pwcheck = (servergamedetails['server_password_protected'])
+        vaccheck = (servergamedetails['server_vac_secured'])
+        ranked = (serverruledetails['RankedServer_b'])
+        coop = (serverruledetails['Coop_b'])
+        mods = (serverruledetails['Mods_b'])    
 
-    if  mods == "true":
-        servermodcheck = "Yes"
-    else:
-        servermodcheck = "No"  
+        if  mods == "true":
+            servermodcheck = "Yes"
+        else:
+            servermodcheck = "No"  
 
-    if  pwcheck == 0:
-        serverpwcheck = "No"
-    else:
-        serverpwcheck = "Yes"
+        if  pwcheck == 0:
+            serverpwcheck = "No"
+        else:
+            serverpwcheck = "Yes"
 
-    if  vaccheck == 0:
-        servervaccheck = "No"
-    else:
-        servervaccheck = "Yes"
+        if  vaccheck == 0:
+            servervaccheck = "No"
+        else:
+            servervaccheck = "Yes"
 
-    if  ranked == "true":
-        serverrulecheck = "Yes"
-    else:
-        serverrulecheck = "No"
+        if  ranked == "true":
+            serverrulecheck = "Yes"
+        else:
+            serverrulecheck = "No"
 
-    if  coop == "true":
-        servercoopcheck = "Coop"
-    else:
-        servercoopcheck = "Versus"
+        if  coop == "true":
+            servercoopcheck = "Coop"
+        else:
+            servercoopcheck = "Versus"
 
-    print("Servername: ", servergamedetails['server_name'])
-    print("Game: ", servergamedetails['game_description'])
-    print("Gamemode: ", serverruledetails['GameMode_s'])
-    print("Mode: ", servercoopcheck)
-    print("Ranked Server: ", serverrulecheck)
-    print("Server-IP: ", servernetworkdetails['ip'], ":", servergamedetails['server_port'])
-    print("Query-Port: ", servernetworkdetails['port'])
-    print("Password: ", serverpwcheck)
-    print("VAC-Secured: ", servervaccheck)
-    print("Map: ", servergamedetails['game_map'])
-    print("Players: ", servergamedetails['players_current'], "/", servergamedetails['players_max'])
-    print("Ping: ", servernetworkdetails['ping'])
-    print("Mods: ", servermodcheck)
-    if servermodcheck == "Yes":
-        print("Mod-IDs: ", serverruledetails['ModList_s'])
-        print("Mutators: ", serverruledetails['Mutators_s'])
-    else:
-        pass
+        print("Servername: ", servergamedetails['server_name'])
+        print("Game: ", servergamedetails['game_description'])
+        print("Gamemode: ", serverruledetails['GameMode_s'])
+        print("Mode: ", servercoopcheck)
+        print("Ranked Server: ", serverrulecheck)
+        print("Server-IP: ", servernetworkdetails['ip'], ":", servergamedetails['server_port'])
+        print("Query-Port: ", servernetworkdetails['port'])
+        print("Password: ", serverpwcheck)
+        print("VAC-Secured: ", servervaccheck)
+        print("Map: ", servergamedetails['game_map'])
+        print("Players: ", servergamedetails['players_current'], "/", servergamedetails['players_max'])
+        print("Ping: ", servernetworkdetails['ping'])
+        print("Mods: ", servermodcheck)
+        if servermodcheck == "Yes":
+            print("Mod-IDs: ", serverruledetails['ModList_s'])
+            print("Mutators: ", serverruledetails['Mutators_s'])
+        else:
+            pass
 
 #Define variables
 serverhost = "93.186.198.185"
@@ -83,7 +94,7 @@ rconpassword = "Rfcd2025"
 rconcommand = "help"
 
 #Call main functions
-rconserver()
-queryserver()
+#rconserver()
+#queryserver()
 
 
