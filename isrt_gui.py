@@ -19,6 +19,8 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(640, 480)
+        MainWindow.setFixedWidth(640)
+        MainWindow.setFixedHeight(480)
         icon = QtGui.QIcon()
 
         #Added Path-definition as described in main file!
@@ -32,6 +34,7 @@ class Ui_MainWindow(object):
 
         self.terminalwindows = QtWidgets.QLabel(self.centralwidget)
         self.terminalwindows.setGeometry(QtCore.QRect(10, 200, 611, 231))
+
 
         font = QtGui.QFont()
         font.setPointSize(6)

@@ -15,6 +15,8 @@ class Ui_aboutwindow(object):
     def setupUi(self, aboutwindow):
         aboutwindow.setObjectName("aboutwindow")
         aboutwindow.resize(360, 267)
+        aboutwindow.setFixedHeight(267)
+        aboutwindow.setFixedWidth(360)
         font = QtGui.QFont()
         font.setPointSize(10)
         aboutwindow.setFont(font)

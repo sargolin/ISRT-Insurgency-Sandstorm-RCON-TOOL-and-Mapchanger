@@ -57,6 +57,19 @@ class maingui(QMainWindow):
         self.gui.actionINfo.triggered.connect(self.show_info_app)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     def show_info_app(self):
         self.infoapp = None
         if self.infoapp is None:
