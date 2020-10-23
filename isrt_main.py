@@ -5,12 +5,22 @@
 #Database: ./db/isrt_data.db
 #This is open Source, you may use, copy, modify it as you wish - feel free!
 
+#Add to GUI Class imporeted file in function 'setupUI' - only change this - the rest must be untouched!
+#
+#In Main:
+# from pathlib import Path
+#
+#In Function:
+# icondir = Path(__file__).absolute().parent
+# str(icondir / 'img/isrt.ico') so that the icon call reads:
+#   icon.addPixmap(QtGui.QPixmap(str(icondir / 'img/isrt.ico')), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+#
+
 #Importing required classes and libraries
 import sys, query
 from PyQt5.QtWidgets import QMainWindow, QApplication
 from rcon import Console
 from isrt_gui import Ui_MainWindow
-
 
 #Define variables
 serverhost = "93.186.198.185"
@@ -22,28 +32,17 @@ rconcommand = "help"
 
 
 
-#PyQt5 Widget Setup
+#PyQt5 UI Initialization
 class maingui(QMainWindow):
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
         self.gui = Ui_MainWindow()
         self.gui.setupUi(self)
 
 
 
 
-
-
-
-
-
-
-
-
-
-    #Execute RCON Command, when called
+#Execute RCON Command, when called
     def rconserver(self):
         console = Console(host=serverhost, password=rconpassword, port=rconport)
         console.command(rconcommand)
@@ -51,7 +50,7 @@ class maingui(QMainWindow):
 
 
 
-    #Execute Query Command, when called
+#Execute Query Command, when called
     def queryserver(self):
         server = query.Query(serverhost, queryport)
         serverinfo = (server.info())
@@ -113,20 +112,7 @@ class maingui(QMainWindow):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 #Call main functions ### saved: #rconserver() #queryserver()
-
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     mgui = maingui()
