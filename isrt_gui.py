@@ -104,6 +104,7 @@ class Ui_MainWindow(object):
         self.exitbutton.setObjectName("exitbutton")
         self.horizontalLayout_2.addWidget(self.exitbutton)
 
+
         self.submitbutton_2 = QtWidgets.QPushButton(self.centralwidget)
         self.submitbutton_2.setGeometry(QtCore.QRect(404, 167, 121, 23))
         self.submitbutton_2.setLayoutDirection(QtCore.Qt.LeftToRight)

@@ -17,10 +17,11 @@
 #
 
 #Importing required classes and libraries
-import sys, query
-from PyQt5.QtWidgets import QMainWindow, QApplication
+import sys, query, os
+from PyQt5.QtWidgets import QMainWindow, QApplication, QVBoxLayout, QWidget
 from rcon import Console
 from isrt_gui import Ui_MainWindow
+from about import Ui_aboutwindow
 
 #Define variables
 serverhost = "93.186.198.185"
@@ -30,6 +31,17 @@ rconpassword = "Rfcd2025"
 rconcommand = "help"
 
 
+#PyQt5 About UI
+class infogui(QWidget):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.igui = Ui_aboutwindow()
+        self.igui.setupUi(self)
+
+        self.igui.pushButton.clicked.connect(self.closeapp)
+
+    def closeapp(self):
+        self.close()
 
 
 #PyQt5 UI Initialization
@@ -39,6 +51,21 @@ class maingui(QMainWindow):
         self.gui = Ui_MainWindow()
         self.gui.setupUi(self)
 
+
+        self.gui.exitbutton.clicked.connect(self.exitapp)
+        self.gui.actionQuit.triggered.connect(self.exitapp)
+        self.gui.actionINfo.triggered.connect(self.show_info_app)
+
+
+    def show_info_app(self):
+        self.infoapp = None
+        if self.infoapp is None:
+            self.infoapp = infogui()
+        self.infoapp.show()
+
+
+    def exitapp(self):
+        self.close()
 
 
 
