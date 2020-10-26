@@ -17,7 +17,7 @@
 #
 
 #Importing required classes and libraries
-import sys, query, os
+import sys, query, os, re
 from PyQt5.QtWidgets import QMainWindow, QApplication, QVBoxLayout, QWidget
 from rcon import Console
 from isrt_gui import Ui_MainWindow
@@ -47,24 +47,49 @@ class maingui(QMainWindow):
         self.gui.exitbutton.clicked.connect(self.exitapp)
         self.gui.actionQuit.triggered.connect(self.exitapp)
         self.gui.actionINfo.triggered.connect(self.show_info_app)
-        self.gui.submitbutton.clicked.connect(self.showquery)
+        self.gui.submitbutton.clicked.connect(self.checkandgoquery)
+        self.gui.submitbutton_2.clicked.connect(self.checkandgorcon)
+
+
+
+
+
+#Check for the format string and go for the rcon command, but only if rcon port and rcon password are given
+    def checkandgorcon(self):
+        serverhost = str(self.gui.entryip.text())
+        rconpassword = str(self.gui.entryrconpw.text())
+        rconport = int(self.gui.entryrconport.text())
+        rconcommand = str(self.gui.label_rconcommand.text())
+        callrcon = self.rconserver(serverhost, rconpassword,  rconport, rconcommand)
 
 
 
 
 
 
+#Check for the IP and Queryport to be correct in syntax and range and go for the query
+    def checkandgoquery(self):
+        #Check IP
+        self.regexip = '''^(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)$'''
+
+        if (re.search(self.regexip, self.gui.entryip.text())):  
+            self.serverhost = self.gui.entryip.text()
+            try:
+                if self.gui.entryqueryport.text() and 1 <= int(self.gui.entryqueryport.text()) <= 65535:
+                    self.queryport = self.gui.entryqueryport.text()
+                    callquery = self.queryserver(self.serverhost, self.queryport)
+                else:
+                    raise ValueError
+            except ValueError:
+                self.gui.querywindow.setText(self.gui.entryqueryport.text() + " is no valid Port number - please retry!")
+        else:  
+            self.gui.querywindow.setText(self.gui.entryip.text() + " is no valid IP address - please retry!")  
 
 
-
-
-
-    def showquery(self):
-        self.serverhost = self.gui.entryip.text()
-        self.queryport = self.gui.entryqueryport.text()
-        setquery = self.queryserver(self.serverhost, self.queryport)
-        
-        
+#Show the About Windows
     def show_info_app(self):
         self.infoapp = None
         if self.infoapp is None:
@@ -72,20 +97,21 @@ class maingui(QMainWindow):
         self.infoapp.show()
 
 
+#Exit the App itself
     def exitapp(self):
         self.close()
 
 
-
-#Execute RCON Command, when called
-    def rconserver(self):
+#Execute RCON Command, when called by checkandgorcon()!
+    def rconserver(self, serverhost, rconpassword, rconport, rconcommand):
         console = Console(host=serverhost, password=rconpassword, port=rconport)
-        console.command(rconcommand)
+        commandconsole = (console.command(rconcommand))
+
+        self.gui.terminalwindows.setText(str(commandconsole))
         console.close() 
 
 
-
-#Execute Query Command, when called
+#Execute Query Command, when called by checkandgoquery()!
     def queryserver(self, serverhost, queryport):
         self.server = query.Query(self.serverhost, self.queryport)
         self.serverinfo = (self.server.info())

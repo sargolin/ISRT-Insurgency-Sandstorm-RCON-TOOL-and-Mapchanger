@@ -30,7 +30,12 @@ class Console():
         )
         self._conn.send_packet(req)
         res = self._conn.recv_packet()
-        res.print()
+        #res.print()
+        return res.print()
 
+
+        
+        
+        
     def close(self):
         self._conn.close()
