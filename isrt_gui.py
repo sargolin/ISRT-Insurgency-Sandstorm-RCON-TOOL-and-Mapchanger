@@ -52,13 +52,14 @@ class Ui_MainWindow(object):
         self.querywindow.setGeometry(QtCore.QRect(10, 50, 301, 141))
 
         font = QtGui.QFont()
-        font.setPointSize(6)
+        font.setPointSize(7)
 
         self.querywindow.setFont(font)
         self.querywindow.setAutoFillBackground(True)
         self.querywindow.setFrameShape(QtWidgets.QFrame.Box)
         self.querywindow.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.querywindow.setText("")
+        self.querywindow.setWordWrap(True)
         self.querywindow.setObjectName("querywindow")
 
         self.label_rconcommand = QtWidgets.QLineEdit(self.centralwidget)
@@ -75,10 +76,12 @@ class Ui_MainWindow(object):
 
         self.entryip = QtWidgets.QLineEdit(self.layoutWidget)
         self.entryip.setObjectName("entryip")
+        self.entryip.setText("93.186.198.185")
         self.horizontalLayout.addWidget(self.entryip)
 
         self.entryqueryport = QtWidgets.QLineEdit(self.layoutWidget)
         self.entryqueryport.setObjectName("entryqueryport")
+        self.entryqueryport.setText("27016")
         self.horizontalLayout.addWidget(self.entryqueryport)
 
         self.entryrconport = QtWidgets.QLineEdit(self.layoutWidget)

@@ -23,14 +23,6 @@ from rcon import Console
 from isrt_gui import Ui_MainWindow
 from about import Ui_aboutwindow
 
-#Define variables
-serverhost = "93.186.198.185"
-queryport = 27016
-rconport = 27017
-rconpassword = "Rfcd2025"
-rconcommand = "help"
-
-
 #PyQt5 About UI
 class infogui(QWidget):
     def __init__(self, *args, **kwargs):
@@ -55,6 +47,7 @@ class maingui(QMainWindow):
         self.gui.exitbutton.clicked.connect(self.exitapp)
         self.gui.actionQuit.triggered.connect(self.exitapp)
         self.gui.actionINfo.triggered.connect(self.show_info_app)
+        self.gui.submitbutton.clicked.connect(self.showquery)
 
 
 
@@ -66,10 +59,12 @@ class maingui(QMainWindow):
 
 
 
-
-
-
-
+    def showquery(self):
+        self.serverhost = self.gui.entryip.text()
+        self.queryport = self.gui.entryqueryport.text()
+        setquery = self.queryserver(self.serverhost, self.queryport)
+        
+        
     def show_info_app(self):
         self.infoapp = None
         if self.infoapp is None:
@@ -91,62 +86,64 @@ class maingui(QMainWindow):
 
 
 #Execute Query Command, when called
-    def queryserver(self):
-        server = query.Query(serverhost, queryport)
-        serverinfo = (server.info())
-        servergamedetails = (serverinfo['info'])
-        serverrules = (server.rules())
-        serverruledetails = (serverrules['rules'])
-        servernetworkdetails = (serverinfo['server'])
-        pwcheck = (servergamedetails['server_password_protected'])
-        vaccheck = (servergamedetails['server_vac_secured'])
-        ranked = (serverruledetails['RankedServer_b'])
-        coop = (serverruledetails['Coop_b'])
-        mods = (serverruledetails['Mods_b'])    
+    def queryserver(self, serverhost, queryport):
+        self.server = query.Query(self.serverhost, self.queryport)
+        self.serverinfo = (self.server.info())
+        self.servergamedetails = (self.serverinfo['info'])
+        self.serverrules = (self.server.rules())
+        self.serverruledetails = (self.serverrules['rules'])
+        self.servernetworkdetails = (self.serverinfo['server'])
+        self.pwcheck = (self.servergamedetails['server_password_protected'])
+        self.vaccheck = (self.servergamedetails['server_vac_secured'])
+        self.ranked = (self.serverruledetails['RankedServer_b'])
+        self.coop = (self.serverruledetails['Coop_b'])
+        self.mods = (self.serverruledetails['Mods_b'])    
 
-        if  mods == "true":
-            servermodcheck = "Yes"
+        if  self.mods == "true":
+            self.servermodcheck = "Yes"
         else:
-            servermodcheck = "No"  
+            self.servermodcheck = "No"  
 
-        if  pwcheck == 0:
-            serverpwcheck = "No"
+        if  self.pwcheck == 0:
+            self.serverpwcheck = "No"
         else:
-            serverpwcheck = "Yes"
+            self.serverpwcheck = "Yes"
 
-        if  vaccheck == 0:
-            servervaccheck = "No"
+        if  self.vaccheck == 0:
+            self.servervaccheck = "No"
         else:
-            servervaccheck = "Yes"
+            self.servervaccheck = "Yes"
 
-        if  ranked == "true":
-            serverrulecheck = "Yes"
+        if  self.ranked == "true":
+            self.serverrulecheck = "Yes"
         else:
-            serverrulecheck = "No"
+            self.serverrulecheck = "No"
 
-        if  coop == "true":
-            servercoopcheck = "Coop"
+        if  self.coop == "true":
+            self.servercoopcheck = "Coop"
         else:
-            servercoopcheck = "Versus"
-
-        print("Servername: ", servergamedetails['server_name'])
-        print("Game: ", servergamedetails['game_description'])
-        print("Gamemode: ", serverruledetails['GameMode_s'])
-        print("Mode: ", servercoopcheck)
-        print("Ranked Server: ", serverrulecheck)
-        print("Server-IP: ", servernetworkdetails['ip'], ":", servergamedetails['server_port'])
-        print("Query-Port: ", servernetworkdetails['port'])
-        print("Password: ", serverpwcheck)
-        print("VAC-Secured: ", servervaccheck)
-        print("Map: ", servergamedetails['game_map'])
-        print("Players: ", servergamedetails['players_current'], "/", servergamedetails['players_max'])
-        print("Ping: ", servernetworkdetails['ping'])
-        print("Mods: ", servermodcheck)
-        if servermodcheck == "Yes":
-            print("Mod-IDs: ", serverruledetails['ModList_s'])
-            print("Mutators: ", serverruledetails['Mutators_s'])
+            self.servercoopcheck = "Versus"
+        
+        if self.servermodcheck == "Yes":
+            self.mutatorids = self.serverruledetails['Mutators_s']
         else:
             pass
+
+        self.gui.querywindow.setText(
+        str(self.servergamedetails['server_name']) + "\n" + 
+        "Gamemode: " + str(self.serverruledetails['GameMode_s']) +  "\n" + 
+        "Mode: " + str(self.servercoopcheck) +  "\n" + 
+        "Ranked Server: " + str(self.serverrulecheck) +  "\n" + 
+        "Server-IP: " + str(self.servernetworkdetails['ip']) + ":" + str(self.servergamedetails['server_port']) +  "\n" + 
+        "Query-Port: " + str(self.servernetworkdetails['port']) + "\n" + 
+        "Password: " + str(self.serverpwcheck) + "\n" + 
+        "VAC-Secured: " + str(self.servervaccheck) + "\n" + 
+        "Map: " + str(self.servergamedetails['game_map']) + "\n" + 
+        "Players: " + str(self.servergamedetails['players_current']) + "/" + str(self.servergamedetails['players_max']) + "\n" + 
+        "Ping: " + str(self.servernetworkdetails['ping']) + "\n" + 
+        "Mods: " + str(self.servermodcheck) + " (" + str(self.mutatorids) + ")")
+
+
 
 
 
