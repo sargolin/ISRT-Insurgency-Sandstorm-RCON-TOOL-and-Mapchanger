@@ -145,10 +145,6 @@ class maingui(QMainWindow):
 
 
 
-
-
-
-
 #Call main functions ### saved: #rconserver() #queryserver()
 if __name__ == '__main__':
     app = QApplication(sys.argv)
