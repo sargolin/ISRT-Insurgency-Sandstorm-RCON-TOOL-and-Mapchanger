@@ -43,7 +43,6 @@ class Packet():
         #print('id:', self.id)
         #print('type:', self.type)
         #print('body:', self.body)
-        #self.gui.terminalwindows.setText("Yes2")
         #print(self.body)
         return self.body
         
