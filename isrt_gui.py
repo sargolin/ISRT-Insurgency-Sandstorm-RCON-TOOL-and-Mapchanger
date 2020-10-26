@@ -116,10 +116,10 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.addWidget(self.exitbutton)
 
 
-        self.submitbutton_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.submitbutton_2.setGeometry(QtCore.QRect(404, 167, 121, 23))
-        self.submitbutton_2.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.submitbutton_2.setObjectName("submitbutton_2")
+        self.rconbutton = QtWidgets.QPushButton(self.centralwidget)
+        self.rconbutton.setGeometry(QtCore.QRect(404, 167, 121, 23))
+        self.rconbutton.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.rconbutton.setObjectName("rconbutton")
 
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -163,7 +163,7 @@ class Ui_MainWindow(object):
         self.entryrconpw.setPlaceholderText(_translate("MainWindow", "RCON Password"))
         self.submitbutton.setText(_translate("MainWindow", "Query Server"))
         self.exitbutton.setText(_translate("MainWindow", "Exit"))
-        self.submitbutton_2.setText(_translate("MainWindow", "Execute RCON"))
+        self.rconbutton.setText(_translate("MainWindow", "Execute RCON"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.menu.setTitle(_translate("MainWindow", "?"))
         self.actionQuit.setText(_translate("MainWindow", "Quit"))

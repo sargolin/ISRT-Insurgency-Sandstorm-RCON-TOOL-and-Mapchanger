@@ -48,7 +48,7 @@ class maingui(QMainWindow):
         self.gui.actionQuit.triggered.connect(self.exitapp)
         self.gui.actionINfo.triggered.connect(self.show_info_app)
         self.gui.submitbutton.clicked.connect(self.checkandgoquery)
-        self.gui.submitbutton_2.clicked.connect(self.checkandgorcon)
+        self.gui.rconbutton.clicked.connect(self.checkandgorcon)
 
 
 
