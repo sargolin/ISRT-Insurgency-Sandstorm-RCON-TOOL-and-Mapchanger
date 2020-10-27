@@ -1,28 +1,20 @@
 #ISRT - Insurgency Sandstorm RCon Tool; 12.10.2020, Sargolin aka @ Madman
 #In case of questions: oe@edelmeier.org
 #Git: https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-TOOL-and-Mapchanger.git
-#v0.2 - Integration of RCOn and QUERY options
+#v0.1.1 - Integration of RCON and QUERY options
 #Database: ./db/isrt_data.db
 #This is open Source, you may use, copy, modify it as you wish - feel free!
 
-#Add to GUI Class imporeted file in function 'setupUI' - only change this - the rest must be untouched!
-#
-#In Main:
-# from pathlib import Path
-#
-#In Function:
-# icondir = Path(__file__).absolute().parent
-# str(icondir / 'img/isrt.ico') so that the icon call reads:
-#   icon.addPixmap(QtGui.QPixmap(str(icondir / 'img/isrt.ico')), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-#
-
 #Importing required classes and libraries
 import sys, query, os, re
-#from PyQt5.QtWidgets import QMainWindow, QApplication, QVBoxLayout, QWidget
 from PyQt5 import QtCore, QtGui, QtWidgets
 from rcon import Console
 from isrt_gui import Ui_MainWindow
 from about_gui import Ui_aboutwindow
+
+#
+#Start definition of Classes, Functions/Methods and variables/attributes
+#
 
 #PyQt5 About UI
 class infogui(QtWidgets.QWidget):
@@ -50,9 +42,6 @@ class maingui(QtWidgets.QMainWindow):
         self.gui.actionINfo.triggered.connect(self.show_info_app)
         self.gui.submitbutton.clicked.connect(self.checkandgoquery)
         self.gui.rconsubmitbutton.clicked.connect(self.checkandgorcon)
-
-
-
 
 
 #Check for the format string and go for the rcon command, but only if rcon port and rcon password are given
@@ -166,9 +155,9 @@ class maingui(QtWidgets.QMainWindow):
         "Ping: " + str(self.servernetworkdetails['ping']) + "\n" + 
         "Mods: " + str(self.servermodcheck) + " (" + str(self.mutatorids) + ")")
 
-
-
+#
 #Call main functions ### saved: #rconserver() #queryserver()
+#
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     mgui = maingui()
