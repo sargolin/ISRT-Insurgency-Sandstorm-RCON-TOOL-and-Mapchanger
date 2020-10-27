@@ -46,11 +46,31 @@ class maingui(QtWidgets.QMainWindow):
 
 #Check for the format string and go for the rcon command, but only if rcon port and rcon password are given
     def checkandgorcon(self):
-        serverhost = str(self.gui.entryip.text())
-        rconpassword = str(self.gui.entryrconpw.text())
-        rconport = int(self.gui.entryrconport.text())
-        rconcommand = str(self.gui.label_rconcommand.text())
-        self.rconserver(serverhost, rconpassword,  rconport, rconcommand)
+        #Check IP
+        self.regexip = r'''^(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)$'''
+
+        if (re.search(self.regexip, self.gui.entryip.text())):  
+            self.serverhost = self.gui.entryip.text()
+            try:
+                if self.gui.entryrconport.text() and 1 <= int(self.gui.entryrconport.text()) <= 65535:
+                    serverhost = str(self.gui.entryip.text())
+                    rconpassword = str(self.gui.entryrconpw.text())
+                    rconport = int(self.gui.entryrconport.text())
+                    rconcommand = str(self.gui.label_rconcommand.text())
+                    self.rconserver(serverhost, rconpassword,  rconport, rconcommand)
+                else:
+                    raise ValueError
+            except ValueError:
+                self.gui.terminalwindows.setText(self.gui.entryrconport.text() + " is no valid Port number - please retry!")
+        else:  
+            self.gui.terminalwindows.setText(self.gui.entryip.text() + " is no valid IP address - please retry!")         
+        
+        
+        
+
 
 
 #Check for the IP and Queryport to be correct in syntax and range and go for the query
