@@ -172,7 +172,7 @@
        <item>
         <widget class="QLineEdit" name="entryip">
          <property name="text">
-          <string>93.186.198.185</string>
+          <string/>
          </property>
          <property name="placeholderText">
           <string>IP-Adress</string>
@@ -182,7 +182,7 @@
        <item>
         <widget class="QLineEdit" name="entryqueryport">
          <property name="text">
-          <string>27016</string>
+          <string/>
          </property>
          <property name="placeholderText">
           <string>Query Port</string>
@@ -195,7 +195,7 @@
           <enum>Qt::LeftToRight</enum>
          </property>
          <property name="text">
-          <string>27017</string>
+          <string/>
          </property>
          <property name="placeholderText">
           <string>RCON Port</string>
@@ -208,7 +208,7 @@
           <enum>Qt::LeftToRight</enum>
          </property>
          <property name="text">
-          <string>Rfcd2025</string>
+          <string/>
          </property>
          <property name="placeholderText">
           <string>RCON Password</string>

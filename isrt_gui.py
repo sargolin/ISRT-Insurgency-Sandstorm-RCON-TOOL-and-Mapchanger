@@ -139,7 +139,7 @@ class Ui_MainWindow(object):
         self.label_rconcommand.setText(_translate("MainWindow", "help"))
         self.label_rconcommand.setPlaceholderText(_translate("MainWindow", "RCon Command"))
         self.rconsubmitbutton.setText(_translate("MainWindow", "Submit RCON"))
-        self.entryip.setText(_translate("MainWindow", "5"))
+        self.entryip.setText(_translate("MainWindow", ""))
         self.entryip.setPlaceholderText(_translate("MainWindow", "IP-Adress"))
         self.entryqueryport.setText(_translate("MainWindow", ""))
         self.entryqueryport.setPlaceholderText(_translate("MainWindow", "Query Port"))
