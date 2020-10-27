@@ -210,6 +210,9 @@
          <property name="text">
           <string/>
          </property>
+         <property name="echoMode">
+          <enum>QLineEdit::Password</enum>
+         </property>
          <property name="placeholderText">
           <string>RCON Password</string>
          </property>
