@@ -3,8 +3,6 @@ This is a python- and PyQt5-based RCON Tool for mapchanging and other basic RCON
 
 For the tracking of development and progress, as well as integrated feature requests, look here: https://trello.com/b/BHMJLISQ/isrt-insurgency-sandstorm-rcon-tool-ins
 
-![Trello Map](https://cdn.discordapp.com/attachments/763816083890110465/763816129399095366/dev1.JPG)
-
 ## 1. Introduction
 The first stage will be the minimum viable product (MVP - see 2.) so you can see and try-out its basic functionality and have it working correctly, without any basic installation routine. I'll just pre-compile it for Windows 10 and zip it (+ the required modules) up. In the future I'll add more and more functionality described in the features list and also add a proper installation/deinstallation routine:
 
