@@ -47,11 +47,11 @@ The first stage will be the minimum viable product (MVP - see 2.) so you can see
 - Database for all maps and travel commands
 
 ## 3. Installation and Deinstallation
-- Download, Unzip in one folder and execute .py-file with Python 3.x and above!
+- Download, Unzip in one folder and execute isrt_main.py-file with Python 3.x and above!
 - For deinstalling, just delete folder
 
 ## 4. Commands and usage
-It's all built inside - just use the entry fields and buttons - should work as designed.
+It's all built inside call isrt_main.py with Python - just use the entry fields and buttons - should work as designed - please report any errorsas issues.
 
 ## 5. General Remarks, Feedback and stuff...
 If you have any questions or feedback, please send me an e-mail to: oe-at-edelmeier.org - In case of feature requests or find any error in the software, please open an issue or in any other case, just write to me on our Discord: https://discord.gg/zEdTrgg
