@@ -1,26 +1,26 @@
-# Work in Progress - not yet released - ISRT-Insurgency-Sandstorm-RCON-TOOL-and-Mapchanger
-This is a python- and PyQt5-based RCON Tool for mapchanging and other basic RCON functionalities that help administering and controlling Insurgency Sandstorm Servers. The first version will be based on zWolfi's INS_WEB (https://github.com/zWolfi/INS_Web) and Tiifo's MCRCON (https://github.com/Tiiffi/mcrcon) - in the future this will be replaced by similar integrated python-based modules to get rid of third party modules I don't have any control over.
+# Work in Progress - v0.1.1 released - ISRT-Insurgency-Sandstorm-RCON-TOOL-and-Mapchanger
+This is a python- and PyQt5-based RCON Tool for mapchanging and other basic RCON functionalities that help administering and controlling Insurgency Sandstorm Servers. The first version will be based on spezifanta's SourceWatch (https://github.com/spezifanta/SourceWatch) and ttk1's Py-Rcon (https://github.com/ttk1/py-rcon) - in the future this will be replaced by similar integrated python-based modules to get rid of third party modules I don't have any control over.
 
 For the tracking of development and progress, as well as integrated feature requests, look here: https://trello.com/b/BHMJLISQ/isrt-insurgency-sandstorm-rcon-tool-ins
-
-![Trello Map](https://cdn.discordapp.com/attachments/763816083890110465/763816129399095366/dev1.JPG)
 
 ## 1. Introduction
 The first stage will be the minimum viable product (MVP - see 2.) so you can see and try-out its basic functionality and have it working correctly, without any basic installation routine. I'll just pre-compile it for Windows 10 and zip it (+ the required modules) up. In the future I'll add more and more functionality described in the features list and also add a proper installation/deinstallation routine:
 
-#### Status: In creativity/design phase - open for all ideas
+<center><img src="http://gs.tct-gaming.com/isrt.jpg"></center>
+
+#### Status: In development phase - open for all ideas
 
 ## 2. MVP - first trial release - basic functionality:
-- Actual Code for Mapchanger
+- Actual Code for Remote Control including Mapchanger
 - Graphical User Interface QT5
-- Integrate all Standard Maps
-- Add Tell Map
-- Pre-compiled exe and .py
-- Select between day and night map
-- Using MCRCON
+- Integrate all Standard Maps (open)
+- Add Tell Map (open)
+- Pre-compiled exe and .py (open)
+- Select between day and night map (open)
+- Using MCRCON (replaced by python integration
 - Enter IP, Port and Password
 - STDOUT Terminal
-- Store IP, Port and PW in Textfile
+- Store IP, Port and PW in Textfile (open)
 
 ### 2.1 Features currently planned, but not yet implemented:
 - Windows Installer
@@ -47,11 +47,11 @@ The first stage will be the minimum viable product (MVP - see 2.) so you can see
 - Database for all maps and travel commands
 
 ## 3. Installation and Deinstallation
-- Download, Unzip in one folder and execute .exe-file
+- Download, Unzip in one folder and execute .py-file with Python 3.x and above!
 - For deinstalling, just delete folder
 
 ## 4. Commands and usage
-tbd
+It's all built inside - just use the entry fields and buttons - should work as designed.
 
 ## 5. General Remarks, Feedback and stuff...
 If you have any questions or feedback, please send me an e-mail to: oe-at-edelmeier.org - In case of feature requests or find any error in the software, please open an issue or in any other case, just write to me on our Discord: https://discord.gg/zEdTrgg
