@@ -1,5 +1,5 @@
 # Work in Progress - v0.1.1 released - ISRT-Insurgency-Sandstorm-RCON-TOOL-and-Mapchanger
-This is a python- and PyQt5-based RCON Tool for mapchanging and other basic RCON functionalities that help administering and controlling Insurgency Sandstorm Servers. The first version will be based on zWolfi's INS_WEB (https://github.com/zWolfi/INS_Web) and Tiifo's MCRCON (https://github.com/Tiiffi/mcrcon) - in the future this will be replaced by similar integrated python-based modules to get rid of third party modules I don't have any control over.
+This is a python- and PyQt5-based RCON Tool for mapchanging and other basic RCON functionalities that help administering and controlling Insurgency Sandstorm Servers. The first version will be based on spezifanta's SourceWatch (https://github.com/spezifanta/SourceWatch) and ttk1's Py-Rcon (https://github.com/ttk1/py-rcon) - in the future this will be replaced by similar integrated python-based modules to get rid of third party modules I don't have any control over.
 
 For the tracking of development and progress, as well as integrated feature requests, look here: https://trello.com/b/BHMJLISQ/isrt-insurgency-sandstorm-rcon-tool-ins
 
@@ -11,16 +11,16 @@ The first stage will be the minimum viable product (MVP - see 2.) so you can see
 #### Status: In development phase - open for all ideas
 
 ## 2. MVP - first trial release - basic functionality:
-- Actual Code for Mapchanger
+- Actual Code for Remote Control including Mapchanger
 - Graphical User Interface QT5
-- Integrate all Standard Maps
-- Add Tell Map
-- Pre-compiled exe and .py
-- Select between day and night map
-- Using MCRCON
+- Integrate all Standard Maps (open)
+- Add Tell Map (open)
+- Pre-compiled exe and .py (open)
+- Select between day and night map (open)
+- Using MCRCON (replaced by python integration
 - Enter IP, Port and Password
 - STDOUT Terminal
-- Store IP, Port and PW in Textfile
+- Store IP, Port and PW in Textfile (open)
 
 ### 2.1 Features currently planned, but not yet implemented:
 - Windows Installer
