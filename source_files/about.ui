@@ -20,7 +20,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>img/isrt.ico</normaloff>img/isrt.ico</iconset>
+    <normaloff>../img/isrt.ico</normaloff>../img/isrt.ico</iconset>
   </property>
   <widget class="QLabel" name="aboutbody">
    <property name="geometry">
@@ -32,7 +32,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;ISRT v0.1&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Insurgency Sandstorm RCON Tool&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Created by Madman/Sargolin&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Support: oe@edelmeier.org&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;GitHub:&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-TOOL-and-Mapchanger&quot;&gt;&lt;span style=&quot; font-size:6pt; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-TOOL-and-Mapchanger&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;ISRT v0.1.1&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Insurgency Sandstorm RCON Tool&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Created by Madman&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Support: &lt;a href=&quot;mailto:isrt@edelmeier.org&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;isrt@edelmeier.org&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-TOOL-and-Mapchanger&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;GitHub&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;GNU/Public License Software &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton">
