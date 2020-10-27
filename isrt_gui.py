@@ -33,6 +33,7 @@ class Ui_MainWindow(object):
         self.terminalwindows.setFrameShape(QtWidgets.QFrame.Box)
         self.terminalwindows.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.terminalwindows.setText("")
+        self.terminalwindows.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.terminalwindows.setWordWrap(True)
         self.terminalwindows.setObjectName("terminalwindows")
         self.scrollArea = QtWidgets.QScrollArea(self.centralwidget)

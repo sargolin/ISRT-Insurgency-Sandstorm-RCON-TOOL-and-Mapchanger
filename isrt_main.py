@@ -11,6 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from rcon import Console
 from isrt_gui import Ui_MainWindow
 from about_gui import Ui_aboutwindow
+import socket
 
 #
 #Start definition of Classes, Functions/Methods and variables/attributes
@@ -59,8 +60,16 @@ class maingui(QtWidgets.QMainWindow):
                     serverhost = str(self.gui.entryip.text())
                     rconpassword = str(self.gui.entryrconpw.text())
                     rconport = int(self.gui.entryrconport.text())
-                    rconcommand = str(self.gui.label_rconcommand.text())
-                    self.rconserver(serverhost, rconpassword,  rconport, rconcommand)
+                    rconcommand = str(self.gui.label_rconcommand.text())   
+                    try:
+                        self.rconserver(serverhost, rconpassword,  rconport, rconcommand)
+                    except Exception as e: 
+                        msg = QtWidgets.QMessageBox()
+                        msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
+                        msg.setIcon(QtWidgets.QMessageBox.Critical)
+                        msg.setWindowTitle("ISRT Error Message")
+                        msg.setText("Something went wrong: \n\n" + str(e) + "\n\nWrong IP, Port or Password?")
+                        msg.exec_()
                 else:
                     raise ValueError
             except ValueError:
@@ -70,9 +79,6 @@ class maingui(QtWidgets.QMainWindow):
         
         
         
-
-
-
 #Check for the IP and Queryport to be correct in syntax and range and go for the query
     def checkandgoquery(self):
         #Check IP
@@ -86,7 +92,15 @@ class maingui(QtWidgets.QMainWindow):
             try:
                 if self.gui.entryqueryport.text() and 1 <= int(self.gui.entryqueryport.text()) <= 65535:
                     self.queryport = self.gui.entryqueryport.text()
-                    self.queryserver(self.serverhost, self.queryport)
+                    try:
+                        self.queryserver(self.serverhost, self.queryport)
+                    except Exception as f: 
+                        msg = QtWidgets.QMessageBox()
+                        msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
+                        msg.setIcon(QtWidgets.QMessageBox.Critical)
+                        msg.setWindowTitle("ISRT Error Message")
+                        msg.setText("Something went wrong: \n\n" + str(f) + "\n\nWrong IP or Port?")
+                        msg.exec_()
                 else:
                     raise ValueError
             except ValueError:
