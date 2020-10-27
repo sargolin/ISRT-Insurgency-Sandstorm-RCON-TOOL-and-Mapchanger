@@ -47,7 +47,7 @@ The first stage will be the minimum viable product (MVP - see 2.) so you can see
 - Database for all maps and travel commands
 
 ## 3. Installation and Deinstallation
-- Download, Unzip in one folder and execute .exe-file
+- Download, Unzip in one folder and execute .py-file with Python 3.x and above!
 - For deinstalling, just delete folder
 
 ## 4. Commands and usage
