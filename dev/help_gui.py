@@ -9,7 +9,8 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from pathlib import Path
+icondir = Path(__file__).absolute().parent
 
 class Ui_helpwindow(object):
     def setupUi(self, helpwindow):
@@ -21,7 +22,7 @@ class Ui_helpwindow(object):
         font.setPointSize(10)
         helpwindow.setFont(font)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(".\\../img/isrt.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(str(icondir / 'img/isrt.ico')), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         helpwindow.setWindowIcon(icon)
         self.helpbody = QtWidgets.QLabel(helpwindow)
         self.helpbody.setGeometry(QtCore.QRect(20, 10, 411, 531))

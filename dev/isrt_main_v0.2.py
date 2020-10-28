@@ -1,17 +1,33 @@
 #ISRT - Insurgency Sandstorm RCon Tool; 12.10.2020, Sargolin aka @ Madman
 #In case of questions: oe@edelmeier.org
 #Git: https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-TOOL-and-Mapchanger.git
-#v0.1.1 - Integration of RCON and QUERY options
+#v0.2 - Integration further functionalities like RCON Help
 #Database: ./db/isrt_data.db
 #This is open Source, you may use, copy, modify it as you wish - feel free!
+
+#
+#Add to GUI Classes - only change this - the rest must be untouched!
+#
+# In definition part:
+#
+# from pathlib import Path
+# icondir = Path(__file__).absolute().parent
+#
+# In Class, Function setupUI:
+# 
+# icon.addPixmap(QtGui.QPixmap(str(icondir / 'img/isrt.ico')), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+# self.terminalwindows.setPixmap(QtGui.QPixmap(str(icondir / 'img/isrt-bck.png')))
+#   
 
 #Importing required classes and libraries
 import sys, query, os, re
 from PyQt5 import QtCore, QtGui, QtWidgets
 from rcon import Console
-from isrt_gui import Ui_MainWindow
+from isrt_main_gui import Ui_MainWindow
 from about_gui import Ui_aboutwindow
+from help_gui import Ui_helpwindow
 import socket
+
 
 #
 #Start definition of Classes, Functions/Methods and variables/attributes
@@ -29,6 +45,17 @@ class infogui(QtWidgets.QWidget):
     def closeapp(self):
         self.close()
 
+#PyQt5 Help UI
+class helpgui(QtWidgets.QWidget):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.hgui = Ui_helpwindow()
+        self.hgui.setupUi(self)
+
+        self.hgui.pushButton.clicked.connect(self.closeapp)
+
+    def closeapp(self):
+        self.close()
 
 #PyQt5 UI Initialization
 class maingui(QtWidgets.QMainWindow):
@@ -38,12 +65,12 @@ class maingui(QtWidgets.QMainWindow):
         self.gui.setupUi(self)
 
         #Define buttons and menu items uincluding their functionalities
-        self.gui.exitbutton.clicked.connect(self.exitapp)
         self.gui.actionQuit.triggered.connect(self.exitapp)
         self.gui.actionINfo.triggered.connect(self.show_info_app)
+        self.gui.actionHelp.triggered.connect(self.show_help_app)
         self.gui.submitbutton.clicked.connect(self.checkandgoquery)
         self.gui.rconsubmitbutton.clicked.connect(self.checkandgorcon)
-
+        self.gui.rconhelpbutton.clicked.connect(self.show_help_app)
 
 #Check for the format string and go for the rcon command, but only if rcon port and rcon password are given
     def checkandgorcon(self):
@@ -78,7 +105,6 @@ class maingui(QtWidgets.QMainWindow):
             self.gui.terminalwindows.setText(self.gui.entryip.text() + " is no valid IP address - please retry!")         
         
         
-        
 #Check for the IP and Queryport to be correct in syntax and range and go for the query
     def checkandgoquery(self):
         #Check IP
@@ -109,13 +135,20 @@ class maingui(QtWidgets.QMainWindow):
             self.gui.querywindow.setText(self.gui.entryip.text() + " is no valid IP address - please retry!")  
 
 
-#Show the About Windows
+#Show the About Window
     def show_info_app(self):
         self.infoapp = None
         if self.infoapp is None:
             self.infoapp = infogui()
         self.infoapp.show()
 
+
+#Show the Help Window
+    def show_help_app(self):
+        self.helpapp = None
+        if self.helpapp is None:
+            self.helpapp = helpgui()
+        self.helpapp.show()
 
 #Exit the App itself
     def exitapp(self):
@@ -175,23 +208,26 @@ class maingui(QtWidgets.QMainWindow):
         else:
             pass
 
-        self.gui.querywindow.setText(
-        str(self.servergamedetails['server_name']) + "\n" + 
-        "Gamemode: " + str(self.serverruledetails['GameMode_s']) +  "\n" + 
-        "Mode: " + str(self.servercoopcheck) +  "\n" + 
-        "Ranked Server: " + str(self.serverrulecheck) +  "\n" + 
-        "Server-IP: " + str(self.servernetworkdetails['ip']) + ":" + str(self.servergamedetails['server_port']) +  "\n" + 
-        "Query-Port: " + str(self.servernetworkdetails['port']) + "\n" + 
-        "Password: " + str(self.serverpwcheck) + "\n" + 
-        "VAC-Secured: " + str(self.servervaccheck) + "\n" + 
-        "Map: " + str(self.servergamedetails['game_map']) + "\n" + 
-        "Players: " + str(self.servergamedetails['players_current']) + "/" + str(self.servergamedetails['players_max']) + "\n" + 
-        "Ping: " + str(self.servernetworkdetails['ping']) + "\n" + 
-        "Mods: " + str(self.servermodcheck) + " (" + str(self.mutatorids) + ")")
 
+
+        self.gui.le_servername.setText(str(self.servergamedetails['server_name']))
+        self.gui.le_gamemode.setText(str(self.serverruledetails['GameMode_s']))
+        self.gui.le_servermode.setText(str(self.servercoopcheck))
+        self.gui.le_serverip_port.setText(str(self.servernetworkdetails['ip']) + ":" + str(self.servergamedetails['server_port']))
+        self.gui.le_vac.setText(str(self.servervaccheck))
+        self.gui.le_ranked.setText(str(self.serverrulecheck))
+        self.gui.le_password.setText(str(self.serverpwcheck))
+        self.gui.le_players.setText(str(self.servergamedetails['players_current']) + "/" + str(self.servergamedetails['players_max']))
+        self.gui.le_ping.setText(str(self.servernetworkdetails['ping']))
+        self.gui.le_map.setText(str(self.servergamedetails['game_map']))
+        self.gui.le_mods.setText(str(self.servermodcheck) + " (" + str(self.mutatorids) + ")")
+
+
+ 
 #
-#Call main functions ### saved: #rconserver() #queryserver()
+#Call program class
 #
+
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     mgui = maingui()
