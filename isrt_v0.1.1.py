@@ -9,8 +9,8 @@
 import sys, query, os, re
 from PyQt5 import QtCore, QtGui, QtWidgets
 from rcon import Console
-from isrt_gui import Ui_MainWindow
-from about_gui import Ui_aboutwindow
+from guis.isrt_gui import Ui_MainWindow
+from guis.about_gui import Ui_aboutwindow
 import socket
 
 #
