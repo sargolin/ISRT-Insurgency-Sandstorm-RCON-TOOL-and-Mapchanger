@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '.\help_gui_v0.2.ui'
+# Form implementation generated from reading ui file '.\help_gui_v0.3.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.1
 #

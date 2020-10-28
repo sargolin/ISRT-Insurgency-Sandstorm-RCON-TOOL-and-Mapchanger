@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '.\about_gui_v0.2.ui'
+# Form implementation generated from reading ui file '.\about_gui_v0.3.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.1
 #
@@ -35,5 +35,5 @@ class Ui_aboutwindow(object):
     def retranslateUi(self, aboutwindow):
         _translate = QtCore.QCoreApplication.translate
         aboutwindow.setWindowTitle(_translate("aboutwindow", "About ISRT"))
-        self.aboutbody.setText(_translate("aboutwindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">ISRT v0.2</span></p><p align=\"center\">Insurgency Sandstorm RCON/Query Tool</p><p align=\"center\">Created by Madman</p><p align=\"center\">Support: <a href=\"mailto:isrt@edelmeier.org\"><span style=\" text-decoration: underline; color:#0000ff;\">isrt@edelmeier.org</span></a></p><p align=\"center\"><a href=\"https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-TOOL-and-Mapchanger\"><span style=\" text-decoration: underline; color:#0000ff;\">GitHub</span></a></p><p align=\"center\">GNU/Public License Software </p></body></html>"))
+        self.aboutbody.setText(_translate("aboutwindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">ISRT v0.3</span></p><p align=\"center\">Insurgency Sandstorm RCON/Query Tool</p><p align=\"center\">Created by Madman</p><p align=\"center\">Support: <a href=\"mailto:isrt@edelmeier.org\"><span style=\" text-decoration: underline; color:#0000ff;\">isrt@edelmeier.org</span></a></p><p align=\"center\"><a href=\"https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-TOOL-and-Mapchanger\"><span style=\" text-decoration: underline; color:#0000ff;\">GitHub</span></a></p><p align=\"center\">GNU/Public License Software </p></body></html>"))
         self.pushButton.setText(_translate("aboutwindow", "Close"))
