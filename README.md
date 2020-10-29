@@ -6,7 +6,7 @@ For the tracking of development and progress, as well as integrated feature requ
 ## 1. Introduction
 The first stage will be the minimum viable product (MVP - see 2.) so you can see and try-out its basic functionality and have it working correctly, without any basic installation routine. I'll just pre-compile it for Windows 10 and Python 3.x directly while it's in development. In the future I'll add more and more functionality described in the features list and also add a proper installation/deinstallation routine:
 
-<center><img src="http://gs.tct-gaming.com/isrt.jpg"></center>
+<center><img src="http://gs.tct-gaming.com/isrt3.jpg"></center>
 
 #### Status: In development phase - open for all ideas
 
