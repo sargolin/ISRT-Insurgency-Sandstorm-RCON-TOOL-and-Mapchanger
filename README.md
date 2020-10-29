@@ -1,5 +1,5 @@
 # ISRT-Insurgency-Sandstorm-RCON/Query-TOOL-and-Mapchanger - v0.3 released
-This is a python- and PyQt5-based RCON Tool for mapchanging and other basic RCON functionalities that help administering and controlling Insurgency Sandstorm Servers. The first version will be based on spezifanta's SourceWatch (https://github.com/spezifanta/SourceWatch) and ttk1's Py-Rcon (https://github.com/ttk1/py-rcon) - in the future this will be replaced by similar integrated python-based modules to get rid of third party modules I don't have any control over.
+This is a python (3.8.6) - and PyQt5/SQLite3-based RCON Tool for mapchanging and other basic RCON functionalities that help administering and controlling Insurgency Sandstorm Servers. The first version will be based on spezifanta's SourceWatch (https://github.com/spezifanta/SourceWatch) and ttk1's Py-Rcon (https://github.com/ttk1/py-rcon) - in the future this will be replaced by similar integrated python-based modules to get rid of third party modules I don't have any control over.
 
 For the tracking of development and progress, as well as integrated feature requests, look here: https://trello.com/b/BHMJLISQ/isrt-insurgency-sandstorm-rcon-tool-ins
 
