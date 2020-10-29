@@ -68,7 +68,7 @@ Tested on the following systems:
    Ensure the correct X11 Libx are installed
 	sudo apt-get install libx11-xcb1 libqt5x11extras5
 - Ubuntu 20.04 (Linux Mint XFCE), 64 Bit
-
+ 
 ## 6. General Remarks, Feedback and stuff...
 If you have any questions or feedback, please send me an e-mail to: oe-at-edelmeier.org - In case of feature requests or find any error in the software, please open an issue or in any other case, just write to me on our Discord: https://discord.gg/zEdTrgg
 
