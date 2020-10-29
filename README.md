@@ -1,4 +1,4 @@
-# ISRT-Insurgency-Sandstorm-RCON/Query-TOOL-and-Mapchanger - v0.1.1a released
+# ISRT-Insurgency-Sandstorm-RCON/Query-TOOL-and-Mapchanger - v0.3 released
 This is a python- and PyQt5-based RCON Tool for mapchanging and other basic RCON functionalities that help administering and controlling Insurgency Sandstorm Servers. The first version will be based on spezifanta's SourceWatch (https://github.com/spezifanta/SourceWatch) and ttk1's Py-Rcon (https://github.com/ttk1/py-rcon) - in the future this will be replaced by similar integrated python-based modules to get rid of third party modules I don't have any control over.
 
 For the tracking of development and progress, as well as integrated feature requests, look here: https://trello.com/b/BHMJLISQ/isrt-insurgency-sandstorm-rcon-tool-ins
@@ -47,11 +47,11 @@ The first stage will be the minimum viable product (MVP - see 2.) so you can see
 - Database for all maps and travel commands
 
 ## 3. Installation and Deinstallation
-- Download, Unzip in one folder and execute isrt_main_v0.1.1.py-file with Python 3.x and above or on Windows just call ISRT_Main_v0.1.1.exe!
+- Download, Unzip in one folder and execute isrt_v0.3.py-file with Python 3.x and above or on Windows just call ISRT_v0.3.exe!
 - For deinstalling, just delete folder or file
 
 ## 4. Commands and usage
-It's all built inside call isrt_main_v0.1.1.py with Python or wihtout just shoot at ISRT_Main_v0.1.1.exe - just use the entry fields and buttons - should work as designed - please report any errors as issues, please.
+It's all built inside call isrt_v0.3.py with Python or wihtout just shoot at ISRT_v0.3.exe - just use the entry fields and buttons - should work as designed - please report any errors as issues, please.
 
 ## 5. General Remarks, Feedback and stuff...
 If you have any questions or feedback, please send me an e-mail to: oe-at-edelmeier.org - In case of feature requests or find any error in the software, please open an issue or in any other case, just write to me on our Discord: https://discord.gg/zEdTrgg
