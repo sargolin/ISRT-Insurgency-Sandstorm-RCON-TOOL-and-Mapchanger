@@ -59,6 +59,7 @@ Success:
 - Windows 10 Home, 64 Bit (working)
 - Debian 10.6 (working -> Ensure Python3 and libPyQt5 are installed -> "sudo apt-get install python3 python3-pyqt5")
 - Ubuntu 20.04 (Linux Mint XFCE), 64 Bit (working -> Ensure Python3 and libPyQt5 are installed -> "sudo apt-get install python3 python3-pyqt5")
+
 Fail:
 - Windows 7 Pro, 64 Bit (fails - not working - missing Visual C++ Runtime Redistributable Runtime Library + ?))
 
