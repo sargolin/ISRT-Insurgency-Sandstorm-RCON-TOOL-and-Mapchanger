@@ -58,15 +58,12 @@ Tested on the following systems:
 - Windows 7 Pro, 64 Bit (fails - not working - missing Visual C++ Runtime Redistributable Runtime Library + ?))
 - Windows 10 Pro, 64 Bit (working)
 - Windows 10 Home, 64 Bit (working)
-- Debian 10,6
-   Ensure Python3 is installed - I tested with 3.7.3 that came with the standard Debain install
-	sudo apt-get install python3
-   Ensure PIP is installed
-	sudo apt-get install python3-pip
-   Ensure PyQt5 is install
-	python3 -m pip install PyQt5
-   Ensure the correct X11 Libx are installed
-	sudo apt-get install libx11-xcb1 libqt5x11extras5
+- Debian 10.6
+
+--   Ensure Python3 is installed - I tested with 3.7.3 that came with the standard Debian install -> sudo apt-get install python3
+--   Ensure PIP is installed -> sudo apt-get install python3-pip
+--   Ensure PyQt5 is install -> python3 -m pip install PyQt5
+--   Ensure the correct X11 Libx are installed -> sudo apt-get install libx11-xcb1 libqt5x11extras5
 - Ubuntu 20.04 (Linux Mint XFCE), 64 Bit
  
 ## 6. General Remarks, Feedback and stuff...
