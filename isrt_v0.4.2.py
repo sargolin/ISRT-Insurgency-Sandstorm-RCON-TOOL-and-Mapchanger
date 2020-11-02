@@ -267,10 +267,10 @@ class maingui(QtWidgets.QMainWindow):
         else:
             self.servercoopcheck = "Versus"
         
-        if self.servermodcheck == "Yes":
+        if self.servermodcheck == "true":
             self.mutatorids = self.serverruledetails['Mutators_s']
         else:
-            pass
+            self.mutatorids = "None"
 
         self.gui.le_servername.setText(str(self.servergamedetails['server_name']))
         self.gui.le_gamemode.setText(str(self.serverruledetails['GameMode_s']))
