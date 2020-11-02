@@ -60,7 +60,7 @@ Fail:
 ## 6. General Remarks, Feedback and stuff...
 If you have any questions or feedback, please send me an e-mail to: isrt@edelmeier.org - In case of feature requests or find any error in the software, please open an issue or in any other case, just write to me on our Discord: https://discord.gg/zEdTrgg
 
-If you think that my software is cool and helps you do your daily tasks, why not buy me a coffee ;-) You can do so here: https://www.buymeacoffee.com/oedelmeier or just click the button below
+If you think that my software is cool and helps you do your daily tasks, why not buy me a coffee ;-) You can do soby clicking the button below!
 
 <a href="https://www.buymeacoffee.com/oedelmeier" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px !important;width: 150px !important;"></a>
 
