@@ -55,7 +55,7 @@ Success:
 - Ubuntu 20.04 (Linux Mint XFCE), 64 Bit (working -> Ensure Python3 and libPyQt5 are installed -> "sudo apt-get install python3 python3-pyqt5")
 
 Fail:
-- Windows 7 Pro, 64 Bit (fails - not working - missing Visual C++ Runtime Redistributable Runtime Library + ?))
+- Windows 7 Pro, 64 Bit (fails - not working - missing Visual C++ Runtime Redistributable Runtime Library + ?)
 
 ## 6. General Remarks, Feedback and stuff...
 If you have any questions or feedback, please send me an e-mail to: oe-at-edelmeier.org - In case of feature requests or find any error in the software, please open an issue or in any other case, just write to me on our Discord: https://discord.gg/zEdTrgg
