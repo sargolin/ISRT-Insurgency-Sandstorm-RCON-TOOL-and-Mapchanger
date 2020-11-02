@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '.\help_gui_v0.4.ui'
+# Form implementation generated from reading ui file '.\help_gui_v0.3.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.1
 #
@@ -9,34 +9,35 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from pathlib import Path
+icondir = Path(__file__).absolute().parent
 
-
-class Ui_help_window(object):
-    def setupUi(self, help_window):
-        help_window.setObjectName("help_window")
-        help_window.resize(430, 590)
-        help_window.setMinimumSize(QtCore.QSize(430, 590))
-        help_window.setMaximumSize(QtCore.QSize(430, 590))
+class Ui_helpwindow(object):
+    def setupUi(self, helpwindow):
+        helpwindow.setObjectName("helpwindow")
+        helpwindow.resize(430, 590)
+        helpwindow.setMinimumSize(QtCore.QSize(430, 590))
+        helpwindow.setMaximumSize(QtCore.QSize(430, 590))
         font = QtGui.QFont()
         font.setPointSize(10)
-        help_window.setFont(font)
+        helpwindow.setFont(font)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(".\\img/isrt.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        help_window.setWindowIcon(icon)
-        self.helpbody = QtWidgets.QLabel(help_window)
+        helpwindow.setWindowIcon(icon)
+        self.helpbody = QtWidgets.QLabel(helpwindow)
         self.helpbody.setGeometry(QtCore.QRect(20, 10, 411, 531))
         self.helpbody.setObjectName("helpbody")
-        self.btn_help_close = QtWidgets.QPushButton(help_window)
-        self.btn_help_close.setGeometry(QtCore.QRect(180, 550, 75, 23))
-        self.btn_help_close.setObjectName("btn_help_close")
+        self.pushButton = QtWidgets.QPushButton(helpwindow)
+        self.pushButton.setGeometry(QtCore.QRect(190, 550, 75, 23))
+        self.pushButton.setObjectName("pushButton")
 
-        self.retranslateUi(help_window)
-        QtCore.QMetaObject.connectSlotsByName(help_window)
+        self.retranslateUi(helpwindow)
+        QtCore.QMetaObject.connectSlotsByName(helpwindow)
 
-    def retranslateUi(self, help_window):
+    def retranslateUi(self, helpwindow):
         _translate = QtCore.QCoreApplication.translate
-        help_window.setWindowTitle(_translate("help_window", "RCON Help ISRT"))
-        self.helpbody.setText(_translate("help_window", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        helpwindow.setWindowTitle(_translate("helpwindow", "RCON Help ISRT"))
+        self.helpbody.setText(_translate("helpwindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
@@ -70,4 +71,4 @@ class Ui_help_window(object):
 "<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Gets or sets a gamemode property for the length of the scenario.</p>\n"
 "<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><i><b>listgamemodeproperties [property filter]</p></b></i>&nbsp;&nbsp;&nbsp;\n"
 "<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Lists available gamemode properties for the current gamemode.</p></body></html>"))
-        self.btn_help_close.setText(_translate("help_window", "Close"))
+        self.pushButton.setText(_translate("helpwindow", "Close"))

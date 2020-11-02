@@ -10,7 +10,6 @@ class Connection():
             socket.AF_INET,
             socket.SOCK_STREAM
         )
-        self.sock.settimeout(3.0)
         self.sock.connect((host, port))
 
     def send_packet(self, packet: Packet):

@@ -22,8 +22,18 @@ class SourceWatchError(Exception):
 
 
 class Query:
+    """
+    Example usage:
 
-    def __init__(self, host, port=27015, timeout=3):
+    import SourceWatch
+    server = SourceWatch.Query('1.2.3.4', 27015)
+    print(server.ping())
+    print(server.info())
+    print(server.players())
+    print(server.rules())
+    """
+
+    def __init__(self, host, port=27015, timeout=1):
         self.logger = logging.getLogger('SourceWatch')
         self.server = Server(socket.gethostbyname(host), int(port))
         self._timeout = timeout
