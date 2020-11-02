@@ -18,19 +18,7 @@ The first stage will be the minimum viable product (MVP - see 2.) so you can see
 
 #### Status: In development phase of full release - open for all ideas
 
-## 2. MVP - finished:
-- Actual Code for Remote Control including Mapchanger
-- Graphical User Interface QT5
-- Integrate all Standard Maps (open)
-- Add Tell Map (open)
-- Pre-compiled exe and .py (open)
-- Select between day and night map (open)
-- Using MCRCON (replaced by python integration
-- Enter IP, Port and Password
-- STDOUT Terminal
-- Store IP, Port and PW in Textfile (open)
-
-### 2.1 Features currently planned, but not yet implemented:
+## 2. Features currently in implementation:
 - Windows Installer
 - Server Query Status time-based
 - Map Images Integration
@@ -45,13 +33,25 @@ The first stage will be the minimum viable product (MVP - see 2.) so you can see
 - Select game mode for next map
 - Database entries for all maps and travel commands
 
-## 3. Installation and Deinstallation
+### 2.1 MVP - finished:
+- Actual Code for Remote Control including Mapchanger
+- Graphical User Interface QT5
+- Integrate all Standard Maps (open)
+- Add Tell Map (open)
+- Pre-compiled exe and .py (open)
+- Select between day and night map (open)
+- Using MCRCON (replaced by python integration
+- Enter IP, Port and Password
+- STDOUT Terminal
+- Store IP, Port and PW in Textfile (open)
+
+## 3. Installation
 - On Windows: Download "isrt_<verion>.exe.zip", Unzip in one folder and execute ISRT_<verion>.exe! (Make sure that folders db and img are in the same folder as the exe file!!!)
 - On Linux: Download the entire git.zip and unzip - execute isrt_<verion>.py and ensure that the pre-requisites in topic 5 are met!
-- For deinstalling, just delete folder or file
+- For un-installing, just delete folder or file
 
 ## 4. Commands and usage
-It's all built inside call isrt_<verion>.py with Python or wihtout just shoot at ISRT_<verion>.exe - just use the entry fields and buttons - should work as designed - please report any errors as issues, please.
+It's all built inside call isrt_<verion>.py with Python or wihtout just shoot at ISRT_<verion>.exe - just use the entry fields and buttons or the server manager, if you want to store any data - should work as designed - please report any errors as issues. It also has a simple rcon-help integrated for you to look at syntax and commands.
 
 ## 5. Tested on the following systems:
 Success:
