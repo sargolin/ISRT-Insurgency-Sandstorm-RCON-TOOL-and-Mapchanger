@@ -40,7 +40,8 @@ The first stage will be the minimum viable product (MVP - see 2.) so you can see
 - Database entries for all maps and travel commands
 
 ## 3. Installation and Deinstallation
-- Download, Unzip in one folder and execute isrt_v0.4.2.py-file with Python 3.x and above or on Windows just execute ISRT_v0.4.2.exe! (Make sure that folders db and img are in the same folder as the exe file!!!
+- On Windows: Download "isrt_0.4.2.exe.zip", Unzip in one folder and execute ISRT_v0.4.2.exe! (Make sure that folders db and img are in the same folder as the exe file!!!)
+- On Linux: Download the entire git.zip and unzip - execute isrt_0.4.2.py and ensure that the pre-requisites in topic 5 are met!
 - For deinstalling, just delete folder or file
 
 ## 4. Commands and usage
