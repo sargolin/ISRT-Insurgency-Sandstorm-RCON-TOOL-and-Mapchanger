@@ -53,7 +53,17 @@ The first stage will be the minimum viable product (MVP - see 2.) so you can see
 ## 4. Commands and usage
 It's all built inside call isrt_v0.3.py with Python or wihtout just shoot at ISRT_v0.3.exe - just use the entry fields and buttons - should work as designed - please report any errors as issues, please.
 
-## 5. General Remarks, Feedback and stuff...
+## 5. Tested on the following systems:
+Success:
+- Windows 10 Pro, 64 Bit (working)
+- Windows 10 Home, 64 Bit (working)
+- Debian 10.6 (working -> Ensure Python3 and libPyQt5 are installed -> "sudo apt-get install python3 python3-pyqt5")
+- Ubuntu 20.04 (Linux Mint XFCE), 64 Bit (working -> Ensure Python3 and libPyQt5 are installed -> "sudo apt-get install python3 python3-pyqt5")
+
+Fail:
+- Windows 7 Pro, 64 Bit (fails - not working - missing Visual C++ Runtime Redistributable Runtime Library + ?))
+
+## 6. General Remarks, Feedback and stuff...
 If you have any questions or feedback, please send me an e-mail to: oe-at-edelmeier.org - In case of feature requests or find any error in the software, please open an issue or in any other case, just write to me on our Discord: https://discord.gg/zEdTrgg
 
 If you think that my software is cool and helps you do your daily tasks, why not buy me a coffee ;-) You can do so here: https://www.buymeacoffee.com/oedelmeier or just click the button below
