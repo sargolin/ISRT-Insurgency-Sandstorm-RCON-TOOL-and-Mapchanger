@@ -1,4 +1,4 @@
-# ISRT-Insurgency-Sandstorm-RCON/Query-TOOL-and-Mapchanger - v0.4.2.1 released
+# ISRT-Insurgency-Sandstorm-RCON/Query-TOOL-and-Mapchanger - v0.4.2.1.1 released
 This is a python (3.8.6) - and PyQt5/SQLite3-based RCON Tool for mapchanging and other basic RCON functionalities that help administering and controlling Insurgency Sandstorm Servers. The first version will be based on spezifanta's SourceWatch (https://github.com/spezifanta/SourceWatch) and ttk1's Py-Rcon (https://github.com/ttk1/py-rcon) - in the future this will be replaced by similar integrated python-based modules to get rid of third party modules I don't have any control over.
 
 For the tracking of development and progress, as well as integrated feature requests, look here: https://trello.com/b/BHMJLISQ/isrt-insurgency-sandstorm-rcon-tool-ins
@@ -46,12 +46,12 @@ The first stage will be the minimum viable product (MVP - see 2.) so you can see
 - Store IP, Port and PW in Textfile (open)
 
 ## 3. Installation
-- On Windows: Download "isrt_<verion>.exe.zip", Unzip in one folder and execute ISRT_<verion>.exe! (Make sure that folders db and img are in the same folder as the exe file!!!)
-- On Linux: Download the entire git.zip and unzip - execute isrt_<verion>.py and ensure that the pre-requisites in topic 5 are met!
+- On Windows: Download "isrt_version.exe.zip", Unzip in one folder and execute ISRT_version.exe! (Make sure that folders db and img are in the same folder as the exe file!!!)
+- On Linux: Download the entire git.zip and unzip - execute isrt_version.py and ensure that the pre-requisites in topic 5 are met!
 - For un-installing, just delete folder or file
 
 ## 4. Commands and usage
-It's all built inside call isrt_<verion>.py with Python or wihtout just shoot at ISRT_<verion>.exe - just use the entry fields and buttons or the server manager, if you want to store any data - should work as designed - please report any errors as issues. It also has a simple rcon-help integrated for you to look at syntax and commands.
+It's all built inside call isrt_version.py with Python or wihtout just shoot at ISRT_version.exe - just use the entry fields and buttons or the server manager, if you want to store any data - should work as designed - please report any errors as issues. It also has a simple rcon-help integrated for you to look at syntax and commands.
 
 ## 5. Tested on the following systems:
 Success:
