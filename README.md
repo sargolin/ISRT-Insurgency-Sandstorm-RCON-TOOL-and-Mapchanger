@@ -46,12 +46,12 @@ The first stage will be the minimum viable product (MVP - see 2.) so you can see
 - Store IP, Port and PW in Textfile (open)
 
 ## 3. Installation
-- On Windows: Download "isrt_<verion>.exe.zip", Unzip in one folder and execute ISRT_<verion>.exe! (Make sure that folders db and img are in the same folder as the exe file!!!)
-- On Linux: Download the entire git.zip and unzip - execute isrt_<verion>.py and ensure that the pre-requisites in topic 5 are met!
+- On Windows: Download "isrt_version.exe.zip", Unzip in one folder and execute ISRT_version.exe! (Make sure that folders db and img are in the same folder as the exe file!!!)
+- On Linux: Download the entire git.zip and unzip - execute isrt_version.py and ensure that the pre-requisites in topic 5 are met!
 - For un-installing, just delete folder or file
 
 ## 4. Commands and usage
-It's all built inside call isrt_<verion>.py with Python or wihtout just shoot at ISRT_<verion>.exe - just use the entry fields and buttons or the server manager, if you want to store any data - should work as designed - please report any errors as issues. It also has a simple rcon-help integrated for you to look at syntax and commands.
+It's all built inside call isrt_version.py with Python or wihtout just shoot at ISRT_version.exe - just use the entry fields and buttons or the server manager, if you want to store any data - should work as designed - please report any errors as issues. It also has a simple rcon-help integrated for you to look at syntax and commands.
 
 ## 5. Tested on the following systems:
 Success:
