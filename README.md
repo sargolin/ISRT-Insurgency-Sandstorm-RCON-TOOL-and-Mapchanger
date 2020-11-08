@@ -1,20 +1,26 @@
-# ISRT-Insurgency-Sandstorm-RCON/Query-TOOL-and-Mapchanger - v0.4.2.1.1 released
+# ISRT-Insurgency-Sandstorm-RCON/Query-TOOL-and-Mapchanger - v0.5 released
 This is a python (3.8.6) - and PyQt5/SQLite3-based RCON Tool for mapchanging and other basic RCON functionalities that help administering and controlling Insurgency Sandstorm Servers. The first version will be based on spezifanta's SourceWatch (https://github.com/spezifanta/SourceWatch) and ttk1's Py-Rcon (https://github.com/ttk1/py-rcon) - in the future this will be replaced by similar integrated python-based modules to get rid of third party modules I don't have any control over.
 
 For the tracking of development and progress, as well as integrated feature requests, look here: https://trello.com/b/BHMJLISQ/isrt-insurgency-sandstorm-rcon-tool-ins
 
 ## 0. Release Notes
-- Implemented SQLite3 Database usage
-- Fixed a couple of callback errors
-- Implemented error handling routines for wrong password or ports
-- Added Hotfix for empty Mutator IDs handling
+- Implemented a lot of bug fixes and error handling routines, direct rcon commands, map changer and progess bar for map changer
+- Put in a link for issue reporting
+- Added copy of console content
+- Made content of RCOn help and console content mark- and copy-able (if those words exist ;-) )
+- Inserted Map view thumbnails for the running maps
+- Inserted a lot of custom maps
+- Made the entire app resizable
+
+### 0.1 Known bugs
+- List Player command produces a weird output that has to be structured - next release
 
 ## 1. Introduction
 The first stage will be the minimum viable product (MVP - see 2.) so you can see and try-out its basic functionality and have it working correctly, without any basic installation routine. I'll just pre-compile it for Windows 10 and Python 3.x directly while it's in development. In the future I'll add more and more functionality described in the features list and also add a proper installation/deinstallation routine:
 
-<center><img src="http://gs.tct-gaming.com/isrt_0.4.2.JPG"></center>
+<center><img src="http://gs.tct-gaming.com/isrt05.jpg"></center>
 <p>
-<center><img src="http://gs.tct-gaming.com/isrt_db_0.4.2.JPG"></center>
+<center><img src="http://gs.tct-gaming.com/isrt05a-jpg"></center>
 
 #### Status: In development phase of full release - open for all ideas
 
