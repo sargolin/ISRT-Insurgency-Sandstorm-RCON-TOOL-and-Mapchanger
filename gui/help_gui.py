@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '.\help_gui_v0.4.ui'
+# Form implementation generated from reading ui file '.\source_files\help_gui_v0.5.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.1
 #
@@ -14,21 +14,55 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_help_window(object):
     def setupUi(self, help_window):
         help_window.setObjectName("help_window")
-        help_window.resize(430, 590)
-        help_window.setMinimumSize(QtCore.QSize(430, 590))
-        help_window.setMaximumSize(QtCore.QSize(430, 590))
+        help_window.resize(730, 535)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(help_window.sizePolicy().hasHeightForWidth())
+        help_window.setSizePolicy(sizePolicy)
+        help_window.setMinimumSize(QtCore.QSize(730, 535))
+        help_window.setMaximumSize(QtCore.QSize(730, 535))
         font = QtGui.QFont()
         font.setPointSize(10)
         help_window.setFont(font)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(".\\img/isrt.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         help_window.setWindowIcon(icon)
+        help_window.setStyleSheet("")
         self.helpbody = QtWidgets.QLabel(help_window)
-        self.helpbody.setGeometry(QtCore.QRect(20, 10, 411, 531))
+        self.helpbody.setGeometry(QtCore.QRect(9, 7, 731, 19))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.helpbody.sizePolicy().hasHeightForWidth())
+        self.helpbody.setSizePolicy(sizePolicy)
         self.helpbody.setObjectName("helpbody")
+        self.plainTextEdit = QtWidgets.QPlainTextEdit(help_window)
+        self.plainTextEdit.setGeometry(QtCore.QRect(9, 43, 331, 441))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.plainTextEdit.setFont(font)
+        self.plainTextEdit.setAutoFillBackground(False)
+        self.plainTextEdit.setStyleSheet("background-color: rgb(240, 240, 240);")
+        self.plainTextEdit.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.plainTextEdit.setReadOnly(True)
+        self.plainTextEdit.setObjectName("plainTextEdit")
         self.btn_help_close = QtWidgets.QPushButton(help_window)
-        self.btn_help_close.setGeometry(QtCore.QRect(180, 550, 75, 23))
+        self.btn_help_close.setGeometry(QtCore.QRect(340, 492, 75, 24))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.btn_help_close.sizePolicy().hasHeightForWidth())
+        self.btn_help_close.setSizePolicy(sizePolicy)
+        self.btn_help_close.setStyleSheet("")
         self.btn_help_close.setObjectName("btn_help_close")
+        self.label = QtWidgets.QLabel(help_window)
+        self.label.setGeometry(QtCore.QRect(345, 41, 371, 431))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        font.setItalic(True)
+        self.label.setFont(font)
+        self.label.setObjectName("label")
 
         self.retranslateUi(help_window)
         QtCore.QMetaObject.connectSlotsByName(help_window)
@@ -40,34 +74,66 @@ class Ui_help_window(object):
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:10px; margin-bottom:10px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; font-weight:600;\">RCON Help</span></p>\n"
+"<p align=\"center\" style=\" margin-top:10px; margin-bottom:10px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; font-weight:600;\">ISRT - RCON Help</span></p></body></html>"))
+        self.plainTextEdit.setPlainText(_translate("help_window", "General Commands:\n"
+"\n"
+"help\n"
+"say <message>\n"
+"listplayers\n"
+"listbans\n"
 "\n"
 "\n"
-"<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><i><b>help</b></i>&nbsp;&nbsp;&nbsp;  Displays a list of commands.</p>\n"
-"<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><i><b>listplayers </b></i>&nbsp;&nbsp;&nbsp;Lists players currently connected to the server.</p>\n"
-"<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><i><b>kick &lt;id/netid/name&gt; [reason]</p></b></i>&nbsp;&nbsp;&nbsp;\n"
-"<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Kicks a player from the server.</p>\n"
-"<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><i><b>permban &lt;id/netid/name&gt; [reason]</p></b></i>&nbsp;&nbsp;&nbsp;\n"
-"<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Permanently bans a player from the server.</p>\n"
-"<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><i><b>travel &lt;travel url&gt;</p></b></i>&nbsp;&nbsp;&nbsp;\n"
-"<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Transitions the server to a different level.</p>\n"
-"<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><i><b>ban &lt;id/netid/name&gt; [duration in minutes] [reason]</p></b></i>&nbsp;&nbsp;&nbsp;\n"
-"<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Bans a player from the server.</p>\n"
-"<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><i><b>banid &lt;netid&gt; [duration in minutes] [reason]</p></b></i>&nbsp;&nbsp;&nbsp;\n"
-"<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Bans a player by net ID from the server.</p>\n"
-"<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><i><b>listbans </b></i>&nbsp;&nbsp;&nbsp;Shows the ban list for the server.</p>\n"
-"<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><i><b>unban &lt;netid&gt; Lifts a ban for a user.</p></b></i>&nbsp;&nbsp;&nbsp;\n"
-"<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><i><b>say &lt;message&gt; </b></i>&nbsp;&nbsp;&nbsp;Shows a message to all players in the chat box.</p>\n"
-"<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><i><b>restartround [0 = no team switch, 1 = swap teams]</p></b></i>&nbsp;&nbsp;&nbsp;\n"
-"<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Restarts the current round.</p>\n"
-"<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><i><b>maps [level filter]</p></b></i>&nbsp;&nbsp;&nbsp;\n"
-"<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Lists available maps.</p>\n"
-"<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><i><b>scenarios [level filter]</p></b></i>&nbsp;&nbsp;&nbsp;\n"
-"<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Lists available scenarios.</p>\n"
-"<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><i><b>travelscenario &lt;scenario&gt;</p></b></i>&nbsp;&nbsp;&nbsp;\n"
-"<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Change level to given scenario.</p>\n"
-"<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><i><b>gamemodeproperty &lt;property&gt; [new value]</p></b></i>&nbsp;&nbsp;&nbsp;\n"
-"<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Gets or sets a gamemode property for the length of the scenario.</p>\n"
-"<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><i><b>listgamemodeproperties [property filter]</p></b></i>&nbsp;&nbsp;&nbsp;\n"
-"<p style=\" margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Lists available gamemode properties for the current gamemode.</p></body></html>"))
+"Kick/Ban commands:\n"
+"\n"
+"kick <id/netid/name> [reason]\n"
+"ban <id/netid/name> [duration in minutes] [reason]\n"
+"permban <id/netid/name> [reason]\n"
+"banid <netid> [duration in minutes] [reason]\n"
+"unban <netid>\n"
+"\n"
+"\n"
+"Round/Scenario/Travel commands:\n"
+"\n"
+"restartround [0 = no team switch, 1 = swap teams]\n"
+"maps [level filter]\n"
+"travel <travel url>\n"
+"scenarios [level filter]\n"
+"travelscenario <scenario>\n"
+"\n"
+"\n"
+"Gamemode & Property commands:\n"
+"\n"
+"gamemodeproperty <property> [new value]\n"
+"listgamemodeproperties [property filter]"))
         self.btn_help_close.setText(_translate("help_window", "Close"))
+        self.label.setText(_translate("help_window", "\n"
+"\n"
+"Displays a list of commands.\n"
+"Shows a message to all players in the chat box.\n"
+"Lists players currently connected to the server.\n"
+"Shows the ban list for the server.\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"Kicks a player from the server.\n"
+"Bans a player from the server.\n"
+"Permanently bans a player from the server.\n"
+"Bans a player by net ID from the server.\n"
+"Lifts a ban for a user.   \n"
+"\n"
+"\n"
+"\n"
+"\n"
+"Restarts the current round.\n"
+"Lists available maps.\n"
+"Transitions the server to a different level.\n"
+"Lists available scenarios.\n"
+"Change level to given scenario.\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"Gets or sets a gamemode property for the length of the scenario.\n"
+"Lists available gamemode properties for the current gamemode."))
+import res_rc
