@@ -20,7 +20,7 @@ The first stage will be the minimum viable product (MVP - see 2.) so you can see
 
 <center><img src="http://gs.tct-gaming.com/isrt05.jpg"></center>
 <p>
-<center><img src="http://gs.tct-gaming.com/isrt05a-jpg"></center>
+<center><img src="http://gs.tct-gaming.com/isrt05a.jpg"></center>
 
 #### Status: In development phase of full release - open for all ideas
 
