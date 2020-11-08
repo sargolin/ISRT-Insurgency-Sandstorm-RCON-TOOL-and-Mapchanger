@@ -25,7 +25,7 @@ The first stage will be the minimum viable product (MVP - see 2.) so you can see
 #### Status: In development phase of full release - open for all ideas
 
 ## 2. Features currently in implementation:
-- Windows Installer
+- Windows Installer 
 - Server Query Status time-based
 - Map Images Integration
 - Full Monitor view for up to nine servers at a time
