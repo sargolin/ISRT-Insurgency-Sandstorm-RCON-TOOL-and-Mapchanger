@@ -16,15 +16,21 @@ PACKET_SIZE = 1400
 SINGLE_PACKET_RESPONSE = -1
 MULTIPLE_PACKET_RESPONSE = -2
 
+logger = logging.getLogger('Beispiel_Log')
+logger.setLevel(logging.DEBUG)
+fh = logging.FileHandler('query/debug.log')
+fh.setLevel(logging.DEBUG)
+logger.addHandler(fh)
+
 
 class SourceWatchError(Exception):
     pass
 
 
 class Query:
-
+    global PACKET_SIZE
     def __init__(self, host, port=27015, timeout=3):
-        self.logger = logging.getLogger('SourceWatch')
+        logger = logging.getLogger('SourceWatch')
         self.server = Server(socket.gethostbyname(host), int(port))
         self._timeout = timeout
         self._connect()
@@ -33,42 +39,42 @@ class Query:
         self._connection.close()
 
     def _connect(self):
-        self.logger.info('Connecting to %s', self.server)
+        logger.info('Connecting to %s', self.server)
         self._connection = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self._connection.settimeout(self._timeout)
         self._connection.connect(self.server.as_tuple())
 
     def _receive(self, packet_buffer={}):
         response = self._connection.recv(PACKET_SIZE)
-        self.logger.debug('Recieved: %s', response)
+        logger.debug('Received: %s', response)
         packet = SteamPacketBuffer(response)
         response_type = packet.read_long()
 
         if response_type == SINGLE_PACKET_RESPONSE:
-            self.logger.debug('Single packet response')
+            logger.debug('Single packet response')
             return packet
 
         elif response_type == MULTIPLE_PACKET_RESPONSE:
-            self.logger.debugg('Multiple packet response')
-            request_id = packet.read_long()  # TODO: compressed?
+            logger.debug('Multiple packet response')
+            request_id = packet.read_long()  
 
             if request_id not in packet_buffer:
                 packet_buffer.setdefault(request_id, [])
 
             total_packets = packet.read_byte()
             current_packet_number = packet.read_byte()
-            paket_size = packet.read_short()
+            packet.size = packet.read_short()
             packet_buffer[request_id].insert(current_packet_number, packet.read())
 
             if current_packet_number == total_packets - 1:
-                full_packet = PacketBuffer(b''.join(packet_buffer[request_id]))
+                full_packet = SteamPacketBuffer(b''.join(packet_buffer[request_id]))
 
-                if full_packet.read_long() == PACKET_HEAD:
+                if full_packet.read_long() == PAKET_HEADER:
                     return full_packet
             else:
                 return self._receive(packet_buffer)
         else:
-            self.logger.error('Received invalid response type: %s', response_type)
+            logger.error('Received invalid response type: %s', response_type)
             raise SourceWatchError('Received invalid response type')
 
     def _get_challenge(self):
@@ -80,18 +86,17 @@ class Query:
     def _send(self, Paket):
         if isinstance(Paket, Challengeable):
             challenge = self._get_challenge()
-            self.logger.debug('Using challenge: %s', challenge)
+            logger.debug('Using challenge: %s', challenge)
             Paket.challenge = challenge
 
         timer_start = time.time()
-        self.logger.debug('Paket: %s', Paket.as_bytes())
+        logger.debug('Paket: %s', Paket.as_bytes())
         self._connection.send(Paket.as_bytes())
         result = self._receive()
         ping = round((time.time() - timer_start) * 1000, 2)
         response = create_response(Paket.class_name(), result, ping)
-
         if not response.is_valid():
-            raise SourceWatchError('Response paket is invalid.')
+            raise SourceWatchError('Response packet is invalid.')
 
         return response
 
@@ -109,7 +114,7 @@ class Query:
 
     def ping(self):
         """Fake ping request. Send three InfoRequets and calculate an average ping."""
-        self.logger.info('Sending fake ping request')
+        logger.info('Sending fake ping request')
         MAX_LOOPS = 3
         return round(sum(map(lambda ping: self.info().get('server').get('ping'),
                              range(MAX_LOOPS))) / MAX_LOOPS, 2)
@@ -117,17 +122,17 @@ class Query:
     @request
     def info(self):
         """Request basic server information."""
-        self.logger.info('Sending info request')
+        logger.info('Sending info request')
         return self._send(InfoRequest())
 
     @request
     def players(self):
         """Request players."""
-        self.logger.info('Sending players request')
+        logger.info('Sending players request')
         return self._send(PlayersRequest())
 
     @request
     def rules(self):
         """Request server rules."""
-        self.logger.info('Sending rules request')
+        logger.info('Sending rules request')
         return self._send(RulesRequest())
