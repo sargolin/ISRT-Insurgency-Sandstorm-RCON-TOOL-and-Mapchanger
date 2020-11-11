@@ -15,6 +15,7 @@ For the tracking of development and progress, as well as integrated feature requ
 
 ### 0.1 Known bugs
 - List Player command produces a weird output that has to be structured - next release
+- You can't use 127.0.0.1 as IP, if your server runs lcoally - use your LAN IP Address like 192.168.x.x - Windows problem
 
 ## 1. Introduction
 The first stage will be the minimum viable product (MVP - see 2.) so you can see and try-out its basic functionality and have it working correctly, without any basic installation routine. I'll just pre-compile it for Windows 10 and Python 3.x directly while it's in development. In the future I'll add more and more functionality described in the features list and also add a proper installation/deinstallation routine:
