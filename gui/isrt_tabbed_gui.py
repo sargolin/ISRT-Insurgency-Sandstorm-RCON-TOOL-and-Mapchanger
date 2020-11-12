@@ -73,7 +73,7 @@ class Ui_ISRT_Main_Window(object):
         self.entry_ip.setObjectName("entry_ip")
         self.verticalLayout_2.addWidget(self.entry_ip)
         self.entry_queryport = QtWidgets.QLineEdit(self.Tab_Main)
-        self.entry_queryport.setMinimumSize(QtCore.QSize(100, 20))
+        self.entry_queryport.setMinimumSize(QtCore.QSize(80, 20))
         self.entry_queryport.setMaximumSize(QtCore.QSize(2500, 16777215))
         self.entry_queryport.setText("")
         self.entry_queryport.setObjectName("entry_queryport")
@@ -734,7 +734,7 @@ class Ui_ISRT_Main_Window(object):
         self.horizontalLayout_8.addWidget(self.TabWidget_Main_overall)
 
         self.retranslateUi(ISRT_Main_Window)
-        self.TabWidget_Main_overall.setCurrentIndex(4)
+        self.TabWidget_Main_overall.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(ISRT_Main_Window)
 
     def retranslateUi(self, ISRT_Main_Window):
@@ -746,7 +746,7 @@ class Ui_ISRT_Main_Window(object):
         self.entry_ip.setStatusTip(_translate("ISRT_Main_Window", "IP Address of the server"))
         self.entry_ip.setPlaceholderText(_translate("ISRT_Main_Window", "Query IP-Address"))
         self.entry_queryport.setStatusTip(_translate("ISRT_Main_Window", "Query Port of the server"))
-        self.entry_queryport.setPlaceholderText(_translate("ISRT_Main_Window", "Query Port"))
+        self.entry_queryport.setPlaceholderText(_translate("ISRT_Main_Window", "Query Port (NOT Game Port!)"))
         self.entry_rconport.setStatusTip(_translate("ISRT_Main_Window", "RCON Port of the server"))
         self.entry_rconport.setPlaceholderText(_translate("ISRT_Main_Window", "RCON Port"))
         self.entry_rconpw.setStatusTip(_translate("ISRT_Main_Window", "RCON Password of the server"))

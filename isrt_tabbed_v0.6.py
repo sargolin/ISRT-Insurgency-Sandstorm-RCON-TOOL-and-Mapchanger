@@ -281,44 +281,48 @@ class maingui(QtWidgets.QWidget):
 
         self.fill_dropdown_history_box()
 
+        val_localhost = "127.0.0.1"
 
-        if self.gui.entry_rconpw.text() and command_check.startswith("help") or command_check.startswith("listplayers") or command_check.startswith("kick") or command_check.startswith("permban") or command_check.startswith("travel") or command_check.startswith("ban") or command_check.startswith("banid") or command_check.startswith("listbans") or command_check.startswith("unban") or command_check.startswith("say") or command_check.startswith("restartround") or command_check.startswith("maps") or command_check.startswith("scenarios") or command_check.startswith("travelscenario") or command_check.startswith("gamemodeproperty") or command_check.startswith("listgamemodeproperties"):
-            if (re.search(self.regexip, self.gui.entry_ip.text())):  
-                self.serverhost = self.gui.entry_ip.text()
-                try:
-                    if self.gui.entry_rconport.text() and 1 <= int(self.gui.entry_rconport.text()) <= 65535:
-                        serverhost = str(self.gui.entry_ip.text())
-                        rconpassword = str(self.gui.entry_rconpw.text())
-                        rconport = int(self.gui.entry_rconport.text())
-                        rconcommand = str(self.gui.label_rconcommand.text())   
-                        try:
-                            self.rconserver(serverhost, rconpassword,  rconport, rconcommand)
-                            self.gui.progressbar_map_changer.setProperty("value", 33)
-                            time.sleep(1)
-                            self.gui.progressbar_map_changer.setProperty("value", 66)
-                            time.sleep(1)
-                            self.gui.progressbar_map_changer.setProperty("value", 100)
-                            time.sleep(0.1)
-                            self.gui.progressbar_map_changer.setProperty("value", 0)
-                        except Exception as e: 
-                            msg = QtWidgets.QMessageBox()
-                            msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
-                            msg.setIcon(QtWidgets.QMessageBox.Critical)
-                            msg.setWindowTitle("ISRT Error Message")
-                            msg.setText("Something went wrong: \n\n" + str(e) + "\n\nWrong IP, Port or Password?")
-                            msg.exec_()
-                            self.gui.progressbar_map_changer.setProperty("value", 0)
-                    else:
-                        raise ValueError
-                except ValueError:
-                    self.gui.label_output_window.setText(self.gui.entry_rconport.text() + " is no valid Port number - please retry!")
-                    self.gui.progressbar_map_changer.setProperty("value", 0)
-            else:  
-                self.gui.label_output_window.setText(self.gui.entry_ip.text() + " is no valid IP address - please retry!")       
-                self.gui.progressbar_map_changer.setProperty("value", 0)  
-        else:
-            self.gui.label_output_window.setText("No RCON Password given or no valid RCON command - please retry!")    
-            self.gui.progressbar_map_changer.setProperty("value", 0)
+        if self.gui.entry_ip.text() == val_localhost:
+            self.gui.label_output_window.setText("Due to a Windows connection problem, 127.0.0.1 cannot be used currently, please use your LAN IP-Address!")
+        else:    
+            if self.gui.entry_rconpw.text() and command_check.startswith("help") or command_check.startswith("listplayers") or command_check.startswith("kick") or command_check.startswith("permban") or command_check.startswith("travel") or command_check.startswith("ban") or command_check.startswith("banid") or command_check.startswith("listbans") or command_check.startswith("unban") or command_check.startswith("say") or command_check.startswith("restartround") or command_check.startswith("maps") or command_check.startswith("scenarios") or command_check.startswith("travelscenario") or command_check.startswith("gamemodeproperty") or command_check.startswith("listgamemodeproperties"):
+                if (re.search(self.regexip, self.gui.entry_ip.text())):  
+                    self.serverhost = self.gui.entry_ip.text()
+                    try:
+                        if self.gui.entry_rconport.text() and 1 <= int(self.gui.entry_rconport.text()) <= 65535:
+                            serverhost = str(self.gui.entry_ip.text())
+                            rconpassword = str(self.gui.entry_rconpw.text())
+                            rconport = int(self.gui.entry_rconport.text())
+                            rconcommand = str(self.gui.label_rconcommand.text())   
+                            try:
+                                self.rconserver(serverhost, rconpassword,  rconport, rconcommand)
+                                self.gui.progressbar_map_changer.setProperty("value", 33)
+                                time.sleep(1)
+                                self.gui.progressbar_map_changer.setProperty("value", 66)
+                                time.sleep(1)
+                                self.gui.progressbar_map_changer.setProperty("value", 100)
+                                time.sleep(0.1)
+                                self.gui.progressbar_map_changer.setProperty("value", 0)
+                            except Exception as e: 
+                                msg = QtWidgets.QMessageBox()
+                                msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
+                                msg.setIcon(QtWidgets.QMessageBox.Critical)
+                                msg.setWindowTitle("ISRT Error Message")
+                                msg.setText("Something went wrong: \n\n" + str(e) + "\n\nWrong IP, Port or Password?")
+                                msg.exec_()
+                                self.gui.progressbar_map_changer.setProperty("value", 0)
+                        else:
+                            raise ValueError
+                    except ValueError:
+                        self.gui.label_output_window.setText(self.gui.entry_rconport.text() + " is no valid Port number - please retry!")
+                        self.gui.progressbar_map_changer.setProperty("value", 0)
+                else:  
+                    self.gui.label_output_window.setText(self.gui.entry_ip.text() + " is no valid IP address - please retry!")       
+                    self.gui.progressbar_map_changer.setProperty("value", 0)  
+            else:
+                self.gui.label_output_window.setText("No RCON Password given or no valid RCON command - please retry!")    
+                self.gui.progressbar_map_changer.setProperty("value", 0)
         
     #Check for the IP and Queryport to be correct in syntax and range and go for the query
     def checkandgoquery(self):
@@ -328,26 +332,31 @@ class maingui(QtWidgets.QWidget):
         25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
         25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)$'''
 
-        if (re.search(self.regexip, self.gui.entry_ip.text())):  
-            self.serverhost = self.gui.entry_ip.text()
-            try:
-                if self.gui.entry_queryport.text() and 1 <= int(self.gui.entry_queryport.text()) <= 65535:
-                    self.queryport = self.gui.entry_queryport.text()
-                    try:
-                        self.queryserver(self.serverhost, self.queryport)
-                    except Exception as f: 
-                        msg = QtWidgets.QMessageBox()
-                        msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
-                        msg.setIcon(QtWidgets.QMessageBox.Critical)
-                        msg.setWindowTitle("ISRT Error Message")
-                        msg.setText("Something went wrong: \n\n" + str(f) + "\n\nWrong IP or Port?")
-                        msg.exec_()
-                else:
-                    raise ValueError
-            except ValueError:
-                self.gui.label_output_window.setText(self.gui.entry_queryport.text() + " is no valid Port number - please retry!")
-        else:  
-            self.gui.label_output_window.setText(self.gui.entry_ip.text() + " is no valid IP address - please retry!")  
+        val_localhost = "127.0.0.1"
+
+        if self.gui.entry_ip.text() == val_localhost:
+            self.gui.label_output_window.setText("Due to a Windows connection problem, 127.0.0.1 cannot be used currently, please use your LAN IP-Address!")
+        else:    
+            if (re.search(self.regexip, self.gui.entry_ip.text())):  
+                self.serverhost = self.gui.entry_ip.text()
+                try:
+                    if self.gui.entry_queryport.text() and 1 <= int(self.gui.entry_queryport.text()) <= 65535:
+                        self.queryport = self.gui.entry_queryport.text()
+                        try:
+                            self.queryserver(self.serverhost, self.queryport)
+                        except Exception as f: 
+                            msg = QtWidgets.QMessageBox()
+                            msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
+                            msg.setIcon(QtWidgets.QMessageBox.Critical)
+                            msg.setWindowTitle("ISRT Error Message")
+                            msg.setText("Something went wrong: \n\n" + str(f) + "\n\nWrong IP or Port?")
+                            msg.exec_()
+                    else:
+                        raise ValueError
+                except ValueError:
+                    self.gui.label_output_window.setText(self.gui.entry_queryport.text() + " is no valid Port number - please retry!")
+            else:  
+                self.gui.label_output_window.setText(self.gui.entry_ip.text() + " is no valid IP address - please retry!")  
 
     #Execute RCON Command, when called by checkandgorcon()!
     def rconserver(self, serverhost, rconpassword, rconport, rconcommand):
