@@ -433,8 +433,10 @@ class maingui(QtWidgets.QWidget):
         self.gui.le_ping.setText(str(self.servernetworkdetails['ping']))
         self.gui.le_map.setText(str(self.servergamedetails['game_map']))
         self.gui.le_mods.setText(str(self.mutatorids))
-        print(self.servergamedetails)
-        print(self.serverruledetails)
+        
+        #Only for debugging needed
+        #print(self.servergamedetails)
+        #print(self.serverruledetails)
 
         #Create Map View Picture absed on running map
         def assign_map_view_pic(self):

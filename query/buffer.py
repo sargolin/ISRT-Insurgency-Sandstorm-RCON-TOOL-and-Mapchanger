@@ -45,7 +45,6 @@ class SteamPacketBuffer(io.BytesIO):
         self.write(struct.pack('<Q', value))
 
     def read_string(self):
-        # TODO: find a more pythonic way doing this
         value = []
         while True:
             char = self.read(1)
