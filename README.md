@@ -5,8 +5,6 @@ This is a python (3.8.6) - and PyQt5/SQLite3-based RCON Tool for mapchanging and
 The first stage will be the minimum viable product (MVP - see 2.) so you can see and try-out its basic functionality and have it working correctly, without any basic installation routine. I'll just pre-compile it for Windows 10 and Python 3.x directly while it's in development. In the future I'll add more and more functionality described in the features list and also add a proper installation/deinstallation routine:
 
 <center><img src="http://gs.tct-gaming.com/isrt05.jpg"></center>
-<p>
-<center><img src="http://gs.tct-gaming.com/isrt05a.jpg"></center>
 
 #### Status: In development phase of full release - open for all ideas
 
