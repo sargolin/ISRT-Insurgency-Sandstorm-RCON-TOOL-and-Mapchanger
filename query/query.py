@@ -1,8 +1,5 @@
 # See: http://developer.valvesoftware.com/wiki/Server_Queries
 #
-# TODO: according to spec, packets may be bzip2 compressed.
-#       not implemented yet because I couldn't find a server that does this.
-
 
 import logging
 import socket
@@ -16,11 +13,12 @@ PACKET_SIZE = 1400
 SINGLE_PACKET_RESPONSE = -1
 MULTIPLE_PACKET_RESPONSE = -2
 
-logger = logging.getLogger('Beispiel_Log')
-logger.setLevel(logging.DEBUG)
-fh = logging.FileHandler('query/debug.log')
-fh.setLevel(logging.DEBUG)
-logger.addHandler(fh)
+#Debug Logging to file
+#logger = logging.getLogger('Beispiel_Log')
+#logger.setLevel(logging.DEBUG)
+#fh = logging.FileHandler('query/debug.log')
+#fh.setLevel(logging.DEBUG)
+#logger.addHandler(fh)
 
 
 class SourceWatchError(Exception):
@@ -30,7 +28,7 @@ class SourceWatchError(Exception):
 class Query:
     global PACKET_SIZE
     def __init__(self, host, port=27015, timeout=3):
-        logger = logging.getLogger('SourceWatch')
+        self.logger = logging.getLogger('SourceWatch')
         self.server = Server(socket.gethostbyname(host), int(port))
         self._timeout = timeout
         self._connect()
@@ -39,23 +37,23 @@ class Query:
         self._connection.close()
 
     def _connect(self):
-        logger.info('Connecting to %s', self.server)
+        self.logger.info('Connecting to %s', self.server)
         self._connection = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self._connection.settimeout(self._timeout)
         self._connection.connect(self.server.as_tuple())
 
     def _receive(self, packet_buffer={}):
         response = self._connection.recv(PACKET_SIZE)
-        logger.debug('Received: %s', response)
+        self.logger.debug('Received: %s', response)
         packet = SteamPacketBuffer(response)
         response_type = packet.read_long()
 
         if response_type == SINGLE_PACKET_RESPONSE:
-            logger.debug('Single packet response')
+            self.logger.debug('Single packet response')
             return packet
 
         elif response_type == MULTIPLE_PACKET_RESPONSE:
-            logger.debug('Multiple packet response')
+            self.logger.debug('Multiple packet response')
             request_id = packet.read_long()  
 
             if request_id not in packet_buffer:
@@ -74,7 +72,7 @@ class Query:
             else:
                 return self._receive(packet_buffer)
         else:
-            logger.error('Received invalid response type: %s', response_type)
+            self.logger.error('Received invalid response type: %s', response_type)
             raise SourceWatchError('Received invalid response type')
 
     def _get_challenge(self):
@@ -86,11 +84,11 @@ class Query:
     def _send(self, Paket):
         if isinstance(Paket, Challengeable):
             challenge = self._get_challenge()
-            logger.debug('Using challenge: %s', challenge)
+            self.logger.debug('Using challenge: %s', challenge)
             Paket.challenge = challenge
 
         timer_start = time.time()
-        logger.debug('Paket: %s', Paket.as_bytes())
+        self.logger.debug('Paket: %s', Paket.as_bytes())
         self._connection.send(Paket.as_bytes())
         result = self._receive()
         ping = round((time.time() - timer_start) * 1000, 2)
@@ -114,7 +112,7 @@ class Query:
 
     def ping(self):
         """Fake ping request. Send three InfoRequets and calculate an average ping."""
-        logger.info('Sending fake ping request')
+        self.logger.info('Sending fake ping request')
         MAX_LOOPS = 3
         return round(sum(map(lambda ping: self.info().get('server').get('ping'),
                              range(MAX_LOOPS))) / MAX_LOOPS, 2)
@@ -122,17 +120,17 @@ class Query:
     @request
     def info(self):
         """Request basic server information."""
-        logger.info('Sending info request')
+        self.logger.info('Sending info request')
         return self._send(InfoRequest())
 
     @request
     def players(self):
         """Request players."""
-        logger.info('Sending players request')
+        self.logger.info('Sending players request')
         return self._send(PlayersRequest())
 
     @request
     def rules(self):
         """Request server rules."""
-        logger.info('Sending rules request')
+        self.logger.info('Sending rules request')
         return self._send(RulesRequest())
