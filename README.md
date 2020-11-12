@@ -1,6 +1,8 @@
 # ISRT-Insurgency-Sandstorm-RCON/Query-TOOL-and-Mapchanger - v0.5.1 hotfix released
 This is a python (3.8.6) - and PyQt5/SQLite3-based RCON Tool for mapchanging and other basic RCON functionalities that help administering and controlling Insurgency Sandstorm Servers. The first version will be based on spezifanta's SourceWatch (https://github.com/spezifanta/SourceWatch) and ttk1's Py-Rcon (https://github.com/ttk1/py-rcon) - in the future this will be replaced by similar integrated python-based modules to get rid of third party modules I don't have any control over. The first stage will be the minimum viable product (MVP) so you can see and try-out its basic functionality and have it working correctly, without any basic installation routine. I'll just pre-compile it for Windows 10 and Python 3.x directly while it's in development. In the future I'll add more and more functionality described in the features list and also add a proper installation/deinstallation routine:
 
+For Installation How-to, common problems, issue reporting, commands and usage and test scenario descriptions visit the Wiki pages here: https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/wiki
+
 ## 1. Introduction
 The first stage will be the minimum viable product (MVP - see 2.) so you can see and try-out its basic functionality and have it working correctly, without any basic installation routine. I'll just pre-compile it for Windows 10 and Python 3.x directly while it's in development. In the future I'll add more and more functionality described in the features list and also add a proper installation/deinstallation routine:
 
@@ -21,9 +23,6 @@ The first stage will be the minimum viable product (MVP - see 2.) so you can see
 ### 2.1 Known bugs
 - List Player command produces a weird output that has to be structured - next release
 - You can't use 127.0.0.1 as IP, if your server runs lcoally - use your LAN IP Address like 192.168.x.x - Windows problem
-
-For Installation How-to, common problems, issue reporting, commands and usage and test scenario descriptions visit the Wiki pages here: 
-##https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/wiki
 
 ## 3. General Remarks, Feedback and stuff...
 If you have any questions or feedback, please send me an e-mail to: isrt@edelmeier.org - In case of feature requests or find any error in the software, please open an issue or in any other case, just write to me on our Discord: https://discord.gg/zEdTrgg
