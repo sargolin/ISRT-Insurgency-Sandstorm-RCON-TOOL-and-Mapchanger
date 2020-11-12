@@ -18,10 +18,6 @@ https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/wiki
 - Inserted a lot of custom maps
 - Made the entire app resizable
 
-### 1.1 Known bugs
-- List Player command produces a weird output that has to be structured - next release
-- You can't use 127.0.0.1 as IP, if your server runs lcoally - use your LAN IP Address like 192.168.x.x - Windows problem
-
 ## 2. General Remarks, Feedback and stuff...
 If you have any questions or feedback, please send me an e-mail to: isrt@edelmeier.org - In case of feature requests or find any error in the software, please open an issue or in any other case, just write to me on our Discord: https://discord.gg/zEdTrgg
 
