@@ -24,3 +24,594 @@ Using challenge: 35777655
 Paket: b'\xff\xff\xff\xffVw\xec!\x02'
 Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x0098145,93636\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00NoRestrictedArea,ImprovedAI\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x006\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
 Single packet response
+Connecting to 172.20.233.233:12132
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Connecting to 93.186.198.185:27116
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11=TCT= 1 | HC Coop | Commando | Fireteams | Realism | Security\x00Farmhouse\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x00\x06\x00dl\x00\x011.1.0.0\x00\xb1\xebi\xab\xcf4\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:98145,93636,Mutators_s:NoRestrictedArea,ImprovedAI\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffAM\xde\xce\x08'
+Single packet response
+Using challenge: 147775053
+Paket: b'\xff\xff\xff\xffVM\xde\xce\x08'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x0098145,93636\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00NoRestrictedArea,ImprovedAI\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x006\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 80.145.221.4:27131
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11Tactical HC\x00Sinjar\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x00\x08\x00dw\x00\x011.1.0.0\x00\xb1\xdei\xe8\xe38\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:148369,101966,98145,Mutators_s:JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffA\x9d\xd9\x06\x0e'
+Single packet response
+Using challenge: 235329949
+Paket: b'\xff\xff\xff\xffV\x9d\xd9\x06\x0e'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x00148369,101966,98145\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x001\x00PlrM_i\x008\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 80.145.221.4:27131
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11Tactical HC\x00Sinjar\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x00\x08\x00dw\x00\x011.1.0.0\x00\xb1\xdei\xe8\xe38\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:148369,101966,98145,Mutators_s:JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffA\x9d\xd9\x06\x0e'
+Single packet response
+Using challenge: 235329949
+Paket: b'\xff\xff\xff\xffV\x9d\xd9\x06\x0e'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x00148369,101966,98145\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x001\x00PlrM_i\x008\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 80.145.221.4:27131
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11Tactical HC\x00Sinjar\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x00\x08\x00dw\x00\x011.1.0.0\x00\xb1\xdei\xe8\xe38\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:148369,101966,98145,Mutators_s:JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffA\x9d\xd9\x06\x0e'
+Single packet response
+Using challenge: 235329949
+Paket: b'\xff\xff\xff\xffV\x9d\xd9\x06\x0e'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x00148369,101966,98145\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x001\x00PlrM_i\x008\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 80.145.221.4:27131
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11Tactical HC\x00Farmhouse\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x00\x08\x00dw\x00\x011.1.0.0\x00\xb1\xdei\xe8\xe38\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:148369,101966,98145,Mutators_s:JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffA\x9d\xd9\x06\x0e'
+Single packet response
+Using challenge: 235329949
+Paket: b'\xff\xff\xff\xffV\x9d\xd9\x06\x0e'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x00148369,101966,98145\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x008\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 80.145.221.4:27131
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11Tactical HC\x00Farmhouse\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x00\x08\x00dw\x00\x011.1.0.0\x00\xb1\xdei\xe8\xe38\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:148369,101966,98145,Mutators_s:JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffA\x9d\xd9\x06\x0e'
+Single packet response
+Using challenge: 235329949
+Paket: b'\xff\xff\xff\xffV\x9d\xd9\x06\x0e'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x00148369,101966,98145\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x008\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 80.145.221.4:27131
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11Tactical HC\x00Farmhouse\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x00\x08\x00dw\x00\x011.1.0.0\x00\xb1\xdei\xe8\xe38\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:148369,101966,98145,Mutators_s:JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffA\x9d\xd9\x06\x0e'
+Single packet response
+Using challenge: 235329949
+Paket: b'\xff\xff\xff\xffV\x9d\xd9\x06\x0e'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x00148369,101966,98145\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x008\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 80.145.221.4:27131
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11Tactical HC\x00Farmhouse\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x00\x08\x00dw\x00\x011.1.0.0\x00\xb1\xdei\xe8\xe38\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:148369,101966,98145,Mutators_s:JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffA\x9d\xd9\x06\x0e'
+Single packet response
+Using challenge: 235329949
+Paket: b'\xff\xff\xff\xffV\x9d\xd9\x06\x0e'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x00148369,101966,98145\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x008\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 80.145.221.4:27131
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11Tactical HC\x00Farmhouse\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x01\x08\x00dw\x00\x011.1.0.0\x00\xb1\xdei\xe8\xe38\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:148369,101966,98145,Mutators_s:JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffA\x9d\xd9\x06\x0e'
+Single packet response
+Using challenge: 235329949
+Paket: b'\xff\xff\xff\xffV\x9d\xd9\x06\x0e'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x00148369,101966,98145\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x001\x00PlrM_i\x008\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 80.145.221.4:27131
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11Tactical HC\x00Canyon\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x01\x08\x00dw\x00\x011.1.0.0\x00\xb1\xdei\xe8\xe38\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:148369,101966,98145,Mutators_s:JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffA\x9d\xd9\x06\x0e'
+Single packet response
+Using challenge: 235329949
+Paket: b'\xff\xff\xff\xffV\x9d\xd9\x06\x0e'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x00148369,101966,98145\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x008\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 80.145.221.4:27131
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11Tactical HC\x00Canyon\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x01\x08\x00dw\x00\x011.1.0.0\x00\xb1\xdei\xe8\xe38\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:148369,101966,98145,Mutators_s:JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffA\x9d\xd9\x06\x0e'
+Single packet response
+Using challenge: 235329949
+Paket: b'\xff\xff\xff\xffV\x9d\xd9\x06\x0e'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x00148369,101966,98145\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x008\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 80.145.221.4:27131
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11Tactical HC\x00Canyon\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x01\x08\x00dw\x00\x011.1.0.0\x00\xb1\xdei\xe8\xe38\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:148369,101966,98145,Mutators_s:JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffA\x9d\xd9\x06\x0e'
+Single packet response
+Using challenge: 235329949
+Paket: b'\xff\xff\xff\xffV\x9d\xd9\x06\x0e'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x00148369,101966,98145\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x008\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 80.145.221.4:27131
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11Tactical HC\x00Canyon\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x01\x08\x00dw\x00\x011.1.0.0\x00\xb1\xdei\xe8\xe38\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:148369,101966,98145,Mutators_s:JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffA\x9d\xd9\x06\x0e'
+Single packet response
+Using challenge: 235329949
+Paket: b'\xff\xff\xff\xffV\x9d\xd9\x06\x0e'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x00148369,101966,98145\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x008\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 80.145.221.4:27131
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11Tactical HC\x00Canyon\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x01\x08\x00dw\x00\x011.1.0.0\x00\xb1\xdei\xe8\xe38\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:148369,101966,98145,Mutators_s:JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffA\x9d\xd9\x06\x0e'
+Single packet response
+Using challenge: 235329949
+Paket: b'\xff\xff\xff\xffV\x9d\xd9\x06\x0e'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x00148369,101966,98145\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x008\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 80.145.221.4:27131
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11Tactical HC\x00Canyon\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x01\x08\x00dw\x00\x011.1.0.0\x00\xb1\xdei\xe8\xe38\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:148369,101966,98145,Mutators_s:JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffA\x9d\xd9\x06\x0e'
+Single packet response
+Using challenge: 235329949
+Paket: b'\xff\xff\xff\xffV\x9d\xd9\x06\x0e'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x00148369,101966,98145\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x008\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 80.145.221.4:27131
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11Tactical HC\x00Canyon\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x01\x08\x00dw\x00\x011.1.0.0\x00\xb1\xdei\xe8\xe38\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:148369,101966,98145,Mutators_s:JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffA\x9d\xd9\x06\x0e'
+Single packet response
+Using challenge: 235329949
+Paket: b'\xff\xff\xff\xffV\x9d\xd9\x06\x0e'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x00148369,101966,98145\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x008\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 80.145.221.4:27131
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11Tactical HC\x00Canyon\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x01\x08\x00dw\x00\x011.1.0.0\x00\xb1\xdei\xe8\xe38\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:148369,101966,98145,Mutators_s:JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffA\x9d\xd9\x06\x0e'
+Single packet response
+Using challenge: 235329949
+Paket: b'\xff\xff\xff\xffV\x9d\xd9\x06\x0e'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x00148369,101966,98145\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x008\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 80.145.221.4:27131
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11Tactical HC\x00Canyon\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x01\x08\x00dw\x00\x011.1.0.0\x00\xb1\xdei\xe8\xe38\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:148369,101966,98145,Mutators_s:JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffA\x9d\xd9\x06\x0e'
+Single packet response
+Using challenge: 235329949
+Paket: b'\xff\xff\xff\xffV\x9d\xd9\x06\x0e'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x00148369,101966,98145\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x008\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 80.145.221.4:27131
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11Tactical HC\x00Canyon\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x01\x08\x00dw\x00\x011.1.0.0\x00\xb1\xdei\xe8\xe38\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:148369,101966,98145,Mutators_s:JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffA\x9d\xd9\x06\x0e'
+Single packet response
+Using challenge: 235329949
+Paket: b'\xff\xff\xff\xffV\x9d\xd9\x06\x0e'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x00148369,101966,98145\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x008\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 80.145.221.4:27131
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11Tactical HC\x00Canyon\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x01\x08\x00dw\x00\x011.1.0.0\x00\xb1\xdei\xe8\xe38\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:148369,101966,98145,Mutators_s:JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffA\x9d\xd9\x06\x0e'
+Single packet response
+Using challenge: 235329949
+Paket: b'\xff\xff\xff\xffV\x9d\xd9\x06\x0e'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x00148369,101966,98145\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x008\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 80.145.221.4:27131
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11Tactical HC\x00Canyon\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x01\x08\x00dw\x00\x011.1.0.0\x00\xb1\xdei\xe8\xe38\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:148369,101966,98145,Mutators_s:JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffA\x9d\xd9\x06\x0e'
+Single packet response
+Using challenge: 235329949
+Paket: b'\xff\xff\xff\xffV\x9d\xd9\x06\x0e'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x00148369,101966,98145\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x008\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 80.145.221.4:27131
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11Tactical HC\x00Canyon\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x01\x08\x00dw\x00\x011.1.0.0\x00\xb1\xdei\xe8\xe38\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:148369,101966,98145,Mutators_s:JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffA\x9d\xd9\x06\x0e'
+Single packet response
+Using challenge: 235329949
+Paket: b'\xff\xff\xff\xffV\x9d\xd9\x06\x0e'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x00148369,101966,98145\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x008\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 80.145.221.4:27131
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11Tactical HC\x00Canyon\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x01\x08\x00dw\x00\x011.1.0.0\x00\xb1\xdei\xe8\xe38\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:148369,101966,98145,Mutators_s:JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffA\x9d\xd9\x06\x0e'
+Single packet response
+Using challenge: 235329949
+Paket: b'\xff\xff\xff\xffV\x9d\xd9\x06\x0e'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x00148369,101966,98145\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x008\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 80.145.221.4:27131
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11Tactical HC\x00Canyon\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x01\x08\x00dw\x00\x011.1.0.0\x00\xb1\xdei\xe8\xe38\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:148369,101966,98145,Mutators_s:JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffA\x9d\xd9\x06\x0e'
+Single packet response
+Using challenge: 235329949
+Paket: b'\xff\xff\xff\xffV\x9d\xd9\x06\x0e'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x00148369,101966,98145\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x008\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 80.145.221.4:27131
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11Tactical HC\x00Compound\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x00\x08\x00dw\x00\x011.1.0.0\x00\xb1\xdei\xe8\xe38\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:148369,101966,98145,Mutators_s:JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffA\x9d\xd9\x06\x0e'
+Single packet response
+Using challenge: 235329949
+Paket: b'\xff\xff\xff\xffV\x9d\xd9\x06\x0e'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x00148369,101966,98145\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x008\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 80.145.221.4:27131
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11Tactical HC\x00Compound\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x00\x08\x00dw\x00\x011.1.0.0\x00\xb1\xdei\xe8\xe38\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:148369,101966,98145,Mutators_s:JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffA\x9d\xd9\x06\x0e'
+Single packet response
+Using challenge: 235329949
+Paket: b'\xff\xff\xff\xffV\x9d\xd9\x06\x0e'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x00148369,101966,98145\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x008\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 80.145.221.4:27131
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11Tactical HC\x00Compound\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x00\x08\x00dw\x00\x011.1.0.0\x00\xb1\xdei\xe8\xe38\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:148369,101966,98145,Mutators_s:JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffA\x9d\xd9\x06\x0e'
+Single packet response
+Using challenge: 235329949
+Paket: b'\xff\xff\xff\xffV\x9d\xd9\x06\x0e'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x00148369,101966,98145\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x008\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 80.145.221.4:27131
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11Tactical HC\x00Compound\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x00\x08\x00dw\x00\x011.1.0.0\x00\xb1\xdei\xe8\xe38\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:148369,101966,98145,Mutators_s:JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffA\x9d\xd9\x06\x0e'
+Single packet response
+Using challenge: 235329949
+Paket: b'\xff\xff\xff\xffV\x9d\xd9\x06\x0e'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x00148369,101966,98145\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00JoinLeaveMessage,NoRestrictedArea,Motd_H,Vampirism\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x008\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 93.186.198.185:27116
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11=TCT= 1 | HC Coop | Commando | Fireteams | Realism | Security\x00Farmhouse\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x00\x06\x00dl\x00\x011.1.0.0\x00\xb1\xebi\xab\xcf4\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:98145,93636,Mutators_s:NoRestrictedArea,ImprovedAI\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffAM\xde\xce\x08'
+Single packet response
+Using challenge: 147775053
+Paket: b'\xff\xff\xff\xffVM\xde\xce\x08'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x0098145,93636\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00NoRestrictedArea,ImprovedAI\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x006\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 93.186.198.185:27116
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11=TCT= 1 | HC Coop | Commando | Fireteams | Realism | Security\x00Farmhouse\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x01\x06\x00dl\x00\x011.1.0.0\x00\xb1\xebi\xab\xcf4\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:98145,93636,Mutators_s:NoRestrictedArea,ImprovedAI\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffAM\xde\xce\x08'
+Single packet response
+Using challenge: 147775053
+Paket: b'\xff\xff\xff\xffVM\xde\xce\x08'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x0098145,93636\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00NoRestrictedArea,ImprovedAI\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x006\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 93.186.198.185:27116
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11=TCT= 1 | HC Coop | Commando | Fireteams | Realism | Security\x00Farmhouse\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x00\x06\x00dl\x00\x011.1.0.0\x00\xb1\xebi\xab\xcf4\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:98145,93636,Mutators_s:NoRestrictedArea,ImprovedAI\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffAM\xde\xce\x08'
+Single packet response
+Using challenge: 147775053
+Paket: b'\xff\xff\xff\xffVM\xde\xce\x08'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x0098145,93636\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00NoRestrictedArea,ImprovedAI\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x006\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 93.186.198.185:27116
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11=TCT= 1 | HC Coop | Commando | Fireteams | Realism | Security\x00Buhriz\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x01\x06\x00dl\x00\x011.1.0.0\x00\xb1\xebi\xab\xcf4\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:98145,93636,Mutators_s:NoRestrictedArea,ImprovedAI\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffAM\xde\xce\x08'
+Single packet response
+Using challenge: 147775053
+Paket: b'\xff\xff\xff\xffVM\xde\xce\x08'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x0098145,93636\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00NoRestrictedArea,ImprovedAI\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x006\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 93.186.198.185:27116
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11=TCT= 1 | HC Coop | Commando | Fireteams | Realism | Security\x00Precinct\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x01\x06\x00dl\x00\x011.1.0.0\x00\xb1\xebi\xab\xcf4\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:98145,93636,Mutators_s:NoRestrictedArea,ImprovedAI\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffAM\xde\xce\x08'
+Single packet response
+Using challenge: 147775053
+Paket: b'\xff\xff\xff\xffVM\xde\xce\x08'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x0098145,93636\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00NoRestrictedArea,ImprovedAI\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x006\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 93.186.198.185:27116
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11=TCT= 1 | HC Coop | Commando | Fireteams | Realism | Security\x00Precinct\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x01\x06\x00dl\x00\x011.1.0.0\x00\xb1\xebi\xab\xcf4\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:98145,93636,Mutators_s:NoRestrictedArea,ImprovedAI\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffAM\xde\xce\x08'
+Single packet response
+Using challenge: 147775053
+Paket: b'\xff\xff\xff\xffVM\xde\xce\x08'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x0098145,93636\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00NoRestrictedArea,ImprovedAI\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x006\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 93.186.198.185:27116
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11=TCT= 1 | HC Coop | Commando | Fireteams | Realism | Security\x00Precinct\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x01\x06\x00dl\x00\x011.1.0.0\x00\xb1\xebi\xab\xcf4\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:98145,93636,Mutators_s:NoRestrictedArea,ImprovedAI\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffAM\xde\xce\x08'
+Single packet response
+Using challenge: 147775053
+Paket: b'\xff\xff\xff\xffVM\xde\xce\x08'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x0098145,93636\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00NoRestrictedArea,ImprovedAI\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x006\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 93.186.198.185:27116
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11=TCT= 1 | HC Coop | Commando | Fireteams | Realism | Security\x00Precinct\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x01\x06\x00dl\x00\x011.1.0.0\x00\xb1\xebi\xab\xcf4\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:98145,93636,Mutators_s:NoRestrictedArea,ImprovedAI\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffAM\xde\xce\x08'
+Single packet response
+Using challenge: 147775053
+Paket: b'\xff\xff\xff\xffVM\xde\xce\x08'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x0098145,93636\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00NoRestrictedArea,ImprovedAI\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x006\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 93.186.198.185:27116
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11=TCT= 1 | HC Coop | Commando | Fireteams | Realism | Security\x00Precinct\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x01\x06\x00dl\x00\x011.1.0.0\x00\xb1\xebi\xab\xcf4\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:98145,93636,Mutators_s:NoRestrictedArea,ImprovedAI\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffAM\xde\xce\x08'
+Single packet response
+Using challenge: 147775053
+Paket: b'\xff\xff\xff\xffVM\xde\xce\x08'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x0098145,93636\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00NoRestrictedArea,ImprovedAI\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x006\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 93.186.198.185:27116
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11=TCT= 1 | HC Coop | Commando | Fireteams | Realism | Security\x00Precinct\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x01\x06\x00dl\x00\x011.1.0.0\x00\xb1\xebi\xab\xcf4\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:98145,93636,Mutators_s:NoRestrictedArea,ImprovedAI\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffAM\xde\xce\x08'
+Single packet response
+Using challenge: 147775053
+Paket: b'\xff\xff\xff\xffVM\xde\xce\x08'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x0098145,93636\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00NoRestrictedArea,ImprovedAI\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x006\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 93.186.198.185:27116
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11=TCT= 1 | HC Coop | Commando | Fireteams | Realism | Security\x00Precinct\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x01\x06\x00dl\x00\x011.1.0.0\x00\xb1\xebi\xab\xcf4\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:98145,93636,Mutators_s:NoRestrictedArea,ImprovedAI\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffAM\xde\xce\x08'
+Single packet response
+Using challenge: 147775053
+Paket: b'\xff\xff\xff\xffVM\xde\xce\x08'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x0098145,93636\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00NoRestrictedArea,ImprovedAI\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x006\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 93.186.198.185:27116
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11=TCT= 1 | HC Coop | Commando | Fireteams | Realism | Security\x00Precinct\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x01\x06\x00dl\x00\x011.1.0.0\x00\xb1\xebi\xab\xcf4\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:98145,93636,Mutators_s:NoRestrictedArea,ImprovedAI\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffAM\xde\xce\x08'
+Single packet response
+Using challenge: 147775053
+Paket: b'\xff\xff\xff\xffVM\xde\xce\x08'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x0098145,93636\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00NoRestrictedArea,ImprovedAI\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x006\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 93.186.198.185:27116
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11=TCT= 1 | HC Coop | Commando | Fireteams | Realism | Security\x00Precinct\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x01\x06\x00dl\x00\x011.1.0.0\x00\xb1\xebi\xab\xcf4\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:98145,93636,Mutators_s:NoRestrictedArea,ImprovedAI\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffAM\xde\xce\x08'
+Single packet response
+Using challenge: 147775053
+Paket: b'\xff\xff\xff\xffVM\xde\xce\x08'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x0098145,93636\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00NoRestrictedArea,ImprovedAI\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x006\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 93.186.198.185:2711
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Connecting to 93.186.198.185:27116
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11=TCT= 1 | HC Coop | Commando | Fireteams | Realism | Security\x00Precinct\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x01\x06\x00dl\x00\x011.1.0.0\x00\xb1\xebi\xab\xcf4\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:98145,93636,Mutators_s:NoRestrictedArea,ImprovedAI\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffAM\xde\xce\x08'
+Single packet response
+Using challenge: 147775053
+Paket: b'\xff\xff\xff\xffVM\xde\xce\x08'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x0098145,93636\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00NoRestrictedArea,ImprovedAI\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x006\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 93.186.198.185:27116
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11=TCT= 1 | HC Coop | Commando | Fireteams | Realism | Security\x00Oilfield\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x00\x06\x00dl\x00\x011.1.0.0\x00\xb1\xebi\xab\xcf4\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:98145,93636,Mutators_s:NoRestrictedArea,ImprovedAI\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffAM\xde\xce\x08'
+Single packet response
+Using challenge: 147775053
+Paket: b'\xff\xff\xff\xffVM\xde\xce\x08'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00false\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x0098145,93636\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00NoRestrictedArea,ImprovedAI\x00Night_b\x00true\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x006\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 93.186.198.185:27116
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11=TCT= 1 | HC Coop | Commando | Fireteams | Realism | Security\x00Oilfield\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x00\x06\x00dl\x00\x011.1.0.0\x00\xb1\xebi\xab\xcf4\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:98145,93636,Mutators_s:NoRestrictedArea,ImprovedAI\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffAM\xde\xce\x08'
+Single packet response
+Using challenge: 147775053
+Paket: b'\xff\xff\xff\xffVM\xde\xce\x08'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00false\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x0098145,93636\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00NoRestrictedArea,ImprovedAI\x00Night_b\x00true\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x006\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response
+Connecting to 93.186.198.185:27116
+Sending info request
+Paket: b'\xff\xff\xff\xffTSource Engine Query\x00'
+Received: b'\xff\xff\xff\xffI\x11=TCT= 1 | HC Coop | Commando | Fireteams | Realism | Security\x00Ministry\x00sandstorm\x00Insurgency: Sandstorm\x00\x00\x00\x00\x06\x00dl\x00\x011.1.0.0\x00\xb1\xebi\xab\xcf4\x00\x00\x000\x01V:122064,S:523,MatchServer_b:false,ModList_s:98145,93636,Mutators_s:NoRestrictedArea,ImprovedAI\x00\xc8\xde\x08\x00\x00\x00\x00\x00'
+Single packet response
+Sending rules request
+Paket: b'\xff\xff\xff\xffV\xff\xff\xff\xff'
+Received: b'\xff\xff\xff\xffAM\xde\xce\x08'
+Single packet response
+Using challenge: 147775053
+Paket: b'\xff\xff\xff\xffVM\xde\xce\x08'
+Received: b'\xff\xff\xff\xffE\x11\x00Coop_b\x00true\x00CustomRules_b\x00false\x00Day_b\x00true\x00GameMode_s\x00Hardcore Checkpoint\x00MatchServer_b\x00false\x00ModList_s\x0098145,93636\x00Mods_b\x00true\x00Mutated_b\x00true\x00Mutators_s\x00NoRestrictedArea,ImprovedAI\x00Night_b\x00false\x00OfficialRuleset_b\x00false\x00PlrC_i\x000\x00PlrM_i\x006\x00Pwd_b\x00false\x00RankedServer_b\x00true\x00S\x00523\x00Versus_b\x00false\x00'
+Single packet response

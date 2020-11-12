@@ -755,7 +755,7 @@ class Ui_ISRT_Main_Window(object):
         self.horizontalLayout_8.addWidget(self.TabWidget_Main_overall)
 
         self.retranslateUi(ISRT_Main_Window)
-        self.TabWidget_Main_overall.setCurrentIndex(1)
+        self.TabWidget_Main_overall.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(ISRT_Main_Window)
 
     def retranslateUi(self, ISRT_Main_Window):
@@ -926,8 +926,8 @@ class Ui_ISRT_Main_Window(object):
         self.helpbody.setText(_translate("ISRT_Main_Window", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:10px; margin-bottom:10px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; font-weight:600;\">ISRT - RCON Help</span></p></body></html>"))
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:10px; margin-bottom:10px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; font-weight:600;\">ISRT Help</span></p></body></html>"))
         self.plainTextEdit.setPlainText(_translate("ISRT_Main_Window", "General Commands:\n"
 "\n"
 "help\n"
@@ -989,7 +989,7 @@ class Ui_ISRT_Main_Window(object):
 "Gets or sets a gamemode property for the length of the scenario.\n"
 "Lists available gamemode properties for the current gamemode."))
         self.label_bottom_help.setText(_translate("ISRT_Main_Window", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">For FAQs, known errors and further instructions please visit the Wiki:</span></p><p align=\"center\"><a href=\"https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/wiki\"><span style=\" font-size:18pt; text-decoration: underline; color:#0000ff;\">Online-Wiki</span></a></p></body></html>"))
-        self.TabWidget_Main_overall.setTabText(self.TabWidget_Main_overall.indexOf(self.Tab_Help), _translate("ISRT_Main_Window", "RCON Help"))
+        self.TabWidget_Main_overall.setTabText(self.TabWidget_Main_overall.indexOf(self.Tab_Help), _translate("ISRT_Main_Window", "Help"))
         self.TabWidget_Main_overall.setTabText(self.TabWidget_Main_overall.indexOf(self.Tab_Configure), _translate("ISRT_Main_Window", "Configure"))
         self.aboutbody.setText(_translate("ISRT_Main_Window", "<html><head/><body><p align=\"center\"><span style=\" font-size:22pt; font-weight:600;\">ISRT v0.6</span></p><p align=\"center\"><br/></p><p align=\"center\"><span style=\" font-size:16pt;\">Insurgency Sandstorm RCON/Query Tool</span></p><p align=\"center\"><span style=\" font-size:16pt;\">Created by Madman</span></p><p align=\"center\"><br/></p><p align=\"center\"><span style=\" font-size:16pt;\">Support: </span><a href=\"mailto:isrt@edelmeier.org\"><span style=\" font-size:18pt; text-decoration: underline; color:#0000ff;\">isrt@edelmeier.org</span></a></p><p align=\"center\"><a href=\"https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-Query-Tool\"><span style=\" font-size:16pt; text-decoration: underline; color:#0000ff;\">GitHub</span></a></p><p align=\"center\"><br/></p><p align=\"center\"><span style=\" font-size:16pt;\">Report issues </span><a href=\"https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/issues\"><span style=\" font-size:16pt; text-decoration: underline; color:#0000ff;\">here</span></a><br/></p><p align=\"center\"><a href=\"https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/blob/main/LICENSE\"><span style=\" font-size:14pt; text-decoration: underline; color:#0000ff;\">GNU/Public License Software </span></a></p></body></html>"))
         self.TabWidget_Main_overall.setTabText(self.TabWidget_Main_overall.indexOf(self.Tab_About), _translate("ISRT_Main_Window", "About"))

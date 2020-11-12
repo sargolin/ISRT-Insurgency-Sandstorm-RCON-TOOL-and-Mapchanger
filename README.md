@@ -11,6 +11,9 @@ https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/wiki
 ## 1. Release Notes
 - Implemented a couple of minor bug fixes and error handling routines
 - Transferred the software into a "tab-ed" layout for better performance and user experience
+- Introduced a catch method for mapchanger in case no map is chosen
+- Made the Query Port entry field a bite more precise
+- Inserted the Wiki-Link into the RCON Help page
 
 ## 2. General Remarks, Feedback and stuff...
 If you have any questions or feedback, please send me an e-mail to: isrt@edelmeier.org - In case of feature requests or find any error in the software, please open an issue or in any other case, just write to me on our Discord: https://discord.gg/zEdTrgg

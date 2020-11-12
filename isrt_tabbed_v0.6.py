@@ -225,30 +225,34 @@ class maingui(QtWidgets.QWidget):
         val_gamemode = self.gui.dropdown_select_gamemode.currentText()
         val_light = self.gui.dropdown_select_lighting.currentText()
         
-        #Connect to database
-        dbdir = Path(__file__).absolute().parent
-        conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
-        c = conn.cursor()
-        c.execute("select map_scenario FROM maps WHERE map_name=:sql_map_name", {'sql_map_name':val_map})
-        val_travel = c.fetchone()
-        c.execute("select map_alias FROM maps WHERE map_name=:sql_map_name", {'sql_map_name':val_map})
-        val_map_alias = c.fetchone()
-        val_travel_result = (str(val_travel[0]))
-        val_map_alias_result = (str(val_map_alias[0]))
-        conn.commit()
-        conn.close()   
 
-        command = ("travel " + val_map_alias_result + "?Scenario=" + val_travel_result + "?Lighting=" + val_light + "?game=" + val_gamemode)
-
-        if command:
-            self.gui.label_rconcommand.setText(command)
-            self.checkandgorcon()
+        if val_map.startswith("Choose Map to travel to"):
+            self.gui.label_output_window.setText("This is not a valid map, please chose one first!")
         else:
-            self.gui.label_output_window.setText("Something went wrong with the Travel command, please check above and report it!")  
-        
+            #Connect to database
+            dbdir = Path(__file__).absolute().parent
+            conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
+            c = conn.cursor()
+            c.execute("select map_scenario FROM maps WHERE map_name=:sql_map_name", {'sql_map_name':val_map})
+            val_travel = c.fetchone()
+            c.execute("select map_alias FROM maps WHERE map_name=:sql_map_name", {'sql_map_name':val_map})
+            val_map_alias = c.fetchone()
+            val_travel_result = (str(val_travel[0]))
+            val_map_alias_result = (str(val_map_alias[0]))
+            conn.commit()
+            conn.close()   
 
-        self.checkandgoquery()
-        self.gui.progressbar_map_changer.setProperty("value", 0)
+            command = ("travel " + val_map_alias_result + "?Scenario=" + val_travel_result + "?Lighting=" + val_light + "?game=" + val_gamemode)
+
+            if command:
+                self.gui.label_rconcommand.setText(command)
+                self.checkandgorcon()
+            else:
+                self.gui.label_output_window.setText("Something went wrong with the Travel command, please check above and report it!")  
+            
+
+            self.checkandgoquery()
+            self.gui.progressbar_map_changer.setProperty("value", 0)
 
     #Redirect direct RCON commands to checkandgorcon
     def direct_rcon_command(self, command):
@@ -429,6 +433,8 @@ class maingui(QtWidgets.QWidget):
         self.gui.le_ping.setText(str(self.servernetworkdetails['ping']))
         self.gui.le_map.setText(str(self.servergamedetails['game_map']))
         self.gui.le_mods.setText(str(self.mutatorids))
+        print(self.servergamedetails)
+        print(self.serverruledetails)
 
         #Create Map View Picture absed on running map
         def assign_map_view_pic(self):
