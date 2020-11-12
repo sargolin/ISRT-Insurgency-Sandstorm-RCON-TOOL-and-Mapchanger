@@ -108,7 +108,7 @@ class InfoResponse(ResponsePaket):
         try:
             extra_data_flags = self._buffer.read_byte()
         except:
-            logger.debug('No extra data flags set.')
+            self.logger.debug('No extra data flags set.')
         else:
             if extra_data_flags & 0x80:
                 info['server_port'] = self._buffer.read_short()

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>histmgr_window</class>
+ <widget class="QWidget" name="histmgr_window">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>588</width>
+    <height>556</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>2500</width>
+    <height>1440</height>
+   </size>
+  </property>
+  <property name="font">
+   <font>
+    <pointsize>10</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>RCON Command History Manager</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../img/isrt.ico</normaloff>../img/isrt.ico</iconset>
+  </property>
+  <property name="toolTip">
+   <string>Command History Manager</string>
+  </property>
+  <property name="statusTip">
+   <string>Command History Manager</string>
+  </property>
+  <widget class="QPushButton" name="btn_histmgr_close">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>520</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:rgb(228, 228, 228)
+</string>
+   </property>
+   <property name="text">
+    <string>Close</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,36 @@
+Insurgency Sandstorm RCON Tool v0.5 released - a lot of new features!
+
+
+
+Hi Admins and Server owners,
+
+Version 0.5 of the Insurgency Sandstorm RCON Tool for Windows and Linux has been released with a lot of new features! I'm still looking for users that might test it and let me know, in case you find bugs or have feature requests - if you like, give it a shot, it only takes a couple of minutes to try it.
+
+Download Zip-File at: https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-Query-Tool
+
+<center><img src="http://gs.tct-gaming.com/isrt05.jpg"></center>
+
+<center><img src="http://gs.tct-gaming.com/isrt05a.jpg"></center>
+
+Release Notes:
+Implemented error handling routines, direct rcon commands, map changer and progess bar for map changer
+Put in a link for issue reporting
+Added copy of console content
+Made content of RCOn help and console content mark- and copy-able
+Inserted Map view thumbnails for the running maps
+Inserted a lot of custom maps
+Made the entire app resizable
+Introduced Modify Button for Server Manager
+
+Known bugs:
+List Player command produces a weird output that has to be structured - next release
+
+Thanks for your help, contribution or just giving it a chance!
+Yours,
+Madman
+
+
+
+TBD:
+History of commands as dropdown!!!
+Configurable Quick Commands!
