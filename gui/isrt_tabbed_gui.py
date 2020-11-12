@@ -683,6 +683,8 @@ class Ui_ISRT_Main_Window(object):
         self.verticalLayout_12.setObjectName("verticalLayout_12")
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
+        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem)
         self.helpbody = QtWidgets.QLabel(self.Tab_Help)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -692,6 +694,8 @@ class Ui_ISRT_Main_Window(object):
         self.helpbody.setStyleSheet("background-color: rgb(240, 240, 240);")
         self.helpbody.setObjectName("helpbody")
         self.verticalLayout.addWidget(self.helpbody)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem1)
         self.horizontalLayout_9 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_9.setObjectName("horizontalLayout_9")
         self.plainTextEdit = QtWidgets.QPlainTextEdit(self.Tab_Help)
@@ -718,6 +722,17 @@ class Ui_ISRT_Main_Window(object):
         self.label_21.setObjectName("label_21")
         self.horizontalLayout_9.addWidget(self.label_21)
         self.verticalLayout.addLayout(self.horizontalLayout_9)
+        self.label_bottom_help = QtWidgets.QLabel(self.Tab_Help)
+        self.label_bottom_help.setMinimumSize(QtCore.QSize(0, 100))
+        self.label_bottom_help.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.label_bottom_help.setOpenExternalLinks(True)
+        self.label_bottom_help.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
+        self.label_bottom_help.setObjectName("label_bottom_help")
+        self.verticalLayout.addWidget(self.label_bottom_help)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem2)
+        spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem3)
         self.verticalLayout_12.addLayout(self.verticalLayout)
         self.TabWidget_Main_overall.addTab(self.Tab_Help, "")
         self.Tab_Configure = QtWidgets.QWidget()
@@ -728,13 +743,19 @@ class Ui_ISRT_Main_Window(object):
         self.verticalLayout_11 = QtWidgets.QVBoxLayout(self.Tab_About)
         self.verticalLayout_11.setObjectName("verticalLayout_11")
         self.aboutbody = QtWidgets.QLabel(self.Tab_About)
+        self.aboutbody.setStyleSheet("border-image: url(:/img/img/about-bck.jpg);\n"
+"background-color: #f0f0f0;\n"
+"background-position: center;\n"
+"background-repeat: no-repeat;")
+        self.aboutbody.setOpenExternalLinks(True)
+        self.aboutbody.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByKeyboard|QtCore.Qt.LinksAccessibleByMouse|QtCore.Qt.TextBrowserInteraction|QtCore.Qt.TextSelectableByKeyboard|QtCore.Qt.TextSelectableByMouse)
         self.aboutbody.setObjectName("aboutbody")
         self.verticalLayout_11.addWidget(self.aboutbody)
         self.TabWidget_Main_overall.addTab(self.Tab_About, "")
         self.horizontalLayout_8.addWidget(self.TabWidget_Main_overall)
 
         self.retranslateUi(ISRT_Main_Window)
-        self.TabWidget_Main_overall.setCurrentIndex(0)
+        self.TabWidget_Main_overall.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(ISRT_Main_Window)
 
     def retranslateUi(self, ISRT_Main_Window):
@@ -967,8 +988,9 @@ class Ui_ISRT_Main_Window(object):
 "\n"
 "Gets or sets a gamemode property for the length of the scenario.\n"
 "Lists available gamemode properties for the current gamemode."))
+        self.label_bottom_help.setText(_translate("ISRT_Main_Window", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">For FAQs, known errors and further instructions please visit the Wiki:</span></p><p align=\"center\"><a href=\"https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/wiki\"><span style=\" font-size:18pt; text-decoration: underline; color:#0000ff;\">Online-Wiki</span></a></p></body></html>"))
         self.TabWidget_Main_overall.setTabText(self.TabWidget_Main_overall.indexOf(self.Tab_Help), _translate("ISRT_Main_Window", "RCON Help"))
         self.TabWidget_Main_overall.setTabText(self.TabWidget_Main_overall.indexOf(self.Tab_Configure), _translate("ISRT_Main_Window", "Configure"))
-        self.aboutbody.setText(_translate("ISRT_Main_Window", "<html><head/><body><p align=\"center\"><span style=\" font-size:22pt; font-weight:600;\">ISRT v0.6</span></p><p align=\"center\"><span style=\" font-size:16pt;\">Insurgency Sandstorm RCON/Query Tool</span></p><p align=\"center\"><span style=\" font-size:16pt;\">Created by Madman</span></p><p align=\"center\"><span style=\" font-size:16pt;\">Support: isrt@edelmeier.org</span></p><p align=\"center\"><span style=\" font-size:16pt;\">GitHub</span></p><p align=\"center\"><span style=\" font-size:16pt;\">GNU/Public License Software </span></p></body></html>"))
+        self.aboutbody.setText(_translate("ISRT_Main_Window", "<html><head/><body><p align=\"center\"><span style=\" font-size:22pt; font-weight:600;\">ISRT v0.6</span></p><p align=\"center\"><br/></p><p align=\"center\"><span style=\" font-size:16pt;\">Insurgency Sandstorm RCON/Query Tool</span></p><p align=\"center\"><span style=\" font-size:16pt;\">Created by Madman</span></p><p align=\"center\"><br/></p><p align=\"center\"><span style=\" font-size:16pt;\">Support: </span><a href=\"mailto:isrt@edelmeier.org\"><span style=\" font-size:18pt; text-decoration: underline; color:#0000ff;\">isrt@edelmeier.org</span></a></p><p align=\"center\"><a href=\"https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-Query-Tool\"><span style=\" font-size:16pt; text-decoration: underline; color:#0000ff;\">GitHub</span></a></p><p align=\"center\"><br/></p><p align=\"center\"><span style=\" font-size:16pt;\">Report issues </span><a href=\"https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/issues\"><span style=\" font-size:16pt; text-decoration: underline; color:#0000ff;\">here</span></a><br/></p><p align=\"center\"><a href=\"https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/blob/main/LICENSE\"><span style=\" font-size:14pt; text-decoration: underline; color:#0000ff;\">GNU/Public License Software </span></a></p></body></html>"))
         self.TabWidget_Main_overall.setTabText(self.TabWidget_Main_overall.indexOf(self.Tab_About), _translate("ISRT_Main_Window", "About"))
 import res_rc

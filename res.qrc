@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="img">
+    <file>img/about-bck.jpg</file>
     <file>img/isrt.ico</file>
     <file>img/isrt-bck.png</file>
     <file>img/Insurgency-Sandstorm.jpg</file>
