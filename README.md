@@ -4,7 +4,7 @@ This is a python (3.8.6) - and PyQt5/SQLite3-based RCON Tool for mapchanging and
 ### For Installation How-to, common problems, issue reporting, commands and usage and test scenario descriptions visit the Wiki pages via the link below: 
 https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/wiki
 
-<center><img src="http://gs.tct-gaming.com/isrt05.jpg"></center>
+<center><img src="http://src.isrt.info/isrt_v0.6.JPG"></center>
 
 #### Status: In development phase of full release - open for all ideas
 
