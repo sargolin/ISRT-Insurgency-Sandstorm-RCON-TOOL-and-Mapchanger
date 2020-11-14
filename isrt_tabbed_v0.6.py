@@ -62,7 +62,6 @@ class maingui(QtWidgets.QWidget):
         self.fill_dropdown_custom_command()
         self.fill_list_custom_command()
         self.fill_dropdown_map_box()
-        self.create_serverlist_dropdown()
 
 
         #Define the server manager tab
@@ -169,37 +168,29 @@ class maingui(QtWidgets.QWidget):
         self.gui.dropdown_custom_commands.activated[str].connect(assign_custom_commands_values_list)
 
 
+
+
+
+    '''------------------------------------------------------------------
+    Query Intervall Handling
+    ------------------------------------------------------------------'''
     #Enable the Query Refresh Button
     def query_intervall(self):
-        if self.gui.btn_main_exec_query.isChecked():
-            while True:
-                threading.Thread(print("hello"))
-                threading.Thread(time.sleep(2))
-                if not self.gui.btn_main_exec_query.isChecked():
-                    break
+        #self.gui.btn_main_exec_query.isChecked():
+        pass
             
+
+
+
+
+
+
+
+
             
-            
-            
-            
-        #     self.gui.btn_main_exec_query.setText("Stop Query Intervall")
-        #     #threading.Timer(2, print("stackoverflow")).start()
-
-        #     for i in range(10):
-        #         time.sleep(2)
-        #         print("execute")
-
-        # else:
-        #     self.gui.btn_main_exec_query.setText("Start Query Intervall")
-
-        # # else:
-        # #     self.gui.btn_main_exec_query.setText("Start Query Intervall")
-        
-        # # while self.gui.btn_main_exec_query.isChecked():
-        # #     self.gui.btn_main_exec_query.setText("Stop Query Intervall")
-
-        
-
+    '''------------------------------------------------------------------
+    Dropdown Menu Handling
+    ------------------------------------------------------------------'''            
     #Fill Dropdown Menue for custom commands from scratch
     def fill_dropdown_custom_command(self):
         #Connect to database
@@ -216,29 +207,6 @@ class maingui(QtWidgets.QWidget):
 
         conn.commit()
         conn.close()  
-
-    #Fill Dropdown Menue Server Selection from scratch
-    def fill_dropdown_server_box(self):
-        #Connect to database
-        dbdir = Path(__file__).absolute().parent
-        conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
-        c = conn.cursor()
-        c.execute("select alias FROM server")
-        dd_alias = c.fetchall()
-        
-        self.gui.dropdown_select_server.clear()
-
-        for row in dd_alias:
-            self.gui.dropdown_select_server.addItems(row)
-
-        conn.commit()
-        conn.close()    
-
-    #Copy2Clipboard
-    def copy2clipboard(self):
-        copyvar = self.gui.label_output_window.text()
-        QtWidgets.QApplication.clipboard().setText(copyvar)
-
     #Fill Dropdown Custom Commands Manager
     def fill_list_custom_command(self):
         #Connect to database
@@ -254,8 +222,51 @@ class maingui(QtWidgets.QWidget):
             self.gui.list_custom_commands_console.addItems(row)
 
         conn.commit()
-        conn.close()    
+        conn.close()   
+    #Fill Dropdown Menue Server Selection and Serverlist in Server Manager
+    def fill_dropdown_server_box(self):
+        #Connect to database
+        dbdir = Path(__file__).absolute().parent
+        conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
+        c = conn.cursor()
+        c.execute("select alias FROM server")
+        dd_alias = c.fetchall()
+        
+        self.gui.dropdown_select_server.clear()
+        self.gui.dropdown_server_list.clear()
 
+        for row in dd_alias:
+            self.gui.dropdown_select_server.addItems(row)
+            self.gui.dropdown_server_list.addItems(row)
+
+        conn.commit()
+        conn.close()    
+    #Fill Dropdown Menu for Mapchanging from scratch
+    def fill_dropdown_map_box(self):
+        #Connect to database
+        dbdir = Path(__file__).absolute().parent
+        conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
+        c = conn.cursor()
+        c.execute("select map_name FROM maps ORDER by Map_name")
+        dm_alias = c.fetchall()
+        
+        self.gui.dropdown_select_travelscenario.clear()
+
+        for row in dm_alias:
+            self.gui.dropdown_select_travelscenario.addItems(row)
+
+        conn.commit()
+        conn.close() 
+
+
+
+
+
+
+
+    '''------------------------------------------------------------------
+    Custom Command Handling
+    ------------------------------------------------------------------'''    
     #Clear all Custom Commands
     def custom_command_clear_all(self):
         #Connect to database
@@ -270,7 +281,6 @@ class maingui(QtWidgets.QWidget):
         conn.close()  
         self.fill_list_custom_command()
         self.fill_dropdown_custom_command()
-
     #Clear selected commands from Custom commands
     def custom_command_clear_selected(self):
         #Connect to database
@@ -294,141 +304,18 @@ class maingui(QtWidgets.QWidget):
 
         self.fill_list_custom_command()
         self.fill_dropdown_custom_command()
-  
-    #Fill Dropdown Menu for Mapchanging from scratch
-    def fill_dropdown_map_box(self):
-        #Connect to database
-        dbdir = Path(__file__).absolute().parent
-        conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
-        c = conn.cursor()
-        c.execute("select map_name FROM maps ORDER by Map_name")
-        dm_alias = c.fetchall()
-        
-        self.gui.dropdown_select_travelscenario.clear()
-
-        for row in dm_alias:
-            self.gui.dropdown_select_travelscenario.addItems(row)
-
-        conn.commit()
-        conn.close()    
-
-    #Mapchanger
-    def map_changer(self):
-        
-        #Define required variables
-        val_map = self.gui.dropdown_select_travelscenario.currentText()
-        val_gamemode = self.gui.dropdown_select_gamemode.currentText()
-        val_light = self.gui.dropdown_select_lighting.currentText()
         
 
-        if val_map.startswith("Choose Map to travel to"):
-            self.gui.label_output_window.setText("This is not a valid map, please chose one first!")
-        else:
-            #Connect to database
-            dbdir = Path(__file__).absolute().parent
-            conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
-            c = conn.cursor()
-            c.execute("select map_scenario FROM maps WHERE map_name=:sql_map_name", {'sql_map_name':val_map})
-            val_travel = c.fetchone()
-            c.execute("select map_alias FROM maps WHERE map_name=:sql_map_name", {'sql_map_name':val_map})
-            val_map_alias = c.fetchone()
-            val_travel_result = (str(val_travel[0]))
-            val_map_alias_result = (str(val_map_alias[0]))
-            conn.commit()
-            conn.close()   
 
-            command = ("travel " + val_map_alias_result + "?Scenario=" + val_travel_result + "?Lighting=" + val_light + "?game=" + val_gamemode)
 
-            if command:
-                self.gui.label_rconcommand.setText(command)
-                self.checkandgorcon()
-            else:
-                self.gui.label_output_window.setText("Something went wrong with the Travel command, please check above and report it!")  
-            
 
-            self.checkandgoquery()
-            self.gui.progressbar_map_changer.setProperty("value", 0)
 
-    #Redirect direct RCON commands to checkandgorcon
-    def direct_rcon_command(self, command):
-        #Check if an rcon command is passed        
-        if command:
-            self.gui.label_rconcommand.setText(command)
-            self.checkandgorcon()  
-        else:
-           self.gui.label_output_window.setText("Something went wrong with the RCON command, please report it!")  
 
-    #Check for the format string and go for the rcon command, but only if rcon port and rcon password are given
-    def checkandgorcon(self):
-        #Check IP
-        self.regexip = r'''^(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
-        25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
-        25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
-        25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)$'''
 
-        command_check = self.gui.label_rconcommand.text()
 
-        save_command_check = None
-
-        if self.gui.CheckBox_save_custom_command.isChecked():
-            save_command_check = 1
-        else:
-            save_command_check = 0
-
-        val_localhost = "127.0.0.1"
-
-        if self.gui.entry_ip.text() == val_localhost:
-            self.gui.label_output_window.setText("Due to a Windows connection problem, 127.0.0.1 cannot be used currently, please use your LAN IP-Address!")
-        else:    
-            if self.gui.entry_rconpw.text() and command_check.startswith("help") or command_check.startswith("listplayers") or command_check.startswith("kick") or command_check.startswith("permban") or command_check.startswith("travel") or command_check.startswith("ban") or command_check.startswith("banid") or command_check.startswith("listbans") or command_check.startswith("unban") or command_check.startswith("say") or command_check.startswith("restartround") or command_check.startswith("maps") or command_check.startswith("scenarios") or command_check.startswith("travelscenario") or command_check.startswith("gamemodeproperty") or command_check.startswith("listgamemodeproperties"):
-                if (re.search(self.regexip, self.gui.entry_ip.text())):  
-                    self.serverhost = self.gui.entry_ip.text()
-                    try:
-                        if self.gui.entry_rconport.text() and 1 <= int(self.gui.entry_rconport.text()) <= 65535:
-                            serverhost = str(self.gui.entry_ip.text())
-                            rconpassword = str(self.gui.entry_rconpw.text())
-                            rconport = int(self.gui.entry_rconport.text())
-                            rconcommand = str(self.gui.label_rconcommand.text())
-                            print(save_command_check)
-                            if save_command_check == 1 and command_check:
-                                dbdir = Path(__file__).absolute().parent
-                                conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
-                                c = conn.cursor()
-                                c.execute("INSERT INTO cust_commands VALUES (:commands)",{'commands': command_check})
-                                conn.commit()
-                                conn.close()
-                                self.fill_dropdown_custom_command()
-                                self.fill_list_custom_command()
-                            try:
-                                self.rconserver(serverhost, rconpassword,  rconport, rconcommand)
-                                self.gui.progressbar_map_changer.setProperty("value", 33)
-                                time.sleep(1)
-                                self.gui.progressbar_map_changer.setProperty("value", 66)
-                                time.sleep(1)
-                                self.gui.progressbar_map_changer.setProperty("value", 100)
-                                time.sleep(0.1)
-                                self.gui.progressbar_map_changer.setProperty("value", 0)
-                            except Exception as e: 
-                                msg = QtWidgets.QMessageBox()
-                                msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
-                                msg.setIcon(QtWidgets.QMessageBox.Critical)
-                                msg.setWindowTitle("ISRT Error Message")
-                                msg.setText("Something went wrong: \n\n" + str(e) + "\n\nWrong IP, RCOn Command, Port or Password?")
-                                msg.exec_()
-                                self.gui.progressbar_map_changer.setProperty("value", 0)
-                            self.gui.CheckBox_save_custom_command.setChecked(False)
-                        else:
-                            raise ValueError
-                    except ValueError:
-                        self.gui.label_output_window.setText(self.gui.entry_rconport.text() + " is no valid Port number - please retry!")
-                        self.gui.progressbar_map_changer.setProperty("value", 0)
-                else:  
-                    self.gui.label_output_window.setText(self.gui.entry_ip.text() + " is no valid IP address - please retry!")       
-                    self.gui.progressbar_map_changer.setProperty("value", 0)  
-            else:
-                self.gui.label_output_window.setText("No RCON Password given or no valid RCON command - please retry!")    
-                self.gui.progressbar_map_changer.setProperty("value", 0)
-        
+    '''------------------------------------------------------------------
+    Query Handling
+    ------------------------------------------------------------------'''
     #Check for the IP and Queryport to be correct in syntax and range and go for the query
     def checkandgoquery(self):
         #Check IP
@@ -462,23 +349,6 @@ class maingui(QtWidgets.QWidget):
                     self.gui.label_output_window.setText(self.gui.entry_queryport.text() + " is no valid Port number - please retry!")
             else:  
                 self.gui.label_output_window.setText(self.gui.entry_ip.text() + " is no valid IP address - please retry!")  
-
-    #Execute RCON Command, when called by checkandgorcon()!
-    def rconserver(self, serverhost, rconpassword, rconport, rconcommand):
-        if rconcommand.startswith("say") or rconcommand.startswith("Say"):
-            self.gui.label_output_window.setText(rconcommand + " command has been sent to the server")
-            console = Console(host=serverhost, password=rconpassword, port=rconport)
-            commandconsole = (console.command(rconcommand))
-        elif rconcommand.startswith("restartround") or rconcommand.startswith("Restartround"):
-            self.gui.label_output_window.setText("Round restarted without Team swap!")
-            console = Console(host=serverhost, password=rconpassword, port=rconport)
-            commandconsole = (console.command(rconcommand)) 
-        else:
-            console = Console(host=serverhost, password=rconpassword, port=rconport)
-            commandconsole = (console.command(rconcommand))
-            self.gui.label_output_window.setText(str(commandconsole))
-        console.close() 
-
     #Execute Query Command, when called by checkandgoquery()!
     def queryserver(self, serverhost, queryport):
         self.server = query.Query(self.serverhost, self.queryport)
@@ -559,23 +429,153 @@ class maingui(QtWidgets.QWidget):
           
         assign_map_view_pic(self)
 
-    #Create the Dropdown Menu
-    def create_serverlist_dropdown(self):
-        #Connect to database
-        dbdir = Path(__file__).absolute().parent
-        conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
-        c = conn.cursor()
-        c.execute("select alias FROM server")
-        dd_alias = c.fetchall()
+
+
+
+
+
+
+    '''------------------------------------------------------------------
+    RCON Handling
+    ------------------------------------------------------------------'''
+    #Mapchanger
+    def map_changer(self):
         
-        self.gui.dropdown_server_list.clear()
+        #Define required variables
+        val_map = self.gui.dropdown_select_travelscenario.currentText()
+        val_gamemode = self.gui.dropdown_select_gamemode.currentText()
+        val_light = self.gui.dropdown_select_lighting.currentText()
+        
 
-        for row in dd_alias:
-            self.gui.dropdown_server_list.addItems(row)
+        if val_map.startswith("Choose Map to travel to"):
+            self.gui.label_output_window.setText("This is not a valid map, please chose one first!")
+        else:
+            #Connect to database
+            dbdir = Path(__file__).absolute().parent
+            conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
+            c = conn.cursor()
+            c.execute("select map_scenario FROM maps WHERE map_name=:sql_map_name", {'sql_map_name':val_map})
+            val_travel = c.fetchone()
+            c.execute("select map_alias FROM maps WHERE map_name=:sql_map_name", {'sql_map_name':val_map})
+            val_map_alias = c.fetchone()
+            val_travel_result = (str(val_travel[0]))
+            val_map_alias_result = (str(val_map_alias[0]))
+            conn.commit()
+            conn.close()   
 
-        conn.commit()
-        conn.close()
+            command = ("travel " + val_map_alias_result + "?Scenario=" + val_travel_result + "?Lighting=" + val_light + "?game=" + val_gamemode)
 
+            if command:
+                self.gui.label_rconcommand.setText(command)
+                self.checkandgorcon()
+            else:
+                self.gui.label_output_window.setText("Something went wrong with the Travel command, please check above and report it!")  
+            
+
+            self.checkandgoquery()
+            self.gui.progressbar_map_changer.setProperty("value", 0)
+    #Redirect direct RCON commands to checkandgorcon
+    def direct_rcon_command(self, command):
+        #Check if an rcon command is passed        
+        if command:
+            self.gui.label_rconcommand.setText(command)
+            self.checkandgorcon()  
+        else:
+           self.gui.label_output_window.setText("Something went wrong with the RCON command, please report it!")  
+    #Check for the format string and go for the rcon command, but only if rcon port and rcon password are given
+    def checkandgorcon(self):
+        #Check IP
+        self.regexip = r'''^(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)$'''
+
+        command_check = self.gui.label_rconcommand.text()
+
+        save_command_check = None
+
+        if self.gui.CheckBox_save_custom_command.isChecked():
+            save_command_check = 1
+        else:
+            save_command_check = 0
+
+        val_localhost = "127.0.0.1"
+
+        if self.gui.entry_ip.text() == val_localhost:
+            self.gui.label_output_window.setText("Due to a Windows connection problem, 127.0.0.1 cannot be used currently, please use your LAN IP-Address!")
+        else:    
+            if self.gui.entry_rconpw.text() and command_check.startswith("help") or command_check.startswith("listplayers") or command_check.startswith("kick") or command_check.startswith("permban") or command_check.startswith("travel") or command_check.startswith("ban") or command_check.startswith("banid") or command_check.startswith("listbans") or command_check.startswith("unban") or command_check.startswith("say") or command_check.startswith("restartround") or command_check.startswith("maps") or command_check.startswith("scenarios") or command_check.startswith("travelscenario") or command_check.startswith("gamemodeproperty") or command_check.startswith("listgamemodeproperties"):
+                if (re.search(self.regexip, self.gui.entry_ip.text())):  
+                    self.serverhost = self.gui.entry_ip.text()
+                    try:
+                        if self.gui.entry_rconport.text() and 1 <= int(self.gui.entry_rconport.text()) <= 65535:
+                            serverhost = str(self.gui.entry_ip.text())
+                            rconpassword = str(self.gui.entry_rconpw.text())
+                            rconport = int(self.gui.entry_rconport.text())
+                            rconcommand = str(self.gui.label_rconcommand.text())
+                            if save_command_check == 1 and command_check:
+                                dbdir = Path(__file__).absolute().parent
+                                conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
+                                c = conn.cursor()
+                                c.execute("INSERT INTO cust_commands VALUES (:commands)",{'commands': command_check})
+                                conn.commit()
+                                conn.close()
+                                self.fill_dropdown_custom_command()
+                                self.fill_list_custom_command()
+                            try:
+                                self.rconserver(serverhost, rconpassword,  rconport, rconcommand)
+                                self.gui.progressbar_map_changer.setProperty("value", 33)
+                                time.sleep(1)
+                                self.gui.progressbar_map_changer.setProperty("value", 66)
+                                time.sleep(1)
+                                self.gui.progressbar_map_changer.setProperty("value", 100)
+                                time.sleep(0.1)
+                                self.gui.progressbar_map_changer.setProperty("value", 0)
+                            except Exception as e: 
+                                msg = QtWidgets.QMessageBox()
+                                msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
+                                msg.setIcon(QtWidgets.QMessageBox.Critical)
+                                msg.setWindowTitle("ISRT Error Message")
+                                msg.setText("Something went wrong: \n\n" + str(e) + "\n\nWrong IP, RCOn Command, Port or Password?")
+                                msg.exec_()
+                                self.gui.progressbar_map_changer.setProperty("value", 0)
+                            self.gui.CheckBox_save_custom_command.setChecked(False)
+                        else:
+                            raise ValueError
+                    except ValueError:
+                        self.gui.label_output_window.setText(self.gui.entry_rconport.text() + " is no valid Port number - please retry!")
+                        self.gui.progressbar_map_changer.setProperty("value", 0)
+                else:  
+                    self.gui.label_output_window.setText(self.gui.entry_ip.text() + " is no valid IP address - please retry!")       
+                    self.gui.progressbar_map_changer.setProperty("value", 0)  
+            else:
+                self.gui.label_output_window.setText("No RCON Password given or no valid RCON command - please retry!")    
+                self.gui.progressbar_map_changer.setProperty("value", 0)
+    #Execute RCON Command, when called by checkandgorcon()!
+    def rconserver(self, serverhost, rconpassword, rconport, rconcommand):
+        if rconcommand.startswith("say") or rconcommand.startswith("Say"):
+            self.gui.label_output_window.setText(rconcommand + " command has been sent to the server")
+            console = Console(host=serverhost, password=rconpassword, port=rconport)
+            commandconsole = (console.command(rconcommand))
+        elif rconcommand.startswith("restartround") or rconcommand.startswith("Restartround"):
+            self.gui.label_output_window.setText("Round restarted without Team swap!")
+            console = Console(host=serverhost, password=rconpassword, port=rconport)
+            commandconsole = (console.command(rconcommand)) 
+        else:
+            console = Console(host=serverhost, password=rconpassword, port=rconport)
+            commandconsole = (console.command(rconcommand))
+            self.gui.label_output_window.setText(str(commandconsole))
+        console.close() 
+
+
+
+
+
+
+
+    '''------------------------------------------------------------------
+    Server Manager
+    ------------------------------------------------------------------'''
     #Add a server to DB
     def server_add(self):
         val_alias = self.gui.server_alias.text()
@@ -650,9 +650,7 @@ class maingui(QtWidgets.QWidget):
 
        
         conn.close()
-        self.create_serverlist_dropdown()
-        self.fill_dropdown_box()
-
+        self.fill_dropdown_server_box()
     #Modify a server in DB
     def server_modify(self):
         val_alias = self.gui.server_alias.text()
@@ -700,9 +698,7 @@ class maingui(QtWidgets.QWidget):
             self.gui.label_db_console.append("Update not possible, Server does not exist in Database - try to add it first!")
                 
         conn.close()
-        self.create_serverlist_dropdown()
-        self.fill_dropdown_box()
-
+        self.fill_dropdown_server_box()
     #Delete a Server from DB
     def server_delete(self):
         val_alias = self.gui.server_alias.text()
@@ -735,61 +731,24 @@ class maingui(QtWidgets.QWidget):
         self.fill_dropdown_box()
         self.create_serverlist_dropdown()
 
+
+
+
+
+
+    '''------------------------------------------------------------------
+    Exit App and special Handling Routines
+    ------------------------------------------------------------------'''
+    #Copy2Clipboard
+    def copy2clipboard(self):
+        copyvar = self.gui.label_output_window.text()
+        QtWidgets.QApplication.clipboard().setText(copyvar)
     #Exit the App itself
     def exit_app(self):
         self.close()
 
 
 
-
-class queryIntervall(threading.Thread):
-    '''
-    create a thread object that will do the counting in the background
-    default interval is 1/1000 of a second
-    '''
-    def __init__(self, interval=1):
-        # init the thread
-        threading.Thread.__init__(self)
-        self.interval = interval  # seconds
-        # initial value
-        self.value = 0
-        # controls the while loop in method run
-        self.alive = False
-    def run(self):
-        '''
-        this will run in its own thread via self.start()
-        '''
-        self.alive = True
-        while self.alive:
-            time.sleep(self.interval)
-            # update count value
-            self.value += self.interval
-            print("Go")
-
-    def peek(self):
-        '''
-        return the current value
-        '''
-        return self.value
-    def finish(self):
-        '''
-        close the thread, return final value
-        '''
-        # stop the while loop in method run
-        self.alive = False
-        return self.value
-# create the class instance
-count = queryIntervall()
-# start the count
-count.start()
-# test the counter with a key board response time
-# or put your own code you want to background-time in here
-# you can always peek at the current counter value
-e = input("Press Enter")
-e = input("Press Enter again")
-# stop the count and get elapsed time
-seconds = count.finish()
-print("You took {} seconds between Enter actions".format(seconds))
 
 
 
