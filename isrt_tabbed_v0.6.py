@@ -8,7 +8,7 @@
 #
 
 #Importing required classes and libraries
-import sys, query, os, re, sqlite3, time
+import sys, query, os, re, sqlite3, time, threading
 from PyQt5 import QtCore, QtGui, QtWidgets
 from rcon import Console
 from pathlib import Path
@@ -30,7 +30,6 @@ class maingui(QtWidgets.QWidget):
         #Define buttons and menu items including their functionalities
         self.gui.btn_main_exec_query.clicked.connect(self.checkandgoquery)
         self.gui.btn_main_exec_rcon.clicked.connect(self.checkandgorcon)
-        # ToDo: self.gui.btn_main_rcon_help.clicked.connect(self.show_help_app)
         self.gui.btn_main_drcon_changemap.clicked.connect(self.map_changer)
         self.gui.btn_main_drcon_help.clicked.connect(lambda: self.direct_rcon_command("help"))
         self.gui.btn_main_drcon_listplayers.clicked.connect(lambda: self.direct_rcon_command("listplayers"))
@@ -44,6 +43,10 @@ class maingui(QtWidgets.QWidget):
         self.gui.btn_main_drcon_roundlimit.clicked.connect(lambda: self.direct_rcon_command("gamemodeproperty RoundLimit"))
         self.gui.btn_main_drcon_showroundtime.clicked.connect(lambda: self.direct_rcon_command("gamemodeproperty RoundTime"))
         self.gui.btn_main_copytoclipboard.clicked.connect(self.copy2clipboard)
+        self.gui.btn_cust_delete_selected.clicked.connect(self.custom_command_clear_selected)
+        self.gui.btn_cust_delete_all.clicked.connect(self.custom_command_clear_all)
+        
+        self.gui.btn_main_exec_query.clicked.connect(self.query_intervall)
 
         #Define entry fields for user input
         self.gui.entry_ip.returnPressed.connect(self.checkandgoquery)
@@ -55,9 +58,12 @@ class maingui(QtWidgets.QWidget):
         self.gui.label_rconcommand.returnPressed.connect(self.checkandgorcon)
 
         #Fill the Dropdown menus
-        self.fill_dropdown_box()
-        self.fill_dropdown_history_box()
-        self.fill_map_dropdown_box()
+        self.fill_dropdown_server_box()
+        self.fill_dropdown_custom_command()
+        self.fill_list_custom_command()
+        self.fill_dropdown_map_box()
+        self.create_serverlist_dropdown()
+
 
         #Define the server manager tab
         self.gui.btn_server_add.clicked.connect(self.server_add)
@@ -71,8 +77,7 @@ class maingui(QtWidgets.QWidget):
         self.gui.server_rconport.returnPressed.connect(self.server_add)
         self.gui.server_rconpw.returnPressed.connect(self.server_add)
 
-        self.create_dropdown()
-
+        #Fill the Server dropdown menu
         def assign_server_values(text):
             dbdir = Path(__file__).absolute().parent
             self.assign_server_values_text = text
@@ -110,9 +115,7 @@ class maingui(QtWidgets.QWidget):
             self.gui.server_rconport.setText(sel_rconport)
             self.gui.server_rconpw.setText(sel_rconpw)
 
-        self.gui.dropdown_server_list.activated[str].connect(assign_server_values)
-
-        #Assign Server variables for Dropdown menu
+        #Assign Server variables for Dropdown menu on selection
         def assign_server_values_list(text):
             self.assign_server_values_list_text = text
             selection = self.assign_server_values_list_text
@@ -143,43 +146,79 @@ class maingui(QtWidgets.QWidget):
             conn.commit()
             conn.close()
 
+
+
             self.gui.entry_ip.setText(sel_ipaddress)
             self.gui.entry_queryport.setText(sel_queryport)
             self.gui.entry_rconport.setText(sel_rconport)
             self.gui.entry_rconpw.setText(sel_rconpw)
             self.checkandgoquery()
 
-        #Assign history variables for Dropdown menu
-        def assign_history_values_list(text):
-            self.assign_history_values_list_text = text
-            selection = self.assign_history_values_list_text
+        self.gui.dropdown_server_list.activated[str].connect(assign_server_values)
+
+        #Assign custom Commands variables for Dropdown menu
+        def assign_custom_commands_values_list(text):
+            self.assign_custom_commands_values_list_text = text
+            selection = self.assign_custom_commands_values_list_text
             #Handover selected RCON Command
             self.gui.label_rconcommand.setText(selection)
             self.checkandgorcon()
 
         #Connect execution of selected variables with drop down menu select
         self.gui.dropdown_select_server.activated[str].connect(assign_server_values_list)
-        self.gui.dropdown_command_history.activated[str].connect(assign_history_values_list)
+        self.gui.dropdown_custom_commands.activated[str].connect(assign_custom_commands_values_list)
 
-    #Fill Dropdown Menue Command history from scratch
-    def fill_dropdown_history_box(self):
+
+    #Enable the Query Refresh Button
+    def query_intervall(self):
+        if self.gui.btn_main_exec_query.isChecked():
+            while True:
+                threading.Thread(print("hello"))
+                threading.Thread(time.sleep(2))
+                if not self.gui.btn_main_exec_query.isChecked():
+                    break
+            
+            
+            
+            
+            
+        #     self.gui.btn_main_exec_query.setText("Stop Query Intervall")
+        #     #threading.Timer(2, print("stackoverflow")).start()
+
+        #     for i in range(10):
+        #         time.sleep(2)
+        #         print("execute")
+
+        # else:
+        #     self.gui.btn_main_exec_query.setText("Start Query Intervall")
+
+        # # else:
+        # #     self.gui.btn_main_exec_query.setText("Start Query Intervall")
+        
+        # # while self.gui.btn_main_exec_query.isChecked():
+        # #     self.gui.btn_main_exec_query.setText("Stop Query Intervall")
+
+        
+
+    #Fill Dropdown Menue for custom commands from scratch
+    def fill_dropdown_custom_command(self):
         #Connect to database
         dbdir = Path(__file__).absolute().parent
         conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
         c = conn.cursor()
-        c.execute("select commands FROM history")
+        c.execute("select distinct commands FROM cust_commands")
         dh_alias = c.fetchall()
         
-        self.gui.dropdown_command_history.clear()
+        self.gui.dropdown_custom_commands.clear()
 
         for row in dh_alias:
-            self.gui.dropdown_command_history.addItems(row)
+            self.gui.dropdown_custom_commands.addItems(row)
 
         conn.commit()
         conn.close()  
 
     #Fill Dropdown Menue Server Selection from scratch
-    def fill_dropdown_box(self):
+    def fill_dropdown_server_box(self):
         #Connect to database
         dbdir = Path(__file__).absolute().parent
         conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
@@ -200,8 +239,64 @@ class maingui(QtWidgets.QWidget):
         copyvar = self.gui.label_output_window.text()
         QtWidgets.QApplication.clipboard().setText(copyvar)
 
+    #Fill Dropdown Custom Commands Manager
+    def fill_list_custom_command(self):
+        #Connect to database
+        dbdir = Path(__file__).absolute().parent
+        conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
+        c = conn.cursor()
+        c.execute("select distinct commands FROM cust_commands")
+        dcust_alias = c.fetchall()
+        
+        self.gui.list_custom_commands_console.clear()
+
+        for row in dcust_alias:
+            self.gui.list_custom_commands_console.addItems(row)
+
+        conn.commit()
+        conn.close()    
+
+    #Clear all Custom Commands
+    def custom_command_clear_all(self):
+        #Connect to database
+        dbdir = Path(__file__).absolute().parent
+        conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
+        c = conn.cursor()
+        c.execute("DELETE from cust_commands")
+        
+        self.gui.list_custom_commands_console.clear()
+
+        conn.commit()
+        conn.close()  
+        self.fill_list_custom_command()
+        self.fill_dropdown_custom_command()
+
+    #Clear selected commands from Custom commands
+    def custom_command_clear_selected(self):
+        #Connect to database
+        dbdir = Path(__file__).absolute().parent
+        conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
+        c = conn.cursor()
+
+
+        delete_commands = self.gui.list_custom_commands_console.selectedItems()
+        
+        #print(self.gui.list_custom_commands_console.selectedItems())
+        if delete_commands:
+         for row in delete_commands:
+             print(row.text())
+             c.execute("DELETE FROM cust_commands WHERE commands=:delcommand", {'delcommand': row.text()})
+         else:
+             pass
+
+        conn.commit()
+        conn.close()
+
+        self.fill_list_custom_command()
+        self.fill_dropdown_custom_command()
+  
     #Fill Dropdown Menu for Mapchanging from scratch
-    def fill_map_dropdown_box(self):
+    def fill_dropdown_map_box(self):
         #Connect to database
         dbdir = Path(__file__).absolute().parent
         conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
@@ -273,17 +368,12 @@ class maingui(QtWidgets.QWidget):
 
         command_check = self.gui.label_rconcommand.text()
 
+        save_command_check = None
 
-        #Connect to database
-        dbdir = Path(__file__).absolute().parent
-        conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
-        c = conn.cursor()
-        c.execute("INSERT INTO history VALUES (:commands)",{'commands': command_check})
-
-        conn.commit()
-        conn.close()
-
-        self.fill_dropdown_history_box()
+        if self.gui.CheckBox_save_custom_command.isChecked():
+            save_command_check = 1
+        else:
+            save_command_check = 0
 
         val_localhost = "127.0.0.1"
 
@@ -298,7 +388,17 @@ class maingui(QtWidgets.QWidget):
                             serverhost = str(self.gui.entry_ip.text())
                             rconpassword = str(self.gui.entry_rconpw.text())
                             rconport = int(self.gui.entry_rconport.text())
-                            rconcommand = str(self.gui.label_rconcommand.text())   
+                            rconcommand = str(self.gui.label_rconcommand.text())
+                            print(save_command_check)
+                            if save_command_check == 1 and command_check:
+                                dbdir = Path(__file__).absolute().parent
+                                conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
+                                c = conn.cursor()
+                                c.execute("INSERT INTO cust_commands VALUES (:commands)",{'commands': command_check})
+                                conn.commit()
+                                conn.close()
+                                self.fill_dropdown_custom_command()
+                                self.fill_list_custom_command()
                             try:
                                 self.rconserver(serverhost, rconpassword,  rconport, rconcommand)
                                 self.gui.progressbar_map_changer.setProperty("value", 33)
@@ -313,9 +413,10 @@ class maingui(QtWidgets.QWidget):
                                 msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
                                 msg.setIcon(QtWidgets.QMessageBox.Critical)
                                 msg.setWindowTitle("ISRT Error Message")
-                                msg.setText("Something went wrong: \n\n" + str(e) + "\n\nWrong IP, Port or Password?")
+                                msg.setText("Something went wrong: \n\n" + str(e) + "\n\nWrong IP, RCOn Command, Port or Password?")
                                 msg.exec_()
                                 self.gui.progressbar_map_changer.setProperty("value", 0)
+                            self.gui.CheckBox_save_custom_command.setChecked(False)
                         else:
                             raise ValueError
                     except ValueError:
@@ -459,7 +560,7 @@ class maingui(QtWidgets.QWidget):
         assign_map_view_pic(self)
 
     #Create the Dropdown Menu
-    def create_dropdown(self):
+    def create_serverlist_dropdown(self):
         #Connect to database
         dbdir = Path(__file__).absolute().parent
         conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
@@ -549,7 +650,7 @@ class maingui(QtWidgets.QWidget):
 
        
         conn.close()
-        self.create_dropdown()
+        self.create_serverlist_dropdown()
         self.fill_dropdown_box()
 
     #Modify a server in DB
@@ -599,7 +700,7 @@ class maingui(QtWidgets.QWidget):
             self.gui.label_db_console.append("Update not possible, Server does not exist in Database - try to add it first!")
                 
         conn.close()
-        self.create_dropdown()
+        self.create_serverlist_dropdown()
         self.fill_dropdown_box()
 
     #Delete a Server from DB
@@ -632,11 +733,65 @@ class maingui(QtWidgets.QWidget):
 
 
         self.fill_dropdown_box()
-        self.create_dropdown()
+        self.create_serverlist_dropdown()
 
     #Exit the App itself
     def exit_app(self):
         self.close()
+
+
+
+
+class queryIntervall(threading.Thread):
+    '''
+    create a thread object that will do the counting in the background
+    default interval is 1/1000 of a second
+    '''
+    def __init__(self, interval=1):
+        # init the thread
+        threading.Thread.__init__(self)
+        self.interval = interval  # seconds
+        # initial value
+        self.value = 0
+        # controls the while loop in method run
+        self.alive = False
+    def run(self):
+        '''
+        this will run in its own thread via self.start()
+        '''
+        self.alive = True
+        while self.alive:
+            time.sleep(self.interval)
+            # update count value
+            self.value += self.interval
+            print("Go")
+
+    def peek(self):
+        '''
+        return the current value
+        '''
+        return self.value
+    def finish(self):
+        '''
+        close the thread, return final value
+        '''
+        # stop the while loop in method run
+        self.alive = False
+        return self.value
+# create the class instance
+count = queryIntervall()
+# start the count
+count.start()
+# test the counter with a key board response time
+# or put your own code you want to background-time in here
+# you can always peek at the current counter value
+e = input("Press Enter")
+e = input("Press Enter again")
+# stop the count and get elapsed time
+seconds = count.finish()
+print("You took {} seconds between Enter actions".format(seconds))
+
+
 
 
 

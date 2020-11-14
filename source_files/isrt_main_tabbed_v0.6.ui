@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>725</width>
-    <height>780</height>
+    <width>745</width>
+    <height>796</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,8 +18,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>725</width>
-    <height>780</height>
+    <width>745</width>
+    <height>796</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -29,21 +29,12 @@
    <iconset resource="../res.qrc">
     <normaloff>:/img/img/isrt.ico</normaloff>:/img/img/isrt.ico</iconset>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout_8">
-   <property name="leftMargin">
-    <number>0</number>
-   </property>
-   <property name="topMargin">
-    <number>0</number>
-   </property>
-   <property name="rightMargin">
-    <number>0</number>
-   </property>
-   <property name="bottomMargin">
-    <number>0</number>
-   </property>
+  <layout class="QHBoxLayout" name="horizontalLayout_10">
    <item>
     <widget class="QTabWidget" name="TabWidget_Main_overall">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="minimumSize">
       <size>
        <width>725</width>
@@ -148,6 +139,9 @@
                      <property name="statusTip">
                       <string>IP Address of the server</string>
                      </property>
+                     <property name="styleSheet">
+                      <string notr="true">background-color:rgb(254, 254, 254);</string>
+                     </property>
                      <property name="text">
                       <string/>
                      </property>
@@ -172,6 +166,9 @@
                      </property>
                      <property name="statusTip">
                       <string>Query Port of the server</string>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">background-color:rgb(254, 254, 254);</string>
                      </property>
                      <property name="text">
                       <string/>
@@ -201,6 +198,9 @@
                      <property name="layoutDirection">
                       <enum>Qt::LeftToRight</enum>
                      </property>
+                     <property name="styleSheet">
+                      <string notr="true">background-color:rgb(254, 254, 254);</string>
+                     </property>
                      <property name="text">
                       <string/>
                      </property>
@@ -228,6 +228,9 @@
                      </property>
                      <property name="layoutDirection">
                       <enum>Qt::LeftToRight</enum>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">background-color:rgb(254, 254, 254);</string>
                      </property>
                      <property name="text">
                       <string/>
@@ -283,7 +286,10 @@
 </string>
                      </property>
                      <property name="text">
-                      <string>Get Server Info</string>
+                      <string>Start Query Intervall</string>
+                     </property>
+                     <property name="checkable">
+                      <bool>true</bool>
                      </property>
                     </widget>
                    </item>
@@ -1353,7 +1359,7 @@ background-repeat: no-repeat;</string>
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>680</width>
+              <width>682</width>
               <height>296</height>
              </rect>
             </property>
@@ -1454,7 +1460,7 @@ background-repeat: no-repeat;</string>
             <widget class="QLineEdit" name="label_rconcommand">
              <property name="minimumSize">
               <size>
-               <width>315</width>
+               <width>190</width>
                <height>21</height>
               </size>
              </property>
@@ -1468,7 +1474,7 @@ background-repeat: no-repeat;</string>
               <string>Enter RCON commands</string>
              </property>
              <property name="styleSheet">
-              <string notr="true"/>
+              <string notr="true">background-color:rgb(254, 254, 254);</string>
              </property>
              <property name="text">
               <string/>
@@ -1485,18 +1491,45 @@ background-repeat: no-repeat;</string>
             </widget>
            </item>
            <item>
-            <widget class="QComboBox" name="dropdown_command_history">
+            <widget class="QCheckBox" name="CheckBox_save_custom_command">
+             <property name="font">
+              <font>
+               <pointsize>7</pointsize>
+              </font>
+             </property>
+             <property name="toolTip">
+              <string>Add as custom command</string>
+             </property>
+             <property name="statusTip">
+              <string>Add as custom command</string>
+             </property>
+             <property name="text">
+              <string>Add as custom command</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="dropdown_custom_commands">
              <property name="minimumSize">
               <size>
-               <width>200</width>
+               <width>150</width>
                <height>20</height>
               </size>
+             </property>
+             <property name="toolTip">
+              <string>Select Custom Command</string>
+             </property>
+             <property name="statusTip">
+              <string>Select Custom Command</string>
              </property>
              <property name="styleSheet">
               <string notr="true">background-color:rgb(248, 248, 248);</string>
              </property>
+             <property name="currentText">
+              <string>Select Custom Command</string>
+             </property>
              <property name="placeholderText">
-              <string>Command History</string>
+              <string>Select Custom Command</string>
              </property>
             </widget>
            </item>
@@ -1635,6 +1668,9 @@ background-repeat: no-repeat;</string>
              <property name="statusTip">
               <string>Alias Name of the server</string>
              </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:rgb(254, 254, 254);</string>
+             </property>
              <property name="text">
               <string/>
              </property>
@@ -1657,6 +1693,9 @@ background-repeat: no-repeat;</string>
              <property name="statusTip">
               <string>IP Address of the server</string>
              </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:rgb(254, 254, 254);</string>
+             </property>
              <property name="text">
               <string/>
              </property>
@@ -1678,6 +1717,9 @@ background-repeat: no-repeat;</string>
              </property>
              <property name="statusTip">
               <string>Query Port of the server</string>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:rgb(254, 254, 254);</string>
              </property>
              <property name="text">
               <string/>
@@ -1704,6 +1746,9 @@ background-repeat: no-repeat;</string>
              <property name="layoutDirection">
               <enum>Qt::LeftToRight</enum>
              </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:rgb(254, 254, 254);</string>
+             </property>
              <property name="text">
               <string/>
              </property>
@@ -1728,6 +1773,9 @@ background-repeat: no-repeat;</string>
              </property>
              <property name="layoutDirection">
               <enum>Qt::LeftToRight</enum>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:rgb(254, 254, 254);</string>
              </property>
              <property name="text">
               <string/>
@@ -1959,10 +2007,79 @@ p, li { white-space: pre-wrap; }
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="Tab_History">
+     <widget class="QWidget" name="Tab_Custom_Commands">
       <attribute name="title">
-       <string>History Manager</string>
+       <string>Custom Command Manager</string>
       </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_14">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_13">
+         <item>
+          <widget class="QListWidget" name="list_custom_commands_console">
+           <property name="mouseTracking">
+            <bool>true</bool>
+           </property>
+           <property name="toolTip">
+            <string>History of Commands</string>
+           </property>
+           <property name="statusTip">
+            <string>History of Commands</string>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color:rgb(248, 248, 248);</string>
+           </property>
+           <property name="editTriggers">
+            <set>QAbstractItemView::NoEditTriggers</set>
+           </property>
+           <property name="selectionMode">
+            <enum>QAbstractItemView::ExtendedSelection</enum>
+           </property>
+           <property name="selectionBehavior">
+            <enum>QAbstractItemView::SelectRows</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_8">
+           <item>
+            <widget class="QPushButton" name="btn_cust_delete_selected">
+             <property name="toolTip">
+              <string>Delete selected Commands from List</string>
+             </property>
+             <property name="statusTip">
+              <string>Delete selected Commands from List</string>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:rgb(228, 228, 228)
+</string>
+             </property>
+             <property name="text">
+              <string>Delete selected Commands from List</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_cust_delete_all">
+             <property name="toolTip">
+              <string>Delete all Custom Commands</string>
+             </property>
+             <property name="statusTip">
+              <string>Delete all Custom Commands</string>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:rgb(228, 228, 228)
+</string>
+             </property>
+             <property name="text">
+              <string>Clear all Custom Commands</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+      </layout>
      </widget>
      <widget class="QWidget" name="Tab_Map">
       <attribute name="title">
@@ -2198,6 +2315,121 @@ Lists available gamemode properties for the current gamemode.</string>
       <attribute name="title">
        <string>Configure</string>
       </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_16">
+       <item>
+        <spacer name="verticalSpacer_6">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Minimum</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>10</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_15">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_11">
+           <item>
+            <widget class="QCheckBox" name="checkBox_refresh_trigger">
+             <property name="toolTip">
+              <string>Refresh Trigger On/Off</string>
+             </property>
+             <property name="statusTip">
+              <string>Refresh Trigger On/Off</string>
+             </property>
+             <property name="text">
+              <string>Refresh Server query regularly</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::MinimumExpanding</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>250</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_11">
+             <property name="minimumSize">
+              <size>
+               <width>200</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Refresh intervall:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="entry_refresh_timer">
+             <property name="minimumSize">
+              <size>
+               <width>30</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>2500</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>Refresh intervall in seconds</string>
+             </property>
+             <property name="statusTip">
+              <string>Refresh intervall in seconds</string>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:rgb(248, 248, 248);</string>
+             </property>
+             <property name="text">
+              <string>10</string>
+             </property>
+             <property name="placeholderText">
+              <string>Sec</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_5">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
      </widget>
      <widget class="QWidget" name="Tab_About">
       <attribute name="title">
