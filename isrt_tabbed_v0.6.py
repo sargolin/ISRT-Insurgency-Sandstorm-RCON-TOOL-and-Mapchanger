@@ -1,26 +1,31 @@
-#
-# # ISRT - Insurgency Sandstorm RCon Tool; 12.11.2020, Sargolin aka @ Madman
-# In case of questions: isrt@edelmeier.org
-# Git: https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-Query-Tool
-# v0.6_tabbed - Transfer to tabbed version and removal of menu bar
-# Database: ./db/isrt_data.db
-# This is open Source, you may use, copy, modify it as you wish - feel free!
-#
+'''
+ISRT - Insurgency Sandstorm RCon Tool; 12.11.2020, Sargolin aka @ Madman
+In case of questions: isrt@edelmeier.org
+Git: https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-Query-Tool
+v0.6_tabbed - Transfer to tabbed version and removal of menu bar
+Database: ./db/isrt_data.db
+This is open Source, you may use, copy, modify it as you wish - feel free!
+'''
+
 
 #Importing required classes and libraries
-import sys, query, os, re, sqlite3, time, threading
+'''------------------------------------------------------------------
+Import Stuff
+------------------------------------------------------------------'''
+import sys, query, os, re, sqlite3, time
 from PyQt5 import QtCore, QtGui, QtWidgets
 from rcon import Console
 from pathlib import Path
 from gui.isrt_tabbed_gui import Ui_ISRT_Main_Window
 
-#
-#Definition part
-#
-#Start definition of Classes, Functions/Methods and variables/attributes
-#
+
+
+
 
 #PyQt5 Main UI Initialization
+'''------------------------------------------------------------------
+Main GUI Handlers
+------------------------------------------------------------------'''
 class maingui(QtWidgets.QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -264,6 +269,7 @@ class maingui(QtWidgets.QWidget):
 
 
 
+
     '''------------------------------------------------------------------
     Custom Command Handling
     ------------------------------------------------------------------'''    
@@ -305,6 +311,7 @@ class maingui(QtWidgets.QWidget):
         self.fill_list_custom_command()
         self.fill_dropdown_custom_command()
         
+
 
 
 
@@ -428,6 +435,7 @@ class maingui(QtWidgets.QWidget):
             conn.close()  
           
         assign_map_view_pic(self)
+
 
 
 
@@ -566,6 +574,7 @@ class maingui(QtWidgets.QWidget):
             commandconsole = (console.command(rconcommand))
             self.gui.label_output_window.setText(str(commandconsole))
         console.close() 
+
 
 
 
@@ -730,6 +739,7 @@ class maingui(QtWidgets.QWidget):
 
         self.fill_dropdown_box()
         self.create_serverlist_dropdown()
+
 
 
 
