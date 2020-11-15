@@ -50,8 +50,7 @@ class maingui(QtWidgets.QWidget):
         self.gui.btn_main_copytoclipboard.clicked.connect(self.copy2clipboard)
         self.gui.btn_cust_delete_selected.clicked.connect(self.custom_command_clear_selected)
         self.gui.btn_cust_delete_all.clicked.connect(self.custom_command_clear_all)
-        
-        self.gui.btn_main_exec_query.clicked.connect(self.query_intervall)
+        self.gui.btn_save_settings.clicked.connect(self.refresh_query_button)
 
         #Define entry fields for user input
         self.gui.entry_ip.returnPressed.connect(self.checkandgoquery)
@@ -67,7 +66,6 @@ class maingui(QtWidgets.QWidget):
         self.fill_dropdown_custom_command()
         self.fill_list_custom_command()
         self.fill_dropdown_map_box()
-
 
         #Define the server manager tab
         self.gui.btn_server_add.clicked.connect(self.server_add)
@@ -171,6 +169,10 @@ class maingui(QtWidgets.QWidget):
         #Connect execution of selected variables with drop down menu select
         self.gui.dropdown_select_server.activated[str].connect(assign_server_values_list)
         self.gui.dropdown_custom_commands.activated[str].connect(assign_custom_commands_values_list)
+
+
+
+
 
 
 
@@ -323,6 +325,16 @@ class maingui(QtWidgets.QWidget):
     '''------------------------------------------------------------------
     Query Handling
     ------------------------------------------------------------------'''
+    #Refresh the Query Button according to settings
+    def refresh_query_button(self):
+        if self.gui.checkBox_refresh_trigger.isChecked():
+            self.gui.btn_main_exec_query.clicked.connect(self.query_intervall)
+            self.gui.btn_main_exec_query.setText("Start Query Intervall")
+            self.gui.btn_main_exec_query.setCheckable(True)
+        else:
+            self.gui.btn_main_exec_query.clicked.connect(self.checkandgoquery)
+            self.gui.btn_main_exec_query.setText("Get Server Info")
+            self.gui.btn_main_exec_query.setCheckable(False)
     #Check for the IP and Queryport to be correct in syntax and range and go for the query
     def checkandgoquery(self):
         #Check IP
@@ -369,7 +381,6 @@ class maingui(QtWidgets.QWidget):
         self.ranked = (self.serverruledetails['RankedServer_b'])
         self.coop = (self.serverruledetails['Coop_b'])
         self.mods = (self.serverruledetails['Mutated_b'])    
-
         if  self.mods == "true":
             self.servermodcheck = "Yes"
         else:
@@ -413,8 +424,8 @@ class maingui(QtWidgets.QWidget):
         self.gui.le_mods.setText(str(self.mutatorids))
         
         #Only for debugging needed
-        #print(self.servergamedetails)
-        #print(self.serverruledetails)
+        # print(self.servergamedetails)
+        # print(self.serverruledetails)
 
         #Create Map View Picture absed on running map
         def assign_map_view_pic(self):
