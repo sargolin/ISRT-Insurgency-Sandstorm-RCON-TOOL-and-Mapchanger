@@ -767,6 +767,14 @@ class Ui_ISRT_Main_Window(object):
         self.verticalLayout_15.addLayout(self.horizontalLayout_11)
         spacerItem8 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_15.addItem(spacerItem8)
+        self.label_saving_indicator = QtWidgets.QLabel(self.Tab_Configure)
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.label_saving_indicator.setFont(font)
+        self.label_saving_indicator.setText("")
+        self.label_saving_indicator.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_saving_indicator.setObjectName("label_saving_indicator")
+        self.verticalLayout_15.addWidget(self.label_saving_indicator)
         self.verticalLayout_16.addLayout(self.verticalLayout_15)
         self.TabWidget_Main_overall.addTab(self.Tab_Configure, "")
         self.Tab_Help = QtWidgets.QWidget()
@@ -844,7 +852,7 @@ class Ui_ISRT_Main_Window(object):
         self.horizontalLayout_10.addWidget(self.TabWidget_Main_overall)
 
         self.retranslateUi(ISRT_Main_Window)
-        self.TabWidget_Main_overall.setCurrentIndex(0)
+        self.TabWidget_Main_overall.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(ISRT_Main_Window)
 
     def retranslateUi(self, ISRT_Main_Window):
