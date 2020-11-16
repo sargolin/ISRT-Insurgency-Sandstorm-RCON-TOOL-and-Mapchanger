@@ -58,8 +58,9 @@ class maingui(QtWidgets.QWidget):
         self.gui.entry_rconport.returnPressed.connect(self.checkandgoquery)
         self.gui.entry_rconpw.returnPressed.connect(self.checkandgoquery)
 
-        #Connect RCON Label with enter key press
+        #Connect Labels with enter key press
         self.gui.label_rconcommand.returnPressed.connect(self.checkandgorcon)
+        self.gui.entry_refresh_timer.returnPressed.connect(self.checkandgorcon)
 
         #Fill the Dropdown menus
         self.fill_dropdown_server_box()
@@ -191,30 +192,20 @@ class maingui(QtWidgets.QWidget):
            # while self.gui.btn_main_exec_query.isChecked() and self.gui.btn_main_exec_query.isChecked():
 
 
-            x = 1
 
             def testfunc():
-                global x
+                x = 1
                 while x == 1:
-                    print(f"Running for the {x} time")
-                    time.sleep(1)
+                    self.checkandgoquery()
+                    refresh_timer = int(self.gui.entry_refresh_timer.text())
+                    time.sleep(refresh_timer)
+                    if self.gui.btn_main_exec_query.isChecked():
+                        x = 1
+                    else:
+                        x = 0
 
             t1 = threading.Thread(target=testfunc)
             t1.start()
-
-            print("What value should x take?")
-            y = input()
-            x = int(y)
-
-
-
-
-
-
-
-
-
-
 
 
         else:
