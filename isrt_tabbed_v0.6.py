@@ -35,22 +35,11 @@ class maingui(QtWidgets.QWidget):
         #Define buttons and menu items including their functionalities
         self.gui.btn_main_exec_query.clicked.connect(self.query_intervall)
         self.gui.btn_main_exec_rcon.clicked.connect(self.checkandgorcon)
-        self.gui.btn_main_drcon_changemap.clicked.connect(self.map_changer)
-        self.gui.btn_main_drcon_help.clicked.connect(lambda: self.direct_rcon_command("help"))
-        self.gui.btn_main_drcon_listplayers.clicked.connect(lambda: self.direct_rcon_command("listplayers"))
-        self.gui.btn_main_drcon_listbans.clicked.connect(lambda: self.direct_rcon_command("listbans"))
-        self.gui.btn_main_drcon_listscenarios.clicked.connect(lambda: self.direct_rcon_command("scenarios Precinct"))
-        self.gui.btn_main_drcon_listmaps.clicked.connect(lambda: self.direct_rcon_command("maps"))
-        self.gui.btn_main_drcon_showaidiff.clicked.connect(lambda: self.direct_rcon_command("gamemodeproperty AIDifficulty"))
-        self.gui.btn_main_drcon_restartround.clicked.connect(lambda: self.direct_rcon_command("restartround 0"))
-        self.gui.btn_main_drcon_showgamemode.clicked.connect(lambda: self.direct_rcon_command("gamemodeproperty GameModeTagName"))
-        self.gui.btn_main_drcon_showsupply.clicked.connect(lambda: self.direct_rcon_command("gamemodeproperty InitialSupply"))
-        self.gui.btn_main_drcon_roundlimit.clicked.connect(lambda: self.direct_rcon_command("gamemodeproperty RoundLimit"))
-        self.gui.btn_main_drcon_showroundtime.clicked.connect(lambda: self.direct_rcon_command("gamemodeproperty RoundTime"))
-        self.gui.btn_main_copytoclipboard.clicked.connect(self.copy2clipboard)
         self.gui.btn_cust_delete_selected.clicked.connect(self.custom_command_clear_selected)
         self.gui.btn_cust_delete_all.clicked.connect(self.custom_command_clear_all)
         self.gui.btn_save_settings.clicked.connect(self.save_settings)
+        self.gui.btn_main_copytoclipboard.clicked.connect(self.copy2clipboard)
+        self.gui.btn_main_drcon_changemap.clicked.connect(self.map_changer)
 
         #Define entry fields for user input
         self.gui.entry_ip.returnPressed.connect(self.checkandgoquery)
@@ -176,6 +165,8 @@ class maingui(QtWidgets.QWidget):
         self.gui.label_saving_indicator.clear()
 
 
+        #Call method to define the custom buttons
+        self.assign_main_custom_buttons()
 
 
 
@@ -188,29 +179,37 @@ class maingui(QtWidgets.QWidget):
     ------------------------------------------------------------------'''
     #Enable the Query Refresh Button
     def query_intervall(self):
-        if self.gui.checkBox_refresh_trigger.isChecked():
-           # while self.gui.btn_main_exec_query.isChecked() and self.gui.btn_main_exec_query.isChecked():
-
-
-
-            def testfunc():
-                x = 1
-                while x == 1:
-                    self.checkandgoquery()
-                    refresh_timer = int(self.gui.entry_refresh_timer.text())
-                    time.sleep(refresh_timer)
-                    if self.gui.btn_main_exec_query.isChecked():
-                        x = 1
-                    else:
-                        x = 0
-
-            t1 = threading.Thread(target=testfunc)
-            t1.start()
-
-
-        else:
-            self.checkandgoquery()
+        if self.gui.entry_ip.text() and self.gui.entry_queryport.text():
+            if self.gui.checkBox_refresh_trigger.isChecked():
             
+                def run_query_thread():
+                    #Connect to database
+                    dbdir = Path(__file__).absolute().parent
+                    conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
+                    c = conn.cursor()
+                    c.execute("select refresh_intervall FROM configuration")
+                    dconf_ri = c.fetchone()
+                    conn.commit()
+                    conn.close()  
+                    check_thread_var = 1
+                    while check_thread_var == 1:
+                        self.checkandgoquery()
+                        refresh_timer = int(dconf_ri[0])
+                        time.sleep(refresh_timer)
+                        if self.gui.btn_main_exec_query.isChecked():
+                            check_thread_var = 1
+                        else:
+                            check_thread_var = 0
+
+                QueryThread1 =  threading.Thread(target=run_query_thread)
+                QueryThread1.start()
+
+
+            else:
+                self.checkandgoquery()
+        else:
+            self.gui.label_output_window.setText("No IP-Address and/or query port given, please retry!")    
+            self.gui.btn_main_exec_query.setChecked(False)
 
 
 
@@ -337,7 +336,90 @@ class maingui(QtWidgets.QWidget):
 
         self.fill_list_custom_command()
         self.fill_dropdown_custom_command()
+    #Define the Custom Buttons in the Main menu
+    def assign_main_custom_buttons(self):
+
+
+        #Connect to database
+        dbdir = Path(__file__).absolute().parent
+        conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
+        c = conn.cursor()
+
+        c.execute("select btn1_name, btn1_command, btn2_name, btn2_command, btn3_name, btn3_command, btn4_name, btn4_command, btn5_name, btn5_command, btn6_name, btn6_command, btn7_name, btn7_command, btn8_name, btn8_command, btn9_name, btn9_command, btn10_name, btn10_command, btn11_name, btn11_command from configuration")
+        dbconf_1 = c.fetchall()
+        conn.commit()
+        for value in dbconf_1:
+            btn1_name = (value[0]) 
+            btn1_command = (value[1]) 
+            btn2_name = (value[2])
+            btn2_command = (value[3])
+            btn3_name = (value[4])
+            btn3_command = (value[5])
+            btn4_name = (value[6])
+            btn4_command = (value[7])
+            btn5_name = (value[8])
+            btn5_command = (value[9])
+            btn6_name = (value[10])
+            btn6_command = (value[11])
+            btn7_name = (value[12])
+            btn7_command = (value[13])
+            btn8_name = (value[14])
+            btn8_command = (value[15])
+            btn9_name = (value[16])
+            btn9_command = (value[17])
+            btn10_name = (value[18])
+            btn10_command = (value[19])
+            btn11_name = (value[20])
+            btn11_command = (value[21])
+
+        conn.close()
+
+        self.gui.btn_main_drcon_listplayers.setText(btn1_name)
+        self.gui.btn_main_drcon_listplayers_definition.setText(btn1_name)
+
+        self.gui.btn_main_drcon_listbans.setText(btn2_name)
+        self.gui.btn_main_drcon_listbans_definition.setText(btn2_name)
         
+        self.gui.btn_main_drcon_listmaps.setText(btn3_name)
+        self.gui.btn_main_drcon_listmaps_definition.setText(btn3_name)
+
+        self.gui.btn_main_drcon_listscenarios.setText(btn4_name)
+        self.gui.btn_main_drcon_listscenarios_definition.setText(btn4_name)
+
+        self.gui.btn_main_drcon_restartround.setText(btn5_name)
+        self.gui.btn_main_drcon_restartround_definition.setText(btn5_name)
+
+        self.gui.btn_main_drcon_showgamemode.setText(btn6_name)
+        self.gui.btn_main_drcon_showgamemode_definition.setText(btn6_name)
+
+        self.gui.btn_main_drcon_showaidiff.setText(btn7_name)
+        self.gui.btn_main_drcon_showaidiff_definition.setText(btn7_name)
+
+        self.gui.btn_main_drcon_showsupply.setText(btn8_name)
+        self.gui.btn_main_drcon_showsupply_definition.setText(btn8_name)
+
+        self.gui.btn_main_drcon_roundlimit.setText(btn9_name)
+        self.gui.btn_main_drcon_roundlimit_definition.setText(btn9_name)
+
+        self.gui.btn_main_drcon_showroundtime.setText(btn10_name)
+        self.gui.btn_main_drcon_showroundtime_definition.setText(btn10_name)
+
+        self.gui.btn_main_drcon_help.setText(btn11_name)
+        self.gui.btn_main_drcon_help_2definition.setText(btn11_name)
+
+
+
+        self.gui.btn_main_drcon_listplayers.clicked.connect(lambda: self.direct_rcon_command(btn1_command))
+        self.gui.btn_main_drcon_listbans.clicked.connect(lambda: self.direct_rcon_command(btn2_command))
+        self.gui.btn_main_drcon_listmaps.clicked.connect(lambda: self.direct_rcon_command(btn3_command))
+        self.gui.btn_main_drcon_listscenarios.clicked.connect(lambda: self.direct_rcon_command(btn4_command))
+        self.gui.btn_main_drcon_restartround.clicked.connect(lambda: self.direct_rcon_command(btn5_command))
+        self.gui.btn_main_drcon_showgamemode.clicked.connect(lambda: self.direct_rcon_command(btn6_command))
+        self.gui.btn_main_drcon_showaidiff.clicked.connect(lambda: self.direct_rcon_command(btn7_command))
+        self.gui.btn_main_drcon_showsupply.clicked.connect(lambda: self.direct_rcon_command(btn8_command))
+        self.gui.btn_main_drcon_roundlimit.clicked.connect(lambda: self.direct_rcon_command(btn9_command))
+        self.gui.btn_main_drcon_showroundtime.clicked.connect(lambda: self.direct_rcon_command(btn10_command))
+        self.gui.btn_main_drcon_help.clicked.connect(lambda: self.direct_rcon_command(btn11_command))
 
 
 
@@ -350,84 +432,6 @@ class maingui(QtWidgets.QWidget):
     '''------------------------------------------------------------------
     Query Handling
     ------------------------------------------------------------------'''
-    #Check status of configuration of refresh trigger
-    def get_configuration_from_DB_and_set_settings(self):
-        #Connect to database
-        dbdir = Path(__file__).absolute().parent
-        conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
-        c = conn.cursor()
-        c.execute("select refresh_trigger FROM configuration")
-        val_rf_trigger = c.fetchone()
-        for i in val_rf_trigger:
-            trigger_result = i
-        conn.commit()
-        if trigger_result == 0:
-            self.gui.btn_main_exec_query.setText("Get Server Infos")
-            self.gui.btn_main_exec_query.setCheckable(False)
-            self.gui.checkBox_refresh_trigger.setChecked(False)
-        else:
-            self.gui.btn_main_exec_query.setText("Start Query Intervall")
-            self.gui.btn_main_exec_query.setCheckable(True)
-            self.gui.checkBox_refresh_trigger.setChecked(True)
-        c.execute("select refresh_intervall FROM configuration")
-        val_rf_intervall = c.fetchone()
-        for i in val_rf_intervall:
-            refresh_result = i
-        conn.commit()
-        self.gui.entry_refresh_timer.setText(str(refresh_result))
-        conn.close()
-    #Refresh settings and set the Query Button plus values according to settings
-    def save_settings(self):
-        #Connect to database
-        dbdir = Path(__file__).absolute().parent
-        conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
-        c = conn.cursor()
-        c.execute("select refresh_trigger FROM configuration")
-        val_rf_check_trigger = c.fetchone()
-        #Check and Update Refresh Trigger
-        if self.gui.checkBox_refresh_trigger.isChecked():
-            val_trigger = 1
-            self.gui.btn_main_exec_query.clicked.connect(self.query_intervall)
-            self.gui.btn_main_exec_query.setText("Start Query Intervall")
-            self.gui.btn_main_exec_query.setCheckable(True)
-        else:
-            val_trigger = 0
-            self.gui.btn_main_exec_query.clicked.connect(self.checkandgoquery)
-            self.gui.btn_main_exec_query.setText("Get Server Info")
-            self.gui.btn_main_exec_query.setCheckable(False)
-        for t in val_rf_check_trigger:
-            val_temp_rf_check_trigger = t
-        if val_temp_rf_check_trigger != val_trigger:
-            c.execute("UPDATE configuration SET refresh_trigger=:trigger", {'trigger': val_trigger})
-            conn.commit()
-            self.gui.label_saving_indicator.setText("Saved!")
-        #Check and Update Intervall
-        c.execute("select refresh_intervall FROM configuration")
-        val_rf_intervall = c.fetchone()
-        for a in val_rf_intervall:
-            refresh_result = a
-        conn.commit()
-        new_refresh_intervall = self.gui.entry_refresh_timer.text()
-        def check_if_int(varcheck):
-            try:
-                int(new_refresh_intervall)
-                return True
-            except ValueError:
-                return False
-        check_int_val = check_if_int(new_refresh_intervall)
-        if check_int_val == True:
-            if int(new_refresh_intervall) != int(refresh_result):
-                c.execute("UPDATE configuration SET refresh_intervall=:intervall", {'intervall': new_refresh_intervall})
-                conn.commit()
-                self.gui.label_saving_indicator.setText("Saved!")
-        else:
-            msg = QtWidgets.QMessageBox()
-            msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
-            msg.setIcon(QtWidgets.QMessageBox.Critical)
-            msg.setWindowTitle("ISRT Error Message")
-            msg.setText(f"Something went wrong: \n\n {new_refresh_intervall} is no Integer (Full number)! \n\n Please try again!")
-            msg.exec_()
-        conn.close()
     #Check for the IP and Queryport to be correct in syntax and range and go for the query
     def checkandgoquery(self):
         #Check IP
@@ -665,6 +669,7 @@ class maingui(QtWidgets.QWidget):
                 self.gui.progressbar_map_changer.setProperty("value", 0)
     #Execute RCON Command, when called by checkandgorcon()!
     def rconserver(self, serverhost, rconpassword, rconport, rconcommand):
+        print(rconcommand)
         if rconcommand.startswith("say") or rconcommand.startswith("Say"):
             self.gui.label_output_window.setText(rconcommand + " command has been sent to the server")
             console = Console(host=serverhost, password=rconpassword, port=rconport)
@@ -853,6 +858,199 @@ class maingui(QtWidgets.QWidget):
     '''------------------------------------------------------------------
     Exit App and special Handling Routines
     ------------------------------------------------------------------'''
+    #Check status of configuration of refresh trigger
+    def get_configuration_from_DB_and_set_settings(self):
+
+        #Connect to database
+        dbdir = Path(__file__).absolute().parent
+        conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
+        c = conn.cursor()
+        c.execute("select refresh_trigger FROM configuration")
+        val_rf_trigger = c.fetchone()
+        for i in val_rf_trigger:
+            trigger_result = i
+        conn.commit()
+        if trigger_result == 0:
+            self.gui.btn_main_exec_query.setText("Get Server Infos")
+            self.gui.btn_main_exec_query.setCheckable(False)
+            self.gui.checkBox_refresh_trigger.setChecked(False)
+        else:
+            self.gui.btn_main_exec_query.setText("Start Query Intervall")
+            self.gui.btn_main_exec_query.setCheckable(True)
+            self.gui.checkBox_refresh_trigger.setChecked(True)
+        c.execute("select refresh_intervall FROM configuration")
+        val_rf_intervall = c.fetchone()
+        for i in val_rf_intervall:
+            refresh_result = i
+        conn.commit()
+        self.gui.entry_refresh_timer.setText(str(refresh_result))
+
+        c.execute("select btn1_name, btn1_command, btn2_name, btn2_command, btn3_name, btn3_command, btn4_name, btn4_command, btn5_name, btn5_command, btn6_name, btn6_command, btn7_name, btn7_command, btn8_name, btn8_command, btn9_name, btn9_command, btn10_name, btn10_command, btn11_name, btn11_command from configuration")
+        dbbutton_conf = c.fetchall()
+        conn.commit()
+        for value in dbbutton_conf:
+            pass
+
+        self.gui.label_button_name_1.setText(value[0])
+        self.gui.label_command_button_1.setText(value[1])
+
+        self.gui.label_button_name_2.setText(value[2])
+        self.gui.label_command_button_2.setText(value[3])
+
+        self.gui.label_button_name_3.setText(value[4])
+        self.gui.label_command_button_3.setText(value[5])
+
+        self.gui.label_button_name_4.setText(value[6])
+        self.gui.label_command_button_4.setText(value[7])
+
+        self.gui.label_button_name_5.setText(value[8])
+        self.gui.label_command_button_5.setText(value[9])
+
+        self.gui.label_button_name_6.setText(value[10])
+        self.gui.label_command_button_6.setText(value[11])
+        
+        self.gui.label_button_name_7.setText(value[12])
+        self.gui.label_command_button_7.setText(value[13])
+
+        self.gui.label_button_name_8.setText(value[14])
+        self.gui.label_command_button_8.setText(value[15])
+
+        self.gui.label_button_name_9.setText(value[16])
+        self.gui.label_command_button_9.setText(value[17])
+
+        self.gui.label_button_name_10.setText(value[18])
+        self.gui.label_command_button_10.setText(value[19])
+
+        self.gui.label_button_name_11.setText(value[20])
+        self.gui.label_command_button_11.setText(value[21])
+        conn.commit()
+
+        self.assign_main_custom_buttons()        
+
+        conn.close()
+    #Save changed settings
+    def save_settings(self):
+        #Connect to database
+        dbdir = Path(__file__).absolute().parent
+        conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
+        c = conn.cursor()
+        c.execute("select refresh_trigger FROM configuration")
+        val_rf_check_trigger = c.fetchone()
+        self.gui.btn_main_exec_query.setChecked(False)
+        #Check and Update Refresh Trigger
+        if self.gui.checkBox_refresh_trigger.isChecked():
+            val_trigger = 1
+            self.gui.btn_main_exec_query.clicked.connect(self.query_intervall)
+            self.gui.btn_main_exec_query.setText("Start Query Intervall")
+            self.gui.btn_main_exec_query.setCheckable(True)
+        else:
+            val_trigger = 0
+            self.gui.btn_main_exec_query.clicked.connect(self.checkandgoquery)
+            self.gui.btn_main_exec_query.setText("Get Server Info")
+            self.gui.btn_main_exec_query.setCheckable(False)
+        for t in val_rf_check_trigger:
+            val_temp_rf_check_trigger = t
+        if val_temp_rf_check_trigger != val_trigger:
+            c.execute("UPDATE configuration SET refresh_trigger=:trigger", {'trigger': val_trigger})
+            conn.commit()
+            self.gui.label_saving_indicator.setText("Saved!")
+        #Check and Update Intervall
+        c.execute("select refresh_intervall FROM configuration")
+        val_rf_intervall = c.fetchone()
+        for a in val_rf_intervall:
+            refresh_result = a
+        conn.commit()
+        new_refresh_intervall = self.gui.entry_refresh_timer.text()
+        def check_if_int(varcheck):
+            try:
+                int(new_refresh_intervall)
+                return True
+            except ValueError:
+                return False
+        check_int_val = check_if_int(new_refresh_intervall)
+        if check_int_val == True:
+            if int(new_refresh_intervall) != int(refresh_result):
+                c.execute("UPDATE configuration SET refresh_intervall=:intervall", {'intervall': new_refresh_intervall})
+                conn.commit()
+                self.gui.label_saving_indicator.setText("Saved!")
+        else:
+            msg = QtWidgets.QMessageBox()
+            msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
+            msg.setIcon(QtWidgets.QMessageBox.Critical)
+            msg.setWindowTitle("ISRT Error Message")
+            msg.setText(f"Something went wrong: \n\n {new_refresh_intervall} is no Integer (Full number)! \n\n Please try again!")
+            msg.exec_()
+
+
+
+
+
+        c.execute("select btn1_name, btn1_command, btn2_name, btn2_command, btn3_name, btn3_command, btn4_name, btn4_command, btn5_name, btn5_command, btn6_name, btn6_command, btn7_name, btn7_command, btn8_name, btn8_command, btn9_name, btn9_command, btn10_name, btn10_command, btn11_name, btn11_command from configuration")
+        dbconf_1 = c.fetchall()
+        conn.commit()
+        for value in dbconf_1:
+            btn1_name = (value[0]) 
+            btn1_command = (value[1]) 
+            btn2_name = (value[2])
+            btn2_command = (value[3])
+            btn3_name = (value[4])
+            btn3_command = (value[5])
+            btn4_name = (value[6])
+            btn4_command = (value[7])
+            btn5_name = (value[8])
+            btn5_command = (value[9])
+            btn6_name = (value[10])
+            btn6_command = (value[11])
+            btn7_name = (value[12])
+            btn7_command = (value[13])
+            btn8_name = (value[14])
+            btn8_command = (value[15])
+            btn9_name = (value[16])
+            btn9_command = (value[17])
+            btn10_name = (value[18])
+            btn10_command = (value[19])
+            btn11_name = (value[20])
+            btn11_command = (value[21])
+
+
+        new_btn1_name_var = self.gui.label_button_name_1.text()
+        new_btn1_command_var = self.gui.label_command_button_1.text()
+
+        if new_btn1_command_var.startswith("listplayers") or new_btn1_command_var.startswith("kick") or new_btn1_command_var.startswith("permban") or new_btn1_command_var.startswith("travel") or new_btn1_command_var.startswith("ban") or new_btn1_command_var.startswith("banid") or new_btn1_command_var.startswith("listbans") or new_btn1_command_var.startswith("unban") or new_btn1_command_var.startswith("say") or new_btn1_command_var.startswith("restartround") or new_btn1_command_var.startswith("maps") or new_btn1_command_var.startswith("scenarios") or new_btn1_command_var.startswith("travelscenario") or new_btn1_command_var.startswith("gamemodeproperty") or new_btn1_command_var.startswith("listgamemodeproperties"):
+            if btn1_name != new_btn1_name_var:
+                c.execute("UPDATE configuration SET btn1_name=:btn1name", {'btn1name': new_btn1_name_var})
+                conn.commit()
+                self.gui.label_saving_indicator.setText("Saved!")
+            elif btn1_command != new_btn1_command_var:
+                c.execute("UPDATE configuration SET btn1_command=:btn1command", {'btn1command': new_btn1_command_var})
+                conn.commit()
+                self.gui.label_saving_indicator.setText("Saved!")
+            else:
+                pass              
+        else:
+            msg = QtWidgets.QMessageBox()
+            msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
+            msg.setIcon(QtWidgets.QMessageBox.Critical)
+            msg.setWindowTitle("ISRT Error Message")
+            msg.setText(f"Something went wrong: \n\n {new_btn1_command_var} is no valid RCON command! \n\n Please try again!")
+            msg.exec_()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        self.assign_main_custom_buttons()
+        self.get_configuration_from_DB_and_set_settings()
+        conn.close()
     #Copy2Clipboard
     def copy2clipboard(self):
         copyvar = self.gui.label_output_window.text()
