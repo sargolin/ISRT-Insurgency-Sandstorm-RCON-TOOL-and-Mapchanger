@@ -15,7 +15,6 @@ A2S_RULES = b'\xFF\xFF\xFF\xFF\x56'
 S2A_INFO_SOURCE = chr(0x49)
 S2A_INFO_GOLDSRC = chr(0x6D)
 
-addr = (ip='93.186.198.185', port='27116')
 
 class SourceQuery(object):
     is_third = False

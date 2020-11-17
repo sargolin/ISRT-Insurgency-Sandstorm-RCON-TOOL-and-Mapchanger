@@ -46,6 +46,29 @@ class maingui(QtWidgets.QWidget):
         self.gui.entry_queryport.returnPressed.connect(self.checkandgoquery)
         self.gui.entry_rconport.returnPressed.connect(self.checkandgoquery)
         self.gui.entry_rconpw.returnPressed.connect(self.checkandgoquery)
+        self.gui.label_button_name_1.returnPressed.connect(self.save_settings)
+        self.gui.label_button_name_2.returnPressed.connect(self.save_settings)
+        self.gui.label_button_name_3.returnPressed.connect(self.save_settings)
+        self.gui.label_button_name_4.returnPressed.connect(self.save_settings)
+        self.gui.label_button_name_5.returnPressed.connect(self.save_settings)
+        self.gui.label_button_name_6.returnPressed.connect(self.save_settings)
+        self.gui.label_button_name_7.returnPressed.connect(self.save_settings)
+        self.gui.label_button_name_8.returnPressed.connect(self.save_settings)
+        self.gui.label_button_name_9.returnPressed.connect(self.save_settings)
+        self.gui.label_button_name_10.returnPressed.connect(self.save_settings)
+        self.gui.label_button_name_11.returnPressed.connect(self.save_settings)
+        self.gui.label_command_button_1.returnPressed.connect(self.save_settings)
+        self.gui.label_command_button_2.returnPressed.connect(self.save_settings)
+        self.gui.label_command_button_3.returnPressed.connect(self.save_settings)
+        self.gui.label_command_button_4.returnPressed.connect(self.save_settings)
+        self.gui.label_command_button_5.returnPressed.connect(self.save_settings)
+        self.gui.label_command_button_6.returnPressed.connect(self.save_settings)
+        self.gui.label_command_button_7.returnPressed.connect(self.save_settings)
+        self.gui.label_command_button_8.returnPressed.connect(self.save_settings)
+        self.gui.label_command_button_9.returnPressed.connect(self.save_settings)
+        self.gui.label_command_button_10.returnPressed.connect(self.save_settings)
+        self.gui.label_command_button_11.returnPressed.connect(self.save_settings)
+
 
         #Connect Labels with enter key press
         self.gui.label_rconcommand.returnPressed.connect(self.checkandgorcon)
@@ -323,10 +346,8 @@ class maingui(QtWidgets.QWidget):
 
         delete_commands = self.gui.list_custom_commands_console.selectedItems()
         
-        #print(self.gui.list_custom_commands_console.selectedItems())
         if delete_commands:
          for row in delete_commands:
-             print(row.text())
              c.execute("DELETE FROM cust_commands WHERE commands=:delcommand", {'delcommand': row.text()})
          else:
              pass
@@ -338,88 +359,74 @@ class maingui(QtWidgets.QWidget):
         self.fill_dropdown_custom_command()
     #Define the Custom Buttons in the Main menu
     def assign_main_custom_buttons(self):
-
-
         #Connect to database
         dbdir = Path(__file__).absolute().parent
         conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
-        c = conn.cursor()
+        cd = conn.cursor()
 
-        c.execute("select btn1_name, btn1_command, btn2_name, btn2_command, btn3_name, btn3_command, btn4_name, btn4_command, btn5_name, btn5_command, btn6_name, btn6_command, btn7_name, btn7_command, btn8_name, btn8_command, btn9_name, btn9_command, btn10_name, btn10_command, btn11_name, btn11_command from configuration")
-        dbconf_1 = c.fetchall()
+        cd.execute("select btn1_name, btn1_command, btn2_name, btn2_command, btn3_name, btn3_command, btn4_name, btn4_command, btn5_name, btn5_command, btn6_name, btn6_command, btn7_name, btn7_command, btn8_name, btn8_command, btn9_name, btn9_command, btn10_name, btn10_command, btn11_name, btn11_command from configuration")
+        dbconf_cust = cd.fetchall()
         conn.commit()
-        for value in dbconf_1:
-            btn1_name = (value[0]) 
-            btn1_command = (value[1]) 
-            btn2_name = (value[2])
-            btn2_command = (value[3])
-            btn3_name = (value[4])
-            btn3_command = (value[5])
-            btn4_name = (value[6])
-            btn4_command = (value[7])
-            btn5_name = (value[8])
-            btn5_command = (value[9])
-            btn6_name = (value[10])
-            btn6_command = (value[11])
-            btn7_name = (value[12])
-            btn7_command = (value[13])
-            btn8_name = (value[14])
-            btn8_command = (value[15])
-            btn9_name = (value[16])
-            btn9_command = (value[17])
-            btn10_name = (value[18])
-            btn10_command = (value[19])
-            btn11_name = (value[20])
-            btn11_command = (value[21])
-
         conn.close()
+        dbconf_cust_strip = dbconf_cust[0]
 
-        self.gui.btn_main_drcon_listplayers.setText(btn1_name)
-        self.gui.btn_main_drcon_listplayers_definition.setText(btn1_name)
+        self.button1_name = (dbconf_cust_strip[0]) 
+        self.button1_command = (dbconf_cust_strip[1]) 
+        self.button2_name = (dbconf_cust_strip[2])
+        self.button2_command = (dbconf_cust_strip[3])
+        self.button3_name = (dbconf_cust_strip[4])
+        self.button3_command = (dbconf_cust_strip[5])
+        self.button4_name = (dbconf_cust_strip[6])
+        self.button4_command = (dbconf_cust_strip[7])
+        self.button5_name = (dbconf_cust_strip[8])
+        self.button5_command = (dbconf_cust_strip[9])
+        self.button6_name = (dbconf_cust_strip[10])
+        self.button6_command = (dbconf_cust_strip[11])
+        self.button7_name = (dbconf_cust_strip[12])
+        self.button7_command = (dbconf_cust_strip[13])
+        self.button8_name = (dbconf_cust_strip[14])
+        self.button8_command = (dbconf_cust_strip[15])
+        self.button9_name = (dbconf_cust_strip[16])
+        self.button9_command = (dbconf_cust_strip[17])
+        self.button10_name = (dbconf_cust_strip[18])
+        self.button10_command = (dbconf_cust_strip[19])
+        self.button11_name = (dbconf_cust_strip[20])
+        self.button11_command = (dbconf_cust_strip[21])
 
-        self.gui.btn_main_drcon_listbans.setText(btn2_name)
-        self.gui.btn_main_drcon_listbans_definition.setText(btn2_name)
-        
-        self.gui.btn_main_drcon_listmaps.setText(btn3_name)
-        self.gui.btn_main_drcon_listmaps_definition.setText(btn3_name)
+        self.gui.btn_main_drcon_listplayers.setText(self.button1_name)
+        self.gui.btn_main_drcon_listplayers_definition.setText(self.button1_name)
+        self.gui.btn_main_drcon_listbans.setText(self.button2_name)
+        self.gui.btn_main_drcon_listbans_definition.setText(self.button2_name)
+        self.gui.btn_main_drcon_listmaps.setText(self.button3_name)
+        self.gui.btn_main_drcon_listmaps_definition.setText(self.button3_name)
+        self.gui.btn_main_drcon_listscenarios.setText(self.button4_name)
+        self.gui.btn_main_drcon_listscenarios_definition.setText(self.button4_name)
+        self.gui.btn_main_drcon_restartround.setText(self.button5_name)
+        self.gui.btn_main_drcon_restartround_definition.setText(self.button5_name)
+        self.gui.btn_main_drcon_showgamemode.setText(self.button6_name)
+        self.gui.btn_main_drcon_showgamemode_definition.setText(self.button6_name)
+        self.gui.btn_main_drcon_showaidiff.setText(self.button7_name)
+        self.gui.btn_main_drcon_showaidiff_definition.setText(self.button7_name)
+        self.gui.btn_main_drcon_showsupply.setText(self.button8_name)
+        self.gui.btn_main_drcon_showsupply_definition.setText(self.button8_name)
+        self.gui.btn_main_drcon_roundlimit.setText(self.button9_name)
+        self.gui.btn_main_drcon_roundlimit_definition.setText(self.button9_name)
+        self.gui.btn_main_drcon_showroundtime.setText(self.button10_name)
+        self.gui.btn_main_drcon_showroundtime_definition.setText(self.button10_name)
+        self.gui.btn_main_drcon_help.setText(self.button11_name)
+        self.gui.btn_main_drcon_help_2definition.setText(self.button11_name)
 
-        self.gui.btn_main_drcon_listscenarios.setText(btn4_name)
-        self.gui.btn_main_drcon_listscenarios_definition.setText(btn4_name)
-
-        self.gui.btn_main_drcon_restartround.setText(btn5_name)
-        self.gui.btn_main_drcon_restartround_definition.setText(btn5_name)
-
-        self.gui.btn_main_drcon_showgamemode.setText(btn6_name)
-        self.gui.btn_main_drcon_showgamemode_definition.setText(btn6_name)
-
-        self.gui.btn_main_drcon_showaidiff.setText(btn7_name)
-        self.gui.btn_main_drcon_showaidiff_definition.setText(btn7_name)
-
-        self.gui.btn_main_drcon_showsupply.setText(btn8_name)
-        self.gui.btn_main_drcon_showsupply_definition.setText(btn8_name)
-
-        self.gui.btn_main_drcon_roundlimit.setText(btn9_name)
-        self.gui.btn_main_drcon_roundlimit_definition.setText(btn9_name)
-
-        self.gui.btn_main_drcon_showroundtime.setText(btn10_name)
-        self.gui.btn_main_drcon_showroundtime_definition.setText(btn10_name)
-
-        self.gui.btn_main_drcon_help.setText(btn11_name)
-        self.gui.btn_main_drcon_help_2definition.setText(btn11_name)
-
-
-
-        self.gui.btn_main_drcon_listplayers.clicked.connect(lambda: self.direct_rcon_command(btn1_command))
-        self.gui.btn_main_drcon_listbans.clicked.connect(lambda: self.direct_rcon_command(btn2_command))
-        self.gui.btn_main_drcon_listmaps.clicked.connect(lambda: self.direct_rcon_command(btn3_command))
-        self.gui.btn_main_drcon_listscenarios.clicked.connect(lambda: self.direct_rcon_command(btn4_command))
-        self.gui.btn_main_drcon_restartround.clicked.connect(lambda: self.direct_rcon_command(btn5_command))
-        self.gui.btn_main_drcon_showgamemode.clicked.connect(lambda: self.direct_rcon_command(btn6_command))
-        self.gui.btn_main_drcon_showaidiff.clicked.connect(lambda: self.direct_rcon_command(btn7_command))
-        self.gui.btn_main_drcon_showsupply.clicked.connect(lambda: self.direct_rcon_command(btn8_command))
-        self.gui.btn_main_drcon_roundlimit.clicked.connect(lambda: self.direct_rcon_command(btn9_command))
-        self.gui.btn_main_drcon_showroundtime.clicked.connect(lambda: self.direct_rcon_command(btn10_command))
-        self.gui.btn_main_drcon_help.clicked.connect(lambda: self.direct_rcon_command(btn11_command))
+        self.gui.btn_main_drcon_listplayers.clicked.connect(lambda: self.direct_rcon_command(self.button1_command))
+        self.gui.btn_main_drcon_listbans.clicked.connect(lambda: self.direct_rcon_command(self.button2_command))
+        self.gui.btn_main_drcon_listmaps.clicked.connect(lambda: self.direct_rcon_command(self.button3_command))
+        self.gui.btn_main_drcon_listscenarios.clicked.connect(lambda: self.direct_rcon_command(self.button4_command))
+        self.gui.btn_main_drcon_restartround.clicked.connect(lambda: self.direct_rcon_command(self.button5_command))
+        self.gui.btn_main_drcon_showgamemode.clicked.connect(lambda: self.direct_rcon_command(self.button6_command))
+        self.gui.btn_main_drcon_showaidiff.clicked.connect(lambda: self.direct_rcon_command(self.button7_command))
+        self.gui.btn_main_drcon_showsupply.clicked.connect(lambda: self.direct_rcon_command(self.button8_command))
+        self.gui.btn_main_drcon_roundlimit.clicked.connect(lambda: self.direct_rcon_command(self.button9_command))
+        self.gui.btn_main_drcon_showroundtime.clicked.connect(lambda: self.direct_rcon_command(self.button10_command))
+        self.gui.btn_main_drcon_help.clicked.connect(lambda: self.direct_rcon_command(self.button11_command))
 
 
 
@@ -520,9 +527,6 @@ class maingui(QtWidgets.QWidget):
         self.gui.le_map.setText(str(self.servergamedetails['game_map']))
         self.gui.le_mods.setText(str(self.mutatorids))
         
-        #Only for debugging needed
-        # print(self.servergamedetails)
-        # print(self.serverruledetails)
 
         #Create Map View Picture absed on running map
         def assign_map_view_pic(self):
@@ -669,7 +673,6 @@ class maingui(QtWidgets.QWidget):
                 self.gui.progressbar_map_changer.setProperty("value", 0)
     #Execute RCON Command, when called by checkandgorcon()!
     def rconserver(self, serverhost, rconpassword, rconport, rconcommand):
-        print(rconcommand)
         if rconcommand.startswith("say") or rconcommand.startswith("Say"):
             self.gui.label_output_window.setText(rconcommand + " command has been sent to the server")
             console = Console(host=serverhost, password=rconpassword, port=rconport)
@@ -888,44 +891,44 @@ class maingui(QtWidgets.QWidget):
         c.execute("select btn1_name, btn1_command, btn2_name, btn2_command, btn3_name, btn3_command, btn4_name, btn4_command, btn5_name, btn5_command, btn6_name, btn6_command, btn7_name, btn7_command, btn8_name, btn8_command, btn9_name, btn9_command, btn10_name, btn10_command, btn11_name, btn11_command from configuration")
         dbbutton_conf = c.fetchall()
         conn.commit()
-        for value in dbbutton_conf:
-            pass
 
-        self.gui.label_button_name_1.setText(value[0])
-        self.gui.label_command_button_1.setText(value[1])
+        dbbutton_conf_strip = dbbutton_conf[0]
 
-        self.gui.label_button_name_2.setText(value[2])
-        self.gui.label_command_button_2.setText(value[3])
+        self.gui.label_button_name_1.setText(dbbutton_conf_strip[0])
+        self.gui.label_command_button_1.setText(dbbutton_conf_strip[1])
 
-        self.gui.label_button_name_3.setText(value[4])
-        self.gui.label_command_button_3.setText(value[5])
+        self.gui.label_button_name_2.setText(dbbutton_conf_strip[2])
+        self.gui.label_command_button_2.setText(dbbutton_conf_strip[3])
 
-        self.gui.label_button_name_4.setText(value[6])
-        self.gui.label_command_button_4.setText(value[7])
+        self.gui.label_button_name_3.setText(dbbutton_conf_strip[4])
+        self.gui.label_command_button_3.setText(dbbutton_conf_strip[5])
 
-        self.gui.label_button_name_5.setText(value[8])
-        self.gui.label_command_button_5.setText(value[9])
+        self.gui.label_button_name_4.setText(dbbutton_conf_strip[6])
+        self.gui.label_command_button_4.setText(dbbutton_conf_strip[7])
 
-        self.gui.label_button_name_6.setText(value[10])
-        self.gui.label_command_button_6.setText(value[11])
+        self.gui.label_button_name_5.setText(dbbutton_conf_strip[8])
+        self.gui.label_command_button_5.setText(dbbutton_conf_strip[9])
+
+        self.gui.label_button_name_6.setText(dbbutton_conf_strip[10])
+        self.gui.label_command_button_6.setText(dbbutton_conf_strip[11])
         
-        self.gui.label_button_name_7.setText(value[12])
-        self.gui.label_command_button_7.setText(value[13])
+        self.gui.label_button_name_7.setText(dbbutton_conf_strip[12])
+        self.gui.label_command_button_7.setText(dbbutton_conf_strip[13])
 
-        self.gui.label_button_name_8.setText(value[14])
-        self.gui.label_command_button_8.setText(value[15])
+        self.gui.label_button_name_8.setText(dbbutton_conf_strip[14])
+        self.gui.label_command_button_8.setText(dbbutton_conf_strip[15])
 
-        self.gui.label_button_name_9.setText(value[16])
-        self.gui.label_command_button_9.setText(value[17])
+        self.gui.label_button_name_9.setText(dbbutton_conf_strip[16])
+        self.gui.label_command_button_9.setText(dbbutton_conf_strip[17])
 
-        self.gui.label_button_name_10.setText(value[18])
-        self.gui.label_command_button_10.setText(value[19])
+        self.gui.label_button_name_10.setText(dbbutton_conf_strip[18])
+        self.gui.label_command_button_10.setText(dbbutton_conf_strip[19])
 
-        self.gui.label_button_name_11.setText(value[20])
-        self.gui.label_command_button_11.setText(value[21])
+        self.gui.label_button_name_11.setText(dbbutton_conf_strip[20])
+        self.gui.label_command_button_11.setText(dbbutton_conf_strip[21])
         conn.commit()
 
-        self.assign_main_custom_buttons()        
+       # TODO: Refresh BUttons   
 
         conn.close()
     #Save changed settings
@@ -981,58 +984,77 @@ class maingui(QtWidgets.QWidget):
             msg.setText(f"Something went wrong: \n\n {new_refresh_intervall} is no Integer (Full number)! \n\n Please try again!")
             msg.exec_()
 
-
-
-
-
-        c.execute("select btn1_name, btn1_command, btn2_name, btn2_command, btn3_name, btn3_command, btn4_name, btn4_command, btn5_name, btn5_command, btn6_name, btn6_command, btn7_name, btn7_command, btn8_name, btn8_command, btn9_name, btn9_command, btn10_name, btn10_command, btn11_name, btn11_command from configuration")
-        dbconf_1 = c.fetchall()
-        conn.commit()
-        for value in dbconf_1:
-            btn1_name = (value[0]) 
-            btn1_command = (value[1]) 
-            btn2_name = (value[2])
-            btn2_command = (value[3])
-            btn3_name = (value[4])
-            btn3_command = (value[5])
-            btn4_name = (value[6])
-            btn4_command = (value[7])
-            btn5_name = (value[8])
-            btn5_command = (value[9])
-            btn6_name = (value[10])
-            btn6_command = (value[11])
-            btn7_name = (value[12])
-            btn7_command = (value[13])
-            btn8_name = (value[14])
-            btn8_command = (value[15])
-            btn9_name = (value[16])
-            btn9_command = (value[17])
-            btn10_name = (value[18])
-            btn10_command = (value[19])
-            btn11_name = (value[20])
-            btn11_command = (value[21])
-
-
         new_btn1_name_var = self.gui.label_button_name_1.text()
         new_btn1_command_var = self.gui.label_command_button_1.text()
+        new_btn2_name_var = self.gui.label_button_name_2.text()
+        new_btn2_command_var = self.gui.label_command_button_2.text()
+        new_btn3_name_var = self.gui.label_button_name_3.text()
+        new_btn3_command_var = self.gui.label_command_button_3.text()
+        new_btn4_name_var = self.gui.label_button_name_4.text()
+        new_btn4_command_var = self.gui.label_command_button_4.text()
+        new_btn5_name_var = self.gui.label_button_name_5.text()
+        new_btn5_command_var = self.gui.label_command_button_5.text()
+        new_btn6_name_var = self.gui.label_button_name_6.text()
+        new_btn6_command_var = self.gui.label_command_button_6.text()
+        new_btn7_name_var = self.gui.label_button_name_7.text()
+        new_btn7_command_var = self.gui.label_command_button_7.text()
+        new_btn8_name_var = self.gui.label_button_name_8.text()
+        new_btn8_command_var = self.gui.label_command_button_8.text()
+        new_btn9_name_var = self.gui.label_button_name_9.text()
+        new_btn9_command_var = self.gui.label_command_button_9.text()
+        new_btn10_name_var = self.gui.label_button_name_10.text()
+        new_btn10_command_var = self.gui.label_command_button_10.text()
+        new_btn11_name_var = self.gui.label_button_name_11.text()
+        new_btn11_command_var = self.gui.label_command_button_11.text()
 
-        if new_btn1_command_var.startswith("listplayers") or new_btn1_command_var.startswith("kick") or new_btn1_command_var.startswith("permban") or new_btn1_command_var.startswith("travel") or new_btn1_command_var.startswith("ban") or new_btn1_command_var.startswith("banid") or new_btn1_command_var.startswith("listbans") or new_btn1_command_var.startswith("unban") or new_btn1_command_var.startswith("say") or new_btn1_command_var.startswith("restartround") or new_btn1_command_var.startswith("maps") or new_btn1_command_var.startswith("scenarios") or new_btn1_command_var.startswith("travelscenario") or new_btn1_command_var.startswith("gamemodeproperty") or new_btn1_command_var.startswith("listgamemodeproperties"):
-            if btn1_name != new_btn1_name_var:
+        
+        
+        #Check and Update for Button 1 name and command
+        if new_btn1_command_var.startswith("listplayers") or new_btn1_command_var.startswith("help") or new_btn1_command_var.startswith("kick") or new_btn1_command_var.startswith("permban") or new_btn1_command_var.startswith("travel") or new_btn1_command_var.startswith("ban") or new_btn1_command_var.startswith("banid") or new_btn1_command_var.startswith("listbans") or new_btn1_command_var.startswith("unban") or new_btn1_command_var.startswith("say") or new_btn1_command_var.startswith("restartround") or new_btn1_command_var.startswith("maps") or new_btn1_command_var.startswith("scenarios") or new_btn1_command_var.startswith("travelscenario") or new_btn1_command_var.startswith("gamemodeproperty") or new_btn1_command_var.startswith("listgamemodeproperties"):
+            if self.button1_name != new_btn1_name_var:
                 c.execute("UPDATE configuration SET btn1_name=:btn1name", {'btn1name': new_btn1_name_var})
                 conn.commit()
+                self.button1_name = new_btn1_name_var
+                self.gui.btn_main_drcon_listplayers.setText(new_btn1_name_var)
+                self.gui.btn_main_drcon_listplayers_definition.setText(new_btn1_name_var)
                 self.gui.label_saving_indicator.setText("Saved!")
-            elif btn1_command != new_btn1_command_var:
+            if self.button1_command != new_btn1_command_var:
                 c.execute("UPDATE configuration SET btn1_command=:btn1command", {'btn1command': new_btn1_command_var})
                 conn.commit()
+                self.button1_command = new_btn1_command_var
                 self.gui.label_saving_indicator.setText("Saved!")
-            else:
-                pass              
         else:
             msg = QtWidgets.QMessageBox()
             msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
             msg.setIcon(QtWidgets.QMessageBox.Critical)
             msg.setWindowTitle("ISRT Error Message")
-            msg.setText(f"Something went wrong: \n\n {new_btn1_command_var} is no valid RCON command! \n\n Please try again!")
+            msg.setText(f"Something went wrong: \n\n {new_btn1_command_var} is no valid RCON command in Button 1! \n\n Please try again!")
+            msg.exec_()
+
+
+
+        #Check and Update for Button 2 name and command
+        if new_btn2_command_var.startswith("listplayers") or new_btn2_command_var.startswith("help") or new_btn2_command_var.startswith("kick") or new_btn2_command_var.startswith("permban") or new_btn2_command_var.startswith("travel") or new_btn2_command_var.startswith("ban") or new_btn2_command_var.startswith("banid") or new_btn2_command_var.startswith("listbans") or new_btn2_command_var.startswith("unban") or new_btn2_command_var.startswith("say") or new_btn2_command_var.startswith("restartround") or new_btn2_command_var.startswith("maps") or new_btn2_command_var.startswith("scenarios") or new_btn2_command_var.startswith("travelscenario") or new_btn2_command_var.startswith("gamemodeproperty") or new_btn2_command_var.startswith("listgamemodeproperties"):
+            if self.button2_name != new_btn2_name_var:
+                c.execute("UPDATE configuration SET btn2_name=:btn2name", {'btn2name': new_btn2_name_var})
+                conn.commit()
+                self.button2_name = new_btn2_name_var
+                self.gui.btn_main_drcon_listbans.setText(new_btn2_name_var)
+                self.gui.btn_main_drcon_listbans_definition.setText(new_btn2_name_var)
+                self.gui.label_saving_indicator.setText("Saved!")
+            if self.button2_command != new_btn2_command_var:
+                c.execute("UPDATE configuration SET btn2_command=:btn2command", {'btn2command': new_btn2_command_var})
+                conn.commit()
+                self.button2_command = new_btn2_command_var
+                self.gui.label_saving_indicator.setText("Saved!")
+            else:
+                pass
+        else:
+            msg = QtWidgets.QMessageBox()
+            msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
+            msg.setIcon(QtWidgets.QMessageBox.Critical)
+            msg.setWindowTitle("ISRT Error Message")
+            msg.setText(f"Something went wrong: \n\n {new_btn2_command_var} is no valid RCON command in Button 2! \n\n Please try again!")
             msg.exec_()
 
 
@@ -1048,7 +1070,13 @@ class maingui(QtWidgets.QWidget):
 
 
 
-        self.assign_main_custom_buttons()
+
+
+
+
+
+
+
         self.get_configuration_from_DB_and_set_settings()
         conn.close()
     #Copy2Clipboard

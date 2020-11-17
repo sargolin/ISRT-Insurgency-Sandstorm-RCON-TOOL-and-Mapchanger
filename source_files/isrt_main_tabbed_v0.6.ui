@@ -51,7 +51,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <property name="elideMode">
       <enum>Qt::ElideNone</enum>
@@ -2317,6 +2317,19 @@ p, li { white-space: pre-wrap; }
           </layout>
          </item>
          <item>
+          <widget class="QLabel" name="label_12">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>This feature is not yet working and I hope to get it working by the next release!</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="Line" name="line_5">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
@@ -2358,7 +2371,7 @@ p, li { white-space: pre-wrap; }
                 <enum>QFrame::NoFrame</enum>
                </property>
                <property name="text">
-                <string>Main Custom Buttons</string>
+                <string>Custom Buttons Preview</string>
                </property>
               </widget>
              </item>
@@ -2502,52 +2515,28 @@ p, li { white-space: pre-wrap; }
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_button_name_2">
+              <widget class="QLineEdit" name="label_button_name_2">
                <property name="minimumSize">
                 <size>
                  <width>100</width>
-                 <height>0</height>
+                 <height>23</height>
                 </size>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color:rgb(254, 254, 254);</string>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="textFormat">
-                <enum>Qt::PlainText</enum>
-               </property>
-               <property name="textInteractionFlags">
-                <set>Qt::LinksAccessibleByMouse|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_command_button_2">
+              <widget class="QLineEdit" name="label_command_button_2">
                <property name="minimumSize">
                 <size>
                  <width>400</width>
-                 <height>0</height>
+                 <height>23</height>
                 </size>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color:rgb(254, 254, 254);</string>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="textFormat">
-                <enum>Qt::PlainText</enum>
-               </property>
-               <property name="textInteractionFlags">
-                <set>Qt::LinksAccessibleByMouse|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
                </property>
               </widget>
              </item>
@@ -2588,52 +2577,28 @@ p, li { white-space: pre-wrap; }
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_button_name_3">
+              <widget class="QLineEdit" name="label_button_name_3">
                <property name="minimumSize">
                 <size>
                  <width>100</width>
-                 <height>0</height>
+                 <height>23</height>
                 </size>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color:rgb(254, 254, 254);</string>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="textFormat">
-                <enum>Qt::PlainText</enum>
-               </property>
-               <property name="textInteractionFlags">
-                <set>Qt::LinksAccessibleByMouse|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_command_button_3">
+              <widget class="QLineEdit" name="label_command_button_3">
                <property name="minimumSize">
                 <size>
                  <width>400</width>
-                 <height>0</height>
+                 <height>23</height>
                 </size>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color:rgb(254, 254, 254);</string>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="textFormat">
-                <enum>Qt::PlainText</enum>
-               </property>
-               <property name="textInteractionFlags">
-                <set>Qt::LinksAccessibleByMouse|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
                </property>
               </widget>
              </item>
@@ -2674,52 +2639,28 @@ p, li { white-space: pre-wrap; }
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_button_name_4">
+              <widget class="QLineEdit" name="label_button_name_4">
                <property name="minimumSize">
                 <size>
                  <width>100</width>
-                 <height>0</height>
+                 <height>23</height>
                 </size>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color:rgb(254, 254, 254);</string>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="textFormat">
-                <enum>Qt::PlainText</enum>
-               </property>
-               <property name="textInteractionFlags">
-                <set>Qt::LinksAccessibleByMouse|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_command_button_4">
+              <widget class="QLineEdit" name="label_command_button_4">
                <property name="minimumSize">
                 <size>
                  <width>400</width>
-                 <height>0</height>
+                 <height>23</height>
                 </size>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color:rgb(254, 254, 254);</string>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="textFormat">
-                <enum>Qt::PlainText</enum>
-               </property>
-               <property name="textInteractionFlags">
-                <set>Qt::LinksAccessibleByMouse|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
                </property>
               </widget>
              </item>
@@ -2760,52 +2701,28 @@ p, li { white-space: pre-wrap; }
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_button_name_5">
+              <widget class="QLineEdit" name="label_button_name_5">
                <property name="minimumSize">
                 <size>
                  <width>100</width>
-                 <height>0</height>
+                 <height>23</height>
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color:rgb(254, 254, 254);</string>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="textFormat">
-                <enum>Qt::PlainText</enum>
-               </property>
-               <property name="textInteractionFlags">
-                <set>Qt::LinksAccessibleByMouse|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+                <string notr="true">background-color:rgb(248, 248, 248);</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_command_button_5">
+              <widget class="QLineEdit" name="label_command_button_5">
                <property name="minimumSize">
                 <size>
                  <width>400</width>
-                 <height>0</height>
+                 <height>23</height>
                 </size>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color:rgb(254, 254, 254);</string>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="textFormat">
-                <enum>Qt::PlainText</enum>
-               </property>
-               <property name="textInteractionFlags">
-                <set>Qt::LinksAccessibleByMouse|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
                </property>
               </widget>
              </item>
@@ -2846,52 +2763,28 @@ p, li { white-space: pre-wrap; }
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_button_name_6">
+              <widget class="QLineEdit" name="label_button_name_6">
                <property name="minimumSize">
                 <size>
                  <width>100</width>
-                 <height>0</height>
+                 <height>23</height>
                 </size>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color:rgb(254, 254, 254);</string>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="textFormat">
-                <enum>Qt::PlainText</enum>
-               </property>
-               <property name="textInteractionFlags">
-                <set>Qt::LinksAccessibleByMouse|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_command_button_6">
+              <widget class="QLineEdit" name="label_command_button_6">
                <property name="minimumSize">
                 <size>
                  <width>400</width>
-                 <height>0</height>
+                 <height>23</height>
                 </size>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color:rgb(254, 254, 254);</string>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="textFormat">
-                <enum>Qt::PlainText</enum>
-               </property>
-               <property name="textInteractionFlags">
-                <set>Qt::LinksAccessibleByMouse|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
                </property>
               </widget>
              </item>
@@ -2932,52 +2825,28 @@ p, li { white-space: pre-wrap; }
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_button_name_7">
+              <widget class="QLineEdit" name="label_button_name_7">
                <property name="minimumSize">
                 <size>
                  <width>100</width>
-                 <height>0</height>
+                 <height>23</height>
                 </size>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color:rgb(254, 254, 254);</string>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="textFormat">
-                <enum>Qt::PlainText</enum>
-               </property>
-               <property name="textInteractionFlags">
-                <set>Qt::LinksAccessibleByMouse|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_command_button_7">
+              <widget class="QLineEdit" name="label_command_button_7">
                <property name="minimumSize">
                 <size>
                  <width>400</width>
-                 <height>0</height>
+                 <height>23</height>
                 </size>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color:rgb(254, 254, 254);</string>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="textFormat">
-                <enum>Qt::PlainText</enum>
-               </property>
-               <property name="textInteractionFlags">
-                <set>Qt::LinksAccessibleByMouse|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
                </property>
               </widget>
              </item>
@@ -3018,52 +2887,28 @@ p, li { white-space: pre-wrap; }
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_button_name_8">
+              <widget class="QLineEdit" name="label_button_name_8">
                <property name="minimumSize">
                 <size>
                  <width>100</width>
-                 <height>0</height>
+                 <height>23</height>
                 </size>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color:rgb(254, 254, 254);</string>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="textFormat">
-                <enum>Qt::PlainText</enum>
-               </property>
-               <property name="textInteractionFlags">
-                <set>Qt::LinksAccessibleByMouse|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_command_button_8">
+              <widget class="QLineEdit" name="label_command_button_8">
                <property name="minimumSize">
                 <size>
                  <width>400</width>
-                 <height>0</height>
+                 <height>23</height>
                 </size>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color:rgb(254, 254, 254);</string>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="textFormat">
-                <enum>Qt::PlainText</enum>
-               </property>
-               <property name="textInteractionFlags">
-                <set>Qt::LinksAccessibleByMouse|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
                </property>
               </widget>
              </item>
@@ -3104,52 +2949,28 @@ p, li { white-space: pre-wrap; }
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_button_name_9">
+              <widget class="QLineEdit" name="label_button_name_9">
                <property name="minimumSize">
                 <size>
                  <width>100</width>
-                 <height>0</height>
+                 <height>23</height>
                 </size>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color:rgb(254, 254, 254);</string>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="textFormat">
-                <enum>Qt::PlainText</enum>
-               </property>
-               <property name="textInteractionFlags">
-                <set>Qt::LinksAccessibleByMouse|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_command_button_9">
+              <widget class="QLineEdit" name="label_command_button_9">
                <property name="minimumSize">
                 <size>
                  <width>400</width>
-                 <height>0</height>
+                 <height>23</height>
                 </size>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color:rgb(254, 254, 254);</string>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="textFormat">
-                <enum>Qt::PlainText</enum>
-               </property>
-               <property name="textInteractionFlags">
-                <set>Qt::LinksAccessibleByMouse|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
                </property>
               </widget>
              </item>
@@ -3190,52 +3011,28 @@ p, li { white-space: pre-wrap; }
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_button_name_10">
+              <widget class="QLineEdit" name="label_button_name_10">
                <property name="minimumSize">
                 <size>
                  <width>100</width>
-                 <height>0</height>
+                 <height>23</height>
                 </size>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color:rgb(254, 254, 254);</string>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="textFormat">
-                <enum>Qt::PlainText</enum>
-               </property>
-               <property name="textInteractionFlags">
-                <set>Qt::LinksAccessibleByMouse|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_command_button_10">
+              <widget class="QLineEdit" name="label_command_button_10">
                <property name="minimumSize">
                 <size>
                  <width>400</width>
-                 <height>0</height>
+                 <height>23</height>
                 </size>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color:rgb(254, 254, 254);</string>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="textFormat">
-                <enum>Qt::PlainText</enum>
-               </property>
-               <property name="textInteractionFlags">
-                <set>Qt::LinksAccessibleByMouse|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
                </property>
               </widget>
              </item>
@@ -3276,52 +3073,28 @@ p, li { white-space: pre-wrap; }
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_button_name_11">
+              <widget class="QLineEdit" name="label_button_name_11">
                <property name="minimumSize">
                 <size>
                  <width>100</width>
-                 <height>0</height>
+                 <height>23</height>
                 </size>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color:rgb(254, 254, 254);</string>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="textFormat">
-                <enum>Qt::PlainText</enum>
-               </property>
-               <property name="textInteractionFlags">
-                <set>Qt::LinksAccessibleByMouse|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_command_button_11">
+              <widget class="QLineEdit" name="label_command_button_11">
                <property name="minimumSize">
                 <size>
                  <width>400</width>
-                 <height>0</height>
+                 <height>23</height>
                 </size>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color:rgb(254, 254, 254);</string>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="textFormat">
-                <enum>Qt::PlainText</enum>
-               </property>
-               <property name="textInteractionFlags">
-                <set>Qt::LinksAccessibleByMouse|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
                </property>
               </widget>
              </item>
