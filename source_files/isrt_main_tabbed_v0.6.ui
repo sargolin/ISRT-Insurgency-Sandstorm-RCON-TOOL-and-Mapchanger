@@ -51,7 +51,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <property name="elideMode">
       <enum>Qt::ElideNone</enum>
@@ -2073,7 +2073,7 @@ p, li { white-space: pre-wrap; }
            <property name="sizeHint" stdset="0">
             <size>
              <width>20</width>
-             <height>5</height>
+             <height>13</height>
             </size>
            </property>
           </spacer>
@@ -2127,7 +2127,7 @@ p, li { white-space: pre-wrap; }
            <property name="sizeHint" stdset="0">
             <size>
              <width>20</width>
-             <height>5</height>
+             <height>13</height>
             </size>
            </property>
           </spacer>
@@ -2156,6 +2156,33 @@ p, li { white-space: pre-wrap; }
             <enum>QAbstractItemView::SelectRows</enum>
            </property>
           </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_28">
+           <item>
+            <widget class="QLineEdit" name="LE_add_custom_command">
+             <property name="styleSheet">
+              <string notr="true">background-color:rgb(248, 248, 248);</string>
+             </property>
+             <property name="placeholderText">
+              <string>Custom RCON command</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_add_cust_command">
+             <property name="minimumSize">
+              <size>
+               <width>150</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Add custom command</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </item>
