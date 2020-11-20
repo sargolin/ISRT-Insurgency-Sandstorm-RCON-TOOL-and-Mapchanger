@@ -1,7 +1,7 @@
 '''
 ISRT - Insurgency Sandstorm RCON Tool; 19.11.2020, Madman
 In case of questions: isrt@edelmeier.org
-Git: https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-Query-Tool
+Git: https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool
 v0.6_tabbed - Transfer to tabbed version and removal of menu bar
 Database: ./db/isrt_data.db
 This is open Source, you may use, copy, modify it as you wish - feel free!

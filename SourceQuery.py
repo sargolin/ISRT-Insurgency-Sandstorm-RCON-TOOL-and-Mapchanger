@@ -15,7 +15,6 @@ A2S_RULES = b'\xFF\xFF\xFF\xFF\x56'
 S2A_INFO_SOURCE = chr(0x49)
 S2A_INFO_GOLDSRC = chr(0x6D)
 
-
 class SourceQuery(object):
     is_third = False
     __sock = None
@@ -276,7 +275,7 @@ class SourceQuery(object):
 
 # Just for testing
 if __name__ == '__main__':
-    query = SourceQuery(sys.argv[1], 27116)
+    query = SourceQuery('93.186.198.185', 27116)
     res = query.get_info()
     print(res['Hostname'])
     print(res['Map'])
