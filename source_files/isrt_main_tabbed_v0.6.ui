@@ -51,7 +51,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <property name="elideMode">
       <enum>Qt::ElideNone</enum>
@@ -3439,7 +3439,7 @@ Lists available gamemode properties for the current gamemode.</string>
             <enum>QFrame::StyledPanel</enum>
            </property>
            <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;For FAQs, known errors and further instructions please visit the Wiki:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/wiki&quot;&gt;&lt;span style=&quot; font-size:18pt; text-decoration: underline; color:#0000ff;&quot;&gt;Online-Wiki&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;For FAQs, error handling and further instructions please visit the Wiki:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/wiki&quot;&gt;&lt;span style=&quot; font-size:18pt; text-decoration: underline; color:#0000ff;&quot;&gt;Online-Wiki&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="openExternalLinks">
             <bool>true</bool>

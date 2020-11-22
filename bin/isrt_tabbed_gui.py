@@ -1188,7 +1188,7 @@ class Ui_ISRT_Main_Window(object):
         self.horizontalLayout_10.addWidget(self.TabWidget_Main_overall)
 
         self.retranslateUi(ISRT_Main_Window)
-        self.TabWidget_Main_overall.setCurrentIndex(1)
+        self.TabWidget_Main_overall.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(ISRT_Main_Window)
 
     def retranslateUi(self, ISRT_Main_Window):
@@ -1470,7 +1470,7 @@ class Ui_ISRT_Main_Window(object):
 "\n"
 "Gets or sets a gamemode property for the length of the scenario.\n"
 "Lists available gamemode properties for the current gamemode."))
-        self.label_bottom_help.setText(_translate("ISRT_Main_Window", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">For FAQs, known errors and further instructions please visit the Wiki:</span></p><p align=\"center\"><a href=\"https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/wiki\"><span style=\" font-size:18pt; text-decoration: underline; color:#0000ff;\">Online-Wiki</span></a></p></body></html>"))
+        self.label_bottom_help.setText(_translate("ISRT_Main_Window", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">For FAQs, error handling and further instructions please visit the Wiki:</span></p><p align=\"center\"><a href=\"https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/wiki\"><span style=\" font-size:18pt; text-decoration: underline; color:#0000ff;\">Online-Wiki</span></a></p></body></html>"))
         self.TabWidget_Main_overall.setTabText(self.TabWidget_Main_overall.indexOf(self.Tab_Help), _translate("ISRT_Main_Window", "Help"))
         self.aboutbody.setText(_translate("ISRT_Main_Window", "<html><head/><body><p align=\"center\"><span style=\" font-size:22pt; font-weight:600;\">ISRT v0.6</span></p><p align=\"center\"><br/></p><p align=\"center\"><span style=\" font-size:16pt;\">Insurgency Sandstorm RCON/Query Tool</span></p><p align=\"center\"><span style=\" font-size:16pt;\">Created by =TCT= Madman</span></p><p align=\"center\"><br/></p><p align=\"center\"><span style=\" font-size:16pt;\">Support: </span><a href=\"mailto:isrt@edelmeier.org\"><span style=\" font-size:18pt; text-decoration: underline; color:#0000ff;\">isrt@edelmeier.org</span></a></p><p align=\"center\"><a href=\"https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool\"><span style=\" font-size:16pt; text-decoration: underline; color:#0000ff;\">GitHub</span></a></p><p align=\"center\"><br/></p><p align=\"center\"><span style=\" font-size:16pt;\">Report issues </span><a href=\"https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/issues\"><span style=\" font-size:16pt; text-decoration: underline; color:#0000ff;\">here</span></a><br/></p><p align=\"center\"><a href=\"https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/blob/main/LICENSE\"><span style=\" font-size:14pt; text-decoration: underline; color:#0000ff;\">GNU/Public License Software </span></a></p></body></html>"))
         self.TabWidget_Main_overall.setTabText(self.TabWidget_Main_overall.indexOf(self.Tab_About), _translate("ISRT_Main_Window", "About"))
