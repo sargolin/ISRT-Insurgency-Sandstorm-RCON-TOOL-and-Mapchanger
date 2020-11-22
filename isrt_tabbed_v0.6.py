@@ -37,6 +37,7 @@ class maingui(QtWidgets.QWidget):
         self.gui.setupUi(self)
 
         #Database connection setup
+        self.dbdir = Path(__file__).absolute().parent
         dbdir = Path(__file__).absolute().parent
         self.conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
         self.c = self.conn.cursor()
@@ -179,6 +180,13 @@ class maingui(QtWidgets.QWidget):
 
         #Call method to define the custom buttons
         self.assign_main_custom_buttons()
+
+        #DB Import Buttons and fields
+        self.data_path = None
+        self.gui.btn_select_database.clicked.connect(lambda: self.DB_import("select_db"))
+        self.gui.btn_add_database.clicked.connect(lambda: self.DB_import("add_db"))
+        self.gui.btn_replace_database.clicked.connect(lambda: self.DB_import("replace_db"))
+
 
 
 
@@ -812,8 +820,7 @@ class maingui(QtWidgets.QWidget):
             self.gui.label_db_console.append("At least Alias has to contain a value!")
 
 
-        self.fill_dropdown_box()
-        self.create_serverlist_dropdown()
+        self.fill_dropdown_server_box()
 
 
 
@@ -1255,6 +1262,101 @@ class maingui(QtWidgets.QWidget):
                 msg.exec_()  
         #Refresh the Settings in clicking save!
         self.get_configuration_from_DB_and_set_settings()
+    #Import Database Routines
+    def DB_import(self, db_action):
+        
+        if db_action == 'select_db':
+            self.data_path=QtWidgets.QFileDialog.getOpenFileName(self,'Select Database',"c:\\",'*.db',)
+            self.gui.label_selected_db.setText(self.data_path[0])
+            print(self.data_path[0])
+        elif db_action == 'add_db':
+            if self.data_path:
+                self.gui.label_db_console.setText("Adding Server from " + self.data_path[0] + " to current database")
+
+                #Database connection setup for Importing
+                dbimportdir = self.data_path[0]
+                connimport = sqlite3.connect(dbimportdir)
+                cidb = connimport.cursor()
+                cidb.execute("select * FROM server")
+                dbimport_result = cidb.fetchall()
+                connimport.commit()
+                for import_result in dbimport_result:
+                    import_server_alias = import_result[0]
+                    import_server_ip = import_result[1]
+                    import_server_queryport = import_result[2]
+                    import_server_rconport = import_result[3]
+                    import_server_rconpw = import_result[4]
+                    self.c.execute("INSERT INTO server VALUES (:alias, :ipaddress, :queryport, :rconport, :rconpw)", {'alias': import_server_alias, 'ipaddress': import_server_ip, 'queryport': import_server_queryport, 'rconport': import_server_rconport, 'rconpw': import_server_rconpw})
+                    self.conn.commit()
+                    
+                self.gui.label_db_console.setText("Added Server from " + self.data_path[0] + " to current database")
+
+
+
+            else:
+                self.gui.label_db_console.setText("Please select a database first!")
+        elif db_action == 'replace_db':
+            if self.data_path:
+                self.gui.label_db_console.setText("Replacing Server from " + self.data_path[0] + " in current database")
+
+                #Database connection setup for Importing
+                dbimportdir = self.data_path[0]
+                connimport = sqlite3.connect(dbimportdir)
+                cidb = connimport.cursor()
+                cidb.execute("select * FROM server")
+                dbimport_result = cidb.fetchall()
+                connimport.commit()
+
+                def showImport_Dialog():
+                    msgBox = QtWidgets.QMessageBox()
+                    msgBox.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
+                    msgBox.setIcon(QtWidgets.QMessageBox.Warning)
+                    msgBox.setText("Really replace all servers in the current DB with the imported DB Servers?\n\nConsider creating a backup of the DB file before clicking 'Yes':\n\n" + str(self.dbdir / 'db/isrt_data.db'))
+                    msgBox.setWindowTitle("ISRT DB Import Warning")
+                    msgBox.setStandardButtons(QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+                    msgBox.setDefaultButton(QtWidgets.QMessageBox.No)
+                    msgBox.buttonClicked.connect(delete_and_import_db)
+                    msgBox.exec()
+
+                    
+
+                def delete_and_import_db(i):
+                    if i.text() == "&Yes":
+                        for import_result in dbimport_result:
+                            import_server_alias = import_result[0]
+                            import_server_ip = import_result[1]
+                            import_server_queryport = import_result[2]
+                            import_server_rconport = import_result[3]
+                            import_server_rconpw = import_result[4]
+                        self.c.execute("DELETE * FROM server")
+                        self.c.execute("INSERT INTO server VALUES (:alias, :ipaddress, :queryport, :rconport, :rconpw)", {'alias': import_server_alias, 'ipaddress': import_server_ip, 'queryport': import_server_queryport, 'rconport': import_server_rconport, 'rconpw': import_server_rconpw})
+                        self.conn.commit()
+                        self.gui.label_db_console.setText("Replaced Server from " + self.data_path[0] + " in current database")
+                        self.gui.label_selected_db.clear()
+
+                    else:
+                        self.gui.label_db_console.setText("Import canceled!")
+                        self.gui.label_selected_db.clear()
+
+
+
+
+
+
+
+
+                showImport_Dialog()
+                # print(self.returnValue)
+
+
+                
+
+            else:
+                self.gui.label_db_console.setText("Please select a database first!")
+        
+        self.fill_dropdown_server_box()
+
+
     #Copy2Clipboard
     def copy2clipboard(self):
         copyvar = self.gui.label_output_window.text()
@@ -1269,7 +1371,11 @@ class maingui(QtWidgets.QWidget):
 
 
 
-
+        # #DB Import Buttons and fields
+        # self.gui.btn_select_database.clicked.connect(self.DB_import(select_db))
+        # self.gui.label_selected_db()
+        # self.gui.btn_add_database.clicked.connect(self.DB_import(add_db))
+        # self.gui.btn_replace_database.clicked.connect(self.DB_import(replace_db))
 
 
 

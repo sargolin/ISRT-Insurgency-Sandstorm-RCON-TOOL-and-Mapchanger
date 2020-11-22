@@ -51,7 +51,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="elideMode">
       <enum>Qt::ElideNone</enum>
@@ -2081,7 +2081,7 @@ p, li { white-space: pre-wrap; }
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_18">
            <item>
-            <widget class="QToolButton" name="toolButton">
+            <widget class="QToolButton" name="btn_select_database">
              <property name="minimumSize">
               <size>
                <width>100</width>
@@ -2089,12 +2089,12 @@ p, li { white-space: pre-wrap; }
               </size>
              </property>
              <property name="text">
-              <string>Select Database</string>
+              <string>Browse</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_14">
+            <widget class="QLabel" name="label_selected_db">
              <property name="minimumSize">
               <size>
                <width>250</width>
@@ -2110,14 +2110,14 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="btn_add_database">
              <property name="text">
               <string>Add to existing DB</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_2">
+            <widget class="QPushButton" name="btn_replace_database">
              <property name="text">
               <string>Replace existing DB</string>
              </property>
