@@ -12,11 +12,14 @@ This is open Source, you may use, copy, modify it as you wish - feel free!
 '''------------------------------------------------------------------
 Import Stuff
 ------------------------------------------------------------------'''
-import sys, query, os, re, sqlite3, time, threading
+import sys, os, re, sqlite3, time, threading
+import bin.SourceQuery as sq
 from PyQt5 import QtCore, QtGui, QtWidgets
-from rcon import Console
+from bin.rcon.console import Console
+import bin.query as query
 from pathlib import Path
-from gui.isrt_tabbed_gui import Ui_ISRT_Main_Window
+from bin.isrt_tabbed_gui import Ui_ISRT_Main_Window
+
 
 
 
@@ -76,6 +79,10 @@ class maingui(QtWidgets.QWidget):
         self.gui.label_command_button_9.returnPressed.connect(self.save_settings)
         self.gui.label_command_button_10.returnPressed.connect(self.save_settings)
         self.gui.label_command_button_11.returnPressed.connect(self.save_settings)
+
+        # '''Test'''
+        # self.gui.btn_main_drcon_test.clicked.connect(self.direct_rcon_command_test)
+        # '''Test'''
 
         #Connect Labels with enter key press
         self.gui.label_rconcommand.returnPressed.connect(self.checkandgorcon)
@@ -172,10 +179,6 @@ class maingui(QtWidgets.QWidget):
 
         #Call method to define the custom buttons
         self.assign_main_custom_buttons()
-
-
-
-
 
 
 
@@ -453,6 +456,7 @@ class maingui(QtWidgets.QWidget):
                 self.gui.label_output_window.setText(self.gui.entry_ip.text() + " is no valid IP address - please retry!")  
     #Execute Query Command, when called by checkandgoquery()!
     def queryserver(self, serverhost, queryport):
+        self.gui.label_output_window.clear()
         self.server = query.Query(self.serverhost, self.queryport)
         self.serverinfo = (self.server.info())
         self.servergamedetails = (self.serverinfo['info'])
@@ -505,8 +509,12 @@ class maingui(QtWidgets.QWidget):
         self.gui.le_ping.setText(str(self.servernetworkdetails['ping']))
         self.gui.le_map.setText(str(self.servergamedetails['game_map']))
         self.gui.le_mods.setText(str(self.mutatorids))
-        
-
+        # #Testing Sourcequery
+        # self.server_sq = sq.SourceQuery('93.186.198.185', 27216)
+        # for player in self.server_sq.get_players():
+        #     output_players = ("{id:<5} {Name:<35} {Frags:<5} {PrettyTime} {NetID}".format(**player))
+        #     self.gui.label_output_window.setText(output_players)
+            
         #Create Map View Picture absed on running map
         def assign_map_view_pic(self):
             map_view_pic = str(self.servergamedetails['game_map'])
@@ -520,11 +528,7 @@ class maingui(QtWidgets.QWidget):
                 self.gui.label_map_view.setStyleSheet("border-image: url(:/map_view/img/maps/map_views.jpg); background-color: #f0f0f0;background-position: center;background-repeat: no-repeat;")
          
         assign_map_view_pic(self)
-
-
-
-
-
+        
 
 
 
@@ -563,6 +567,20 @@ class maingui(QtWidgets.QWidget):
             self.checkandgoquery()
             self.gui.progressbar_map_changer.setProperty("value", 0)
     #Redirect direct RCON commands to checkandgorcon
+   
+   
+   
+    # '''Test'''
+   
+   
+    # def direct_rcon_command_test(self):
+    #     command_test = "listplayers"
+    #     self.gui.label_rconcommand.setText(command_test)
+    #     self.checkandgorcon() 
+
+
+    # '''Test'''
+
     def direct_rcon_command(self, command):
         #Check if an rcon command is passed        
         if command:
@@ -649,7 +667,11 @@ class maingui(QtWidgets.QWidget):
             console = Console(host=serverhost, password=rconpassword, port=rconport)
             commandconsole = (console.command(rconcommand))
             self.gui.label_output_window.setText(str(commandconsole))
+            # '''Test'''
+            # print(commandconsole)
+            # '''Test'''
         console.close() 
+
 
 
 

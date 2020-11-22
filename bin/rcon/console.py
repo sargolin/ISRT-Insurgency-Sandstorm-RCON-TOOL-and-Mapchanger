@@ -1,5 +1,5 @@
-from rcon.connection import Connection
-from rcon.packet import Packet, PacketType
+from bin.rcon.connection import Connection
+from bin.rcon.packet import Packet, PacketType
 
 
 class Console():

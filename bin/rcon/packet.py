@@ -1,6 +1,6 @@
 from enum import Enum
 
-from rcon.util import int_to_bytes, bytes_to_int
+from bin.rcon.util import int_to_bytes, bytes_to_int
 
 
 class PacketType(Enum):

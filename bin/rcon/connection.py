@@ -1,7 +1,7 @@
 import socket
 
-from rcon.packet import Packet
-from rcon.util import int_to_bytes, bytes_to_int
+from bin.rcon.packet import Packet
+from bin.rcon.util import int_to_bytes, bytes_to_int
 
 
 class Connection():

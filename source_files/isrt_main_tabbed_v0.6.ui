@@ -1296,6 +1296,16 @@ background-repeat: no-repeat;</string>
               </widget>
              </item>
              <item>
+              <widget class="QPushButton" name="btn_main_drcon_test">
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(255, 0, 0);</string>
+               </property>
+               <property name="text">
+                <string>Test</string>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QPushButton" name="btn_main_copytoclipboard">
                <property name="toolTip">
                 <string>Copy the output of console to Clipboard</string>
@@ -1649,9 +1659,9 @@ background-repeat: no-repeat;</string>
       <attribute name="title">
        <string>Server Manager</string>
       </attribute>
-      <layout class="QHBoxLayout" name="horizontalLayout_18">
+      <layout class="QVBoxLayout" name="verticalLayout_19">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_22">
+        <layout class="QVBoxLayout" name="verticalLayout_18">
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_15">
            <item>
@@ -1801,148 +1811,15 @@ background-repeat: no-repeat;</string>
            <property name="sizeHint" stdset="0">
             <size>
              <width>20</width>
-             <height>5</height>
+             <height>13</height>
             </size>
            </property>
           </spacer>
          </item>
          <item>
-          <layout class="QVBoxLayout" name="verticalLayout_23">
+          <layout class="QHBoxLayout" name="horizontalLayout_16">
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_16">
-             <item>
-              <widget class="QPushButton" name="btn_server_add">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>23</height>
-                </size>
-               </property>
-               <property name="toolTip">
-                <string>Add a server to the Database</string>
-               </property>
-               <property name="statusTip">
-                <string>Add a server to the Database</string>
-               </property>
-               <property name="layoutDirection">
-                <enum>Qt::LeftToRight</enum>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">background-color:rgb(228, 228, 228)
-</string>
-               </property>
-               <property name="text">
-                <string>Add</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="btn_server_modify">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>23</height>
-                </size>
-               </property>
-               <property name="toolTip">
-                <string>Save and edited server to the Database</string>
-               </property>
-               <property name="statusTip">
-                <string>Save and edited server to the Database</string>
-               </property>
-               <property name="layoutDirection">
-                <enum>Qt::LeftToRight</enum>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">background-color:rgb(228, 228, 228)
-</string>
-               </property>
-               <property name="text">
-                <string>Save/Modify</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="btn_server_delete">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>23</height>
-                </size>
-               </property>
-               <property name="toolTip">
-                <string>Delete a server from the Database</string>
-               </property>
-               <property name="statusTip">
-                <string>Delete a server from the Database</string>
-               </property>
-               <property name="layoutDirection">
-                <enum>Qt::LeftToRight</enum>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">background-color:rgb(228, 228, 228)
-</string>
-               </property>
-               <property name="text">
-                <string>Delete</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="btn_server_quit">
-               <property name="toolTip">
-                <string>Quit the Server Manager</string>
-               </property>
-               <property name="statusTip">
-                <string>Quit the Server Manager</string>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">background-color:rgb(228, 228, 228)
-</string>
-               </property>
-               <property name="text">
-                <string>Quit</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <spacer name="verticalSpacer_11">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Minimum</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>5</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QComboBox" name="dropdown_server_list">
+            <widget class="QPushButton" name="btn_server_add">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -1951,101 +1828,298 @@ background-repeat: no-repeat;</string>
              </property>
              <property name="minimumSize">
               <size>
-               <width>552</width>
-               <height>25</height>
+               <width>0</width>
+               <height>23</height>
               </size>
              </property>
-             <property name="font">
-              <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
-              </font>
-             </property>
              <property name="toolTip">
-              <string>Select Server to modify/delete from List</string>
+              <string>Add a server to the Database</string>
              </property>
              <property name="statusTip">
-              <string>Select Server to modify/delete from List</string>
+              <string>Add a server to the Database</string>
+             </property>
+             <property name="layoutDirection">
+              <enum>Qt::LeftToRight</enum>
              </property>
              <property name="styleSheet">
-              <string notr="true">background-color: rgb(240, 240, 240)</string>
+              <string notr="true">background-color:rgb(228, 228, 228)
+</string>
              </property>
-             <property name="editable">
-              <bool>false</bool>
-             </property>
-             <property name="currentText">
-              <string>Select Server to modify/delete from List</string>
-             </property>
-             <property name="placeholderText">
-              <string>Select Server to modify/delete from List</string>
+             <property name="text">
+              <string>Add</string>
              </property>
             </widget>
            </item>
            <item>
-            <spacer name="verticalSpacer_12">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
+            <widget class="QPushButton" name="btn_server_modify">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Minimum</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>5</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QTextEdit" name="label_db_console">
              <property name="minimumSize">
               <size>
-               <width>554</width>
-               <height>41</height>
+               <width>0</width>
+               <height>23</height>
               </size>
              </property>
-             <property name="font">
-              <font>
-               <pointsize>8</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-               <kerning>true</kerning>
-              </font>
-             </property>
              <property name="toolTip">
-              <string>Output Console of Database Connection</string>
+              <string>Save and edited server to the Database</string>
              </property>
              <property name="statusTip">
-              <string>Output Console of Database Connection</string>
+              <string>Save and edited server to the Database</string>
              </property>
-             <property name="autoFillBackground">
-              <bool>false</bool>
+             <property name="layoutDirection">
+              <enum>Qt::LeftToRight</enum>
              </property>
              <property name="styleSheet">
-              <string notr="true">background-image: url(:/img/img/sbck.png);
+              <string notr="true">background-color:rgb(228, 228, 228)
+</string>
+             </property>
+             <property name="text">
+              <string>Save/Modify</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_server_delete">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>23</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>Delete a server from the Database</string>
+             </property>
+             <property name="statusTip">
+              <string>Delete a server from the Database</string>
+             </property>
+             <property name="layoutDirection">
+              <enum>Qt::LeftToRight</enum>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:rgb(228, 228, 228)
+</string>
+             </property>
+             <property name="text">
+              <string>Delete</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_server_quit">
+             <property name="toolTip">
+              <string>Quit the Server Manager</string>
+             </property>
+             <property name="statusTip">
+              <string>Quit the Server Manager</string>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:rgb(228, 228, 228)
+</string>
+             </property>
+             <property name="text">
+              <string>Quit</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_11">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Minimum</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>13</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QComboBox" name="dropdown_server_list">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>552</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="toolTip">
+            <string>Select Server to modify/delete from List</string>
+           </property>
+           <property name="statusTip">
+            <string>Select Server to modify/delete from List</string>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(240, 240, 240)</string>
+           </property>
+           <property name="editable">
+            <bool>false</bool>
+           </property>
+           <property name="currentText">
+            <string>Select Server to modify/delete from List</string>
+           </property>
+           <property name="placeholderText">
+            <string>Select Server to modify/delete from List</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_12">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Minimum</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>13</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QTextEdit" name="label_db_console">
+           <property name="minimumSize">
+            <size>
+             <width>554</width>
+             <height>41</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>8</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+             <kerning>true</kerning>
+            </font>
+           </property>
+           <property name="toolTip">
+            <string>Output Console of Database Connection</string>
+           </property>
+           <property name="statusTip">
+            <string>Output Console of Database Connection</string>
+           </property>
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-image: url(:/img/img/sbck.png);
 background-color: #f0f0f0;
 background-position: center;
 background-repeat: no-repeat;
 
 </string>
-             </property>
-             <property name="verticalScrollBarPolicy">
-              <enum>Qt::ScrollBarAlwaysOff</enum>
-             </property>
-             <property name="readOnly">
-              <bool>false</bool>
-             </property>
-             <property name="html">
-              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+           </property>
+           <property name="verticalScrollBarPolicy">
+            <enum>Qt::ScrollBarAlwaysOff</enum>
+           </property>
+           <property name="readOnly">
+            <bool>false</bool>
+           </property>
+           <property name="html">
+            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:7pt; font-weight:400;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="placeholderText">
+            <string>Database connection console output</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="Line" name="line_6">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_13">
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Import Database:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_18">
+           <item>
+            <widget class="QToolButton" name="toolButton">
+             <property name="minimumSize">
+              <size>
+               <width>100</width>
+               <height>0</height>
+              </size>
              </property>
-             <property name="placeholderText">
-              <string>Database connection console output</string>
+             <property name="text">
+              <string>Select Database</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_14">
+             <property name="minimumSize">
+              <size>
+               <width>250</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Box</enum>
+             </property>
+             <property name="text">
+              <string>Selected DB File</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton">
+             <property name="text">
+              <string>Add to existing DB</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_2">
+             <property name="text">
+              <string>Replace existing DB</string>
              </property>
             </widget>
            </item>
