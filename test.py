@@ -1,7 +1,7 @@
 import bin.SourceQuery as sq
 
 
-server = sq.SourceQuery('93.186.198.185', 27216)
+server = sq.SourceQuery('127.0.0.1', 27131)
 # print(server.get_info()['Ping'])
 # print(server.get_info()['Hostname'])
 # print(server.get_info()['Password'])

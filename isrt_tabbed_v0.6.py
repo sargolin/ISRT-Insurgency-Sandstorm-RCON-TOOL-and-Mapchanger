@@ -13,6 +13,8 @@ This is open Source, you may use, copy, modify it as you wish - feel free!
 Import Stuff
 ------------------------------------------------------------------'''
 import sys, os, re, sqlite3, time, threading
+from datetime import datetime
+from shutil import copy2
 import bin.SourceQuery as sq
 from PyQt5 import QtCore, QtGui, QtWidgets
 from bin.rcon.console import Console
@@ -51,6 +53,7 @@ class maingui(QtWidgets.QWidget):
         self.gui.btn_main_copytoclipboard.clicked.connect(self.copy2clipboard)
         self.gui.btn_main_drcon_changemap.clicked.connect(self.map_changer)
         self.gui.btn_add_cust_command.clicked.connect(self.add_custom_command_manually)
+        self.gui.btn_exec_db_backup.clicked.connect(self.create_db_backup)
 
         #Define entry fields for user input
         self.gui.entry_ip.returnPressed.connect(self.checkandgoquery)
@@ -105,7 +108,6 @@ class maingui(QtWidgets.QWidget):
         self.gui.btn_server_add.clicked.connect(self.server_add)
         self.gui.btn_server_modify.clicked.connect(self.server_modify)
         self.gui.btn_server_delete.clicked.connect(self.server_delete)
-        self.gui.btn_server_quit.clicked.connect(self.exit_app)
 
         #Fill the Server dropdown menu
         def assign_server_values(text):
@@ -821,8 +823,97 @@ class maingui(QtWidgets.QWidget):
 
 
         self.fill_dropdown_server_box()
+    #Import Database Routines
+    def DB_import(self, db_action):
+        
+        if db_action == 'select_db':
+            db_select_directory = (str(self.dbdir) + '\\db\\')
+            self.data_path=QtWidgets.QFileDialog.getOpenFileName(self,'Select Database', db_select_directory, '*.db',)
+            self.gui.label_selected_db.setText(self.data_path[0])
+        elif db_action == 'add_db':
+            if self.data_path:
+                self.gui.label_db_console.setText("Adding Server from " + self.data_path[0] + " to current database")
+
+                #Database connection setup for Importing
+                dbimportdir = self.data_path[0]
+                connimport = sqlite3.connect(dbimportdir)
+                cidb = connimport.cursor()
+                cidb.execute("select * FROM server")
+                dbimport_result = cidb.fetchall()
+                connimport.commit()
+                for import_result in dbimport_result:
+                    import_server_alias = import_result[0]
+                    import_server_ip = import_result[1]
+                    import_server_queryport = import_result[2]
+                    import_server_rconport = import_result[3]
+                    import_server_rconpw = import_result[4]
+                    self.c.execute("INSERT INTO server VALUES (:alias, :ipaddress, :queryport, :rconport, :rconpw)", {'alias': import_server_alias, 'ipaddress': import_server_ip, 'queryport': import_server_queryport, 'rconport': import_server_rconport, 'rconpw': import_server_rconpw})
+                    self.conn.commit()
+                    
+                self.gui.label_db_console.setText("Added Server from " + self.data_path[0] + " to current database")
+            else:
+                self.gui.label_db_console.setText("Please select a database first!")
+        elif db_action == 'replace_db':
+            if self.data_path and self.data_path[0].endswith(".db"):
+                self.gui.label_db_console.setText("Replacing Server from " + self.data_path[0] + " in current database")
+
+                #Database connection setup for Importing
+                dbimportdir = self.data_path[0]
+                connimport = sqlite3.connect(dbimportdir)
+                cidb = connimport.cursor()
+                cidb.execute("select * FROM server")
+                dbimport_result = cidb.fetchall()
+                connimport.commit()
+
+                def showImport_Dialog():
+                    msgBox = QtWidgets.QMessageBox()
+                    msgBox.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
+                    msgBox.setIcon(QtWidgets.QMessageBox.Warning)
+                    msgBox.setText("Really replace all servers in the current DB with the imported DB Servers?\n\nConsider creating a backup of the DB file before clicking 'Yes':\n\n" + str(self.dbdir / 'db/isrt_data.db'))
+                    msgBox.setWindowTitle("ISRT DB Import Warning")
+                    msgBox.setStandardButtons(QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+                    msgBox.setDefaultButton(QtWidgets.QMessageBox.No)
+                    msgBox.buttonClicked.connect(delete_and_import_db)
+                    msgBox.exec()
+
+                def delete_and_import_db(i):
+                    if i.text() == "&Yes":
+                        self.c.execute("DELETE FROM server")
+                        self.conn.commit()
+                        for import_result in dbimport_result:
+                            import_server_alias = import_result[0]
+                            import_server_ip = import_result[1]
+                            import_server_queryport = import_result[2]
+                            import_server_rconport = import_result[3]
+                            import_server_rconpw = import_result[4]
+                            self.c.execute("INSERT INTO server VALUES (:alias, :ipaddress, :queryport, :rconport, :rconpw)", {'alias': import_server_alias, 'ipaddress': import_server_ip, 'queryport': import_server_queryport, 'rconport': import_server_rconport, 'rconpw': import_server_rconpw})
+                            
+                        self.conn.commit()
+                        self.gui.label_db_console.setText("Replaced Server from " + self.data_path[0] + " in current database")
+                        self.gui.label_selected_db.clear()
+
+                    else:
+                        self.gui.label_db_console.setText("Import canceled!")
+                        self.gui.label_selected_db.clear()
 
 
+                showImport_Dialog()
+                self.data_path = ''
+
+            else:
+                self.gui.label_db_console.setText("Please select a database first!")
+        
+        self.fill_dropdown_server_box()
+    #Backup current Server-DB
+    def create_db_backup(self):
+        #Define a timestamp format for backup
+        FORMAT = '%Y%m%d%H%M%S'
+        db_backup_directory = (str(self.dbdir) + '\\db\\')
+        db_source_filename = (db_backup_directory + 'isrt_data.db')
+        db_backup_filename = (db_backup_directory + datetime.now().strftime(FORMAT) + '_isrt_data.db')
+        copy2(str(db_source_filename), str(db_backup_filename))
+        
+        self.gui.label_db_console.setText("Backup created at: \n" + db_backup_filename)
 
 
 
@@ -1262,101 +1353,6 @@ class maingui(QtWidgets.QWidget):
                 msg.exec_()  
         #Refresh the Settings in clicking save!
         self.get_configuration_from_DB_and_set_settings()
-    #Import Database Routines
-    def DB_import(self, db_action):
-        
-        if db_action == 'select_db':
-            self.data_path=QtWidgets.QFileDialog.getOpenFileName(self,'Select Database',"c:\\",'*.db',)
-            self.gui.label_selected_db.setText(self.data_path[0])
-            print(self.data_path[0])
-        elif db_action == 'add_db':
-            if self.data_path:
-                self.gui.label_db_console.setText("Adding Server from " + self.data_path[0] + " to current database")
-
-                #Database connection setup for Importing
-                dbimportdir = self.data_path[0]
-                connimport = sqlite3.connect(dbimportdir)
-                cidb = connimport.cursor()
-                cidb.execute("select * FROM server")
-                dbimport_result = cidb.fetchall()
-                connimport.commit()
-                for import_result in dbimport_result:
-                    import_server_alias = import_result[0]
-                    import_server_ip = import_result[1]
-                    import_server_queryport = import_result[2]
-                    import_server_rconport = import_result[3]
-                    import_server_rconpw = import_result[4]
-                    self.c.execute("INSERT INTO server VALUES (:alias, :ipaddress, :queryport, :rconport, :rconpw)", {'alias': import_server_alias, 'ipaddress': import_server_ip, 'queryport': import_server_queryport, 'rconport': import_server_rconport, 'rconpw': import_server_rconpw})
-                    self.conn.commit()
-                    
-                self.gui.label_db_console.setText("Added Server from " + self.data_path[0] + " to current database")
-
-
-
-            else:
-                self.gui.label_db_console.setText("Please select a database first!")
-        elif db_action == 'replace_db':
-            if self.data_path:
-                self.gui.label_db_console.setText("Replacing Server from " + self.data_path[0] + " in current database")
-
-                #Database connection setup for Importing
-                dbimportdir = self.data_path[0]
-                connimport = sqlite3.connect(dbimportdir)
-                cidb = connimport.cursor()
-                cidb.execute("select * FROM server")
-                dbimport_result = cidb.fetchall()
-                connimport.commit()
-
-                def showImport_Dialog():
-                    msgBox = QtWidgets.QMessageBox()
-                    msgBox.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
-                    msgBox.setIcon(QtWidgets.QMessageBox.Warning)
-                    msgBox.setText("Really replace all servers in the current DB with the imported DB Servers?\n\nConsider creating a backup of the DB file before clicking 'Yes':\n\n" + str(self.dbdir / 'db/isrt_data.db'))
-                    msgBox.setWindowTitle("ISRT DB Import Warning")
-                    msgBox.setStandardButtons(QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
-                    msgBox.setDefaultButton(QtWidgets.QMessageBox.No)
-                    msgBox.buttonClicked.connect(delete_and_import_db)
-                    msgBox.exec()
-
-                    
-
-                def delete_and_import_db(i):
-                    if i.text() == "&Yes":
-                        for import_result in dbimport_result:
-                            import_server_alias = import_result[0]
-                            import_server_ip = import_result[1]
-                            import_server_queryport = import_result[2]
-                            import_server_rconport = import_result[3]
-                            import_server_rconpw = import_result[4]
-                        self.c.execute("DELETE * FROM server")
-                        self.c.execute("INSERT INTO server VALUES (:alias, :ipaddress, :queryport, :rconport, :rconpw)", {'alias': import_server_alias, 'ipaddress': import_server_ip, 'queryport': import_server_queryport, 'rconport': import_server_rconport, 'rconpw': import_server_rconpw})
-                        self.conn.commit()
-                        self.gui.label_db_console.setText("Replaced Server from " + self.data_path[0] + " in current database")
-                        self.gui.label_selected_db.clear()
-
-                    else:
-                        self.gui.label_db_console.setText("Import canceled!")
-                        self.gui.label_selected_db.clear()
-
-
-
-
-
-
-
-
-                showImport_Dialog()
-                # print(self.returnValue)
-
-
-                
-
-            else:
-                self.gui.label_db_console.setText("Please select a database first!")
-        
-        self.fill_dropdown_server_box()
-
-
     #Copy2Clipboard
     def copy2clipboard(self):
         copyvar = self.gui.label_output_window.text()
