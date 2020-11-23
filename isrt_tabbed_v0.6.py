@@ -40,26 +40,23 @@ class rngui(QtWidgets.QWidget):
         super().__init__(*args, **kwargs)
         self.rngui = Ui_rn_window()
         self.rngui.setupUi(self)
-
-        self.rngui.btn_rn_close.connect.clicked(self.close_rn)
-
-
+        self.rngui.btn_rn_close.clicked.connect(self.close_rn)
 
     def close_rn(self):
         #Database connection setup
         dbdir = Path(__file__).absolute().parent
         conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
         c = conn.cursor()
-        c.execute("SELECT show_rn FROM release_info")
-        show_rn = c.fetchone()
-    
-    
-        self.conn.close() 
+        
+        if self.rngui.chkbx_show_rn.isChecked():
+            rnsetoff = 0
+            c.execute("UPDATE release_info SET show_rn = :rnset", {'rnset' :rnsetoff})
+            conn.commit()
+            conn.close()
         self.close()
 
     def closeEvent(self, event):
-        
-        self.conn.close() 
+        self.close() 
 
 
 
@@ -766,9 +763,9 @@ class maingui(QtWidgets.QWidget):
 
         #Check IP
         self.regexip = r'''^(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
-        25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
-        25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
-        25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)$'''
+        25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)$'''
 
         self.regexport = r'''^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$'''
 
@@ -1455,17 +1452,21 @@ if __name__ == "__main__":
     mgui = maingui()
     mgui.show()
     
-    #Check if Release Notes shall be shown or not
+    #Release Notes Viewer
     #Database connection setup
     dbdir = Path(__file__).absolute().parent
-    conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
-    c = conn.cursor()
-    c.execute("SELECT show_rn FROM release_info")
-    show_rn = c.fetchone()
+    rn_conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
+    rnc = rn_conn.cursor()
+    rnc.execute("SELECT show_rn FROM release_info")
+    show_rn = rnc.fetchone()
+    rn_conn.commit()
+    rn_conn.close()
+    #Check if Release Notes shall be shown or not
     if show_rn[0] == 1:
         rngui = rngui()
         rngui.show()
     else:
         pass
+
     sys.exit(app.exec_())
 
