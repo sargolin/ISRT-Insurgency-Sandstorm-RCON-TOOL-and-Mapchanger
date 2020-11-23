@@ -5,6 +5,7 @@ Git: https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool
 v0.6_tabbed - Transfer to tabbed version and removal of menu bar
 Database: ./db/isrt_data.db
 This is open Source, you may use, copy, modify it as you wish - feel free!
+Thanks to Helsing and Stuermer for the pre-release testing - I appreciate that so much!
 '''
 
 
@@ -22,13 +23,59 @@ from bin.rcon.console import Console
 import bin.query as query
 from pathlib import Path
 from bin.isrt_tabbed_gui import Ui_ISRT_Main_Window
-
+from bin.rn_gui import Ui_rn_window
 
 
 
 
 
 #PyQt5 Main UI Initialization
+
+'''------------------------------------------------------------------
+Release Notes GUI Handler
+------------------------------------------------------------------'''
+class rngui(QtWidgets.QWidget):
+    def __init__(self, *args, **kwargs):
+        #Gui Setup
+        super().__init__(*args, **kwargs)
+        self.rngui = Ui_rn_window()
+        self.rngui.setupUi(self)
+
+        self.rngui.btn_rn_close.connect.clicked(self.close_rn)
+
+
+
+    def close_rn(self):
+        #Database connection setup
+        dbdir = Path(__file__).absolute().parent
+        conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
+        c = conn.cursor()
+        c.execute("SELECT show_rn FROM release_info")
+        show_rn = c.fetchone()
+    
+    
+        self.conn.close() 
+        self.close()
+
+    def closeEvent(self, event):
+        
+        self.conn.close() 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 '''------------------------------------------------------------------
 Main GUI Handlers
 ------------------------------------------------------------------'''
@@ -208,21 +255,22 @@ class maingui(QtWidgets.QWidget):
         if self.gui.entry_ip.text() and self.gui.entry_queryport.text():
             if self.gui.checkBox_refresh_trigger.isChecked():
                 #Execute Query Thread if Refresh Intervall is checked
-                def run_query_thread():
-                    self.c.execute("select refresh_intervall FROM configuration")
-                    dconf_ri = self.c.fetchone()
-                    self.conn.commit()
-                    check_thread_var = 1
-                    while check_thread_var == 1:
-                        self.checkandgoquery()
-                        refresh_timer = int(dconf_ri[0])
-                        time.sleep(refresh_timer)
-                        if self.gui.btn_main_exec_query.isChecked():
-                            check_thread_var = 1
-                        else:
-                            check_thread_var = 0
-                QueryThread1 =  threading.Thread(target=run_query_thread)
-                QueryThread1.start()
+                # def run_query_thread():
+                #     self.c.execute("select refresh_intervall FROM configuration")
+                #     dconf_ri = self.c.fetchone()
+                #     self.conn.commit()
+                #     check_thread_var = 1
+                #     while check_thread_var == 1:
+                #         self.checkandgoquery()
+                #         refresh_timer = int(dconf_ri[0])
+                #         time.sleep(refresh_timer)
+                #         if self.gui.btn_main_exec_query.isChecked():
+                #             check_thread_var = 1
+                #         else:
+                #             check_thread_var = 0
+                # QueryThread1 =  threading.Thread(target=run_query_thread)
+                # QueryThread1.start()
+                pass
             else:
                 #If Refresh Intervall is not checked
                 self.checkandgoquery()
@@ -441,10 +489,10 @@ class maingui(QtWidgets.QWidget):
     #Check for the IP and Queryport to be correct in syntax and range and go for the query
     def checkandgoquery(self):
         #Check IP
-        self.regexip = r'''^(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
-        25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
-        25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
-        25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)$'''
+        self.regexip = r'''^(25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)$'''
 
         val_localhost = "127.0.0.1"
 
@@ -615,9 +663,9 @@ class maingui(QtWidgets.QWidget):
     def checkandgorcon(self):
         #Check IP
         self.regexip = r'''^(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
-        25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
-        25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
-        25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)$'''
+        25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)$'''
 
         command_check = self.gui.label_rconcommand.text()
 
@@ -838,13 +886,12 @@ class maingui(QtWidgets.QWidget):
         self.fill_dropdown_server_box()
     #Import Database Routines
     def DB_import(self, db_action):
-        
         if db_action == 'select_db':
             db_select_directory = (str(self.dbdir) + '\\db\\')
             self.data_path=QtWidgets.QFileDialog.getOpenFileName(self,'Select Database', db_select_directory, '*.db',)
             self.gui.label_selected_db.setText(self.data_path[0])
         elif db_action == 'add_db':
-            if self.data_path:
+            if self.data_path and self.data_path[0].endswith(".db"):
                 self.gui.label_db_console.setText("Adding Server from " + self.data_path[0] + " to current database")
 
                 #Database connection setup for Importing
@@ -1402,10 +1449,23 @@ class maingui(QtWidgets.QWidget):
 #
 
 if __name__ == "__main__":
-    import sys
     app = QtWidgets.QApplication(sys.argv)
     ISRT_Main_Window = QtWidgets.QWidget()
+    rn_window = QtWidgets.QWidget()
     mgui = maingui()
     mgui.show()
+    
+    #Check if Release Notes shall be shown or not
+    #Database connection setup
+    dbdir = Path(__file__).absolute().parent
+    conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
+    c = conn.cursor()
+    c.execute("SELECT show_rn FROM release_info")
+    show_rn = c.fetchone()
+    if show_rn[0] == 1:
+        rngui = rngui()
+        rngui.show()
+    else:
+        pass
     sys.exit(app.exec_())
 
