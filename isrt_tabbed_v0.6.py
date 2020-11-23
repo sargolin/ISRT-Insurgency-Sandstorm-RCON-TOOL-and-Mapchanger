@@ -192,6 +192,12 @@ class maingui(QtWidgets.QWidget):
 
 
 
+
+
+
+
+
+
     '''------------------------------------------------------------------
     Query Intervall Handling
     ------------------------------------------------------------------'''
@@ -539,6 +545,12 @@ class maingui(QtWidgets.QWidget):
          
         assign_map_view_pic(self)
         
+
+
+
+
+
+
 
 
 
@@ -914,6 +926,9 @@ class maingui(QtWidgets.QWidget):
         copy2(str(db_source_filename), str(db_backup_filename))
         
         self.gui.label_db_console.setText("Backup created at: \n" + db_backup_filename)
+
+
+
 
 
 
@@ -1372,6 +1387,10 @@ class maingui(QtWidgets.QWidget):
         # self.gui.label_selected_db()
         # self.gui.btn_add_database.clicked.connect(self.DB_import(add_db))
         # self.gui.btn_replace_database.clicked.connect(self.DB_import(replace_db))
+
+
+
+
 
 
 

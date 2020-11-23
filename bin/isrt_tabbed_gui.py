@@ -456,10 +456,6 @@ class Ui_ISRT_Main_Window(object):
 "")
         self.btn_main_drcon_help.setObjectName("btn_main_drcon_help")
         self.verticalLayout_10.addWidget(self.btn_main_drcon_help)
-        self.btn_main_drcon_test = QtWidgets.QPushButton(self.Tab_Main)
-        self.btn_main_drcon_test.setStyleSheet("background-color: rgb(255, 0, 0);")
-        self.btn_main_drcon_test.setObjectName("btn_main_drcon_test")
-        self.verticalLayout_10.addWidget(self.btn_main_drcon_test)
         self.btn_main_copytoclipboard = QtWidgets.QPushButton(self.Tab_Main)
         self.btn_main_copytoclipboard.setStyleSheet("background-color:rgb(191, 201, 204)\n"
 "")
@@ -1212,7 +1208,7 @@ class Ui_ISRT_Main_Window(object):
         self.horizontalLayout_10.addWidget(self.TabWidget_Main_overall)
 
         self.retranslateUi(ISRT_Main_Window)
-        self.TabWidget_Main_overall.setCurrentIndex(1)
+        self.TabWidget_Main_overall.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(ISRT_Main_Window)
 
     def retranslateUi(self, ISRT_Main_Window):
@@ -1309,7 +1305,6 @@ class Ui_ISRT_Main_Window(object):
         self.btn_main_drcon_showroundtime.setText(_translate("ISRT_Main_Window", "Show Round Time"))
         self.btn_main_drcon_help.setToolTip(_translate("ISRT_Main_Window", "Custom Button 11"))
         self.btn_main_drcon_help.setText(_translate("ISRT_Main_Window", "Help"))
-        self.btn_main_drcon_test.setText(_translate("ISRT_Main_Window", "Test"))
         self.btn_main_copytoclipboard.setToolTip(_translate("ISRT_Main_Window", "Copy the output of console to Clipboard"))
         self.btn_main_copytoclipboard.setStatusTip(_translate("ISRT_Main_Window", "Copy the output of console to Clipboard"))
         self.btn_main_copytoclipboard.setText(_translate("ISRT_Main_Window", "Copy Console Output"))

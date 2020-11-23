@@ -1296,6 +1296,16 @@ background-repeat: no-repeat;</string>
               </widget>
              </item>
              <item>
+              <widget class="QPushButton" name="btn_main_drcon_test">
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(255, 0, 0);</string>
+               </property>
+               <property name="text">
+                <string>Test</string>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QPushButton" name="btn_main_copytoclipboard">
                <property name="toolTip">
                 <string>Copy the output of console to Clipboard</string>
