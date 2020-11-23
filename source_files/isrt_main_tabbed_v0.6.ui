@@ -1534,41 +1534,6 @@ background-repeat: no-repeat;</string>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="btn_main_rcon_help">
-             <property name="minimumSize">
-              <size>
-               <width>20</width>
-               <height>23</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>20</width>
-               <height>23</height>
-              </size>
-             </property>
-             <property name="baseSize">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="toolTip">
-              <string>Show RCON help and list available commands</string>
-             </property>
-             <property name="statusTip">
-              <string>Show RCON help and list available commands</string>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-color:rgb(228, 228, 228)
-</string>
-             </property>
-             <property name="text">
-              <string>?</string>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QPushButton" name="btn_main_exec_rcon">
              <property name="minimumSize">
               <size>

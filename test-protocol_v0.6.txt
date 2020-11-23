@@ -1,0 +1,7 @@
+Tested on the following systems:
+Windows 7:
+Windows 10 Home:
+Windows 10 Pro:
+Debian 10.6:
+Linux Mint 20.04:
+Mac OS Catalina:
