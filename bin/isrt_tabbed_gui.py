@@ -29,7 +29,7 @@ class Ui_ISRT_Main_Window(object):
         self.TabWidget_Main_overall = QtWidgets.QTabWidget(ISRT_Main_Window)
         self.TabWidget_Main_overall.setEnabled(True)
         self.TabWidget_Main_overall.setMinimumSize(QtCore.QSize(725, 780))
-        self.TabWidget_Main_overall.setStyleSheet("background-color: rgb(240, 240, 240);")
+        self.TabWidget_Main_overall.setStyleSheet("background-color: rgb(240, 240, 240)")
         self.TabWidget_Main_overall.setTabPosition(QtWidgets.QTabWidget.North)
         self.TabWidget_Main_overall.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.TabWidget_Main_overall.setElideMode(QtCore.Qt.ElideNone)
