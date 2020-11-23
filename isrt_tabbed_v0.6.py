@@ -12,7 +12,8 @@ This is open Source, you may use, copy, modify it as you wish - feel free!
 '''------------------------------------------------------------------
 Import Stuff
 ------------------------------------------------------------------'''
-import sys, os, re, sqlite3, time, threading
+import sys, os, re, sqlite3, time
+#import threading
 from datetime import datetime
 from shutil import copy2
 import bin.SourceQuery as sq
@@ -920,7 +921,7 @@ class maingui(QtWidgets.QWidget):
     def create_db_backup(self):
         #Define a timestamp format for backup
         FORMAT = '%Y%m%d%H%M%S'
-        db_backup_directory = (str(self.dbdir) + '\\db\\')
+        db_backup_directory = (str(self.dbdir) + '/db/')
         db_source_filename = (db_backup_directory + 'isrt_data.db')
         db_backup_filename = (db_backup_directory + datetime.now().strftime(FORMAT) + '_isrt_data.db')
         copy2(str(db_source_filename), str(db_backup_filename))
