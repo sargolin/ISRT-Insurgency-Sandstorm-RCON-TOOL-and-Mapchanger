@@ -2,16 +2,18 @@
 ISRT - Insurgency Sandstorm RCON Tool; 19.11.2020, Madman
 In case of questions: isrt@edelmeier.org
 Git: https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool
-v0.6_tabbed - Transfer to tabbed version and removal of menu bar
+v0.7 - Win-Installer, Update Mechanism, Listplayers Scrumble, Refresh Timer and so on....
 Database: ./db/isrt_data.db
 This is open Source, you may use, copy, modify it as you wish - feel free!
 Thanks to Helsing and Stuermer for the pre-release testing - I appreciate that so much!
-'''
 
 
-#Importing required classes and libraries
-'''------------------------------------------------------------------
-Import Stuff
+
+
+
+
+------------------------------------------------------------------
+Importing required classes and libraries
 ------------------------------------------------------------------'''
 import sys, os, re, sqlite3, time
 #import threading
@@ -22,7 +24,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from bin.rcon.console import Console
 import bin.query as query
 from pathlib import Path
-from bin.isrt_tabbed_gui import Ui_ISRT_Main_Window
+from bin.isrt_gui import Ui_ISRT_Main_Window
 from bin.rn_gui import Ui_rn_window
 
 
@@ -30,7 +32,6 @@ from bin.rn_gui import Ui_rn_window
 
 
 #PyQt5 Main UI Initialization
-
 '''------------------------------------------------------------------
 Release Notes GUI Handler
 ------------------------------------------------------------------'''
