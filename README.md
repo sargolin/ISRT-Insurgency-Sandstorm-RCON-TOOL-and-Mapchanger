@@ -22,6 +22,7 @@ https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/wiki
 ## 2. Known bugs
 - List Player command produces a weird output that has to be structured - working on it - solution found, but a lot more difficult than I thought
 - Program throws an error if using 127.0.0.1 as IP - SourceQuery bug - will change it in the next version - switching sourcequery code - use your LAN IP instead
+- When chosing random map change, the map is not updated correctly (NWI Server Bug reported - I unfortunately can't change false reporting on server side....
 
 ## 3. Tested on the following virtualized systems:
 
