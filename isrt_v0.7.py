@@ -217,7 +217,6 @@ class maingui(QtWidgets.QWidget):
             selection = self.assign_custom_commands_values_list_text
             #Handover selected RCON Command
             self.gui.label_rconcommand.setText(selection)
-            self.checkandgorcon()
 
         #Connect execution of selected variables with drop down menu select
         self.gui.dropdown_select_server.activated[str].connect(assign_server_values_list)
@@ -234,6 +233,9 @@ class maingui(QtWidgets.QWidget):
         self.gui.btn_select_database.clicked.connect(lambda: self.DB_import("select_db"))
         self.gui.btn_add_database.clicked.connect(lambda: self.DB_import("add_db"))
         self.gui.btn_replace_database.clicked.connect(lambda: self.DB_import("replace_db"))
+
+
+
 
 
 
@@ -339,7 +341,9 @@ class maingui(QtWidgets.QWidget):
         #Check new RCON commands for validity
         def assess_custom_command_var(new__manual_custom_command):
             self.positive_command_check = 0
-            if (new__manual_custom_command.startswith("listplayers") or 
+            if (new__manual_custom_command.startswith("quit") or
+                new__manual_custom_command.startswith("exit") or
+                new__manual_custom_command.startswith("listplayers") or 
                 new__manual_custom_command.startswith("help") or 
                 new__manual_custom_command.startswith("kick") or 
                 new__manual_custom_command.startswith("permban") or 
@@ -668,18 +672,15 @@ class maingui(QtWidgets.QWidget):
         command_check = self.gui.label_rconcommand.text()
 
         save_command_check = None
-
-        if self.gui.CheckBox_save_custom_command.isChecked():
-            save_command_check = 1
-        else:
-            save_command_check = 0
-
+        #Save commands while hitting Submit
+        save_command_check = 1
+ 
         val_localhost = "127.0.0.1"
 
         if self.gui.entry_ip.text() == val_localhost:
             self.gui.label_output_window.setText("Due to a Windows connection problem, 127.0.0.1 cannot be used currently, please use your LAN IP-Address!")
         else:    
-            if self.gui.entry_rconpw.text() and command_check.startswith("help") or command_check.startswith("listplayers") or command_check.startswith("kick") or command_check.startswith("permban") or command_check.startswith("travel") or command_check.startswith("ban") or command_check.startswith("banid") or command_check.startswith("listbans") or command_check.startswith("unban") or command_check.startswith("say") or command_check.startswith("restartround") or command_check.startswith("maps") or command_check.startswith("scenarios") or command_check.startswith("travelscenario") or command_check.startswith("gamemodeproperty") or command_check.startswith("listgamemodeproperties"):
+            if self.gui.entry_rconpw.text() and command_check.startswith("quit") or command_check.startswith("exit") or command_check.startswith("help") or command_check.startswith("listplayers") or command_check.startswith("kick") or command_check.startswith("permban") or command_check.startswith("travel") or command_check.startswith("ban") or command_check.startswith("banid") or command_check.startswith("listbans") or command_check.startswith("unban") or command_check.startswith("say") or command_check.startswith("restartround") or command_check.startswith("maps") or command_check.startswith("scenarios") or command_check.startswith("travelscenario") or command_check.startswith("gamemodeproperty") or command_check.startswith("listgamemodeproperties"):
                 if (re.search(self.regexip, self.gui.entry_ip.text())):  
                     self.serverhost = self.gui.entry_ip.text()
                     try:
@@ -710,7 +711,6 @@ class maingui(QtWidgets.QWidget):
                                 msg.setText("Something went wrong: \n\n" + str(e) + "\n\nWrong IP, RCOn Command, Port or Password?")
                                 msg.exec_()
                                 self.gui.progressbar_map_changer.setProperty("value", 0)
-                            self.gui.CheckBox_save_custom_command.setChecked(False)
                         else:
                             raise ValueError
                     except ValueError:
@@ -1118,7 +1118,9 @@ class maingui(QtWidgets.QWidget):
         #Check new RCON commands for validity
         def assess_command_var(new_button_command):
             self.positive_command_check = 0
-            if (new_button_command.startswith("listplayers") or 
+            if (new_button_command.startswith("exit") or 
+                new_button_command.startswith("quit") or 
+                new_button_command.startswith("listplayers") or 
                 new_button_command.startswith("help") or 
                 new_button_command.startswith("kick") or 
                 new_button_command.startswith("permban") or 

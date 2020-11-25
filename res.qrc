@@ -7,11 +7,11 @@
     <file>img/sbck.png</file>
   </qresource>
   <qresource prefix="map_thumbs">
+    <file>img/maps/thumbs/tell.jpg</file>
     <file>img/maps/thumbs/frost.png</file>
     <file>img/maps/thumbs/stork_castle.jpg</file>
     <file>img/maps/thumbs/temple.png</file>
     <file>img/maps/thumbs/toro.jpg</file>
-    <file>img/maps/thumbs/tell.jpg</file>
     <file>img/maps/thumbs/tideway.png</file>
     <file>img/maps/thumbs/compound.png</file>
     <file>img/maps/thumbs/crossing.png</file>
