@@ -3,10 +3,6 @@ This is a python3 (3.8.6) - and PyQt5/SQLite3-based RCON Tool for mapchanging, s
 
 Report any bug or feature/change requests here or send me an e-mail/steam message: https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/issues
 
-The next release will proudly be powered by <a href="https://www.advancedinstaller.com">AdvancedInstaller.com:
-  
-<img src="https://cdn.advancedinstaller.com/svg/pressinfo/AiLogoColor.svg" width="300"></a>
-
 ### For Installation How-to, common problems, issue reporting, commands and the general usage, visit the Wiki pages via the link below: 
 https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/wiki
 
@@ -43,6 +39,10 @@ https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/wiki
 - Mac OS Catalina: Successful - no errors
 
 ## 4. General Remarks, Feedback and stuff...
+The next release will proudly be powered by <a href="https://www.advancedinstaller.com">AdvancedInstaller.com:
+  
+<img src="https://cdn.advancedinstaller.com/svg/pressinfo/AiLogoColor.svg" width="300"></a>
+
 If you have any questions or feedback, please send me an e-mail to: isrt@edelmeier.org - In case of feature requests or find any error in the software, please open an issue or in any other case, just write to me on our Discord: https://discord.gg/zEdTrgg
 
 If you think that my software is cool and helps you do your daily tasks, why not buy me a coffee ;-) I love coffee. You can do so by clicking one of the buttons below!
