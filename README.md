@@ -45,9 +45,7 @@ If you have any questions or feedback, please send me an e-mail to: isrt@edelmei
 
 If you think that my software is cool and helps you do your daily tasks, why not buy me a coffee ;-) I love coffee. You can do so by clicking one of the buttons below!
 
-<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="oedelmeier" data-color="#455dd9" data-emoji="" data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#ffffff" data-font-color="#ffffff" data-coffee-color="#FFDD00" ></script>
-
-<a href="https://www.buymeacoffee.com/oedelmeier" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px !important;width: 150px !important;"></a>
+<a href="https://www.buymeacoffee.com/oedelmeier"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=oedelmeier&button_colour=5176e6&font_colour=ffffff&font_family=Lato&outline_colour=ffffff&coffee_colour=FFDD00"></a>
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate?hosted_button_id=RLSPYUNWLYA9Y)
 
