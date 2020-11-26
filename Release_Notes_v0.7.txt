@@ -1,4 +1,5 @@
 Renamed Main Tab to Server Info
+Added table view for servers in Server Manager (not editable yet)
 Renamed Custom Commands to History to prevent from mixing custom commands and custom command buttons
 Eliminated the Save Commands Checkbox - commands are now automatically saved if they are not already in the history when hitting Submit
 Inserted Security/Insurgents DropDown Menu for selecting travel commands

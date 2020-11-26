@@ -316,6 +316,31 @@ class maingui(QtWidgets.QWidget):
             self.gui.dropdown_select_server.addItems(row)
             self.gui.dropdown_server_list.addItems(row)
         self.conn.commit()
+
+        self.gui.tbl_server_manager.clearSpans()
+
+        self.c.execute("SELECT * FROM server")
+        self.gui.tbl_server_manager.setRowCount(0)
+        self.conn.commit()
+        for row, form in enumerate(self.c):
+            
+            self.gui.tbl_server_manager.insertRow(row)
+            for column, item in enumerate(form):
+                self.gui.tbl_server_manager.setItem(row, column, QtWidgets.QTableWidgetItem(str(item)))  
+
+        self.gui.tbl_server_manager.insertRow(0)
+        self.gui.tbl_server_manager.setItem(0, 0, QtWidgets.QTableWidgetItem("Alias"))
+        self.gui.tbl_server_manager.setItem(0, 1, QtWidgets.QTableWidgetItem("IP-Address"))
+        self.gui.tbl_server_manager.setItem(0, 2, QtWidgets.QTableWidgetItem("Query Port"))
+        self.gui.tbl_server_manager.setItem(0, 3, QtWidgets.QTableWidgetItem("RCON Port"))
+        self.gui.tbl_server_manager.setItem(0, 4, QtWidgets.QTableWidgetItem("RCON Password"))
+        
+
+
+
+
+
+
     #Fill Dropdown Menu for Mapchanging from scratch
     def fill_dropdown_map_box(self):
         self.c.execute("select map_name FROM maps ORDER by Map_name")
