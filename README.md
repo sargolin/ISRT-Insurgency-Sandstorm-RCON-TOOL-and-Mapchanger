@@ -1,6 +1,8 @@
 # ISRT Insurgency Sandstorm RCON TOOL v0.6 released
 This is a python3 (3.8.6) - and PyQt5/SQLite3-based RCON Tool for mapchanging, server monitoring and other basic RCON functionalities that help administering and controlling Insurgency Sandstorm Servers. That said, I just released version 0.6 of it, again coming with a lot of new features that I list down below in the release notes! I implemented all your feature requests, wishes and a couple of things I found convenient, like importing your v0.5 server database or having customizable commands. Of course I would love, if you test it and let me know, in case you find bugs or have additional feature or change requests! So, if you like, give it a shot. It only takes a couple of minutes to try it out - please watch the known errors below. In the future I'll add more and more functionality and also add a proper installation/de-installation routine:
 
+## For even more Information, look here: http://www.isrt.info
+
 Report any bug or feature/change requests here or send me an e-mail/steam message: https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/issues
 
 ### For Installation How-to, common problems, issue reporting, commands and the general usage, visit the Wiki pages via the link below: 
