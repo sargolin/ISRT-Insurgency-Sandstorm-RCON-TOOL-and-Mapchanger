@@ -1,6 +1,8 @@
 # ISRT Insurgency Sandstorm RCON TOOL v0.6 released
 This is a python3 (3.8.6) - and PyQt5/SQLite3-based RCON Tool for mapchanging, server monitoring and other basic RCON functionalities that help administering and controlling Insurgency Sandstorm Servers. That said, I just released version 0.6 of it, again coming with a lot of new features that I list down below in the release notes! I implemented all your feature requests, wishes and a couple of things I found convenient, like importing your v0.5 server database or having customizable commands. Of course I would love, if you test it and let me know, in case you find bugs or have additional feature or change requests! So, if you like, give it a shot. It only takes a couple of minutes to try it out - please watch the known errors below. In the future I'll add more and more functionality and also add a proper installation/de-installation routine:
 
+## For even more Information, look here: http://www.isrt.info
+
 Report any bug or feature/change requests here or send me an e-mail/steam message: https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/issues
 
 ### For Installation How-to, common problems, issue reporting, commands and the general usage, visit the Wiki pages via the link below: 
@@ -39,11 +41,15 @@ https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/wiki
 - Mac OS Catalina: Successful - no errors
 
 ## 4. General Remarks, Feedback and stuff...
+The next release will proudly be powered by <a href="https://www.advancedinstaller.com">AdvancedInstaller.com:
+  
+<img src="https://cdn.advancedinstaller.com/svg/pressinfo/AiLogoColor.svg" width="300"></a>
+
 If you have any questions or feedback, please send me an e-mail to: isrt@edelmeier.org - In case of feature requests or find any error in the software, please open an issue or in any other case, just write to me on our Discord: https://discord.gg/zEdTrgg
 
 If you think that my software is cool and helps you do your daily tasks, why not buy me a coffee ;-) I love coffee. You can do so by clicking one of the buttons below!
 
-<a href="https://www.buymeacoffee.com/oedelmeier" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px !important;width: 150px !important;"></a>
+<a href="https://www.buymeacoffee.com/oedelmeier"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=oedelmeier&button_colour=5176e6&font_colour=ffffff&font_family=Lato&outline_colour=ffffff&coffee_colour=FFDD00"></a>
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate?hosted_button_id=RLSPYUNWLYA9Y)
 
