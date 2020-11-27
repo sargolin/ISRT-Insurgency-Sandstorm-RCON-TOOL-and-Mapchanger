@@ -26,7 +26,7 @@ import bin.query as query
 from pathlib import Path
 from bin.isrt_gui import Ui_ISRT_Main_Window
 from bin.rn_gui import Ui_rn_window
-
+import bin.SourceQuery as sq
 
 
 
@@ -91,6 +91,7 @@ class maingui(QtWidgets.QWidget):
         self.c = self.conn.cursor()
 
         #Define buttons and menu items including their functionalities
+        self.gui.btn_main_fancy_lp.clicked.connect(self.get_listplayers_fancy)
         self.gui.btn_main_exec_query.clicked.connect(self.query_intervall)
         self.gui.btn_main_exec_rcon.clicked.connect(self.checkandgorcon)
         self.gui.btn_cust_delete_selected.clicked.connect(self.custom_command_clear_selected)
@@ -621,7 +622,17 @@ class maingui(QtWidgets.QWidget):
          
         assign_map_view_pic(self)
         
+    #Get fancy returned Playerlis
+    def get_listplayers_fancy(self):
+        server_players = sq.SourceQuery('93.186.198.185', 27116)
 
+        if server_players.get_players():
+            self.gui.label_output_window.setText(server_players.get_players())
+            for player in server_players.get_players():
+                print("{id:<2} {Name:<35} {Frags:<5} {PrettyTime}".format(**player))
+
+        else:
+            self.gui.label_output_window.setText("No Players online")
 
 
 
