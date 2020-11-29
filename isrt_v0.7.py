@@ -624,10 +624,10 @@ class maingui(QtWidgets.QWidget):
         
     #Get fancy returned Playerlis
     def get_listplayers_fancy(self):
-        server_players = sq.SourceQuery('93.186.198.185', 27116)
+        server_players = sq.SourceQuery('93.186.198.185', 27216)
 
         if server_players.get_players():
-            self.gui.label_output_window.setText(server_players.get_players())
+            print(server_players.get_players())
             for player in server_players.get_players():
                 print("{id:<2} {Name:<35} {Frags:<5} {PrettyTime}".format(**player))
 
