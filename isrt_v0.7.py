@@ -131,10 +131,6 @@ class maingui(QtWidgets.QWidget):
         self.gui.label_command_button_10.returnPressed.connect(self.save_settings)
         self.gui.label_command_button_11.returnPressed.connect(self.save_settings)
 
-        # '''Test'''
-        # self.gui.btn_main_drcon_test.clicked.connect(self.direct_rcon_command_test)
-        # '''Test'''
-
         #Connect Labels with enter key press
         self.gui.label_rconcommand.returnPressed.connect(self.checkandgorcon)
         self.gui.entry_refresh_timer.returnPressed.connect(self.checkandgorcon)
@@ -210,6 +206,7 @@ class maingui(QtWidgets.QWidget):
             self.gui.entry_rconport.setText(sel_rconport)
             self.gui.entry_rconpw.setText(sel_rconpw)
             self.checkandgoquery()
+            self.get_listplayers_fancy()
         self.gui.dropdown_server_list.activated[str].connect(assign_server_values)
 
         #Assign custom Commands variables for Dropdown menu
@@ -323,8 +320,8 @@ class maingui(QtWidgets.QWidget):
         self.c.execute("SELECT * FROM server")
         self.gui.tbl_server_manager.setRowCount(0)
         self.conn.commit()
+        
         for row, form in enumerate(self.c):
-            
             self.gui.tbl_server_manager.insertRow(row)
             for column, item in enumerate(form):
                 self.gui.tbl_server_manager.setItem(row, column, QtWidgets.QTableWidgetItem(str(item)))  
@@ -624,15 +621,31 @@ class maingui(QtWidgets.QWidget):
         
     #Get fancy returned Playerlis
     def get_listplayers_fancy(self):
-        server_players = sq.SourceQuery('93.186.198.185', 27216)
-
+        self.serverhost = self.gui.entry_ip.text()
+        self.queryport = self.gui.entry_queryport.text()
+        server_players = sq.SourceQuery(self.serverhost, int(self.queryport))
+        row = 0
+        self.gui.tbl_player_output.setRowCount(0)
         if server_players.get_players():
-            print(server_players.get_players())
             for player in server_players.get_players():
-                print("{id:<2} {Name:<35} {Frags:<5} {PrettyTime}".format(**player))
+                data_id = ("{id}".format(**player))
+                data_name = ("{Name}".format(**player))
+                data_frags = ("{Frags}".format(**player))
+                data_prettyTime = ("{PrettyTime}".format(**player))
 
+                self.gui.tbl_player_output.insertRow(row)
+                self.gui.tbl_player_output.setItem(row, 0, QtWidgets.QTableWidgetItem(data_id))
+                self.gui.tbl_player_output.setItem(row, 1, QtWidgets.QTableWidgetItem(data_name))
+                self.gui.tbl_player_output.setItem(row, 2, QtWidgets.QTableWidgetItem(data_frags))
+                self.gui.tbl_player_output.setItem(row, 3, QtWidgets.QTableWidgetItem(data_prettyTime))
+                row = row + 1
         else:
             self.gui.label_output_window.setText("No Players online")
+
+
+
+
+
 
 
 
