@@ -1340,14 +1340,20 @@ background-repeat: no-repeat;</string>
            <property name="sizeAdjustPolicy">
             <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
            </property>
+           <property name="alternatingRowColors">
+            <bool>true</bool>
+           </property>
            <attribute name="horizontalHeaderCascadingSectionResizes">
-            <bool>false</bool>
+            <bool>true</bool>
            </attribute>
            <attribute name="horizontalHeaderMinimumSectionSize">
             <number>15</number>
            </attribute>
            <attribute name="horizontalHeaderDefaultSectionSize">
             <number>175</number>
+           </attribute>
+           <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+            <bool>true</bool>
            </attribute>
            <attribute name="horizontalHeaderStretchLastSection">
             <bool>true</bool>
