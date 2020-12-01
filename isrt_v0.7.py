@@ -15,8 +15,7 @@ Thanks to Helsing and Stuermer for the pre-release testing - I appreciate that s
 ------------------------------------------------------------------
 Importing required classes and libraries
 ------------------------------------------------------------------'''
-import sys, os, re, sqlite3, time
-#import threading
+import sys, os, re, sqlite3, time, threading
 from datetime import datetime
 from shutil import copy2
 import bin.SourceQuery as sq
@@ -26,6 +25,7 @@ import bin.query as query
 from pathlib import Path
 from bin.isrt_gui import Ui_ISRT_Main_Window
 from bin.rn_gui import Ui_rn_window
+from bin.isrt_add_gui import Ui_add_ui
 import bin.SourceQuery as sq
 
 
@@ -68,6 +68,39 @@ class rngui(QtWidgets.QWidget):
 
 
 
+'''------------------------------------------------------------------
+Server Add Alias GUI Handler
+------------------------------------------------------------------'''
+class addgui(QtWidgets.QWidget):
+    def __init__(self, *args, **kwargs):
+        #Gui Setup
+        super().__init__(*args, **kwargs)
+        self.addgui = Ui_add_ui()
+        self.addgui.setupUi(self)
+        self.addgui.btn_save_server_alias.clicked.connect(self.save_n_close)
+
+    def save_n_close(self):
+        #Database connection setup
+        dbdir = Path(__file__).absolute().parent
+        conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
+        c = conn.cursor()
+        
+        valadd_alias = self.addgui.entry_server_alias_popup.text()
+        return valadd_alias
+
+        # if self.rngui.chkbx_show_rn.isChecked():
+        #     rnsetoff = 0
+        #     c.execute("UPDATE release_info SET show_rn = :rnset", {'rnset' :rnsetoff})
+        #     conn.commit()
+        #     conn.close()
+        # self.close()
+
+    def closeEvent(self, event):
+        self.close() 
+
+
+
+
 
 
 
@@ -100,6 +133,7 @@ class maingui(QtWidgets.QWidget):
         self.gui.btn_main_drcon_changemap.clicked.connect(self.map_changer)
         self.gui.btn_add_cust_command.clicked.connect(self.add_custom_command_manually)
         self.gui.btn_exec_db_backup.clicked.connect(self.create_db_backup)
+        self.gui.btn_main_add_server_db.clicked.connect(self.server_add_main)
 
         #Define entry fields for user input
         self.gui.entry_ip.returnPressed.connect(self.checkandgoquery)
@@ -523,13 +557,25 @@ class maingui(QtWidgets.QWidget):
                         try:
                             self.queryserver(self.serverhost, self.queryport)
                             self.get_listplayers_fancy()
-                        except Exception as f: 
-                            msg = QtWidgets.QMessageBox()
-                            msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
-                            msg.setIcon(QtWidgets.QMessageBox.Critical)
-                            msg.setWindowTitle("ISRT Error Message")
-                            msg.setText("We encountered an error: \n\n" + str(f) + "\n\nWrong IP,Port or Server down?")
-                            msg.exec_()
+                            self.gui.label_output_window.setStyleSheet("border-image:url(:/img/img/rcon-bck.jpg);\n")
+                        except Exception:
+                            self.gui.label_output_window.setStyleSheet("border-image:url(:/img/img/offline.jpg);\n")
+                            self.gui.tbl_player_output.setRowCount(0)
+                            self.gui.le_servername.clear()
+                            self.gui.le_gamemode.clear()
+                            self.gui.le_serverip_port.clear()
+                            self.gui.le_vac.clear()
+                            self.gui.le_players.clear()
+                            self.gui.le_ping.clear()
+                            self.gui.le_map.clear()
+                            self.gui.le_mods.clear()
+                            # msg = QtWidgets.QMessageBox()
+                            # msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
+                            # msg.setIcon(QtWidgets.QMessageBox.Critical)
+                            # msg.setWindowTitle("ISRT Error Message")
+                            # msg.setText("We encountered an error: \n\n" + str(f) + "\n\nWrong IP,Port or Server down?")
+                            # msg.exec_()
+                            #self.gui.progressbar_map_changer.setProperty("value", 100)
                     else:
                         raise ValueError
                 except ValueError:
@@ -603,15 +649,19 @@ class maingui(QtWidgets.QWidget):
                 self.gui.label_map_view.setStyleSheet("border-image: url(:/map_view/img/maps/map_views.jpg); background-color: #f0f0f0;background-position: center;background-repeat: no-repeat;")
          
         assign_map_view_pic(self)
-    #Get fancy returned Playerlis
+    #Use Threading for Playerlist to be generated while the rest continues
+    def thread_method_for_play_table_widget(self):
+        self.server_players = sq.SourceQuery(self.serverhost, int(self.queryport))
+    #Get fancy returned Playerlist
     def get_listplayers_fancy(self):
         self.serverhost = self.gui.entry_ip.text()
         self.queryport = self.gui.entry_queryport.text()
-        server_players = sq.SourceQuery(self.serverhost, int(self.queryport))
+        FPQueryThread1 =  threading.Thread(target=self.thread_method_for_play_table_widget)
+        FPQueryThread1.start()
         row = 0
         self.gui.tbl_player_output.setRowCount(0)
-        if server_players.get_players():
-            for player in server_players.get_players():
+        if self.server_players.get_players():
+            for player in self.server_players.get_players():
                 data_id = ("{id}".format(**player))
                 data_name = ("{Name}".format(**player))
                 data_frags = ("{Frags}".format(**player))
@@ -855,6 +905,85 @@ class maingui(QtWidgets.QWidget):
                 self.gui.label_db_console.append("Failed to insert server into database " + str(error))
 
         self.fill_dropdown_server_box()
+    
+    #Add a server to DB from Main Menu
+    def server_add_main(self):
+        valadd_alias = self.gui.dropdown_select_server.currentText()
+        valadd_ipaddress = self.gui.entry_ip.text()
+        valadd_queryport = self.gui.entry_queryport.text()
+        valadd_rconport = self.gui.entry_rconport.text()
+        valadd_rconpw = self.gui.entry_rconpw.text()
+
+        go_addserver_check = 0
+
+        #Check IP
+        self.regexip = r'''^(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)$'''
+
+        self.regexport = r'''^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$'''
+
+        if valadd_ipaddress and valadd_queryport:
+            go_addserver_check = 1
+        else:
+            self.gui.label_output_window.append("At least Alias, IP-Adress and Query Port have to contain a value!")
+            go_addserver_check = 0
+
+        if valadd_ipaddress and (re.search(self.regexip, valadd_ipaddress)):  
+            go_addserver_ipcheck = 1
+        else:
+            self.gui.label_output_window.setText(valadd_ipaddress + " is no valid IP address - please check and retry!")
+            go_addserver_ipcheck = 0
+
+
+        if valadd_queryport and (re.search(self.regexport, valadd_queryport)):
+            go_addserver_qpcheck = 1
+        else:
+            self.gui.label_output_window.setText(valadd_queryport + " is no valid Query Port - please check and retry!")
+            go_addserver_qpcheck = 0
+
+
+        if valadd_rconport:
+            if (re.search(self.regexport, valadd_rconport)):
+                pass
+            else:
+                self.gui.label_output_window.setText(valadd_rconport + " is no valid RCON Port - please check and retry!")
+                go_addserver_check = 0
+
+        
+        addgui.show()
+
+        print(valadd_alias)
+        print(valadd_ipaddress)
+        print(valadd_queryport)
+        print(valadd_rconport)
+        print(valadd_rconpw)
+
+        # self.c.execute("select alias FROM server")
+        # check_alias = self.c.fetchall()
+        # self.conn.commit()
+        # nogocheck = 1                
+
+        # for check in check_alias:
+        #     for item in check:
+        #         if item and valadd_alias == item:
+        #             go_addserver_check = 0
+        #             self.gui.label_output_window.append("Alias already exists, please rename it")
+        #             nogocheck = 0
+        #         else:
+        #             nogocheck = 1
+
+        # if go_addserver_check == 1 and nogocheck == 1 and go_addserver_ipcheck == 1 and go_addserver_qpcheck == 1:
+        #     try:
+               
+        #         self.c.execute("INSERT INTO server VALUES (:alias, :ipaddress, :queryport, :rconport, :rconpw)", {'alias': valadd_alias, 'ipaddress': valadd_ipaddress, 'queryport': valadd_queryport, 'rconport': valadd_rconport, 'rconpw': valadd_rconpw})
+        #         self.conn.commit()
+        #         self.gui.label_output_window.append("Server inserted successfully into database")
+        #     except sqlite3.Error as error:
+        #         self.gui.label_output_window.append("Failed to insert server into database " + str(error))
+
+        # self.fill_dropdown_server_box()
     #Modify a server in DB
     def server_modify(self):
         val_alias = self.gui.server_alias.text()
@@ -1485,9 +1614,12 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     ISRT_Main_Window = QtWidgets.QWidget()
     rn_window = QtWidgets.QWidget()
+    add_ui = QtWidgets.QWidget()
     mgui = maingui()
     mgui.show()
     
+    addgui = addgui()
+
     #Release Notes Viewer
     #Database connection setup
     dbdir = Path(__file__).absolute().parent

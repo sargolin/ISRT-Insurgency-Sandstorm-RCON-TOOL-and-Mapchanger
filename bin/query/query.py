@@ -27,7 +27,7 @@ class SourceWatchError(Exception):
 
 class Query:
     global PACKET_SIZE
-    def __init__(self, host, port=27015, timeout=3):
+    def __init__(self, host, port=27015, timeout=2):
         self.logger = logging.getLogger('SourceWatch')
         self.server = Server(socket.gethostbyname(host), int(port))
         self._timeout = timeout

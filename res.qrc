@@ -2,6 +2,7 @@
   <qresource prefix="img">
     <file>img/lock-unchecked.png</file>
     <file>img/about-bck.jpg</file>
+    <file>img/offline.jpg</file>
     <file>img/lock-locked.png</file>
     <file>img/lock-unlocked.png</file>
     <file>img/rcon-bck.jpg</file>

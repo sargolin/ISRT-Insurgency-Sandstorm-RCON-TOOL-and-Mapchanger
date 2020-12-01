@@ -92,13 +92,13 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_24">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_8">
+        <layout class="QVBoxLayout" name="verticalLayout_22">
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <layout class="QHBoxLayout" name="horizontalLayout_10">
            <item>
-            <layout class="QVBoxLayout" name="verticalLayout_22">
+            <layout class="QVBoxLayout" name="verticalLayout_8">
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_3">
+              <layout class="QHBoxLayout" name="horizontalLayout_7">
                <item>
                 <layout class="QVBoxLayout" name="verticalLayout_2">
                  <item>
@@ -136,123 +136,154 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="entry_ip">
-                   <property name="minimumSize">
-                    <size>
-                     <width>100</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>2500</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="statusTip">
-                    <string>IP Address of the server</string>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color:rgb(254, 254, 254);</string>
-                   </property>
-                   <property name="text">
-                    <string/>
-                   </property>
-                   <property name="placeholderText">
-                    <string>Query IP-Address</string>
-                   </property>
-                  </widget>
+                  <layout class="QHBoxLayout" name="horizontalLayout_3">
+                   <item>
+                    <widget class="QLineEdit" name="entry_ip">
+                     <property name="minimumSize">
+                      <size>
+                       <width>100</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>2500</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                     <property name="statusTip">
+                      <string>IP Address of the server</string>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">background-color:rgb(254, 254, 254);</string>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="placeholderText">
+                      <string>Query IP-Address</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLineEdit" name="entry_queryport">
+                     <property name="minimumSize">
+                      <size>
+                       <width>80</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>2500</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                     <property name="statusTip">
+                      <string>Query Port of the server</string>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">background-color:rgb(254, 254, 254);</string>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="placeholderText">
+                      <string>Query Port (NOT Game Port!)</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="entry_queryport">
-                   <property name="minimumSize">
-                    <size>
-                     <width>80</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>2500</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="statusTip">
-                    <string>Query Port of the server</string>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color:rgb(254, 254, 254);</string>
-                   </property>
-                   <property name="text">
-                    <string/>
-                   </property>
-                   <property name="placeholderText">
-                    <string>Query Port (NOT Game Port!)</string>
-                   </property>
-                  </widget>
+                  <layout class="QHBoxLayout" name="horizontalLayout_6">
+                   <item>
+                    <widget class="QLineEdit" name="entry_rconport">
+                     <property name="minimumSize">
+                      <size>
+                       <width>100</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>2500</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                     <property name="statusTip">
+                      <string>RCON Port of the server</string>
+                     </property>
+                     <property name="layoutDirection">
+                      <enum>Qt::LeftToRight</enum>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">background-color:rgb(254, 254, 254);</string>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="placeholderText">
+                      <string>RCON Port</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLineEdit" name="entry_rconpw">
+                     <property name="minimumSize">
+                      <size>
+                       <width>100</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>2500</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                     <property name="statusTip">
+                      <string>RCON Password of the server</string>
+                     </property>
+                     <property name="layoutDirection">
+                      <enum>Qt::LeftToRight</enum>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">background-color:rgb(254, 254, 254);</string>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="echoMode">
+                      <enum>QLineEdit::PasswordEchoOnEdit</enum>
+                     </property>
+                     <property name="placeholderText">
+                      <string>RCON Password</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="entry_rconport">
+                  <widget class="QPushButton" name="btn_main_add_server_db">
                    <property name="minimumSize">
                     <size>
-                     <width>100</width>
-                     <height>20</height>
+                     <width>0</width>
+                     <height>25</height>
                     </size>
                    </property>
                    <property name="maximumSize">
                     <size>
-                     <width>2500</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="statusTip">
-                    <string>RCON Port of the server</string>
-                   </property>
-                   <property name="layoutDirection">
-                    <enum>Qt::LeftToRight</enum>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color:rgb(254, 254, 254);</string>
-                   </property>
-                   <property name="text">
-                    <string/>
-                   </property>
-                   <property name="placeholderText">
-                    <string>RCON Port</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLineEdit" name="entry_rconpw">
-                   <property name="minimumSize">
-                    <size>
-                     <width>100</width>
+                     <width>16777215</width>
                      <height>20</height>
                     </size>
                    </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>2500</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="statusTip">
-                    <string>RCON Password of the server</string>
-                   </property>
-                   <property name="layoutDirection">
-                    <enum>Qt::LeftToRight</enum>
-                   </property>
                    <property name="styleSheet">
-                    <string notr="true">background-color:rgb(254, 254, 254);</string>
+                    <string notr="true">background-color:rgb(228, 228, 228)
+</string>
                    </property>
                    <property name="text">
-                    <string/>
-                   </property>
-                   <property name="echoMode">
-                    <enum>QLineEdit::PasswordEchoOnEdit</enum>
-                   </property>
-                   <property name="placeholderText">
-                    <string>RCON Password</string>
+                    <string>Add Server to DB</string>
                    </property>
                   </widget>
                  </item>
@@ -267,13 +298,13 @@
                    <property name="minimumSize">
                     <size>
                      <width>100</width>
-                     <height>0</height>
+                     <height>25</height>
                     </size>
                    </property>
                    <property name="maximumSize">
                     <size>
                      <width>2500</width>
-                     <height>1000</height>
+                     <height>20</height>
                     </size>
                    </property>
                    <property name="font">
@@ -1340,7 +1371,7 @@ background-repeat: no-repeat;</string>
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>150</height>
+             <height>220</height>
             </size>
            </property>
            <property name="font">
@@ -1420,10 +1451,16 @@ background-repeat: no-repeat;</string>
          </item>
          <item>
           <widget class="QTextEdit" name="label_output_window">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>0</height>
+             <height>180</height>
             </size>
            </property>
            <property name="maximumSize">
@@ -1605,13 +1642,6 @@ background-repeat: no-repeat;</string>
           </layout>
          </item>
         </layout>
-       </item>
-       <item>
-        <widget class="Line" name="line">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-        </widget>
        </item>
       </layout>
      </widget>
