@@ -91,7 +91,6 @@ class maingui(QtWidgets.QWidget):
         self.c = self.conn.cursor()
 
         #Define buttons and menu items including their functionalities
-        self.gui.btn_main_fancy_lp.clicked.connect(self.get_listplayers_fancy)
         self.gui.btn_main_exec_query.clicked.connect(self.query_intervall)
         self.gui.btn_main_exec_rcon.clicked.connect(self.checkandgorcon)
         self.gui.btn_cust_delete_selected.clicked.connect(self.custom_command_clear_selected)
@@ -206,7 +205,6 @@ class maingui(QtWidgets.QWidget):
             self.gui.entry_rconport.setText(sel_rconport)
             self.gui.entry_rconpw.setText(sel_rconpw)
             self.checkandgoquery()
-            self.get_listplayers_fancy()
         self.gui.dropdown_server_list.activated[str].connect(assign_server_values)
 
         #Assign custom Commands variables for Dropdown menu
@@ -304,7 +302,7 @@ class maingui(QtWidgets.QWidget):
         for row in dcust_alias:
             self.gui.list_custom_commands_console.addItems(row)
         self.conn.commit()
-    #Fill Dropdown Menue Server Selection and Serverlist in Server Manager
+    #Fill Dropdown Menue Server Selection and Serverlist plus TableWidget in Server Manager
     def fill_dropdown_server_box(self):
         self.c.execute("select alias FROM server")
         dd_alias = self.c.fetchall()
@@ -332,13 +330,6 @@ class maingui(QtWidgets.QWidget):
         self.gui.tbl_server_manager.setItem(0, 2, QtWidgets.QTableWidgetItem("Query Port"))
         self.gui.tbl_server_manager.setItem(0, 3, QtWidgets.QTableWidgetItem("RCON Port"))
         self.gui.tbl_server_manager.setItem(0, 4, QtWidgets.QTableWidgetItem("RCON Password"))
-        
-
-
-
-
-
-
     #Fill Dropdown Menu for Mapchanging from scratch
     def fill_dropdown_map_box(self):
         self.c.execute("select map_name FROM maps ORDER by Map_name")
@@ -531,17 +522,18 @@ class maingui(QtWidgets.QWidget):
                         self.queryport = self.gui.entry_queryport.text()
                         try:
                             self.queryserver(self.serverhost, self.queryport)
+                            self.get_listplayers_fancy()
                         except Exception as f: 
                             msg = QtWidgets.QMessageBox()
                             msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
                             msg.setIcon(QtWidgets.QMessageBox.Critical)
                             msg.setWindowTitle("ISRT Error Message")
-                            msg.setText("Something went wrong: \n\n" + str(f) + "\n\nWrong IP or Port?")
+                            msg.setText("We encountered an error: \n\n" + str(f) + "\n\nWrong IP,Port or Server down?")
                             msg.exec_()
                     else:
                         raise ValueError
                 except ValueError:
-                    self.gui.label_output_window.setText(self.gui.entry_queryport.text() + " is no valid Port number - please retry!")
+                    self.gui.label_output_window.setText(self.gui.entry_queryport.text() + " is no valid Query Port number - please retry!")
             else:  
                 self.gui.label_output_window.setText(self.gui.entry_ip.text() + " is no valid IP address - please retry!")  
     #Execute Query Command, when called by checkandgoquery()!
@@ -564,9 +556,9 @@ class maingui(QtWidgets.QWidget):
             self.servermodcheck = "No"  
 
         if  self.pwcheck == 0:
-            self.serverpwcheck = "No"
+            self.gui.le_password.setStyleSheet("border-image: url(:/img/img/lock-unlocked.png);")
         else:
-            self.serverpwcheck = "Yes"
+            self.gui.le_password.setStyleSheet("border-image: url(:/img/img/lock-locked.png);")
 
         if  self.vaccheck == 0:
             self.servervaccheck = "No"
@@ -589,21 +581,14 @@ class maingui(QtWidgets.QWidget):
             self.mutatorids = "None"
 
         self.gui.le_servername.setText(str(self.servergamedetails['server_name']))
-        self.gui.le_gamemode.setText(str(self.serverruledetails['GameMode_s']))
-        self.gui.le_servermode.setText(str(self.servercoopcheck))
+        self.gui.le_gamemode.setText(str(self.serverruledetails['GameMode_s']) + " (" + str(self.servercoopcheck) + ")")
         self.gui.le_serverip_port.setText(str(self.servernetworkdetails['ip']) + ":" + str(self.servergamedetails['server_port']))
-        self.gui.le_vac.setText(str(self.servervaccheck))
-        self.gui.le_ranked.setText(str(self.serverrulecheck))
-        self.gui.le_password.setText(str(self.serverpwcheck))
+        self.gui.le_vac.setText(str(self.servervaccheck) + "/" + str(self.serverrulecheck))
         self.gui.le_players.setText(str(self.servergamedetails['players_current']) + "/" + str(self.servergamedetails['players_max']))
         self.gui.le_ping.setText(str(self.servernetworkdetails['ping']))
         self.gui.le_map.setText(str(self.servergamedetails['game_map']))
         self.gui.le_mods.setText(str(self.mutatorids))
-        # #Testing Sourcequery
-        # self.server_sq = sq.SourceQuery('93.186.198.185', 27216)
-        # for player in self.server_sq.get_players():
-        #     output_players = ("{id:<5} {Name:<35} {Frags:<5} {PrettyTime} {NetID}".format(**player))
-        #     self.gui.label_output_window.setText(output_players)
+
             
         #Create Map View Picture absed on running map
         def assign_map_view_pic(self):
@@ -618,7 +603,6 @@ class maingui(QtWidgets.QWidget):
                 self.gui.label_map_view.setStyleSheet("border-image: url(:/map_view/img/maps/map_views.jpg); background-color: #f0f0f0;background-position: center;background-repeat: no-repeat;")
          
         assign_map_view_pic(self)
-        
     #Get fancy returned Playerlis
     def get_listplayers_fancy(self):
         self.serverhost = self.gui.entry_ip.text()
@@ -757,13 +741,13 @@ class maingui(QtWidgets.QWidget):
                                 msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
                                 msg.setIcon(QtWidgets.QMessageBox.Critical)
                                 msg.setWindowTitle("ISRT Error Message")
-                                msg.setText("Something went wrong: \n\n" + str(e) + "\n\nWrong IP, RCOn Command, Port or Password?")
+                                msg.setText("We encountered and error: \n\n" + str(e) + "\n\nWrong IP, RCON Port, Command or Password?\nThe server may also be down - please check that!")
                                 msg.exec_()
                                 self.gui.progressbar_map_changer.setProperty("value", 0)
                         else:
                             raise ValueError
                     except ValueError:
-                        self.gui.label_output_window.setText(self.gui.entry_rconport.text() + " is no valid Port number - please retry!")
+                        self.gui.label_output_window.setText(self.gui.entry_rconport.text() + " is no valid RCON Port number - please retry!")
                         self.gui.progressbar_map_changer.setProperty("value", 0)
                 else:  
                     self.gui.label_output_window.setText(self.gui.entry_ip.text() + " is no valid IP address - please retry!")       

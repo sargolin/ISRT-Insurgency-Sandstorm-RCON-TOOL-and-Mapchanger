@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>745</width>
-    <height>796</height>
+    <height>810</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,7 +19,7 @@
   <property name="minimumSize">
    <size>
     <width>745</width>
-    <height>796</height>
+    <height>810</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -30,9 +30,6 @@
     <normaloff>:/img/img/isrt.ico</normaloff>:/img/img/isrt.ico</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_23">
-   <property name="spacing">
-    <number>5</number>
-   </property>
    <property name="leftMargin">
     <number>5</number>
    </property>
@@ -50,10 +47,16 @@
      <property name="enabled">
       <bool>true</bool>
      </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="minimumSize">
       <size>
        <width>725</width>
-       <height>780</height>
+       <height>800</height>
       </size>
      </property>
      <property name="styleSheet">
@@ -88,24 +91,12 @@
        <string>Server Info</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_24">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_21">
+        <layout class="QVBoxLayout" name="verticalLayout_8">
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <layout class="QHBoxLayout" name="horizontalLayout_6">
            <item>
-            <layout class="QVBoxLayout" name="verticalLayout_5">
+            <layout class="QVBoxLayout" name="verticalLayout_22">
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_3">
                <item>
@@ -315,7 +306,36 @@
                    </property>
                   </widget>
                  </item>
+                 <item>
+                  <widget class="QProgressBar" name="progressbar_map_changer">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>8</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>8</height>
+                    </size>
+                   </property>
+                   <property name="value">
+                    <number>0</number>
+                   </property>
+                   <property name="textVisible">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
                 </layout>
+               </item>
+               <item>
+                <widget class="Line" name="line_9">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                </widget>
                </item>
                <item>
                 <widget class="QLabel" name="label_map_view">
@@ -345,68 +365,164 @@ background-repeat: no-repeat;</string>
               </layout>
              </item>
              <item>
-              <layout class="QVBoxLayout" name="verticalLayout_7" stretch="0,0,0">
-               <item>
-                <widget class="Line" name="line_3">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="le_servername">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>400</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <pointsize>8</pointsize>
-                  </font>
-                 </property>
-                 <property name="statusTip">
-                  <string>Servername</string>
-                 </property>
-                 <property name="autoFillBackground">
-                  <bool>false</bool>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">background-color: rgb(240, 240, 240)</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                 </property>
-                 <property name="readOnly">
-                  <bool>true</bool>
-                 </property>
-                 <property name="placeholderText">
-                  <string>Servername</string>
-                 </property>
-                </widget>
-               </item>
+              <widget class="Line" name="line_3">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_7">
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_2">
                  <item>
-                  <layout class="QVBoxLayout" name="verticalLayout_6">
+                  <widget class="QLineEdit" name="le_servername">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>480</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>8</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="statusTip">
+                    <string>Servername</string>
+                   </property>
+                   <property name="autoFillBackground">
+                    <bool>false</bool>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(240, 240, 240)</string>
+                   </property>
+                   <property name="frame">
+                    <bool>false</bool>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="readOnly">
+                    <bool>true</bool>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Servername</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="le_players">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>50</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>50</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>8</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="statusTip">
+                    <string>Players</string>
+                   </property>
+                   <property name="autoFillBackground">
+                    <bool>false</bool>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(240, 240, 240)</string>
+                   </property>
+                   <property name="frame">
+                    <bool>false</bool>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="readOnly">
+                    <bool>true</bool>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Players</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="le_password">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>20</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>20</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">border-image: url(:/img/img/lock-unchecked.png);</string>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_5">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeType">
+                    <enum>QSizePolicy::Fixed</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>5</width>
+                     <height>5</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_5">
+                 <item>
+                  <layout class="QVBoxLayout" name="verticalLayout_3">
                    <item>
                     <widget class="QLabel" name="label_6">
                      <property name="text">
                       <string>Gamemode:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="label_7">
-                     <property name="text">
-                      <string>Servermode:</string>
                      </property>
                     </widget>
                    </item>
@@ -424,17 +540,26 @@ background-repeat: no-repeat;</string>
                      </property>
                     </widget>
                    </item>
-                   <item>
-                    <widget class="QLabel" name="label_10">
-                     <property name="text">
-                      <string>Map:</string>
-                     </property>
-                    </widget>
-                   </item>
                   </layout>
                  </item>
                  <item>
-                  <layout class="QVBoxLayout" name="verticalLayout_3">
+                  <spacer name="horizontalSpacer_2">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeType">
+                    <enum>QSizePolicy::Fixed</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>15</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <layout class="QVBoxLayout" name="verticalLayout_4">
                    <item>
                     <widget class="QLineEdit" name="le_gamemode">
                      <property name="font">
@@ -454,6 +579,9 @@ background-repeat: no-repeat;</string>
                      <property name="text">
                       <string/>
                      </property>
+                     <property name="frame">
+                      <bool>false</bool>
+                     </property>
                      <property name="alignment">
                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                      </property>
@@ -462,33 +590,6 @@ background-repeat: no-repeat;</string>
                      </property>
                      <property name="placeholderText">
                       <string>Gamemode</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="le_servermode">
-                     <property name="font">
-                      <font>
-                       <pointsize>8</pointsize>
-                      </font>
-                     </property>
-                     <property name="statusTip">
-                      <string>Servermode</string>
-                     </property>
-                     <property name="autoFillBackground">
-                      <bool>false</bool>
-                     </property>
-                     <property name="styleSheet">
-                      <string notr="true">background-color: rgb(240, 240, 240)</string>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                     </property>
-                     <property name="readOnly">
-                      <bool>true</bool>
-                     </property>
-                     <property name="placeholderText">
-                      <string>Servermode</string>
                      </property>
                     </widget>
                    </item>
@@ -507,6 +608,9 @@ background-repeat: no-repeat;</string>
                      </property>
                      <property name="styleSheet">
                       <string notr="true">background-color: rgb(240, 240, 240)</string>
+                     </property>
+                     <property name="frame">
+                      <bool>false</bool>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -535,6 +639,9 @@ background-repeat: no-repeat;</string>
                      <property name="styleSheet">
                       <string notr="true">background-color: rgb(240, 240, 240)</string>
                      </property>
+                     <property name="frame">
+                      <bool>false</bool>
+                     </property>
                      <property name="alignment">
                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                      </property>
@@ -543,6 +650,130 @@ background-repeat: no-repeat;</string>
                      </property>
                      <property name="placeholderText">
                       <string>Mods</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_3">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeType">
+                    <enum>QSizePolicy::Fixed</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>35</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <layout class="QVBoxLayout" name="verticalLayout_5">
+                   <item>
+                    <widget class="QLabel" name="label">
+                     <property name="text">
+                      <string>VAC/Ranked:</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="label_14">
+                     <property name="text">
+                      <string>Ping:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="label_10">
+                     <property name="text">
+                      <string>Map:</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_4">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeType">
+                    <enum>QSizePolicy::Fixed</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>15</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <layout class="QVBoxLayout" name="verticalLayout_6">
+                   <item>
+                    <widget class="QLineEdit" name="le_vac">
+                     <property name="font">
+                      <font>
+                       <pointsize>8</pointsize>
+                      </font>
+                     </property>
+                     <property name="statusTip">
+                      <string>VAC Secured</string>
+                     </property>
+                     <property name="autoFillBackground">
+                      <bool>false</bool>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">background-color: rgb(240, 240, 240)</string>
+                     </property>
+                     <property name="frame">
+                      <bool>false</bool>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                     </property>
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                     <property name="placeholderText">
+                      <string>VAC + Ranked</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLineEdit" name="le_ping">
+                     <property name="font">
+                      <font>
+                       <pointsize>8</pointsize>
+                      </font>
+                     </property>
+                     <property name="statusTip">
+                      <string>Map</string>
+                     </property>
+                     <property name="autoFillBackground">
+                      <bool>false</bool>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">background-color: rgb(240, 240, 240)</string>
+                     </property>
+                     <property name="frame">
+                      <bool>false</bool>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                     </property>
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                     <property name="placeholderText">
+                      <string>Ping</string>
                      </property>
                     </widget>
                    </item>
@@ -562,6 +793,9 @@ background-repeat: no-repeat;</string>
                      <property name="styleSheet">
                       <string notr="true">background-color: rgb(240, 240, 240)</string>
                      </property>
+                     <property name="frame">
+                      <bool>false</bool>
+                     </property>
                      <property name="alignment">
                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                      </property>
@@ -575,194 +809,176 @@ background-repeat: no-repeat;</string>
                    </item>
                   </layout>
                  </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_21">
+               <item>
+                <widget class="Line" name="line_2">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_9">
                  <item>
-                  <layout class="QVBoxLayout" name="verticalLayout_4">
+                  <layout class="QHBoxLayout" name="horizontalLayout_4">
                    <item>
-                    <widget class="QLabel" name="label">
-                     <property name="text">
-                      <string>VAC Secured:</string>
+                    <widget class="QComboBox" name="dropdown_select_travelscenario">
+                     <property name="minimumSize">
+                      <size>
+                       <width>170</width>
+                       <height>20</height>
+                      </size>
                      </property>
-                     <property name="alignment">
-                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>16777215</height>
+                      </size>
                      </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="label_2">
-                     <property name="text">
-                      <string>Ranked:</string>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="label_3">
-                     <property name="text">
-                      <string>Password:</string>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="label_4">
-                     <property name="text">
-                      <string>Players:</string>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="label_5">
-                     <property name="text">
-                      <string>Ping:</string>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QVBoxLayout" name="verticalLayout_9">
-                   <item>
-                    <widget class="QLineEdit" name="le_vac">
-                     <property name="font">
-                      <font>
-                       <pointsize>8</pointsize>
-                      </font>
+                     <property name="toolTip">
+                      <string>Choose the Scenario the server should travel to</string>
                      </property>
                      <property name="statusTip">
-                      <string>VAC Secured</string>
-                     </property>
-                     <property name="autoFillBackground">
-                      <bool>false</bool>
+                      <string>Choose the Scenario the server should travel to</string>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">background-color: rgb(240, 240, 240)</string>
+                      <string notr="true">background-color:rgb(248, 248, 248);</string>
                      </property>
-                     <property name="alignment">
-                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                     </property>
-                     <property name="readOnly">
-                      <bool>true</bool>
+                     <property name="currentText">
+                      <string>Select Map for further options</string>
                      </property>
                      <property name="placeholderText">
-                      <string>VAC Secured</string>
+                      <string>Select Map for further options</string>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="le_ranked">
-                     <property name="font">
-                      <font>
-                       <pointsize>8</pointsize>
-                      </font>
+                    <widget class="QComboBox" name="dropdown_select_gamemode">
+                     <property name="minimumSize">
+                      <size>
+                       <width>115</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                     <property name="toolTip">
+                      <string>Select Gamemode to run</string>
                      </property>
                      <property name="statusTip">
-                      <string>Ranked Server</string>
-                     </property>
-                     <property name="autoFillBackground">
-                      <bool>false</bool>
+                      <string>Select Gamemode to run</string>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">background-color: rgb(240, 240, 240)</string>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                     </property>
-                     <property name="readOnly">
-                      <bool>true</bool>
+                      <string notr="true">background-color:rgb(248, 248, 248);</string>
                      </property>
                      <property name="placeholderText">
-                      <string>Ranked Server</string>
+                      <string>Gamemode</string>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="le_password">
-                     <property name="font">
-                      <font>
-                       <pointsize>8</pointsize>
-                      </font>
+                    <widget class="QComboBox" name="dropdown_select_security">
+                     <property name="minimumSize">
+                      <size>
+                       <width>65</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                     <property name="toolTip">
+                      <string>Select Side for Scenario</string>
                      </property>
                      <property name="statusTip">
-                      <string>Passworded Server</string>
-                     </property>
-                     <property name="autoFillBackground">
-                      <bool>false</bool>
+                      <string>Select Side for Scenario</string>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">background-color: rgb(240, 240, 240)</string>
+                      <string notr="true">background-color:rgb(248, 248, 248);</string>
                      </property>
-                     <property name="alignment">
-                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                     </property>
-                     <property name="readOnly">
-                      <bool>true</bool>
+                     <property name="currentText">
+                      <string>Side</string>
                      </property>
                      <property name="placeholderText">
-                      <string>Passworded Server</string>
+                      <string>Side</string>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="le_players">
-                     <property name="font">
-                      <font>
-                       <pointsize>8</pointsize>
-                      </font>
+                    <widget class="QComboBox" name="dropdown_select_lighting">
+                     <property name="minimumSize">
+                      <size>
+                       <width>45</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                     <property name="toolTip">
+                      <string>Select Lighting for Scenario</string>
                      </property>
                      <property name="statusTip">
-                      <string>Players</string>
-                     </property>
-                     <property name="autoFillBackground">
-                      <bool>false</bool>
+                      <string>Select Lighting for Scenario</string>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">background-color: rgb(240, 240, 240)</string>
+                      <string notr="true">background-color:rgb(248, 248, 248);</string>
                      </property>
-                     <property name="alignment">
-                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                     </property>
-                     <property name="readOnly">
-                      <bool>true</bool>
+                     <property name="currentText">
+                      <string>Lighting</string>
                      </property>
                      <property name="placeholderText">
-                      <string>Players</string>
+                      <string>Lighting</string>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="le_ping">
-                     <property name="font">
-                      <font>
-                       <pointsize>8</pointsize>
-                      </font>
+                    <widget class="QPushButton" name="btn_main_drcon_changemap">
+                     <property name="minimumSize">
+                      <size>
+                       <width>80</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                     <property name="toolTip">
+                      <string>Change Map with before defined Travel command</string>
                      </property>
                      <property name="statusTip">
-                      <string>Ping</string>
-                     </property>
-                     <property name="autoFillBackground">
-                      <bool>false</bool>
+                      <string>Change Map with before defined Travel command</string>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">background-color: rgb(240, 240, 240)</string>
+                      <string notr="true">background-color:rgb(228, 228, 228)
+</string>
                      </property>
-                     <property name="alignment">
-                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                     <property name="text">
+                      <string>Change Map</string>
                      </property>
-                     <property name="readOnly">
-                      <bool>true</bool>
+                     <property name="autoDefault">
+                      <bool>false</bool>
                      </property>
-                     <property name="placeholderText">
-                      <string>Ping</string>
+                     <property name="default">
+                      <bool>false</bool>
                      </property>
                     </widget>
                    </item>
@@ -772,201 +988,22 @@ background-repeat: no-repeat;</string>
                </item>
               </layout>
              </item>
-             <item>
-              <widget class="Line" name="line_2">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_4">
-               <item>
-                <widget class="QComboBox" name="dropdown_select_travelscenario">
-                 <property name="minimumSize">
-                  <size>
-                   <width>170</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>16777215</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="toolTip">
-                  <string>Choose the Scenario the server should travel to</string>
-                 </property>
-                 <property name="statusTip">
-                  <string>Choose the Scenario the server should travel to</string>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">background-color:rgb(248, 248, 248);</string>
-                 </property>
-                 <property name="currentText">
-                  <string>Select Map for further options</string>
-                 </property>
-                 <property name="placeholderText">
-                  <string>Select Map for further options</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QComboBox" name="dropdown_select_gamemode">
-                 <property name="minimumSize">
-                  <size>
-                   <width>115</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>16777215</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="toolTip">
-                  <string>Select Gamemode to run</string>
-                 </property>
-                 <property name="statusTip">
-                  <string>Select Gamemode to run</string>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">background-color:rgb(248, 248, 248);</string>
-                 </property>
-                 <property name="placeholderText">
-                  <string>Gamemode</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QComboBox" name="dropdown_select_security">
-                 <property name="minimumSize">
-                  <size>
-                   <width>65</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>16777215</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="toolTip">
-                  <string>Select Side for Scenario</string>
-                 </property>
-                 <property name="statusTip">
-                  <string>Select Side for Scenario</string>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">background-color:rgb(248, 248, 248);</string>
-                 </property>
-                 <property name="currentText">
-                  <string>Side</string>
-                 </property>
-                 <property name="placeholderText">
-                  <string>Side</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QComboBox" name="dropdown_select_lighting">
-                 <property name="minimumSize">
-                  <size>
-                   <width>45</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>16777215</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="toolTip">
-                  <string>Select Lighting for Scenario</string>
-                 </property>
-                 <property name="statusTip">
-                  <string>Select Lighting for Scenario</string>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">background-color:rgb(248, 248, 248);</string>
-                 </property>
-                 <property name="currentText">
-                  <string>Lighting</string>
-                 </property>
-                 <property name="placeholderText">
-                  <string>Lighting</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="btn_main_drcon_changemap">
-                 <property name="minimumSize">
-                  <size>
-                   <width>80</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>16777215</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="toolTip">
-                  <string>Change Map with before defined Travel command</string>
-                 </property>
-                 <property name="statusTip">
-                  <string>Change Map with before defined Travel command</string>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">background-color:rgb(228, 228, 228)
-</string>
-                 </property>
-                 <property name="text">
-                  <string>Change Map</string>
-                 </property>
-                 <property name="autoDefault">
-                  <bool>false</bool>
-                 </property>
-                 <property name="default">
-                  <bool>false</bool>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <widget class="QProgressBar" name="progressbar_map_changer">
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>10</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>16777215</width>
-                 <height>10</height>
-                </size>
-               </property>
-               <property name="value">
-                <number>0</number>
-               </property>
-               <property name="textVisible">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
             </layout>
+           </item>
+           <item>
+            <widget class="Line" name="line_7">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+            </widget>
            </item>
            <item>
             <layout class="QVBoxLayout" name="verticalLayout_10">
              <property name="spacing">
-              <number>4</number>
+              <number>5</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
              </property>
              <item>
               <widget class="QPushButton" name="btn_main_drcon_listplayers">
@@ -1287,49 +1324,32 @@ background-repeat: no-repeat;</string>
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QPushButton" name="btn_main_fancy_lp">
-               <property name="text">
-                <string>Test LP</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="btn_main_copytoclipboard">
-               <property name="toolTip">
-                <string>Copy the output of console to Clipboard</string>
-               </property>
-               <property name="statusTip">
-                <string>Copy the output of console to Clipboard</string>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">background-color:rgb(204, 204, 204)
-</string>
-               </property>
-               <property name="text">
-                <string>Copy Console Output</string>
-               </property>
-               <property name="autoDefault">
-                <bool>false</bool>
-               </property>
-               <property name="default">
-                <bool>false</bool>
-               </property>
-               <property name="flat">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
             </layout>
            </item>
           </layout>
          </item>
          <item>
+          <widget class="Line" name="line_8">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QTableWidget" name="tbl_player_output">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>150</height>
+            </size>
+           </property>
            <property name="font">
             <font>
              <pointsize>8</pointsize>
             </font>
+           </property>
+           <property name="contextMenuPolicy">
+            <enum>Qt::NoContextMenu</enum>
            </property>
            <property name="verticalScrollBarPolicy">
             <enum>Qt::ScrollBarAsNeeded</enum>
@@ -1342,6 +1362,12 @@ background-repeat: no-repeat;</string>
            </property>
            <property name="alternatingRowColors">
             <bool>true</bool>
+           </property>
+           <property name="selectionMode">
+            <enum>QAbstractItemView::ExtendedSelection</enum>
+           </property>
+           <property name="selectionBehavior">
+            <enum>QAbstractItemView::SelectRows</enum>
            </property>
            <attribute name="horizontalHeaderCascadingSectionResizes">
             <bool>true</bool>
@@ -1365,7 +1391,7 @@ background-repeat: no-repeat;</string>
             <bool>false</bool>
            </attribute>
            <attribute name="verticalHeaderMinimumSectionSize">
-            <number>15</number>
+            <number>12</number>
            </attribute>
            <attribute name="verticalHeaderDefaultSectionSize">
             <number>15</number>
@@ -1408,11 +1434,13 @@ background-repeat: no-repeat;</string>
            </property>
            <property name="font">
             <font>
-             <pointsize>9</pointsize>
+             <pointsize>10</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true">border-image:url(:/img/img/Insurgency-Sandstorm.jpg);
+            <string notr="true">border-image:url(:/img/img/rcon-bck.jpg);
 background-color: #f0f0f0;
 background-position: center;
 background-repeat: no-repeat;</string>
@@ -1447,110 +1475,132 @@ background-repeat: no-repeat;</string>
           </widget>
          </item>
          <item>
-          <layout class="QVBoxLayout" name="verticalLayout_8">
+          <layout class="QHBoxLayout" name="horizontalLayout">
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout">
-             <item>
-              <widget class="QLineEdit" name="label_rconcommand">
-               <property name="minimumSize">
-                <size>
-                 <width>190</width>
-                 <height>21</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>2560</width>
-                 <height>21</height>
-                </size>
-               </property>
-               <property name="statusTip">
-                <string>Enter RCON commands</string>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">background-color:rgb(254, 254, 254);</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-               </property>
-               <property name="placeholderText">
-                <string>RCON Command</string>
-               </property>
-               <property name="clearButtonEnabled">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QComboBox" name="dropdown_custom_commands">
-               <property name="minimumSize">
-                <size>
-                 <width>180</width>
-                 <height>20</height>
-                </size>
-               </property>
-               <property name="toolTip">
-                <string>Select from Command history</string>
-               </property>
-               <property name="statusTip">
-                <string>Select from Command history</string>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">background-color:rgb(248, 248, 248);</string>
-               </property>
-               <property name="currentText">
-                <string>Command History</string>
-               </property>
-               <property name="placeholderText">
-                <string>Command History</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="btn_main_exec_rcon">
-               <property name="minimumSize">
-                <size>
-                 <width>80</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>75</width>
-                 <height>23</height>
-                </size>
-               </property>
-               <property name="font">
-                <font>
-                 <weight>50</weight>
-                 <bold>false</bold>
-                </font>
-               </property>
-               <property name="toolTip">
-                <string>Execute the before defined RCON command</string>
-               </property>
-               <property name="statusTip">
-                <string>Execute the before defined RCON command</string>
-               </property>
-               <property name="layoutDirection">
-                <enum>Qt::LeftToRight</enum>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">background-color:rgb(228, 228, 228)
+            <widget class="QLineEdit" name="label_rconcommand">
+             <property name="minimumSize">
+              <size>
+               <width>350</width>
+               <height>21</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>2560</width>
+               <height>21</height>
+              </size>
+             </property>
+             <property name="statusTip">
+              <string>Enter RCON commands</string>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:rgb(254, 254, 254);</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+             <property name="placeholderText">
+              <string>RCON Command</string>
+             </property>
+             <property name="clearButtonEnabled">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="dropdown_custom_commands">
+             <property name="minimumSize">
+              <size>
+               <width>180</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>Select from Command history</string>
+             </property>
+             <property name="statusTip">
+              <string>Select from Command history</string>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:rgb(248, 248, 248);</string>
+             </property>
+             <property name="currentText">
+              <string>Command History</string>
+             </property>
+             <property name="placeholderText">
+              <string>Command History</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_main_copytoclipboard">
+             <property name="toolTip">
+              <string>Copy the output of console to Clipboard</string>
+             </property>
+             <property name="statusTip">
+              <string>Copy the output of console to Clipboard</string>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:rgb(218, 218, 218)
 </string>
-               </property>
-               <property name="text">
-                <string>Submit</string>
-               </property>
-               <property name="shortcut">
-                <string>Ctrl+R</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
+             </property>
+             <property name="text">
+              <string>Copy Console</string>
+             </property>
+             <property name="autoDefault">
+              <bool>false</bool>
+             </property>
+             <property name="default">
+              <bool>false</bool>
+             </property>
+             <property name="flat">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_main_exec_rcon">
+             <property name="minimumSize">
+              <size>
+               <width>80</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>75</width>
+               <height>23</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="toolTip">
+              <string>Execute the before defined RCON command</string>
+             </property>
+             <property name="statusTip">
+              <string>Execute the before defined RCON command</string>
+             </property>
+             <property name="layoutDirection">
+              <enum>Qt::LeftToRight</enum>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:rgb(228, 228, 228)
+</string>
+             </property>
+             <property name="text">
+              <string>Submit</string>
+             </property>
+             <property name="shortcut">
+              <string>Ctrl+R</string>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -1950,6 +2000,12 @@ background-repeat: no-repeat;</string>
              </attribute>
              <attribute name="verticalHeaderVisible">
               <bool>false</bool>
+             </attribute>
+             <attribute name="verticalHeaderMinimumSectionSize">
+              <number>15</number>
+             </attribute>
+             <attribute name="verticalHeaderDefaultSectionSize">
+              <number>23</number>
              </attribute>
              <attribute name="verticalHeaderStretchLastSection">
               <bool>false</bool>
@@ -3528,7 +3584,7 @@ Lists available gamemode properties for the current gamemode.</string>
        <item>
         <widget class="QLabel" name="aboutbody">
          <property name="styleSheet">
-          <string notr="true">border-image: url(:/img/img/about-bck.jpg);
+          <string notr="true">background-image: url(:/img/img/sbck.png);
 background-color: #f0f0f0;
 background-position: center;
 background-repeat: no-repeat;</string>
