@@ -28,7 +28,11 @@ from bin.rn_gui import Ui_rn_window
 from bin.isrt_add_gui import Ui_add_ui
 import bin.SourceQuery as sq
 
-
+valadd_alias = ""
+valadd_ipaddress = ""
+valadd_queryport = ""
+valadd_rconport = ""
+valadd_rconpw = ""
 
 
 #PyQt5 Main UI Initialization
@@ -72,21 +76,22 @@ class rngui(QtWidgets.QWidget):
 Server Add Alias GUI Handler
 ------------------------------------------------------------------'''
 class addgui(QtWidgets.QWidget):
-    def __init__(self, *args, **kwargs):
+    def __init__(self):
         #Gui Setup
-        super().__init__(*args, **kwargs)
+        super().__init__()
         self.addgui = Ui_add_ui()
         self.addgui.setupUi(self)
         self.addgui.btn_save_server_alias.clicked.connect(self.save_n_close)
 
     def save_n_close(self):
         #Database connection setup
-        dbdir = Path(__file__).absolute().parent
-        conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
-        c = conn.cursor()
+        # dbdir = Path(__file__).absolute().parent
+        # conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
+        # c = conn.cursor()
         
+
         valadd_alias = self.addgui.entry_server_alias_popup.text()
-        return valadd_alias
+        
 
         # if self.rngui.chkbx_show_rn.isChecked():
         #     rnsetoff = 0
@@ -94,6 +99,18 @@ class addgui(QtWidgets.QWidget):
         #     conn.commit()
         #     conn.close()
         # self.close()
+
+        # valadd_ipaddress = self.gui.entry_ip.text()
+        # valadd_queryport = self.gui.entry_queryport.text()
+        # valadd_rconport = self.gui.entry_rconport.text()
+        # valadd_rconpw = self.gui.entry_rconpw.text()
+        
+        print(valadd_alias)
+        print(valadd_ipaddress)
+        print(valadd_queryport)
+        print(valadd_rconport)
+        print(valadd_rconpw)
+
 
     def closeEvent(self, event):
         self.close() 
@@ -908,6 +925,7 @@ class maingui(QtWidgets.QWidget):
     
     #Add a server to DB from Main Menu
     def server_add_main(self):
+        global valadd_alias, valadd_ipaddress, valadd_queryport, valadd_rconport, valadd_rconpw
         valadd_alias = self.gui.dropdown_select_server.currentText()
         valadd_ipaddress = self.gui.entry_ip.text()
         valadd_queryport = self.gui.entry_queryport.text()
@@ -951,15 +969,9 @@ class maingui(QtWidgets.QWidget):
                 self.gui.label_output_window.setText(valadd_rconport + " is no valid RCON Port - please check and retry!")
                 go_addserver_check = 0
 
-        
+
+
         addgui.show()
-
-        print(valadd_alias)
-        print(valadd_ipaddress)
-        print(valadd_queryport)
-        print(valadd_rconport)
-        print(valadd_rconpw)
-
         # self.c.execute("select alias FROM server")
         # check_alias = self.c.fetchall()
         # self.conn.commit()
@@ -1617,9 +1629,10 @@ if __name__ == "__main__":
     add_ui = QtWidgets.QWidget()
     mgui = maingui()
     mgui.show()
-    
-    addgui = addgui()
 
+
+    addgui = addgui()
+    
     #Release Notes Viewer
     #Database connection setup
     dbdir = Path(__file__).absolute().parent
