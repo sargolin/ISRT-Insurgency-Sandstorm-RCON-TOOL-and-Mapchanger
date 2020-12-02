@@ -28,11 +28,10 @@ from bin.rn_gui import Ui_rn_window
 from bin.isrt_add_gui import Ui_add_ui
 import bin.SourceQuery as sq
 
-valadd_alias = ""
-valadd_ipaddress = ""
-valadd_queryport = ""
-valadd_rconport = ""
-valadd_rconpw = ""
+
+
+
+
 
 
 #PyQt5 Main UI Initialization
@@ -67,53 +66,6 @@ class rngui(QtWidgets.QWidget):
 
 
 
-
-
-
-
-
-'''------------------------------------------------------------------
-Server Add Alias GUI Handler
-------------------------------------------------------------------'''
-class addgui(QtWidgets.QWidget):
-    def __init__(self):
-        #Gui Setup
-        super().__init__()
-        self.addgui = Ui_add_ui()
-        self.addgui.setupUi(self)
-        self.addgui.btn_save_server_alias.clicked.connect(self.save_n_close)
-
-    def save_n_close(self):
-        #Database connection setup
-        # dbdir = Path(__file__).absolute().parent
-        # conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
-        # c = conn.cursor()
-        
-
-        valadd_alias = self.addgui.entry_server_alias_popup.text()
-        
-
-        # if self.rngui.chkbx_show_rn.isChecked():
-        #     rnsetoff = 0
-        #     c.execute("UPDATE release_info SET show_rn = :rnset", {'rnset' :rnsetoff})
-        #     conn.commit()
-        #     conn.close()
-        # self.close()
-
-        # valadd_ipaddress = self.gui.entry_ip.text()
-        # valadd_queryport = self.gui.entry_queryport.text()
-        # valadd_rconport = self.gui.entry_rconport.text()
-        # valadd_rconpw = self.gui.entry_rconpw.text()
-        
-        print(valadd_alias)
-        print(valadd_ipaddress)
-        print(valadd_queryport)
-        print(valadd_rconport)
-        print(valadd_rconpw)
-
-
-    def closeEvent(self, event):
-        self.close() 
 
 
 
@@ -923,14 +875,13 @@ class maingui(QtWidgets.QWidget):
 
         self.fill_dropdown_server_box()
     
-    #Add a server to DB from Main Menu
+   #Add a server to DB
     def server_add_main(self):
-        global valadd_alias, valadd_ipaddress, valadd_queryport, valadd_rconport, valadd_rconpw
-        valadd_alias = self.gui.dropdown_select_server.currentText()
-        valadd_ipaddress = self.gui.entry_ip.text()
-        valadd_queryport = self.gui.entry_queryport.text()
-        valadd_rconport = self.gui.entry_rconport.text()
-        valadd_rconpw = self.gui.entry_rconpw.text()
+        val_alias = self.gui.server_alias.text()
+        val_ipaddress = self.gui.server_ip.text()
+        val_queryport = self.gui.server_query.text()
+        val_rconport = self.gui.server_rconport.text()
+        val_rconpw = self.gui.server_rconpw.text()
 
         go_addserver_check = 0
 
@@ -942,60 +893,59 @@ class maingui(QtWidgets.QWidget):
 
         self.regexport = r'''^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$'''
 
-        if valadd_ipaddress and valadd_queryport:
+        if val_alias and val_ipaddress and val_queryport:
             go_addserver_check = 1
         else:
-            self.gui.label_output_window.append("At least Alias, IP-Adress and Query Port have to contain a value!")
+            self.gui.label_db_console.append("At least Alias, IP-Adress and Query Port have to contain a value!")
             go_addserver_check = 0
 
-        if valadd_ipaddress and (re.search(self.regexip, valadd_ipaddress)):  
+        if val_ipaddress and (re.search(self.regexip, val_ipaddress)):  
             go_addserver_ipcheck = 1
         else:
-            self.gui.label_output_window.setText(valadd_ipaddress + " is no valid IP address - please check and retry!")
+            self.gui.label_db_console.setText(val_ipaddress + " is no valid IP address - please check and retry!")
             go_addserver_ipcheck = 0
 
 
-        if valadd_queryport and (re.search(self.regexport, valadd_queryport)):
+        if val_queryport and (re.search(self.regexport, val_queryport)):
             go_addserver_qpcheck = 1
         else:
-            self.gui.label_output_window.setText(valadd_queryport + " is no valid Query Port - please check and retry!")
+            self.gui.label_db_console.setText(val_queryport + " is no valid Query Port - please check and retry!")
             go_addserver_qpcheck = 0
 
 
-        if valadd_rconport:
-            if (re.search(self.regexport, valadd_rconport)):
+        if val_rconport:
+            if (re.search(self.regexport, val_rconport)):
                 pass
             else:
-                self.gui.label_output_window.setText(valadd_rconport + " is no valid RCON Port - please check and retry!")
+                self.gui.label_db_console.setText(val_rconport + " is no valid RCON Port - please check and retry!")
                 go_addserver_check = 0
 
 
+        self.c.execute("select alias FROM server")
+        check_alias = self.c.fetchall()
+        self.conn.commit()
+        nogocheck = 1                
 
-        addgui.show()
-        # self.c.execute("select alias FROM server")
-        # check_alias = self.c.fetchall()
-        # self.conn.commit()
-        # nogocheck = 1                
+        for check in check_alias:
+            for item in check:
+                if item and val_alias == item:
+                    go_addserver_check = 0
+                    self.gui.label_db_console.append("Alias already exists, please rename it")
+                    nogocheck = 0
+                else:
+                    nogocheck = 1
 
-        # for check in check_alias:
-        #     for item in check:
-        #         if item and valadd_alias == item:
-        #             go_addserver_check = 0
-        #             self.gui.label_output_window.append("Alias already exists, please rename it")
-        #             nogocheck = 0
-        #         else:
-        #             nogocheck = 1
-
-        # if go_addserver_check == 1 and nogocheck == 1 and go_addserver_ipcheck == 1 and go_addserver_qpcheck == 1:
-        #     try:
+        if go_addserver_check == 1 and nogocheck == 1 and go_addserver_ipcheck == 1 and go_addserver_qpcheck == 1:
+            try:
                
-        #         self.c.execute("INSERT INTO server VALUES (:alias, :ipaddress, :queryport, :rconport, :rconpw)", {'alias': valadd_alias, 'ipaddress': valadd_ipaddress, 'queryport': valadd_queryport, 'rconport': valadd_rconport, 'rconpw': valadd_rconpw})
-        #         self.conn.commit()
-        #         self.gui.label_output_window.append("Server inserted successfully into database")
-        #     except sqlite3.Error as error:
-        #         self.gui.label_output_window.append("Failed to insert server into database " + str(error))
+                self.c.execute("INSERT INTO server VALUES (:alias, :ipaddress, :queryport, :rconport, :rconpw)", {'alias': val_alias, 'ipaddress': val_ipaddress, 'queryport': val_queryport, 'rconport': val_rconport, 'rconpw': val_rconpw})
+                self.conn.commit()
+                self.gui.label_db_console.append("Server inserted successfully into database")
+            except sqlite3.Error as error:
+                self.gui.label_db_console.append("Failed to insert server into database " + str(error))
 
-        # self.fill_dropdown_server_box()
+        self.fill_dropdown_server_box()
+
     #Modify a server in DB
     def server_modify(self):
         val_alias = self.gui.server_alias.text()
@@ -1626,13 +1576,10 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     ISRT_Main_Window = QtWidgets.QWidget()
     rn_window = QtWidgets.QWidget()
-    add_ui = QtWidgets.QWidget()
     mgui = maingui()
     mgui.show()
 
 
-    addgui = addgui()
-    
     #Release Notes Viewer
     #Database connection setup
     dbdir = Path(__file__).absolute().parent
