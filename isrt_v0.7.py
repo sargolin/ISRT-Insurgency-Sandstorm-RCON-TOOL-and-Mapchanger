@@ -25,7 +25,6 @@ import bin.query as query
 from pathlib import Path
 from bin.isrt_gui import Ui_ISRT_Main_Window
 from bin.rn_gui import Ui_rn_window
-from bin.isrt_add_gui import Ui_add_ui
 import bin.SourceQuery as sq
 
 
