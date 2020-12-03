@@ -1445,7 +1445,7 @@ background-repeat: no-repeat;</string>
            </attribute>
            <column>
             <property name="text">
-             <string>ID</string>
+             <string>ID on Server</string>
             </property>
            </column>
            <column>
@@ -1455,7 +1455,7 @@ background-repeat: no-repeat;</string>
            </column>
            <column>
             <property name="text">
-             <string>Frags</string>
+             <string>XP collected</string>
             </property>
            </column>
            <column>
@@ -1956,7 +1956,7 @@ background-repeat: no-repeat;</string>
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>9</pointsize>
                <weight>50</weight>
                <bold>false</bold>
               </font>

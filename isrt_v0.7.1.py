@@ -145,7 +145,6 @@ class maingui(QtWidgets.QWidget):
         self.fill_dropdown_server_box()
         self.fill_dropdown_custom_command()
         self.fill_list_custom_command()
-        self.fill_dropdown_map_box()
         self.get_configuration_from_DB_and_set_settings()
 
         #Define the server manager tab
@@ -206,7 +205,6 @@ class maingui(QtWidgets.QWidget):
             self.gui.entry_queryport.setText(sel_queryport)
             self.gui.entry_rconport.setText(sel_rconport)
             self.gui.entry_rconpw.setText(sel_rconpw)
-            
             self.checkandgoquery()
 
         self.gui.dropdown_server_list.activated[str].connect(assign_server_values)
@@ -234,6 +232,22 @@ class maingui(QtWidgets.QWidget):
         self.gui.btn_add_database.clicked.connect(lambda: self.DB_import("add_db"))
         self.gui.btn_replace_database.clicked.connect(lambda: self.DB_import("replace_db"))
 
+        #Map and option assignment
+        self.gui.dropdown_select_travelscenario.activated[str].connect(self.selected_map_switch)
+        self.gui.dropdown_select_gamemode.activated[str].connect(self.selected_gamemode_switch)
+        self.gui.dropdown_select_security.activated[str].connect(self.selected_side_switch)
+        self.gui.dropdown_select_lighting.activated[str].connect(self.selected_lighting_switch)
+
+
+
+    def selected_map_switch(self):
+        self.selected_map = self.gui.dropdown_select_travelscenario.currentText()
+        self.gui.dropdown_select_gamemode.clear()
+        self.gui.dropdown_select_security.clear()
+        self.gui.dropdown_select_lighting.clear()
+        print(self.selected_map)
+
+        
 
 
 
@@ -243,8 +257,14 @@ class maingui(QtWidgets.QWidget):
 
 
 
+    def selected_gamemode_switch(self):
+        pass
 
+    def selected_side_switch(self):
+        pass
 
+    def selected_lighting_switch(self):
+        pass
 
     '''------------------------------------------------------------------
     Query Intervall Handling
@@ -336,12 +356,22 @@ class maingui(QtWidgets.QWidget):
         self.gui.tbl_server_manager.setItem(0, 4, QtWidgets.QTableWidgetItem("RCON Password"))
     #Fill Dropdown Menu for Mapchanging from scratch
     def fill_dropdown_map_box(self):
-        self.c.execute("select map_name FROM maps ORDER by Map_name")
-        dm_alias = self.c.fetchall()    
+        self.c.execute("select map_name FROM map_config WHERE modid = '0' ORDER by Map_name")
+        dm_alias = self.c.fetchall()
+        self.conn.commit() 
         self.gui.dropdown_select_travelscenario.clear()
-        for row in dm_alias:
-            self.gui.dropdown_select_travelscenario.addItems(row)
-        self.conn.commit()
+        for rowmaps in dm_alias:
+            self.gui.dropdown_select_travelscenario.addItems(rowmaps)
+                
+        if self.mutator_id_tuple[0]:
+            self.gui.dropdown_select_travelscenario.addItem("------Custom Maps------")
+            for custom_maps in self.mutator_id_tuple:
+                self.c.execute("select map_name FROM map_config WHERE modid=:mod_id ORDER by Map_name", {'mod_id':custom_maps})
+                dm2_alias = self.c.fetchone()   
+                self.conn.commit()
+                if dm2_alias != None: 
+                    self.gui.dropdown_select_travelscenario.addItems(dm2_alias)
+           
 
 
 
@@ -538,6 +568,10 @@ class maingui(QtWidgets.QWidget):
                 self.gui.tbl_player_output.setRowCount(0)
                 self.gui.le_servername.clear()
                 self.gui.le_gamemode.clear()
+                self.gui.dropdown_select_travelscenario.clear()
+                self.gui.dropdown_select_gamemode.clear()
+                self.gui.dropdown_select_security.clear()
+                self.gui.dropdown_select_lighting.clear()
                 self.gui.le_serverip_port.clear()
                 self.gui.le_vac.clear()
                 self.gui.le_players.clear()
@@ -559,6 +593,10 @@ class maingui(QtWidgets.QWidget):
                         self.gui.label_map_view.setStyleSheet("border-image: url(:/map_view/img/maps/map_views.jpg)")
                         self.gui.label_output_window.setStyleSheet("border-image:url(:/img/img/offline.jpg);\n")
                         self.gui.tbl_player_output.setRowCount(0)
+                        self.gui.dropdown_select_travelscenario.clear()
+                        self.gui.dropdown_select_gamemode.clear()
+                        self.gui.dropdown_select_security.clear()
+                        self.gui.dropdown_select_lighting.clear()
                         self.gui.le_servername.clear()
                         self.gui.le_gamemode.clear()
                         self.gui.le_serverip_port.clear()
@@ -625,8 +663,9 @@ class maingui(QtWidgets.QWidget):
         self.gui.le_ping.setText(str(self.servernetworkdetails['ping']))
         self.gui.le_map.setText(str(self.servergamedetails['game_map']))
         self.gui.le_mods.setText(str(self.mutatorids))
-
-            
+        
+        #create tuple for mutator-IDs to identify installed maps
+        self.mutator_id_tuple = (self.serverruledetails['ModList_s'].split(','))
         #Create Map View Picture absed on running map
         def assign_map_view_pic(self):
             map_view_pic = str(self.servergamedetails['game_map'])
@@ -639,6 +678,7 @@ class maingui(QtWidgets.QWidget):
                 self.gui.label_output_window.setText("No Map Image available - referring to placeholder!") 
                 self.gui.label_map_view.setStyleSheet("border-image: url(:/map_view/img/maps/map_views.jpg); background-color: #f0f0f0;background-position: center;background-repeat: no-repeat;")        
         assign_map_view_pic(self)
+        self.fill_dropdown_map_box()
     #Get fancy returned Playerlist
     def get_listplayers_fancy(self):
         self.serverhost = self.gui.entry_ip.text()
@@ -679,14 +719,13 @@ class maingui(QtWidgets.QWidget):
     ------------------------------------------------------------------'''
     #Mapchanger
     def map_changer(self):
-        
         #Define required variables
         val_map = self.gui.dropdown_select_travelscenario.currentText()
         val_gamemode = self.gui.dropdown_select_gamemode.currentText()
         val_light = self.gui.dropdown_select_lighting.currentText()
         
 
-        if val_map.startswith("Choose Map to travel to"):
+        if val_map.startswith("Select") or val_map.startswith("---"):
             self.gui.label_output_window.setText("This is not a valid map, please chose one first!")
         else:
             self.c.execute("select map_scenario FROM maps WHERE map_name=:sql_map_name", {'sql_map_name':val_map})
@@ -708,21 +747,7 @@ class maingui(QtWidgets.QWidget):
 
             self.checkandgoquery()
             self.gui.progressbar_map_changer.setProperty("value", 0)
-    #Redirect direct RCON commands to checkandgorcon
-   
-   
-   
-    # '''Test'''
-   
-   
-    # def direct_rcon_command_test(self):
-    #     command_test = "listplayers"
-    #     self.gui.label_rconcommand.setText(command_test)
-    #     self.checkandgorcon() 
-
-
-    # '''Test'''
-
+    #Direct RCON Command handling
     def direct_rcon_command(self, command):
         #Check if an rcon command is passed        
         if command:
