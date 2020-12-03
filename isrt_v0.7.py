@@ -15,7 +15,7 @@ Thanks to Helsing and Stuermer for the pre-release testing - I appreciate that s
 ------------------------------------------------------------------
 Importing required classes and libraries
 ------------------------------------------------------------------'''
-import sys, os, re, sqlite3, time, threading
+import sys, os, re, sqlite3, time, threading, socket
 from datetime import datetime
 from shutil import copy2
 import bin.SourceQuery as sq
@@ -515,13 +515,38 @@ class maingui(QtWidgets.QWidget):
         val_localhost = "127.0.0.1"
 
         if self.gui.entry_ip.text() == val_localhost:
-            self.gui.label_output_window.setText("Due to a Windows connection problem, 127.0.0.1 cannot be used currently, please use your LAN IP-Address!")
+            try:
+                qmsg = QtWidgets.QMessageBox()
+                qmsg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
+                qmsg.setIcon(QtWidgets.QMessageBox.Information)
+                qmsg.setWindowTitle("ISRT Error Message")
+                qmsg.setText("Due to a Windows connection problem, 127.0.0.1\ncannot be used currently, switching to LAN IP-Address!")
+                qmsg.exec_()
+                self.serverhost = socket.gethostbyname(socket.getfqdn())
+                self.queryport = self.gui.entry_queryport.text()
+                self.gui.entry_ip.setText(self.serverhost)
+                self.gui.label_output_window.setStyleSheet("border-image:url(:/img/img/rcon-bck.jpg);\n")
+                self.queryserver(self.serverhost, self.queryport)
+                self.get_listplayers_fancy()
+            except Exception:
+                self.gui.label_output_window.setStyleSheet("border-image:url(:/img/img/offline.jpg);\n")
+                self.gui.tbl_player_output.setRowCount(0)
+                self.gui.le_servername.clear()
+                self.gui.le_gamemode.clear()
+                self.gui.le_serverip_port.clear()
+                self.gui.le_vac.clear()
+                self.gui.le_players.clear()
+                self.gui.le_ping.clear()
+                self.gui.le_map.clear()
+                self.gui.le_mods.clear()
         else:    
             if (re.search(self.regexip, self.gui.entry_ip.text())):  
                 self.serverhost = self.gui.entry_ip.text()
                 try:
                     if self.gui.entry_queryport.text() and 1 <= int(self.gui.entry_queryport.text()) <= 65535:
                         self.queryport = self.gui.entry_queryport.text()
+                        self.get_listplayers_fancy()
+                        self.gui.label_output_window.setStyleSheet("border-image:url(:/img/img/rcon-bck.jpg);\n")
                         try:
                             self.queryserver(self.serverhost, self.queryport)
                             self.get_listplayers_fancy()
@@ -537,13 +562,6 @@ class maingui(QtWidgets.QWidget):
                             self.gui.le_ping.clear()
                             self.gui.le_map.clear()
                             self.gui.le_mods.clear()
-                            # msg = QtWidgets.QMessageBox()
-                            # msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
-                            # msg.setIcon(QtWidgets.QMessageBox.Critical)
-                            # msg.setWindowTitle("ISRT Error Message")
-                            # msg.setText("We encountered an error: \n\n" + str(f) + "\n\nWrong IP,Port or Server down?")
-                            # msg.exec_()
-                            #self.gui.progressbar_map_changer.setProperty("value", 100)
                     else:
                         raise ValueError
                 except ValueError:
@@ -873,78 +891,65 @@ class maingui(QtWidgets.QWidget):
                 self.gui.label_db_console.append("Failed to insert server into database " + str(error))
 
         self.fill_dropdown_server_box()
-    
    #Add a server to DB
     def server_add_main(self):
-        val_alias = self.gui.server_alias.text()
-        val_ipaddress = self.gui.server_ip.text()
-        val_queryport = self.gui.server_query.text()
-        val_rconport = self.gui.server_rconport.text()
-        val_rconpw = self.gui.server_rconpw.text()
 
-        go_addserver_check = 0
+        transferalias = self.gui.dropdown_select_server.currentText()
+        transferip = self.gui.entry_ip.text()
+        transferqport = self.gui.entry_queryport.text()
+        transferrport = self.gui.entry_rconport.text()
+        transferrpw = self.gui.entry_rconpw.text()
 
         #Check IP
-        self.regexip = r'''^(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        self.regextransip = r'''^(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
         25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
         25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
         25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)$'''
 
-        self.regexport = r'''^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$'''
+        self.regextransport = r'''^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$'''
 
-        if val_alias and val_ipaddress and val_queryport:
+        go_addserver_check = 0
+        go_addserver_ipcheck = 0
+        go_addserver_qpcheck = 0
+
+        if transferip and transferqport:
             go_addserver_check = 1
+            if transferip and (re.search(self.regextransip, transferip)):  
+                go_addserver_ipcheck = 1
+                if transferqport and (re.search(self.regextransport, transferqport)):
+                    go_addserver_qpcheck = 1
+                    if transferqport and (re.search(self.regextransport, transferqport)):
+                        go_addserver_qpcheck = 1
+                        if transferrport:
+                            if (re.search(self.regextransport, transferrport)):
+                                pass
+                            else:
+                                self.gui.label_output_window.append("You entered no valid RCON Port - please check and retry!")
+                                go_addserver_check = 0
+                    else:
+                        self.gui.label_output_window.append("You entered no valid Query Port - please check and retry!")
+                        go_addserver_qpcheck = 0
+                else:
+                    self.gui.label_output_window.append("You entered no valid Query Port - please check and retry!")
+                    go_addserver_qpcheck = 0
+            else:
+                self.gui.label_output_window.append("You entered no valid IP address - please check and retry!")
+                go_addserver_ipcheck = 0
         else:
-            self.gui.label_db_console.append("At least Alias, IP-Adress and Query Port have to contain a value!")
+            self.gui.label_output_window.append("At least IP-Adress and Query Port have to contain a value!")
             go_addserver_check = 0
 
-        if val_ipaddress and (re.search(self.regexip, val_ipaddress)):  
-            go_addserver_ipcheck = 1
-        else:
-            self.gui.label_db_console.setText(val_ipaddress + " is no valid IP address - please check and retry!")
-            go_addserver_ipcheck = 0
+        
+        if go_addserver_check == 1 and  go_addserver_ipcheck == 1 and go_addserver_qpcheck == 1:
+            self.gui.TabWidget_Main_overall.setCurrentWidget(self.gui.Tab_Server)
+            if transferalias == "Select Server":
+                transferalias = ""
 
-
-        if val_queryport and (re.search(self.regexport, val_queryport)):
-            go_addserver_qpcheck = 1
-        else:
-            self.gui.label_db_console.setText(val_queryport + " is no valid Query Port - please check and retry!")
-            go_addserver_qpcheck = 0
-
-
-        if val_rconport:
-            if (re.search(self.regexport, val_rconport)):
-                pass
-            else:
-                self.gui.label_db_console.setText(val_rconport + " is no valid RCON Port - please check and retry!")
-                go_addserver_check = 0
-
-
-        self.c.execute("select alias FROM server")
-        check_alias = self.c.fetchall()
-        self.conn.commit()
-        nogocheck = 1                
-
-        for check in check_alias:
-            for item in check:
-                if item and val_alias == item:
-                    go_addserver_check = 0
-                    self.gui.label_db_console.append("Alias already exists, please rename it")
-                    nogocheck = 0
-                else:
-                    nogocheck = 1
-
-        if go_addserver_check == 1 and nogocheck == 1 and go_addserver_ipcheck == 1 and go_addserver_qpcheck == 1:
-            try:
-               
-                self.c.execute("INSERT INTO server VALUES (:alias, :ipaddress, :queryport, :rconport, :rconpw)", {'alias': val_alias, 'ipaddress': val_ipaddress, 'queryport': val_queryport, 'rconport': val_rconport, 'rconpw': val_rconpw})
-                self.conn.commit()
-                self.gui.label_db_console.append("Server inserted successfully into database")
-            except sqlite3.Error as error:
-                self.gui.label_db_console.append("Failed to insert server into database " + str(error))
-
-        self.fill_dropdown_server_box()
-
+            self.gui.server_alias.setText(transferalias)
+            self.gui.server_ip.setText(transferip)
+            self.gui.server_query.setText(transferqport)
+            self.gui.server_rconport.setText(transferrport)
+            self.gui.server_rconpw.setText(transferrpw)
     #Modify a server in DB
     def server_modify(self):
         val_alias = self.gui.server_alias.text()

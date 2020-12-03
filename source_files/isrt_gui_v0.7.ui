@@ -22,12 +22,20 @@
     <height>810</height>
    </size>
   </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::CustomContextMenu</enum>
+  </property>
   <property name="windowTitle">
    <string>ISRT - Insurgency Sandstorm RCON Tool</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../res.qrc">
     <normaloff>:/img/img/isrt.ico</normaloff>:/img/img/isrt.ico</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(240, 240, 240);
+selection-color: rgb(0, 0, 0);
+selection-background-color: rgb(216, 216, 216);</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_23">
    <property name="leftMargin">
@@ -60,7 +68,7 @@
       </size>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(240, 240, 240)</string>
+      <string notr="true"/>
      </property>
      <property name="tabPosition">
       <enum>QTabWidget::North</enum>
@@ -128,7 +136,8 @@
                     <string>Select Server from DB</string>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">background-color:rgb(254, 254, 254);</string>
+                    <string notr="true">background-color:rgb(254, 254, 254);
+</string>
                    </property>
                    <property name="placeholderText">
                     <string>Select Server</string>
@@ -151,11 +160,15 @@
                        <height>16777215</height>
                       </size>
                      </property>
+                     <property name="contextMenuPolicy">
+                      <enum>Qt::DefaultContextMenu</enum>
+                     </property>
                      <property name="statusTip">
                       <string>IP Address of the server</string>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">background-color:rgb(254, 254, 254);</string>
+                      <string notr="true">background-color:rgb(254, 254, 254);
+</string>
                      </property>
                      <property name="text">
                       <string/>
@@ -872,7 +885,7 @@ background-repeat: no-repeat;</string>
                       </size>
                      </property>
                      <property name="toolTip">
-                      <string>Choose the Scenario the server should travel to</string>
+                      <string>Choose a map first for the other options to appear depending on the map</string>
                      </property>
                      <property name="statusTip">
                       <string>Choose the Scenario the server should travel to</string>
@@ -903,7 +916,7 @@ background-repeat: no-repeat;</string>
                       </size>
                      </property>
                      <property name="toolTip">
-                      <string>Select Gamemode to run</string>
+                      <string>Available Gamemodes will appear once you selected a map</string>
                      </property>
                      <property name="statusTip">
                       <string>Select Gamemode to run</string>
@@ -931,7 +944,7 @@ background-repeat: no-repeat;</string>
                       </size>
                      </property>
                      <property name="toolTip">
-                      <string>Select Side for Scenario</string>
+                      <string>Available sides will appear once you selected a map and gamemode</string>
                      </property>
                      <property name="statusTip">
                       <string>Select Side for Scenario</string>
@@ -962,7 +975,7 @@ background-repeat: no-repeat;</string>
                       </size>
                      </property>
                      <property name="toolTip">
-                      <string>Select Lighting for Scenario</string>
+                      <string>Available Lighint Scenarios appear once you selected a map, gamemode and side selection</string>
                      </property>
                      <property name="statusTip">
                       <string>Select Lighting for Scenario</string>
@@ -1379,8 +1392,11 @@ background-repeat: no-repeat;</string>
              <pointsize>8</pointsize>
             </font>
            </property>
+           <property name="mouseTracking">
+            <bool>true</bool>
+           </property>
            <property name="contextMenuPolicy">
-            <enum>Qt::NoContextMenu</enum>
+            <enum>Qt::DefaultContextMenu</enum>
            </property>
            <property name="verticalScrollBarPolicy">
             <enum>Qt::ScrollBarAsNeeded</enum>
@@ -1992,6 +2008,9 @@ background-repeat: no-repeat;</string>
              <property name="styleSheet">
               <string notr="true">background-color:rgb(254, 254, 254);</string>
              </property>
+             <property name="frameShadow">
+              <enum>QFrame::Sunken</enum>
+             </property>
              <property name="verticalScrollBarPolicy">
               <enum>Qt::ScrollBarAsNeeded</enum>
              </property>
@@ -2208,7 +2227,10 @@ p, li { white-space: pre-wrap; }
               </size>
              </property>
              <property name="frameShape">
-              <enum>QFrame::Box</enum>
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Sunken</enum>
              </property>
              <property name="text">
               <string>Selected DB File</string>

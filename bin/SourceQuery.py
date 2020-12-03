@@ -21,7 +21,7 @@ class SourceQuery(object):
     __challenge = None
 
 
-    def __init__(self, addr, port=27102, timeout=3.0):
+    def __init__(self, addr, port=27102, timeout=2.0):
         self.ip, self.port, self.timeout = socket.gethostbyname(addr), port, timeout
         if sys.version_info >= (3, 0):
             self.is_third = True
@@ -167,7 +167,14 @@ class SourceQuery(object):
         if self.__challenge is None:
             self.get_challenge()
 
-        self.__sock.send(A2S_PLAYERS + self.__challenge)
+        # print(type(A2S_PLAYERS))
+        # print(A2S_PLAYERS)
+        # print(type(self.__challenge))
+        if self.__challenge:
+            try:
+                self.__sock.send(A2S_PLAYERS + self.__challenge)
+            except:
+                return False    
         try:
             data = self.__sock.recv(4096)
         except:

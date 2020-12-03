@@ -24,7 +24,6 @@ MULTIPLE_PACKET_RESPONSE = -2
 class SourceWatchError(Exception):
     pass
 
-
 class Query:
     global PACKET_SIZE
     def __init__(self, host, port=27015, timeout=2):
