@@ -145,7 +145,6 @@ class maingui(QtWidgets.QWidget):
         self.fill_dropdown_server_box()
         self.fill_dropdown_custom_command()
         self.fill_list_custom_command()
-        self.fill_dropdown_map_box()
         self.get_configuration_from_DB_and_set_settings()
 
         #Define the server manager tab
@@ -207,6 +206,7 @@ class maingui(QtWidgets.QWidget):
             self.gui.entry_rconport.setText(sel_rconport)
             self.gui.entry_rconpw.setText(sel_rconpw)
             self.checkandgoquery()
+
         self.gui.dropdown_server_list.activated[str].connect(assign_server_values)
 
         #Assign custom Commands variables for Dropdown menu
@@ -232,11 +232,8 @@ class maingui(QtWidgets.QWidget):
         self.gui.btn_add_database.clicked.connect(lambda: self.DB_import("add_db"))
         self.gui.btn_replace_database.clicked.connect(lambda: self.DB_import("replace_db"))
 
-
-
-
-
-
+        #Map and option assignment
+        self.gui.dropdown_select_travelscenario.activated[str].connect(self.selected_map_switch)
 
 
 
@@ -334,12 +331,22 @@ class maingui(QtWidgets.QWidget):
         self.gui.tbl_server_manager.setItem(0, 4, QtWidgets.QTableWidgetItem("RCON Password"))
     #Fill Dropdown Menu for Mapchanging from scratch
     def fill_dropdown_map_box(self):
-        self.c.execute("select map_name FROM maps ORDER by Map_name")
-        dm_alias = self.c.fetchall()    
+        self.c.execute("select map_name FROM map_config WHERE modid = '0' ORDER by Map_name")
+        dm_alias = self.c.fetchall()
+        self.conn.commit() 
         self.gui.dropdown_select_travelscenario.clear()
-        for row in dm_alias:
-            self.gui.dropdown_select_travelscenario.addItems(row)
-        self.conn.commit()
+        for rowmaps in dm_alias:
+            self.gui.dropdown_select_travelscenario.addItems(rowmaps)
+                
+        if self.mutator_id_tuple[0]:
+            self.gui.dropdown_select_travelscenario.addItem("------Custom Maps------")
+            for custom_maps in self.mutator_id_tuple:
+                self.c.execute("select map_name FROM map_config WHERE modid=:mod_id ORDER by Map_name", {'mod_id':custom_maps})
+                dm2_alias = self.c.fetchone()   
+                self.conn.commit()
+                if dm2_alias != None: 
+                    self.gui.dropdown_select_travelscenario.addItems(dm2_alias)
+           
 
 
 
@@ -511,7 +518,7 @@ class maingui(QtWidgets.QWidget):
         25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
         25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
         25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)$'''
-
+        
         val_localhost = "127.0.0.1"
 
         if self.gui.entry_ip.text() == val_localhost:
@@ -520,54 +527,63 @@ class maingui(QtWidgets.QWidget):
                 qmsg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
                 qmsg.setIcon(QtWidgets.QMessageBox.Information)
                 qmsg.setWindowTitle("ISRT Error Message")
-                qmsg.setText("Due to a Windows connection problem, 127.0.0.1\ncannot be used currently, switching to LAN IP-Address!")
+                qmsg.setText("Due to a Windows connection problem, 127.0.0.1\ncannot be used for INS, switching to LAN IP-Address!")
                 qmsg.exec_()
                 self.serverhost = socket.gethostbyname(socket.getfqdn())
                 self.queryport = self.gui.entry_queryport.text()
                 self.gui.entry_ip.setText(self.serverhost)
                 self.gui.label_output_window.setStyleSheet("border-image:url(:/img/img/rcon-bck.jpg);\n")
                 self.queryserver(self.serverhost, self.queryport)
-                self.get_listplayers_fancy()
+                if self.queryserver:
+                    self.get_listplayers_fancy()
             except Exception:
                 self.gui.label_output_window.setStyleSheet("border-image:url(:/img/img/offline.jpg);\n")
+                self.gui.le_password.setStyleSheet("border-image: url(:/img/img/lock-unchecked.png);")
+                self.gui.label_map_view.setStyleSheet("border-image: url(:/map_view/img/maps/map_views.jpg)")
                 self.gui.tbl_player_output.setRowCount(0)
                 self.gui.le_servername.clear()
                 self.gui.le_gamemode.clear()
+                self.gui.dropdown_select_travelscenario.clear()
+                self.gui.dropdown_select_gamemode.clear()
+                self.gui.dropdown_select_lighting.clear()
                 self.gui.le_serverip_port.clear()
                 self.gui.le_vac.clear()
                 self.gui.le_players.clear()
                 self.gui.le_ping.clear()
                 self.gui.le_map.clear()
                 self.gui.le_mods.clear()
-        else:    
-            if (re.search(self.regexip, self.gui.entry_ip.text())):  
-                self.serverhost = self.gui.entry_ip.text()
-                try:
-                    if self.gui.entry_queryport.text() and 1 <= int(self.gui.entry_queryport.text()) <= 65535:
-                        self.queryport = self.gui.entry_queryport.text()
-                        self.get_listplayers_fancy()
-                        self.gui.label_output_window.setStyleSheet("border-image:url(:/img/img/rcon-bck.jpg);\n")
-                        try:
-                            self.queryserver(self.serverhost, self.queryport)
+        elif (re.search(self.regexip, self.gui.entry_ip.text())):  
+            self.serverhost = self.gui.entry_ip.text()
+            try:
+                if self.gui.entry_queryport.text() and 1 <= int(self.gui.entry_queryport.text()) <= 65535:
+                    self.queryport = self.gui.entry_queryport.text()
+                    try:
+                        self.queryserver(self.serverhost, self.queryport)
+                        if self.queryserver:
                             self.get_listplayers_fancy()
-                            self.gui.label_output_window.setStyleSheet("border-image:url(:/img/img/rcon-bck.jpg);\n")
-                        except Exception:
-                            self.gui.label_output_window.setStyleSheet("border-image:url(:/img/img/offline.jpg);\n")
-                            self.gui.tbl_player_output.setRowCount(0)
-                            self.gui.le_servername.clear()
-                            self.gui.le_gamemode.clear()
-                            self.gui.le_serverip_port.clear()
-                            self.gui.le_vac.clear()
-                            self.gui.le_players.clear()
-                            self.gui.le_ping.clear()
-                            self.gui.le_map.clear()
-                            self.gui.le_mods.clear()
-                    else:
-                        raise ValueError
-                except ValueError:
-                    self.gui.label_output_window.setText(self.gui.entry_queryport.text() + " is no valid Query Port number - please retry!")
-            else:  
-                self.gui.label_output_window.setText(self.gui.entry_ip.text() + " is no valid IP address - please retry!")  
+                        self.gui.label_output_window.setStyleSheet("border-image:url(:/img/img/rcon-bck.jpg);\n")
+                    except Exception:
+                        self.gui.le_password.setStyleSheet("border-image: url(:/img/img/lock-unchecked.png);")
+                        self.gui.label_map_view.setStyleSheet("border-image: url(:/map_view/img/maps/map_views.jpg)")
+                        self.gui.label_output_window.setStyleSheet("border-image:url(:/img/img/offline.jpg);\n")
+                        self.gui.tbl_player_output.setRowCount(0)
+                        self.gui.dropdown_select_travelscenario.clear()
+                        self.gui.dropdown_select_gamemode.clear()
+                        self.gui.dropdown_select_lighting.clear()
+                        self.gui.le_servername.clear()
+                        self.gui.le_gamemode.clear()
+                        self.gui.le_serverip_port.clear()
+                        self.gui.le_vac.clear()
+                        self.gui.le_players.clear()
+                        self.gui.le_ping.clear()
+                        self.gui.le_map.clear()
+                        self.gui.le_mods.clear()
+                else:
+                    raise ValueError
+            except ValueError:
+                self.gui.label_output_window.setText(self.gui.entry_queryport.text() + " is no valid Query Port number - please retry!")
+        else:  
+            self.gui.label_output_window.setText(self.gui.entry_ip.text() + " is no valid IP address - please retry!")  
     #Execute Query Command, when called by checkandgoquery()!
     def queryserver(self, serverhost, queryport):
         self.gui.label_output_window.clear()
@@ -620,30 +636,27 @@ class maingui(QtWidgets.QWidget):
         self.gui.le_ping.setText(str(self.servernetworkdetails['ping']))
         self.gui.le_map.setText(str(self.servergamedetails['game_map']))
         self.gui.le_mods.setText(str(self.mutatorids))
-
-            
+        
+        #create tuple for mutator-IDs to identify installed maps
+        self.mutator_id_tuple = (self.serverruledetails['ModList_s'].split(','))
         #Create Map View Picture absed on running map
         def assign_map_view_pic(self):
             map_view_pic = str(self.servergamedetails['game_map'])
-            self.c.execute("select map_view FROM maps WHERE map_alias=:map_view_result", {'map_view_result': map_view_pic})
+            self.c.execute("select map_pic FROM map_config WHERE map_alias=:map_view_result", {'map_view_result': map_view_pic})
             dpmap_alias = self.c.fetchone()
             self.conn.commit()
             if dpmap_alias:
-                self.gui.label_map_view.setStyleSheet(dpmap_alias[0])
+                self.gui.label_map_view.setStyleSheet(f"border-image: url(:map_thumbs/img/maps/thumbs/{dpmap_alias[0]}); background-color: #f0f0f0;background-position: center;background-repeat: no-repeat;")
             else:
                 self.gui.label_output_window.setText("No Map Image available - referring to placeholder!") 
-                self.gui.label_map_view.setStyleSheet("border-image: url(:/map_view/img/maps/map_views.jpg); background-color: #f0f0f0;background-position: center;background-repeat: no-repeat;")
-         
+                self.gui.label_map_view.setStyleSheet("border-image: url(:/map_view/img/maps/map_views.jpg); background-color: #f0f0f0;background-position: center;background-repeat: no-repeat;")        
         assign_map_view_pic(self)
-    #Use Threading for Playerlist to be generated while the rest continues
-    def thread_method_for_play_table_widget(self):
-        self.server_players = sq.SourceQuery(self.serverhost, int(self.queryport))
+        self.fill_dropdown_map_box()
     #Get fancy returned Playerlist
     def get_listplayers_fancy(self):
         self.serverhost = self.gui.entry_ip.text()
         self.queryport = self.gui.entry_queryport.text()
-        FPQueryThread1 =  threading.Thread(target=self.thread_method_for_play_table_widget)
-        FPQueryThread1.start()
+        self.server_players = sq.SourceQuery(self.serverhost, int(self.queryport))
         row = 0
         self.gui.tbl_player_output.setRowCount(0)
         if self.server_players.get_players():
@@ -673,31 +686,140 @@ class maingui(QtWidgets.QWidget):
 
 
 
-
     '''------------------------------------------------------------------
     RCON Handling
     ------------------------------------------------------------------'''
+    #Map Changer Preparation - Selector
+    def selected_map_switch(self):
+        self.selected_map = self.gui.dropdown_select_travelscenario.currentText()
+
+        self.c.execute("select map_alias FROM map_config WHERE map_name=:var_selected_map", {'var_selected_map': self.selected_map})
+        dsma_alias = self.c.fetchone()
+        self.conn.commit() 
+        var_selected_map = (dsma_alias[0])
+
+        self.c.execute("select * from map_modes where map_alias=:varselmap", {'varselmap': var_selected_map})        
+        dsmam_alias = self.c.fetchall()
+        self.conn.commit()
+        dsmam_list = (dsmam_alias[0])
+        var_dn = dsmam_list[1]
+        var_cp = dsmam_list[2]
+        var_cp_ins = dsmam_list[3]
+        var_cphc = dsmam_list[4]
+        var_cphc_ins = dsmam_list[5]
+        var_dom = dsmam_list[6]
+        var_ffe = dsmam_list[7]
+        var_ffw = dsmam_list[8]
+        var_fl = dsmam_list[9]
+        var_op = dsmam_list[10]
+        var_pu = dsmam_list[11]
+        var_pu_ins = dsmam_list[12]
+        var_ski = dsmam_list[13]
+        var_tdm = dsmam_list[14]
+
+        self.gui.dropdown_select_lighting.clear()
+        self.gui.dropdown_select_gamemode.clear()
+
+        if var_dn == 10:
+            self.gui.dropdown_select_lighting.addItem("Day")
+        else:
+            var_dn_list = ("Day", "Night")
+            self.gui.dropdown_select_lighting.addItems(var_dn_list)
+            
+
+        if var_cp == 1:
+            self.gui.dropdown_select_gamemode.addItem("CheckPoint Security")
+        
+        if var_cp_ins == 1:
+            self.gui.dropdown_select_gamemode.addItem("CheckPoint Insurgents")
+
+        if var_cphc == 1:
+            self.gui.dropdown_select_gamemode.addItem("CheckPoint Hardcore Security")
+
+        if var_cphc_ins == 1:
+            self.gui.dropdown_select_gamemode.addItem("CheckPoint Hardcore Insurgents")
+
+        if var_dom == 1:
+            self.gui.dropdown_select_gamemode.addItem("Domination")
+
+        if var_ffe == 1:
+            self.gui.dropdown_select_gamemode.addItem("Firefight East")
+
+        if var_ffw == 1:
+            self.gui.dropdown_select_gamemode.addItem("Firefight West")
+
+        if var_fl == 1:
+            self.gui.dropdown_select_gamemode.addItem("Frontline")
+
+        if var_op == 1:
+            self.gui.dropdown_select_gamemode.addItem("Outpost")
+
+        if var_pu == 1:
+            self.gui.dropdown_select_gamemode.addItem("Push Security")
+
+        if var_pu_ins == 1:
+            self.gui.dropdown_select_gamemode.addItem("Push Insurgents")
+
+        if var_ski == 1:
+            self.gui.dropdown_select_gamemode.addItem("Skirmish")
+
+        if var_tdm == 1:
+            self.gui.dropdown_select_gamemode.addItem("TeamDeathMatch")
+
+        
+        self.gui.dropdown_select_gamemode.setCurrentText("CheckPoint Hardcore Security")
+        self.gui.dropdown_select_lighting.setCurrentText("Day")
     #Mapchanger
     def map_changer(self):
-        
         #Define required variables
         val_map = self.gui.dropdown_select_travelscenario.currentText()
         val_gamemode = self.gui.dropdown_select_gamemode.currentText()
         val_light = self.gui.dropdown_select_lighting.currentText()
         
 
-        if val_map.startswith("Choose Map to travel to"):
+
+        if val_gamemode == "CheckPoint Security":
+            val_gamemode = "checkpoint"
+        elif val_gamemode == "CheckPoint Insurgents":
+            val_gamemode = "checkpoint_ins"
+        elif val_gamemode == "CheckPoint Hardcore Security":
+            val_gamemode = "checkpointhardcore"
+        elif val_gamemode == "CheckPoint Hardcore Insurgents":
+            val_gamemode = "checkpointhardcore_ins"
+        elif val_gamemode == "Domination":
+            val_gamemode = "domination"
+        elif val_gamemode == "Firefight East":
+            val_gamemode = "firefight_east"
+        elif val_gamemode == "Firefight West":
+            val_gamemode = "firefight_west"
+        elif val_gamemode == "Frontline":
+            val_gamemode = "frontline"
+        elif val_gamemode == "Outpost":
+            val_gamemode = "outpost"
+        elif val_gamemode == "Push Security":
+            val_gamemode = "push"
+        elif val_gamemode == "Push Insurgents":
+            val_gamemode = "push_ins"
+        elif val_gamemode == "Skirmish":
+            val_gamemode = "skirmish"
+        elif val_gamemode == "TeamDeathMatch":
+            val_gamemode = "teamdeathmath"
+
+
+
+        if val_map.startswith("Select") or val_map.startswith("---"):
             self.gui.label_output_window.setText("This is not a valid map, please chose one first!")
         else:
-            self.c.execute("select map_scenario FROM maps WHERE map_name=:sql_map_name", {'sql_map_name':val_map})
-            val_travel = self.c.fetchone()
-            self.c.execute("select map_alias FROM maps WHERE map_name=:sql_map_name", {'sql_map_name':val_map})
+            self.c.execute("select map_alias FROM map_config WHERE map_name=:sql_map_name", {'sql_map_name':val_map})
             val_map_alias = self.c.fetchone()
-            val_travel_result = (str(val_travel[0]))
             val_map_alias_result = (str(val_map_alias[0]))
+            query = ("select " + val_gamemode + " FROM map_config WHERE map_alias=:sqlmap_alias")
+            self.c.execute(query, {'sqlmap_alias': val_map_alias_result})
+            val_travel_alias = self.c.fetchone()
+            val_travel_alias_result = (str(val_travel_alias[0]))
             self.conn.commit()
 
-            command = ("travel " + val_map_alias_result + "?Scenario=" + val_travel_result + "?Lighting=" + val_light + "?game=" + val_gamemode)
+            command = ("travel " + val_map_alias_result + "?Scenario=" + val_travel_alias_result + "?Lighting=" + val_light + "?game=" + val_gamemode)
 
             if command:
                 self.gui.label_rconcommand.setText(command)
@@ -705,24 +827,9 @@ class maingui(QtWidgets.QWidget):
             else:
                 self.gui.label_output_window.setText("Something went wrong with the Travel command, please check above and report it!")  
             
-
             self.checkandgoquery()
             self.gui.progressbar_map_changer.setProperty("value", 0)
-    #Redirect direct RCON commands to checkandgorcon
-   
-   
-   
-    # '''Test'''
-   
-   
-    # def direct_rcon_command_test(self):
-    #     command_test = "listplayers"
-    #     self.gui.label_rconcommand.setText(command_test)
-    #     self.checkandgorcon() 
-
-
-    # '''Test'''
-
+    #Direct RCON Command handling
     def direct_rcon_command(self, command):
         #Check if an rcon command is passed        
         if command:
@@ -893,7 +1000,7 @@ class maingui(QtWidgets.QWidget):
         self.fill_dropdown_server_box()
    #Add a server to DB
     def server_add_main(self):
-
+        self.gui.label_output_window.setStyleSheet("border-image:url(:/img/img/rcon-bck.jpg);\n")
         transferalias = self.gui.dropdown_select_server.currentText()
         transferip = self.gui.entry_ip.text()
         transferqport = self.gui.entry_queryport.text()
