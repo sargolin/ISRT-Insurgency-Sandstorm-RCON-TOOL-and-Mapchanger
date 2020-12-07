@@ -1,23 +1,8 @@
-import bin.SourceQuery as sq
+from PyQt5 import uic, QtCore
 
-
-server = sq.SourceQuery('93.186.198.185', 27116)
-# print(server.get_info()['Ping'])
-# print(server.get_info()['Hostname'])
-# print(server.get_info()['Password'])
-# print(server.get_info()['GameDesc'])
-# print(server.get_info()['Players'])
-# print(server.get_info()['MaxPlayers'])
-# print(server.get_info()['Map'])
-# print(server.get_info()['Secure'])
-# print(server.get_info()['GamePort'])
-# print(server.get_info()['SteamID'])
-# print(server.get_info()['Tags'])
-if server.get_players():
-    print(server.get_players())
-    for player in server.get_players():
-        print("{id:<2} {Name:<35} {Frags:<5} {PrettyTime}".format(**player))
-
-else:
-    print("No Players online")
-# print(server.get_rules())
+def __init__(self):
+        QtCore.QWidget.__init__(self)
+        super().__init__()
+        self.ui.setupUi(self)
+        window = uic.loadUi("source_files/rn_gui_v0.7.ui")
+        window.show()
