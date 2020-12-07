@@ -1593,9 +1593,7 @@ if __name__ == "__main__":
     mgui = maingui()
     mgui.show()
 
-
     #Release Notes Viewer
-    #Database connection setup
     dbdir = Path(__file__).absolute().parent
     rn_conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
     rnc = rn_conn.cursor()
@@ -1609,8 +1607,6 @@ if __name__ == "__main__":
         rngui.show()
     else:
         pass
-
-    
 
     sys.exit(app.exec_())
 
