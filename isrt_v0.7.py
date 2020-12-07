@@ -16,7 +16,6 @@ Thanks to Helsing and Stuermer for the pre-release testing - I appreciate that s
 Importing required classes and libraries
 ------------------------------------------------------------------'''
 import sys, os, re, sqlite3, time, socket
-from multiprocessing import dummy as multithreading
 from datetime import datetime
 from shutil import copy2
 import bin.SourceQuery as sq
@@ -27,6 +26,8 @@ from pathlib import Path
 from bin.isrt_gui import Ui_ISRT_Main_Window
 from bin.rn_gui import Ui_rn_window
 import bin.SourceQuery as sq
+
+
 
 
 
@@ -93,7 +94,7 @@ class maingui(QtWidgets.QWidget):
         self.c = self.conn.cursor()
 
         #Define buttons and menu items including their functionalities
-        self.gui.btn_main_exec_query.clicked.connect(self.query_intervall)
+        self.gui.btn_main_exec_query.clicked.connect(self.checkandgoquery)
         self.gui.btn_main_exec_rcon.clicked.connect(self.checkandgorcon)
         self.gui.btn_cust_delete_selected.clicked.connect(self.custom_command_clear_selected)
         self.gui.btn_cust_delete_all.clicked.connect(self.custom_command_clear_all)
@@ -135,7 +136,7 @@ class maingui(QtWidgets.QWidget):
 
         #Connect Labels with enter key press
         self.gui.label_rconcommand.returnPressed.connect(self.checkandgorcon)
-        self.gui.entry_refresh_timer.returnPressed.connect(self.checkandgorcon)
+        #self.gui.entry_refresh_timer.returnPressed.connect(self.checkandgorcon)
         self.gui.server_alias.returnPressed.connect(self.server_add)
         self.gui.server_ip.returnPressed.connect(self.server_add)
         self.gui.server_query.returnPressed.connect(self.server_add)
@@ -240,37 +241,6 @@ class maingui(QtWidgets.QWidget):
 
 
 
-
-
-    '''------------------------------------------------------------------
-    Query Intervall Handling
-    ------------------------------------------------------------------'''
-    #Enable the Query Refresh Button
-    def query_intervall(self):
-        #Check whether an IP and Port is given for Query
-        if self.gui.entry_ip.text() and self.gui.entry_queryport.text():
-            if self.gui.checkBox_refresh_trigger.isChecked():
-                # self.c.execute("select refresh_intervall FROM configuration")
-                # self.dconf_ri = self.c.fetchone()
-                # self.conn.commit()
-                # check_thread_var = 1
-                # while check_thread_var == 1:
-                #     self.checkandgoquery()
-                #     refresh_timer = int(self.dconf_ri[0])
-                #     print(refresh_timer)
-                #     time.sleep(refresh_timer)
-                #     if self.gui.btn_main_exec_query.isChecked():
-                #         check_thread_var = 1
-                #     else:
-                #         check_thread_var = 0
-                pass
-            else:
-                #If Refresh Intervall is not checked
-                self.checkandgoquery()
-        else:
-            #If no IP or Port are given, through error and reset Query Refresh Button
-            self.gui.label_output_window.setText("No IP-Address and/or query port given, please retry!")    
-            self.gui.btn_main_exec_query.setChecked(False)
 
  
 
@@ -680,8 +650,6 @@ class maingui(QtWidgets.QWidget):
                 row = row + 1
         else:
             self.gui.label_output_window.setText("No Players online")
-
-
 
 
 
@@ -1226,25 +1194,6 @@ class maingui(QtWidgets.QWidget):
     ------------------------------------------------------------------'''
     #Check status of configuration of refresh trigger
     def get_configuration_from_DB_and_set_settings(self):
-        self.c.execute("select refresh_trigger FROM configuration")
-        val_rf_trigger = self.c.fetchone()
-        for i in val_rf_trigger:
-            trigger_result = i
-        self.conn.commit()
-        if trigger_result == 0:
-            self.gui.btn_main_exec_query.setText("Get Server Infos")
-            self.gui.btn_main_exec_query.setCheckable(False)
-            self.gui.checkBox_refresh_trigger.setChecked(False)
-        else:
-            self.gui.btn_main_exec_query.setText("Start Query Intervall")
-            self.gui.btn_main_exec_query.setCheckable(True)
-            self.gui.checkBox_refresh_trigger.setChecked(True)
-        self.c.execute("select refresh_intervall FROM configuration")
-        val_rf_intervall = self.c.fetchone()
-        for i in val_rf_intervall:
-            refresh_result = i
-        self.conn.commit()
-        self.gui.entry_refresh_timer.setText(str(refresh_result))
         self.c.execute('''select btn1_name, btn1_command, 
                     btn2_name, btn2_command, 
                     btn3_name, btn3_command, 
@@ -1284,54 +1233,6 @@ class maingui(QtWidgets.QWidget):
         self.gui.label_command_button_11.setText(dbbutton_conf_strip[21])
     #Save changed settings
     def save_settings(self):
-        self.c.execute("select refresh_trigger FROM configuration")
-        self.conn.commit()
-        val_rf_check_trigger = self.c.fetchone()
-        self.gui.btn_main_exec_query.setChecked(False)
-        #Check and Update Refresh Trigger
-        if self.gui.checkBox_refresh_trigger.isChecked():
-            val_trigger = 1
-            self.gui.btn_main_exec_query.clicked.connect(self.query_intervall)
-            self.gui.btn_main_exec_query.setText("Start Query Intervall")
-            self.gui.btn_main_exec_query.setCheckable(True)
-        else:
-            val_trigger = 0
-            self.gui.btn_main_exec_query.clicked.connect(self.checkandgoquery)
-            self.gui.btn_main_exec_query.setText("Get Server Info")
-            self.gui.btn_main_exec_query.setCheckable(False)
-        for t in val_rf_check_trigger:
-            val_temp_rf_check_trigger = t
-        if val_temp_rf_check_trigger != val_trigger:
-            self.c.execute("UPDATE configuration SET refresh_trigger=:trigger", {'trigger': val_trigger})
-            self.conn.commit()
-            self.gui.label_saving_indicator.setText("Saved!")
-        #Check and Update Intervall
-        self.c.execute("select refresh_intervall FROM configuration")
-        val_rf_intervall = self.c.fetchone()
-        for a in val_rf_intervall:
-            refresh_result = a
-        self.conn.commit()
-        new_refresh_intervall = self.gui.entry_refresh_timer.text()
-        def check_if_int(varcheck):
-            try:
-                int(new_refresh_intervall)
-                return True
-            except ValueError:
-                return False
-        check_int_val = check_if_int(new_refresh_intervall)
-        if check_int_val == True:
-            if int(new_refresh_intervall) != int(refresh_result):
-                self.c.execute("UPDATE configuration SET refresh_intervall=:intervall", {'intervall': new_refresh_intervall})
-                self.conn.commit()
-                self.gui.label_saving_indicator.setText("Saved!")
-        else:
-            msg = QtWidgets.QMessageBox()
-            msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
-            msg.setIcon(QtWidgets.QMessageBox.Critical)
-            msg.setWindowTitle("ISRT Error Message")
-            msg.setText(f"Something went wrong: \n\n {new_refresh_intervall} is no Integer (Full number)! \n\n Please try again!")
-            msg.exec_()
-
         #Assign new vairbales for check and update
         new_btn1_name_var = self.gui.label_button_name_1.text()
         new_btn1_command_var = self.gui.label_command_button_1.text()
@@ -1679,10 +1580,6 @@ class maingui(QtWidgets.QWidget):
 
 
 
-
-
-
-
 #
 #Main program
 #
@@ -1712,6 +1609,8 @@ if __name__ == "__main__":
         rngui.show()
     else:
         pass
+
+    
 
     sys.exit(app.exec_())
 
