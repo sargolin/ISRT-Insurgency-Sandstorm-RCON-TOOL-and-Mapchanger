@@ -12,6 +12,7 @@
     <file>img/sbck.png</file>
   </qresource>
   <qresource prefix="map_thumbs">
+    <file>img/maps/thumbs/sheds.jpg</file>
     <file>img/maps/thumbs/tell.jpg</file>
     <file>img/maps/thumbs/frost.png</file>
     <file>img/maps/thumbs/stork_castle.jpg</file>

@@ -15,7 +15,8 @@ Thanks to Helsing and Stuermer for the pre-release testing - I appreciate that s
 ------------------------------------------------------------------
 Importing required classes and libraries
 ------------------------------------------------------------------'''
-import sys, os, re, sqlite3, time, threading, socket
+import sys, os, re, sqlite3, time, socket
+from multiprocessing import dummy as multithreading
 from datetime import datetime
 from shutil import copy2
 import bin.SourceQuery as sq
@@ -249,22 +250,19 @@ class maingui(QtWidgets.QWidget):
         #Check whether an IP and Port is given for Query
         if self.gui.entry_ip.text() and self.gui.entry_queryport.text():
             if self.gui.checkBox_refresh_trigger.isChecked():
-                #Execute Query Thread if Refresh Intervall is checked
-                # def run_query_thread():
-                #     self.c.execute("select refresh_intervall FROM configuration")
-                #     dconf_ri = self.c.fetchone()
-                #     self.conn.commit()
-                #     check_thread_var = 1
-                #     while check_thread_var == 1:
-                #         self.checkandgoquery()
-                #         refresh_timer = int(dconf_ri[0])
-                #         time.sleep(refresh_timer)
-                #         if self.gui.btn_main_exec_query.isChecked():
-                #             check_thread_var = 1
-                #         else:
-                #             check_thread_var = 0
-                # QueryThread1 =  threading.Thread(target=run_query_thread)
-                # QueryThread1.start()
+                # self.c.execute("select refresh_intervall FROM configuration")
+                # self.dconf_ri = self.c.fetchone()
+                # self.conn.commit()
+                # check_thread_var = 1
+                # while check_thread_var == 1:
+                #     self.checkandgoquery()
+                #     refresh_timer = int(self.dconf_ri[0])
+                #     print(refresh_timer)
+                #     time.sleep(refresh_timer)
+                #     if self.gui.btn_main_exec_query.isChecked():
+                #         check_thread_var = 1
+                #     else:
+                #         check_thread_var = 0
                 pass
             else:
                 #If Refresh Intervall is not checked
@@ -274,9 +272,7 @@ class maingui(QtWidgets.QWidget):
             self.gui.label_output_window.setText("No IP-Address and/or query port given, please retry!")    
             self.gui.btn_main_exec_query.setChecked(False)
 
-
-
-
+ 
 
 
 
@@ -337,15 +333,18 @@ class maingui(QtWidgets.QWidget):
         self.gui.dropdown_select_travelscenario.clear()
         for rowmaps in dm_alias:
             self.gui.dropdown_select_travelscenario.addItems(rowmaps)
-                
-        if self.mutator_id_tuple[0]:
-            self.gui.dropdown_select_travelscenario.addItem("------Custom Maps------")
-            for custom_maps in self.mutator_id_tuple:
-                self.c.execute("select map_name FROM map_config WHERE modid=:mod_id ORDER by Map_name", {'mod_id':custom_maps})
-                dm2_alias = self.c.fetchone()   
-                self.conn.commit()
-                if dm2_alias != None: 
-                    self.gui.dropdown_select_travelscenario.addItems(dm2_alias)
+
+        if self.mutator_id_list == "None":
+            pass
+        else:
+            if self.mutator_id_list[0]:
+                self.gui.dropdown_select_travelscenario.addItem("------Custom Maps------")
+                for custom_maps in self.mutator_id_list:
+                    self.c.execute("select map_name FROM map_config WHERE modid=:mod_id ORDER by Map_name", {'mod_id':custom_maps})
+                    dm2_alias = self.c.fetchone()   
+                    self.conn.commit()
+                    if dm2_alias != None: 
+                        self.gui.dropdown_select_travelscenario.addItems(dm2_alias)
            
 
 
@@ -637,9 +636,16 @@ class maingui(QtWidgets.QWidget):
         self.gui.le_map.setText(str(self.servergamedetails['game_map']))
         self.gui.le_mods.setText(str(self.mutatorids))
         
-        #create tuple for mutator-IDs to identify installed maps
-        self.mutator_id_tuple = (self.serverruledetails['ModList_s'].split(','))
-        #Create Map View Picture absed on running map
+        
+        #Creating a list for mutator-IDs to identify installed maps
+        check_modlist = self.serverruledetails.get('ModList_s')
+        if check_modlist:
+            self.mutator_id_list = (self.serverruledetails['ModList_s'].split(','))
+        else:
+            self.mutator_id_list = "None"
+
+
+        #Create Map View Picture based on running map
         def assign_map_view_pic(self):
             map_view_pic = str(self.servergamedetails['game_map'])
             self.c.execute("select map_pic FROM map_config WHERE map_alias=:map_view_result", {'map_view_result': map_view_pic})

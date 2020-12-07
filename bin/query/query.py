@@ -24,9 +24,10 @@ MULTIPLE_PACKET_RESPONSE = -2
 class SourceWatchError(Exception):
     pass
 
+
 class Query:
     global PACKET_SIZE
-    def __init__(self, host, port=27015, timeout=2):
+    def __init__(self, host, port=27015, timeout=3):
         self.logger = logging.getLogger('SourceWatch')
         self.server = Server(socket.gethostbyname(host), int(port))
         self._timeout = timeout
