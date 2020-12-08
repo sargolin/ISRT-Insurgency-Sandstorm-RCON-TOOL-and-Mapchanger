@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>849</width>
-    <height>765</height>
+    <width>911</width>
+    <height>760</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -43,6 +43,8 @@ selection-background-color: rgb(216, 216, 216);</string>
      <property name="font">
       <font>
        <pointsize>9</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
      </property>
      <property name="text">
@@ -61,11 +63,22 @@ selection-background-color: rgb(216, 216, 216);</string>
    </item>
    <item>
     <widget class="QTableWidget" name="tbl_server_overview">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="minimumSize">
       <size>
-       <width>0</width>
-       <height>350</height>
+       <width>900</width>
+       <height>600</height>
       </size>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(247, 247, 247);</string>
@@ -88,8 +101,14 @@ selection-background-color: rgb(216, 216, 216);</string>
      <property name="alternatingRowColors">
       <bool>true</bool>
      </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::NoSelection</enum>
+     </property>
      <property name="textElideMode">
       <enum>Qt::ElideNone</enum>
+     </property>
+     <property name="gridStyle">
+      <enum>Qt::CustomDashLine</enum>
      </property>
      <attribute name="horizontalHeaderVisible">
       <bool>false</bool>
@@ -128,22 +147,32 @@ selection-background-color: rgb(216, 216, 216);</string>
      </column>
      <column>
       <property name="text">
-       <string>IP-Address</string>
+       <string>IP-Address-Port</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>New Column</string>
+       <string>GameMode</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>Query Port</string>
+       <string>Status</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>RCON Password</string>
+       <string>Ping</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Map</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Players</string>
       </property>
      </column>
     </widget>

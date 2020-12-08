@@ -51,7 +51,7 @@ selection-background-color: rgb(216, 216, 216);</string>
     <number>5</number>
    </property>
    <item>
-    <widget class="QTabWidget" name="Tab_Overview">
+    <widget class="QTabWidget" name="TabWidget_Main_overall">
      <property name="enabled">
       <bool>true</bool>
      </property>
@@ -77,7 +77,7 @@ selection-background-color: rgb(216, 216, 216);</string>
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="elideMode">
       <enum>Qt::ElideNone</enum>
@@ -1403,6 +1403,9 @@ background-repeat: no-repeat;</string>
            <property name="sizeAdjustPolicy">
             <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
            </property>
+           <property name="editTriggers">
+            <set>QAbstractItemView::NoEditTriggers</set>
+           </property>
            <property name="alternatingRowColors">
             <bool>true</bool>
            </property>
@@ -2001,8 +2004,14 @@ background-repeat: no-repeat;</string>
                <height>350</height>
               </size>
              </property>
+             <property name="mouseTracking">
+              <bool>true</bool>
+             </property>
+             <property name="autoFillBackground">
+              <bool>false</bool>
+             </property>
              <property name="styleSheet">
-              <string notr="true">background-color:rgb(254, 254, 254);</string>
+              <string notr="true"/>
              </property>
              <property name="frameShadow">
               <enum>QFrame::Sunken</enum>
@@ -2024,6 +2033,9 @@ background-repeat: no-repeat;</string>
              </property>
              <property name="textElideMode">
               <enum>Qt::ElideNone</enum>
+             </property>
+             <property name="sortingEnabled">
+              <bool>false</bool>
              </property>
              <attribute name="horizontalHeaderVisible">
               <bool>false</bool>
@@ -2059,25 +2071,40 @@ background-repeat: no-repeat;</string>
               <property name="text">
                <string>Alias</string>
               </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
+              </property>
              </column>
              <column>
               <property name="text">
                <string>IP-Address</string>
               </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>New Column</string>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
               </property>
              </column>
              <column>
               <property name="text">
                <string>Query Port</string>
               </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>RCON Port</string>
+              </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
+              </property>
              </column>
              <column>
               <property name="text">
                <string>RCON Password</string>
+              </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
               </property>
              </column>
             </widget>

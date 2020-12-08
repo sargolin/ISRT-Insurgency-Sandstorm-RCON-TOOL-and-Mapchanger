@@ -15,7 +15,7 @@ Thanks to Helsing and Stuermer for the pre-release testing - I appreciate that s
 ------------------------------------------------------------------
 Importing required classes and libraries
 ------------------------------------------------------------------'''
-import sys, os, re, sqlite3, time, socket
+import sys, os, re, sqlite3, time, socket, threading
 from datetime import datetime
 from shutil import copy2
 import bin.SourceQuery as sq
@@ -25,8 +25,8 @@ import bin.query as query
 from pathlib import Path
 from bin.isrt_gui import Ui_ISRT_Main_Window
 from bin.rn_gui import Ui_rn_window
-from bin.isrt_monitor_gui import Ui_UI_Server_Monitor
 import bin.SourceQuery as sq
+
 
 
 
@@ -97,9 +97,17 @@ class maingui(QtWidgets.QWidget):
         self.conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
         self.c = self.conn.cursor()
 
+        #Setup ISRT Monitor Call
+        def call_monitor():
+            def start_monitor_thread():
+                os.system("isrt_monitor.py")
+            
+            t1 = threading.Thread(target=start_monitor_thread)
+            t1.start()
+
         #Define buttons and menu items including their functionalities
         self.gui.btn_main_exec_query.clicked.connect(self.checkandgoquery)
-        self.gui.btn_main_open_server_monitor.clicked.connect()
+        self.gui.btn_main_open_server_monitor.clicked.connect(call_monitor)
         self.gui.btn_main_exec_rcon.clicked.connect(self.checkandgorcon)
         self.gui.btn_cust_delete_selected.clicked.connect(self.custom_command_clear_selected)
         self.gui.btn_cust_delete_all.clicked.connect(self.custom_command_clear_all)
@@ -288,7 +296,6 @@ class maingui(QtWidgets.QWidget):
         self.c.execute("SELECT * FROM server")
         self.gui.tbl_server_manager.setRowCount(0)
         self.conn.commit()
-        
         for row, form in enumerate(self.c):
             self.gui.tbl_server_manager.insertRow(row)
             for column, item in enumerate(form):
@@ -296,10 +303,15 @@ class maingui(QtWidgets.QWidget):
 
         self.gui.tbl_server_manager.insertRow(0)
         self.gui.tbl_server_manager.setItem(0, 0, QtWidgets.QTableWidgetItem("Alias"))
+        self.gui.tbl_server_manager.item(0, 0).setBackground(QtGui.QColor(254,254,254))
         self.gui.tbl_server_manager.setItem(0, 1, QtWidgets.QTableWidgetItem("IP-Address"))
+        self.gui.tbl_server_manager.item(0, 1).setBackground(QtGui.QColor(254,254,254))
         self.gui.tbl_server_manager.setItem(0, 2, QtWidgets.QTableWidgetItem("Query Port"))
+        self.gui.tbl_server_manager.item(0, 2).setBackground(QtGui.QColor(254,254,254))
         self.gui.tbl_server_manager.setItem(0, 3, QtWidgets.QTableWidgetItem("RCON Port"))
+        self.gui.tbl_server_manager.item(0, 3).setBackground(QtGui.QColor(254,254,254))
         self.gui.tbl_server_manager.setItem(0, 4, QtWidgets.QTableWidgetItem("RCON Password"))
+        self.gui.tbl_server_manager.item(0, 4).setBackground(QtGui.QColor(254,254,254))
     #Fill Dropdown Menu for Mapchanging from scratch
     def fill_dropdown_map_box(self):
         self.c.execute("select map_name FROM map_config WHERE modid = '0' ORDER by Map_name")
@@ -1599,7 +1611,6 @@ if __name__ == "__main__":
     mgui.show()
 
     #Release Notes Viewer
-
     dbdir = Path(__file__).absolute().parent
     rn_conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
     rnc = rn_conn.cursor()

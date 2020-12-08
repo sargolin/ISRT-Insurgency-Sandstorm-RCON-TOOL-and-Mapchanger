@@ -1,6 +1,7 @@
 # Work: getInfo(), getPlayers(), getChallenge(), getRules(), getPing()
 # Support: Source Servers, GoldSrc servers, The Ship Servers
-# ToDo: Bugfixes
+# Based on Dasister's Source-Query-Class that had a couple of tiny bugs in it
+# Corrected by Madman in 2020
 
 import socket
 import struct
@@ -167,9 +168,6 @@ class SourceQuery(object):
         if self.__challenge is None:
             self.get_challenge()
 
-        # print(type(A2S_PLAYERS))
-        # print(A2S_PLAYERS)
-        # print(type(self.__challenge))
         if self.__challenge:
             try:
                 self.__sock.send(A2S_PLAYERS + self.__challenge)
@@ -240,7 +238,7 @@ class SourceQuery(object):
                 rule_name, data = self.__get_string(data)
                 rule_value, data = self.__get_string(data)
                 if rule_value:
-                    result[rule_value] = rule_name
+                    result[rule_name] = rule_value
             except:
                 break
 
@@ -280,9 +278,10 @@ class SourceQuery(object):
         return s, data[i + 1:]
 
 
-#Just for testing
+#Just for testing - uncomment the blow lines for testing with my test server
+
 # if __name__ == '__main__':
-#     query = SourceQuery('192.168.70.14', 27131)
+#     query = SourceQuery('93.186.198.185', 27201) # Test Server you can use as long as it lives
 #     res = query.get_info()
 #     print(res['Hostname'])
 #     print(res['Map'])
