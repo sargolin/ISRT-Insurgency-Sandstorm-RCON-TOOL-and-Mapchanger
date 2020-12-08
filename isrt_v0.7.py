@@ -25,6 +25,7 @@ import bin.query as query
 from pathlib import Path
 from bin.isrt_gui import Ui_ISRT_Main_Window
 from bin.rn_gui import Ui_rn_window
+from bin.isrt_monitor_gui import Ui_UI_Server_Monitor
 import bin.SourceQuery as sq
 
 
@@ -77,6 +78,9 @@ class rngui(QtWidgets.QWidget):
 
 
 
+
+
+
 '''------------------------------------------------------------------
 Main GUI Handlers
 ------------------------------------------------------------------'''
@@ -95,6 +99,7 @@ class maingui(QtWidgets.QWidget):
 
         #Define buttons and menu items including their functionalities
         self.gui.btn_main_exec_query.clicked.connect(self.checkandgoquery)
+        self.gui.btn_main_open_server_monitor.clicked.connect()
         self.gui.btn_main_exec_rcon.clicked.connect(self.checkandgorcon)
         self.gui.btn_cust_delete_selected.clicked.connect(self.custom_command_clear_selected)
         self.gui.btn_cust_delete_all.clicked.connect(self.custom_command_clear_all)
@@ -148,7 +153,6 @@ class maingui(QtWidgets.QWidget):
         self.fill_dropdown_custom_command()
         self.fill_list_custom_command()
         self.get_configuration_from_DB_and_set_settings()
-        self.fill_server_overview()
 
         #Define the server manager tab
         self.gui.btn_server_add.clicked.connect(self.server_add)
@@ -296,24 +300,6 @@ class maingui(QtWidgets.QWidget):
         self.gui.tbl_server_manager.setItem(0, 2, QtWidgets.QTableWidgetItem("Query Port"))
         self.gui.tbl_server_manager.setItem(0, 3, QtWidgets.QTableWidgetItem("RCON Port"))
         self.gui.tbl_server_manager.setItem(0, 4, QtWidgets.QTableWidgetItem("RCON Password"))
-    
-    #Fill the Server Overview
-    def fill_server_overview(self):
-        self.c.execute("SELECT * FROM server")
-        self.gui.tbl_server_overview.setRowCount(0)
-        self.conn.commit()
-        
-        for row, form in enumerate(self.c):
-            self.gui.tbl_server_overview.insertRow(row)
-            for column, item in enumerate(form):
-                self.gui.tbl_server_overview.setItem(row, column, QtWidgets.QTableWidgetItem(str(item)))  
-
-        self.gui.tbl_server_overview.insertRow(0)
-        self.gui.tbl_server_overview.setItem(0, 0, QtWidgets.QTableWidgetItem("Alias"))
-        self.gui.tbl_server_overview.setItem(0, 1, QtWidgets.QTableWidgetItem("IP-Address/Port"))
-        self.gui.tbl_server_overview.setItem(0, 2, QtWidgets.QTableWidgetItem("Online"))
-        self.gui.tbl_server_overview.setItem(0, 3, QtWidgets.QTableWidgetItem("Map"))
-        self.gui.tbl_server_overview.setItem(0, 4, QtWidgets.QTableWidgetItem("Players"))
     #Fill Dropdown Menu for Mapchanging from scratch
     def fill_dropdown_map_box(self):
         self.c.execute("select map_name FROM map_config WHERE modid = '0' ORDER by Map_name")
