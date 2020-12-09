@@ -54,9 +54,9 @@ class mongui(QtWidgets.QWidget):
         
       
 
-        rowalias = 1
+        
         rowcount = self.mogui.tbl_server_overview.rowCount()
-        for i in range(1, 2):
+        for i in range(1, rowcount):
             server_temp_alias = (self.mogui.tbl_server_overview.item(i,0)).text()
             self.c.execute("SELECT ipaddress FROM server where alias=:temp_alias", {'temp_alias': server_temp_alias})
             monmap_ip = self.c.fetchone()
@@ -69,13 +69,15 @@ class mongui(QtWidgets.QWidget):
             self.server_info = sq.SourceQuery(self.serverhost, self.queryport)
             resinfo = self.server_info.get_info()
             if resinfo:
-                print(resinfo['Hostname'])
-                print(resinfo['GamePort'])
+                print(server_temp_alias)
+                print(self.serverhost +":" + str(resinfo['GamePort']))
                 print(resinfo['Password'])
                 print(resinfo['Secure'])
                 print(resinfo['Map'])
                 print("%i/%i" % (resinfo['Players'], resinfo['MaxPlayers']))
                 print(resinfo['Ping'])
+                if resinfo['Ping']:
+                    print("Status: online")
             else:
                 print(server_temp_alias + " ist offline")
             
