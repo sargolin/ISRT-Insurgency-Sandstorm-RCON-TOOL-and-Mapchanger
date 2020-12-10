@@ -16,16 +16,15 @@ Thanks to Helsing and Stuermer for the pre-release testing - I appreciate that s
 Importing required classes and libraries
 ------------------------------------------------------------------'''
 import sys, os, re, sqlite3, time, socket, threading
+import bin.SourceQuery as sq
+import bin.query as query
+from PyQt5 import QtCore, QtGui, QtWidgets
 from datetime import datetime
 from shutil import copy2
-import bin.SourceQuery as sq
-from PyQt5 import QtCore, QtGui, QtWidgets
-from bin.rcon.console import Console
-import bin.query as query
 from pathlib import Path
 from bin.isrt_gui import Ui_ISRT_Main_Window
 from bin.rn_gui import Ui_rn_window
-import bin.SourceQuery as sq
+from bin.rcon.console import Console
 
 
 
@@ -149,6 +148,7 @@ class maingui(QtWidgets.QWidget):
 
         #Connect Labels with enter key press
         self.gui.label_rconcommand.returnPressed.connect(self.checkandgorcon)
+
         #self.gui.entry_refresh_timer.returnPressed.connect(self.checkandgorcon)
         self.gui.server_alias.returnPressed.connect(self.server_add)
         self.gui.server_ip.returnPressed.connect(self.server_add)
@@ -814,7 +814,6 @@ class maingui(QtWidgets.QWidget):
 
             if command:
                 self.gui.label_rconcommand.setText(command)
-                self.checkandgorcon()
             else:
                 self.gui.label_output_window.setText("Something went wrong with the Travel command, please check above and report it!")  
             
@@ -1589,12 +1588,6 @@ class maingui(QtWidgets.QWidget):
 
 
 
-        # #DB Import Buttons and fields
-        # self.gui.btn_select_database.clicked.connect(self.DB_import(select_db))
-        # self.gui.label_selected_db()
-        # self.gui.btn_add_database.clicked.connect(self.DB_import(add_db))
-        # self.gui.btn_replace_database.clicked.connect(self.DB_import(replace_db))
-
 
 
 #
@@ -1618,6 +1611,7 @@ if __name__ == "__main__":
     show_rn = rnc.fetchone()
     rn_conn.commit()
     rn_conn.close()
+
     #Check if Release Notes shall be shown or not
     if show_rn[0] == 1:
         rngui = rngui()
