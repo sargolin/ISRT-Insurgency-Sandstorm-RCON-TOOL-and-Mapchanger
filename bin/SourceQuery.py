@@ -281,28 +281,31 @@ class SourceQuery(object):
 #Just for testing - uncomment the blow lines for testing with my test server
 
 # if __name__ == '__main__':
-#     query = SourceQuery('93.186.198.185', 27201) # Test Server you can use as long as it lives
-#     res = query.get_info()
-#     print(res['Hostname'])
-#     print(res['Map'])
-#     print(res['GameDir'])
-#     print("%i/%i" % (res['Players'], res['MaxPlayers']))
-#     print(res['AppID'])
-#     print(res['Tags'])
-#     print(res['Ping'])
+#     try:
+#         query = SourceQuery('93.186.198.185', 27416) # Test Server you can use as long as it lives
+#         res = query.get_info()
+#         print(res['Hostname'])
+#         print(res['Map'])
+#         print(res['GameDir'])
+#         print("%i/%i" % (res['Players'], res['MaxPlayers']))
+#         print(res['AppID'])
+#         print(res['Tags'])
+#         print(res['Ping'])
 
-#     players = query.get_players()
+#         players = query.get_players()
 
-#     for player in players:
-#         print("{id:<2} {Name:<35} {Frags:<5} {PrettyTime} {NetID}".format(**player))
+#         for player in players:
+#             print("{id:<2} {Name:<35} {Frags:<5} {PrettyTime} {NetID}".format(**player))
 
-#     rules = query.get_rules()
+#         rules = query.get_rules()
 
-#     print
-#     "\n{0:d} Rules".format(len(rules))
-#     print
-#     "------------------------------------"
-#     for rule_name, value in rules.items():
-#         print("{0:<5} {1}".format(rule_name, value))
-#     query.disconnect()
-#     query = False
+#         print
+#         "\n{0:d} Rules".format(len(rules))
+#         print
+#         "------------------------------------"
+#         for rule_name, value in rules.items():
+#             print("{0:<5} {1}".format(rule_name, value))
+#         query.disconnect()
+#         query = False
+#     except Exception:
+#         print("Error while executing!")

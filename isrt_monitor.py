@@ -50,13 +50,9 @@ class mongui(QtWidgets.QWidget):
 
 
     def get_server_data(self):
-
-        
-      
-
         
         rowcount = self.mogui.tbl_server_overview.rowCount()
-        for i in range(1, rowcount):
+        for i in range(1, 4):
             server_temp_alias = (self.mogui.tbl_server_overview.item(i,0)).text()
             self.c.execute("SELECT ipaddress FROM server where alias=:temp_alias", {'temp_alias': server_temp_alias})
             monmap_ip = self.c.fetchone()
@@ -66,28 +62,43 @@ class mongui(QtWidgets.QWidget):
             self.serverhost = monmap_ip[0]
             self.queryport = monmap_qp[0]
 
+            # try:
             self.server_info = sq.SourceQuery(self.serverhost, self.queryport)
             resinfo = self.server_info.get_info()
-            if resinfo:
-                print(server_temp_alias)
-                print(self.serverhost +":" + str(resinfo['GamePort']))
-                print(resinfo['Password'])
-                print(resinfo['Secure'])
-                print(resinfo['Map'])
-                print("%i/%i" % (resinfo['Players'], resinfo['MaxPlayers']))
-                print(resinfo['Ping'])
-                if resinfo['Ping']:
-                    print("Status: online")
-            else:
-                print(server_temp_alias + " ist offline")
-            
             resrules = self.server_info.get_rules()
-            if resrules:
-                print(resrules['GameMode_s'])
+            # except Exception:
+            # self.mogui.tbl_server_overview.setItem(i, 3, QtWidgets.QTableWidgetItem("Offline"))
+            # print("failure")
+            self.server_info.disconnect()
+            if resinfo:
+                print(resinfo['Ping'])
+                self.mogui.tbl_server_overview.setItem(i, 1, QtWidgets.QTableWidgetItem(self.serverhost +":" + str(resinfo['GamePort'])))
+                self.mogui.tbl_server_overview.setItem(i, 5, QtWidgets.QTableWidgetItem(resinfo['Map']))
+                self.mogui.tbl_server_overview.setItem(i, 6, QtWidgets.QTableWidgetItem("%i/%i" % (resinfo['Players'], resinfo['MaxPlayers'])))
+                
+                if resinfo['Ping']:
+                    self.mogui.tbl_server_overview.setItem(i, 3, QtWidgets.QTableWidgetItem("Online"))
+                    self.mogui.tbl_server_overview.item(i, 3).setBackground(QtGui.QColor(0,254,0))
+                    self.mogui.tbl_server_overview.setItem(i, 4, QtWidgets.QTableWidgetItem(str(resinfo['Ping']) + "ms"))
+                    if resinfo['Ping'] >= 100:
+                        self.mogui.tbl_server_overview.item(i, 4).setBackground(QtGui.QColor(254,0,0))
+                    else:
+                        self.mogui.tbl_server_overview.item(i, 4).setBackground(QtGui.QColor(0,254,0))
                 
             else:
-                print(server_temp_alias + " ist offline")
+                print(resinfo)
+                print("offline1")
+                self.mogui.tbl_server_overview.setItem(i, 3, QtWidgets.QTableWidgetItem("Offline"))
+                self.mogui.tbl_server_overview.item(i, 3).setBackground(QtGui.QColor(254,0,0))
+                self.server_info.disconnect()
+            
+            
+            if resrules:
+                self.mogui.tbl_server_overview.setItem(i, 2, QtWidgets.QTableWidgetItem(resrules['GameMode_s']))
+            
 
+
+            
 
 
     def refresh_monitor(self):
