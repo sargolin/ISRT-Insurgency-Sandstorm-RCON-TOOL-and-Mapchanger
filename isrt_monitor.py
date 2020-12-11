@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-import sys, sqlite3
+import sys, sqlite3, threading
 from pathlib import Path
 from bin.isrt_monitor_gui import Ui_UI_Server_Monitor
 import bin.SourceQuery as sq
@@ -50,51 +50,57 @@ class mongui(QtWidgets.QWidget):
 
 
     def get_server_data(self):
-        
+        def executor(alias, host, qport):
+            try:
+                self.server_info = sq.SourceQuery(host, qport)
+                resinfo = self.server_info.get_info()
+                resrules = self.server_info.get_rules()
+                # except Exception:
+                # self.mogui.tbl_server_overview.setItem(i, 3, QtWidgets.QTableWidgetItem("Offline"))
+                # print("failure")
+                self.server_info.disconnect()
+                if resinfo:
+                    self.mogui.tbl_server_overview.setItem(i, 1, QtWidgets.QTableWidgetItem(host +":" + str(resinfo['GamePort'])))
+                    self.mogui.tbl_server_overview.setItem(i, 5, QtWidgets.QTableWidgetItem(resinfo['Map']))
+                    self.mogui.tbl_server_overview.setItem(i, 6, QtWidgets.QTableWidgetItem("%i/%i" % (resinfo['Players'], resinfo['MaxPlayers'])))
+                    
+                    if resinfo['Ping']:
+                        self.mogui.tbl_server_overview.setItem(i, 3, QtWidgets.QTableWidgetItem("Online"))
+                        self.mogui.tbl_server_overview.item(i, 3).setBackground(QtGui.QColor(0,254,0))
+                        self.mogui.tbl_server_overview.setItem(i, 4, QtWidgets.QTableWidgetItem(str(resinfo['Ping']) + "ms"))
+                        if resinfo['Ping'] >= 80:
+                            self.mogui.tbl_server_overview.item(i, 4).setBackground(QtGui.QColor(254,85,0))
+                        else:
+                            self.mogui.tbl_server_overview.item(i, 4).setBackground(QtGui.QColor(0,254,0))
+                    else:
+                        self.mogui.tbl_server_overview.setItem(i, 3, QtWidgets.QTableWidgetItem("Offline"))
+                        self.mogui.tbl_server_overview.item(i, 3).setBackground(QtGui.QColor(254,0,0))
+                        self.server_info.disconnect()
+                    
+                if resrules:
+                    self.mogui.tbl_server_overview.setItem(i, 2, QtWidgets.QTableWidgetItem(resrules['GameMode_s']))
+            except Exception:
+                print(f"Error on {alias}")
+                self.mogui.tbl_server_overview.setItem(i, 3, QtWidgets.QTableWidgetItem("Offline"))
+                self.mogui.tbl_server_overview.item(i, 3).setBackground(QtGui.QColor(254,0,0))
+                self.server_info.disconnect()
+            
+
+
         rowcount = self.mogui.tbl_server_overview.rowCount()
-        for i in range(1, 4):
+        
+        for i in range(1, 5):
             server_temp_alias = (self.mogui.tbl_server_overview.item(i,0)).text()
             self.c.execute("SELECT ipaddress FROM server where alias=:temp_alias", {'temp_alias': server_temp_alias})
             monmap_ip = self.c.fetchone()
             self.c.execute("SELECT queryport FROM server where alias=:temp_alias", {'temp_alias': server_temp_alias})
             monmap_qp = self.c.fetchone()
             self.conn.commit()    
-            self.serverhost = monmap_ip[0]
-            self.queryport = monmap_qp[0]
-
-            # try:
-            self.server_info = sq.SourceQuery(self.serverhost, self.queryport)
-            resinfo = self.server_info.get_info()
-            resrules = self.server_info.get_rules()
-            # except Exception:
-            # self.mogui.tbl_server_overview.setItem(i, 3, QtWidgets.QTableWidgetItem("Offline"))
-            # print("failure")
-            self.server_info.disconnect()
-            if resinfo:
-                print(resinfo['Ping'])
-                self.mogui.tbl_server_overview.setItem(i, 1, QtWidgets.QTableWidgetItem(self.serverhost +":" + str(resinfo['GamePort'])))
-                self.mogui.tbl_server_overview.setItem(i, 5, QtWidgets.QTableWidgetItem(resinfo['Map']))
-                self.mogui.tbl_server_overview.setItem(i, 6, QtWidgets.QTableWidgetItem("%i/%i" % (resinfo['Players'], resinfo['MaxPlayers'])))
-                
-                if resinfo['Ping']:
-                    self.mogui.tbl_server_overview.setItem(i, 3, QtWidgets.QTableWidgetItem("Online"))
-                    self.mogui.tbl_server_overview.item(i, 3).setBackground(QtGui.QColor(0,254,0))
-                    self.mogui.tbl_server_overview.setItem(i, 4, QtWidgets.QTableWidgetItem(str(resinfo['Ping']) + "ms"))
-                    if resinfo['Ping'] >= 100:
-                        self.mogui.tbl_server_overview.item(i, 4).setBackground(QtGui.QColor(254,0,0))
-                    else:
-                        self.mogui.tbl_server_overview.item(i, 4).setBackground(QtGui.QColor(0,254,0))
-                
-            else:
-                print(resinfo)
-                print("offline1")
-                self.mogui.tbl_server_overview.setItem(i, 3, QtWidgets.QTableWidgetItem("Offline"))
-                self.mogui.tbl_server_overview.item(i, 3).setBackground(QtGui.QColor(254,0,0))
-                self.server_info.disconnect()
-            
-            
-            if resrules:
-                self.mogui.tbl_server_overview.setItem(i, 2, QtWidgets.QTableWidgetItem(resrules['GameMode_s']))
+            serverhost = monmap_ip[0]
+            queryport = monmap_qp[0]
+            threadnumber = ("t" + str(i))
+            threadnumber =  threading.Thread(target=(executor(server_temp_alias, serverhost, queryport)))
+            threadnumber.start()
             
 
 
