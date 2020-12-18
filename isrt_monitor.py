@@ -19,6 +19,7 @@ class mongui(QtWidgets.QWidget):
         self.c = self.conn.cursor()
         #Define Method Calls to execute on script call
         self.fill_overview_headers()
+        self.get_server_data()
 
         
     #Fill Alias in the Server Overview
@@ -39,24 +40,19 @@ class mongui(QtWidgets.QWidget):
         self.mogui.tbl_server_overview.item(0, 5).setBackground(QtGui.QColor(254,254,254))
         self.mogui.tbl_server_overview.setItem(0, 6, QtWidgets.QTableWidgetItem("Players"))
         self.mogui.tbl_server_overview.item(0, 6).setBackground(QtGui.QColor(254,254,254))
-        QtCore.QTimer.singleShot(10, self.get_aliases)
+        self.get_aliases()
         
 
     def get_aliases(self):
-        def execute(self):
-            #Execute DB query
-            self.c.execute("SELECT alias FROM server")
-            self.conn.commit()
-            
-            for row, form in enumerate(self.c):
-                row = row + 1
-                self.mogui.tbl_server_overview.insertRow(row)
-                for column, item in enumerate(form):
-                    self.mogui.tbl_server_overview.setItem(row, column, QtWidgets.QTableWidgetItem(str(item)))
-        # QtCore.QTimer.singleShot(10, self.get_server_data)
+        self.c.execute("SELECT alias FROM server")
+        self.conn.commit()
+        
+        for row, form in enumerate(self.c):
+            row = row + 1
+            self.mogui.tbl_server_overview.insertRow(row)
+            for column, item in enumerate(form):
+                self.mogui.tbl_server_overview.setItem(row, column, QtWidgets.QTableWidgetItem(str(item)))
 
-        self.p = QProcess()  # Keep a reference to the QProcess (e.g. on self) while it's running.
-        self.p.start("python3", ['execute'])
 
 
     def get_server_data(self):
