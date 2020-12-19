@@ -1247,6 +1247,13 @@ class maingui(QtWidgets.QWidget):
         self.gui.label_command_button_10.setText(dbbutton_conf_strip[19])
         self.gui.label_button_name_11.setText(dbbutton_conf_strip[20])
         self.gui.label_command_button_11.setText(dbbutton_conf_strip[21])
+        self.c.execute("select quitbox from configuration")
+        quitbox_setting = self.c.fetchone()
+        self.conn.commit()
+        if quitbox_setting[0] == 1:
+            self.gui.chkbox_close_question.setChecked(True)
+        else:
+            self.gui.chkbox_close_question.setChecked(False)
     #Save changed settings
     def save_settings(self):
         #Assign new vairbales for check and update
@@ -1573,6 +1580,21 @@ class maingui(QtWidgets.QWidget):
                 msg.setText(f"Something went wrong: \n\n {new_btn11_command_var} is no valid RCON command for Button 11! \n\n Please try again!")
                 msg.exec_()  
         #Refresh the Settings in clicking save!
+        self.c.execute("select quitbox from configuration")
+        self.conn.commit()
+        quitbox_result = self.c.fetchone()
+        if self.gui.chkbox_close_question.isChecked():
+            check_quitapp = 1
+        else:
+            check_quitapp = 0
+        if quitbox_result[0] != check_quitapp:
+            if self.gui.chkbox_close_question.isChecked():
+                self.c.execute("UPDATE configuration SET quitbox=1")
+                self.conn.commit()
+            else:
+                self.c.execute("UPDATE configuration SET quitbox=0")
+                self.conn.commit()
+            self.gui.label_saving_indicator.setText("Saved!")
         self.get_configuration_from_DB_and_set_settings()
     #Copy2Clipboard
     def copy2clipboard(self):
@@ -1580,11 +1602,34 @@ class maingui(QtWidgets.QWidget):
         QtWidgets.QApplication.clipboard().setText(copyvar)
     #Exit the App itself in a secure manner 
     def exit_app(self):
-        self.conn.close()  
-        self.close()
+        self.c.execute("select quitbox from configuration")
+        self.conn.commit()
+        quitbox_result = self.c.fetchone()
+        if quitbox_result[0] == 1:
+            choice = QtWidgets.QMessageBox.warning(self, 'Quit Message!', "Really close the app?", QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+            if choice == QtWidgets.QMessageBox.Yes:
+                self.conn.close() 
+                self.close()
+            else:
+                event.ignore()
+        else:
+            self.conn.close() 
+            self.close()
     #Exit using the break command
     def closeEvent(self, event):
-        self.conn.close() 
+        self.c.execute("select quitbox from configuration")
+        self.conn.commit()
+        quitbox_result = self.c.fetchone()
+        if quitbox_result[0] == 1:
+            choice = QtWidgets.QMessageBox.warning(self, 'Quit Message!', "Really close the app?", QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+            if choice == QtWidgets.QMessageBox.Yes:
+                self.conn.close() 
+                self.close()
+            else:
+                event.ignore()
+        else:
+            self.conn.close() 
+            self.close()
 
 
 
