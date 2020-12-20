@@ -15,7 +15,7 @@ Thanks to Helsing and Stuermer for the pre-release testing - I appreciate that s
 ------------------------------------------------------------------
 Importing required classes and libraries
 ------------------------------------------------------------------'''
-import sys, os, re, sqlite3, time, socket, threading
+import sys, os, re, sqlite3, time, socket, threading, psutil
 import bin.SourceQuery as sq
 import bin.query as query
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -1642,27 +1642,49 @@ class maingui(QtWidgets.QWidget):
 #
 
 if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
-    ISRT_Main_Window = QtWidgets.QWidget()
-    rn_window = QtWidgets.QWidget()
-    mgui = maingui()
-    mgui.show()
+    #Check if app is alredy running
+    runcheck = 1
+    for pid in psutil.pids():
+        try:
+            p = psutil.Process(pid)
+        except Exception:
+            pass
+        if p.name().startswith("isrt") or p.name().startswith("ISRT"):
+            runcheck = 0
+            break
+        
+    if runcheck == 1:
+        app = QtWidgets.QApplication(sys.argv)
+        ISRT_Main_Window = QtWidgets.QWidget()
+        rn_window = QtWidgets.QWidget()
+        mgui = maingui()
+        mgui.show()
 
-    #Release Notes Viewer
-    dbdir = Path(__file__).absolute().parent
-    rn_conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
-    rnc = rn_conn.cursor()
-    rnc.execute("SELECT show_rn FROM release_info")
-    show_rn = rnc.fetchone()
-    rn_conn.commit()
-    rn_conn.close()
+        #Release Notes Viewer
+        dbdir = Path(__file__).absolute().parent
+        rn_conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
+        rnc = rn_conn.cursor()
+        rnc.execute("SELECT show_rn FROM configuration")
+        show_rn = rnc.fetchone()
+        rn_conn.commit()
+        rn_conn.close()
 
-    #Check if Release Notes shall be shown or not
-    if show_rn[0] == 1:
-        rngui = rngui()
-        rngui.show()
+        #Check if Release Notes shall be shown or not
+        if show_rn[0] == 1:
+            rngui = rngui()
+            rngui.show()
+        else:
+            pass
+
+        sys.exit(app.exec_())
     else:
-        pass
-
-    sys.exit(app.exec_())
+        app = QtWidgets.QApplication(sys.argv)
+        msg = QtWidgets.QMessageBox()
+        msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
+        msg.setIcon(QtWidgets.QMessageBox.Critical)
+        msg.setWindowTitle("ISRT Error Message")
+        msg.setText("App is already running - exiting!")
+        msg.exec_()
+        
+ 
 

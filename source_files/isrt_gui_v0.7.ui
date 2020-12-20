@@ -2197,29 +2197,6 @@ p, li { white-space: pre-wrap; }
              </property>
             </widget>
            </item>
-           <item>
-            <widget class="QPushButton" name="btn_exec_db_backup">
-             <property name="minimumSize">
-              <size>
-               <width>150</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>150</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-color:rgb(228, 228, 228)
-</string>
-             </property>
-             <property name="text">
-              <string>Create DB Backup</string>
-             </property>
-            </widget>
-           </item>
           </layout>
          </item>
          <item>
@@ -2228,7 +2205,7 @@ p, li { white-space: pre-wrap; }
             <widget class="QToolButton" name="btn_select_database">
              <property name="minimumSize">
               <size>
-               <width>100</width>
+               <width>70</width>
                <height>0</height>
               </size>
              </property>
@@ -2245,7 +2222,7 @@ p, li { white-space: pre-wrap; }
             <widget class="QLabel" name="label_selected_db">
              <property name="minimumSize">
               <size>
-               <width>200</width>
+               <width>150</width>
                <height>0</height>
               </size>
              </property>
@@ -2303,6 +2280,29 @@ p, li { white-space: pre-wrap; }
              </property>
              <property name="text">
               <string>Replace existing DB</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_exec_db_backup">
+             <property name="minimumSize">
+              <size>
+               <width>150</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>150</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:rgb(228, 228, 228)
+</string>
+             </property>
+             <property name="text">
+              <string>Create DB Backup</string>
              </property>
             </widget>
            </item>

@@ -1,9 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import QProcess
-import sys, sqlite3, threading, time
+import sys, sqlite3, time
 from pathlib import Path
 from bin.isrt_monitor_gui import Ui_UI_Server_Monitor
-import bin.SourceQuery2 as sq
+import bin.MonitorQuery as sq
 
 class mongui(QtWidgets.QWidget):
     def __init__(self, *args, **kwargs):
@@ -19,10 +18,9 @@ class mongui(QtWidgets.QWidget):
         self.c = self.conn.cursor()
         #Define Method Calls to execute on script call
         self.fill_overview_headers()
-        self.get_server_data()
-
-        
-    #Fill Alias in the Server Overview
+        self.get_aliases()
+        self.mogui.mon_progress_bar.setValue(0)
+    #Create Row 0 and Headers
     def fill_overview_headers(self):
         self.mogui.tbl_server_overview.setRowCount(0)
         self.mogui.tbl_server_overview.insertRow(0)
@@ -40,31 +38,41 @@ class mongui(QtWidgets.QWidget):
         self.mogui.tbl_server_overview.item(0, 5).setBackground(QtGui.QColor(254,254,254))
         self.mogui.tbl_server_overview.setItem(0, 6, QtWidgets.QTableWidgetItem("Players"))
         self.mogui.tbl_server_overview.item(0, 6).setBackground(QtGui.QColor(254,254,254))
-        self.get_aliases()
-        
 
+    #Get Headers from DB and fill in Row 0
     def get_aliases(self):
         self.c.execute("SELECT alias FROM server")
         self.conn.commit()
-        
         for row, form in enumerate(self.c):
             row = row + 1
             self.mogui.tbl_server_overview.insertRow(row)
             for column, item in enumerate(form):
                 self.mogui.tbl_server_overview.setItem(row, column, QtWidgets.QTableWidgetItem(str(item)))
+        self.mogui.mon_progress_bar.setValue(0)
 
-
-
+    #Query Servers from Aliases and push data into table
     def get_server_data(self):
-      
-        def executor(alias, host, qport):
+        rowcount = self.mogui.tbl_server_overview.rowCount()
+        i = 1
+        progress_multiplier = int(100/rowcount)
+        progress_value = int(progress_multiplier) + int(progress_multiplier)
+        while i <= (rowcount - 1):
+            self.mogui.mon_progress_bar.setValue(progress_value)
+            server_temp_alias = (self.mogui.tbl_server_overview.item(i,0)).text()
+            self.c.execute("SELECT ipaddress FROM server where alias=:temp_alias", {'temp_alias': server_temp_alias})
+            monmap_ip = self.c.fetchone()
+            self.c.execute("SELECT queryport FROM server where alias=:temp_alias", {'temp_alias': server_temp_alias})
+            monmap_qp = self.c.fetchone()
+            self.conn.commit()
+            serverhost = monmap_ip[0]
+            queryport = monmap_qp[0]
             try:
-                self.server_info = sq.SourceQuery(host, qport)
+                self.server_info = sq.SourceQuery(serverhost, queryport)
                 resinfo = self.server_info.get_info()
                 resrules = self.server_info.get_rules()
                 self.server_info.disconnect()
                 if resinfo:
-                    self.mogui.tbl_server_overview.setItem(i, 1, QtWidgets.QTableWidgetItem(host +":" + str(resinfo['GamePort'])))
+                    self.mogui.tbl_server_overview.setItem(i, 1, QtWidgets.QTableWidgetItem(serverhost +":" + str(resinfo['GamePort'])))
                     self.mogui.tbl_server_overview.setItem(i, 5, QtWidgets.QTableWidgetItem(resinfo['Map']))
                     self.mogui.tbl_server_overview.setItem(i, 6, QtWidgets.QTableWidgetItem("%i/%i" % (resinfo['Players'], resinfo['MaxPlayers'])))
                     self.mogui.tbl_server_overview.setItem(i, 3, QtWidgets.QTableWidgetItem("Online"))
@@ -80,42 +88,18 @@ class mongui(QtWidgets.QWidget):
                     self.mogui.tbl_server_overview.item(i, 3).setBackground(QtGui.QColor(254,0,0))
 
             except Exception:
-                print(f"Error on {alias}")
                 self.mogui.tbl_server_overview.setItem(i, 3, QtWidgets.QTableWidgetItem("Offline"))
                 self.mogui.tbl_server_overview.item(i, 3).setBackground(QtGui.QColor(254,0,0))
                 self.server_info.disconnect()
-            
-
-
-        #rowcount = self.mogui.tbl_server_overview.rowCount()
-        i = 1 
-        
-        while i <= 4:
-            server_temp_alias = (self.mogui.tbl_server_overview.item(i,0)).text()
-            self.c.execute("SELECT ipaddress FROM server where alias=:temp_alias", {'temp_alias': server_temp_alias})
-            monmap_ip = self.c.fetchone()
-            self.c.execute("SELECT queryport FROM server where alias=:temp_alias", {'temp_alias': server_temp_alias})
-            monmap_qp = self.c.fetchone()
-            self.conn.commit()
-            serverhost = monmap_ip[0]
-            queryport = monmap_qp[0]
-            threadnumber = ("t" + str(i))
-            threadnumber =  threading.Thread(target=(executor(server_temp_alias, serverhost, queryport)))
-            threadnumber.start()
             i = i + 1
-            
-            
+            progress_value = progress_value + progress_multiplier
+        self.mogui.mon_progress_bar.setValue(100)
 
-
-            
-
-
-    def refresh_monitor(self):
-        self.fill_server_overview()
-
+    #Handle the Close Event
     def closeEvent(self, event):
         self.close() 
 
+#Main definitions
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     UI_Server_Monitor = QtWidgets.QWidget()
