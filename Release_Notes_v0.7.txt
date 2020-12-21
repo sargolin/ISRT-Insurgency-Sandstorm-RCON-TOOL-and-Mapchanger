@@ -1,13 +1,26 @@
-Renamed Main Tab to Server Info
-Added table view for servers in Server Manager (not editable yet)
-Renamed Custom Commands to History to prevent from mixing custom commands and custom command buttons
-Eliminated the Save Commands Checkbox - commands are now automatically saved if they are not already in the history when hitting Submit
-Inserted Security/Insurgents DropDown Menu for selecting travel commands
-Increased font of Server Infos zu 8 for better readability
-Inserted Link to Bug Tracker in Help Tab
-Changed the Tell Map picture for better identification
-Added rcon commands quit and exit as valid commands
-Removed the automatic execution of custom commands on selection
-
+Welcome to the version 0.7 December 2020 release with a lot of new features and changes. I would love, to hear from you via my Discord (=TCT= Madman#2803), my Steam Account (=TCT= Madman) or via e-mail (madman@isrt.info).
+Report bugs or errors here:Bug Tracker
+What's new?
+- Renamed a couple of items for better understanding
+- RCON commands are now automatically saved if not already in the history
+- Inserted Security/Insurgents DropDown Menu for selecting travel commands
+- Changed the Tell Map picture for better identification
+- Added rcon commands quit and exit as valid commands
+- Removed the automatic execution of custom commands on selection
+- Added DB Table View to Server Manager for easier overview
+- Discarded Night-View Maps, because you can't actually see anything in them
+- Re-Designed the server info box and a couple other GUI elements
+- Integrated Password Image display, removed the text display
+- Added DB Table View for online players directly on query execution
+- Aggregated the VAC/Ranked view
+- Implemented Threading for monitor to prevent app freeze
+- Added Maps Sheds, Stork_Castle_x Map, Frost, Temple, TORO and Bap
+- Changed the Mapchanger so the Scenarios are based on what the server provides
+- Removed the Side-Selector in the Mapchanger - now done by selecting the specific scenario.
+- Modified 127.0.0.1 handling to auto-switch to LAN IP, due to a Windows bug.
+- Removed auto-execution of commands selected from the Cutom Commands Dropdown menu
+- Added server monitor to view all saved servers in one table overview
+Known bug (red = not possible to fix - NWI Server Bug):
+- When chosing random map change, the map is not updated correctly (NWI Server Bug reported; I unfortunately can't change false reporting on server side...)
 
 

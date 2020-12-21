@@ -1,30 +1,40 @@
-# ISRT Insurgency Sandstorm RCON TOOL v0.6 released
-This is a python3 (3.8.6) - and PyQt5/SQLite3-based RCON Tool for mapchanging, server monitoring and other basic RCON functionalities that help administering and controlling Insurgency Sandstorm Servers. That said, I just released version 0.6 of it, again coming with a lot of new features that I list down below in the release notes! I implemented all your feature requests, wishes and a couple of things I found convenient, like importing your v0.5 server database or having customizable commands. Of course I would love, if you test it and let me know, in case you find bugs or have additional feature or change requests! So, if you like, give it a shot. It only takes a couple of minutes to try it out - please watch the known errors below. In the future I'll add more and more functionality and also add a proper installation/de-installation routine:
+# ISRT Insurgency Sandstorm RCON TOOL v0.7 released
+This is a python3 and PyQt5/SQLite3-based RCON Tool for mapchanging, server monitoring and other basic RCON functionalities that help administering and controlling Insurgency Sandstorm Servers. I just released version 0.7 of it, again coming with a lot of hopefully good changes! I implemented all your feature requests, wishes and a couple of things I found convenient, like importing your v0.5/6 server database or having customizable commands and so on - see below! Of course I would love, if you test it and let me know, in case you find bugs or have additional feature or change requests! So, if you like, give it a shot. It only takes a couple of minutes to try it out - please watch the known error below. 
 
 ## For even more Information, look here: http://www.isrt.info
 
 Report any bug or feature/change requests here or send me an e-mail/steam message: https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/issues
 
 ### For Installation How-to, common problems, issue reporting, commands and the general usage, visit the Wiki pages via the link below: 
-https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/wiki
+https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/wiki
 
-<center><img src="http://src.isrt.info/isrt_v0.6.jpg"></center>
+<center><img src="http://src.isrt.info/isrt_v0.7.jpg"></center>
 
 #### Status: In development phase of full release - open for all ideas
 
 ## 1. Release Notes
-- Re-Designed to "tabbed" layout for easier usage
-- Customizable RCON buttons are available now
-- Database can be backed up, imported or combined (Yes, you can import your v0.5 database now!)
-- Imported the new maps: Frost, Stork_Castle_x, Temple and Toro from mod.io
-- Added Wiki reference
-- Added customizable RCON commands as Custom Command Manager - save, add, delete
-- Now working on Windows 7 and Mac OS as well
+- Renamed a couple of items for better understanding
+- RCON commands are now automatically saved if not already in the history
+- Inserted Security/Insurgents DropDown Menu for selecting travel commands
+- Changed the Tell Map picture for better identification
+- Added rcon commands quit and exit as valid commands
+- Removed the automatic execution of custom commands on selection
+- Added DB Table View to Server Manager for easier overview
+- Discarded Night-View Maps, because you can't actually see anything in them
+- Re-Designed the server info box and a couple other GUI elements
+- Integrated Password Image display, removed the text display
+- Added DB Table View for online players directly on query execution
+- Aggregated the VAC/Ranked view
+- Implemented Threading for monitor to prevent app freeze
+- Added Maps Sheds, Stork_Castle_x Map, Frost, Temple, TORO and Bap
+- Changed the Mapchanger so the Scenarios are based on what the server provides
+- Removed the Side-Selector in the Mapchanger - now done by selecting the specific scenario.
+- Modified 127.0.0.1 handling to auto-switch to LAN IP, due to a Windows bug.
+- Removed auto-execution of commands selected from the Cutom Commands Dropdown menu
+- Added server monitor to view all saved servers in one table overview
 
 ## 2. Known bugs
-- List Player command produces a weird output that has to be structured - working on it - solution found, but a lot more difficult than I thought
-- Program throws an error if using 127.0.0.1 as IP - SourceQuery bug - will change it in the next version - switching sourcequery code - use your LAN IP instead
-- When chosing random map change, the map is not updated correctly (NWI Server Bug reported - I unfortunately can't change false reporting on server side....
+- When chosing random map change, the map is not updated correctly (NWI Server Bug reported - I unfortunately can't change false reporting on server side...)
 
 ## 3. Tested on the following virtualized systems:
 
@@ -41,11 +51,11 @@ https://github.com/sargolin/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/wiki
 - Mac OS Catalina: Successful - no errors
 
 ## 4. General Remarks, Feedback and stuff...
-The next release will proudly be powered by <a href="https://www.advancedinstaller.com">AdvancedInstaller.com:
+This release is proudly powered by <a href="https://www.advancedinstaller.com">AdvancedInstaller.com:
   
 <img src="https://cdn.advancedinstaller.com/svg/pressinfo/AiLogoColor.svg" width="300"></a>
 
-If you have any questions or feedback, please send me an e-mail to: isrt@edelmeier.org - In case of feature requests or find any error in the software, please open an issue or in any other case, just write to me on our Discord: https://discord.gg/zEdTrgg
+If you have any questions or feedback, please send me an e-mail to: madman@isrt.info - In case of feature requests or find any error in the software, please open an issue or in any other case, just write to me on our Discord: https://discord.gg/zEdTrgg
 
 If you think that my software is cool and helps you do your daily tasks, why not buy me a coffee ;-) I love coffee. You can do so by clicking one of the buttons below!
 

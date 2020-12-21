@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>920</width>
-    <height>760</height>
+    <width>860</width>
+    <height>678</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -62,7 +62,7 @@ selection-background-color: rgb(216, 216, 216);</string>
        </property>
        <property name="minimumSize">
         <size>
-         <width>900</width>
+         <width>840</width>
          <height>600</height>
         </size>
        </property>
@@ -84,7 +84,7 @@ selection-background-color: rgb(216, 216, 216);</string>
         <enum>Qt::ScrollBarAlwaysOff</enum>
        </property>
        <property name="sizeAdjustPolicy">
-        <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
+        <enum>QAbstractScrollArea::AdjustIgnored</enum>
        </property>
        <property name="editTriggers">
         <set>QAbstractItemView::NoEditTriggers</set>
@@ -105,13 +105,13 @@ selection-background-color: rgb(216, 216, 216);</string>
         <bool>false</bool>
        </attribute>
        <attribute name="horizontalHeaderCascadingSectionResizes">
-        <bool>true</bool>
+        <bool>false</bool>
        </attribute>
        <attribute name="horizontalHeaderMinimumSectionSize">
-        <number>130</number>
+        <number>0</number>
        </attribute>
        <attribute name="horizontalHeaderDefaultSectionSize">
-        <number>130</number>
+        <number>0</number>
        </attribute>
        <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
         <bool>true</bool>

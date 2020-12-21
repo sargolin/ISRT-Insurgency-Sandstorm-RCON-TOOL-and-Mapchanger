@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-import sys, sqlite3, time
+import sys, sqlite3, time, threading
+from multiprocessing import Process
 from pathlib import Path
 from bin.isrt_monitor_gui import Ui_UI_Server_Monitor
 import bin.MonitorQuery as sq
@@ -12,35 +13,43 @@ class mongui(QtWidgets.QWidget):
         self.mogui.setupUi(self)
         #Define Refresh Button
         self.mogui.btn_exec_overview_refresh.clicked.connect(self.get_server_data)
-        #Database connection setup
-        self.dbdir = Path(__file__).absolute().parent
-        self.conn = sqlite3.connect(str(self.dbdir / 'db/isrt_data.db'))
-        self.c = self.conn.cursor()
         #Define Method Calls to execute on script call
         self.fill_overview_headers()
         self.get_aliases()
         self.mogui.mon_progress_bar.setValue(0)
+
+
     #Create Row 0 and Headers
     def fill_overview_headers(self):
         self.mogui.tbl_server_overview.setRowCount(0)
         self.mogui.tbl_server_overview.insertRow(0)
-        self.mogui.tbl_server_overview.setItem(0, 0, QtWidgets.QTableWidgetItem("Alias"))
+        self.mogui.tbl_server_overview.setColumnWidth(0, 200)
+        self.mogui.tbl_server_overview.setItem(0, 0, QtWidgets.QTableWidgetItem("Server Alias"))
         self.mogui.tbl_server_overview.item(0, 0).setBackground(QtGui.QColor(254,254,254))
+        self.mogui.tbl_server_overview.setColumnWidth(1, 150)
         self.mogui.tbl_server_overview.setItem(0, 1, QtWidgets.QTableWidgetItem("IP-Address:Port"))
         self.mogui.tbl_server_overview.item(0, 1).setBackground(QtGui.QColor(254,254,254))
+        self.mogui.tbl_server_overview.setColumnWidth(2, 150)
         self.mogui.tbl_server_overview.setItem(0, 2, QtWidgets.QTableWidgetItem("GameMode"))
         self.mogui.tbl_server_overview.item(0, 2).setBackground(QtGui.QColor(254,254,254))
+        self.mogui.tbl_server_overview.setColumnWidth(3, 80)
         self.mogui.tbl_server_overview.setItem(0, 3, QtWidgets.QTableWidgetItem("Status"))
         self.mogui.tbl_server_overview.item(0, 3).setBackground(QtGui.QColor(254,254,254))
+        self.mogui.tbl_server_overview.setColumnWidth(4, 80)
         self.mogui.tbl_server_overview.setItem(0, 4, QtWidgets.QTableWidgetItem("Ping"))
         self.mogui.tbl_server_overview.item(0, 4).setBackground(QtGui.QColor(254,254,254))
+        self.mogui.tbl_server_overview.setColumnWidth(5, 110)
         self.mogui.tbl_server_overview.setItem(0, 5, QtWidgets.QTableWidgetItem("Map"))
         self.mogui.tbl_server_overview.item(0, 5).setBackground(QtGui.QColor(254,254,254))
+        self.mogui.tbl_server_overview.setColumnWidth(6, 50)
         self.mogui.tbl_server_overview.setItem(0, 6, QtWidgets.QTableWidgetItem("Players"))
         self.mogui.tbl_server_overview.item(0, 6).setBackground(QtGui.QColor(254,254,254))
 
     #Get Headers from DB and fill in Row 0
     def get_aliases(self):
+        self.dbdir = Path(__file__).absolute().parent
+        self.conn = sqlite3.connect(str(self.dbdir / 'db/isrt_data.db'))
+        self.c = self.conn.cursor()
         self.c.execute("SELECT alias FROM server")
         self.conn.commit()
         for row, form in enumerate(self.c):
@@ -52,6 +61,9 @@ class mongui(QtWidgets.QWidget):
 
     #Query Servers from Aliases and push data into table
     def get_server_data(self):
+        self.dbdir = Path(__file__).absolute().parent
+        self.conn = sqlite3.connect(str(self.dbdir / 'db/isrt_data.db'))
+        self.c = self.conn.cursor()
         rowcount = self.mogui.tbl_server_overview.rowCount()
         i = 1
         progress_multiplier = int(100/rowcount)
@@ -94,6 +106,8 @@ class mongui(QtWidgets.QWidget):
             i = i + 1
             progress_value = progress_value + progress_multiplier
         self.mogui.mon_progress_bar.setValue(100)
+        time.sleep(0.3)
+        self.mogui.mon_progress_bar.setValue(0)
 
     #Handle the Close Event
     def closeEvent(self, event):

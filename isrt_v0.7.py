@@ -1,5 +1,5 @@
 '''
-ISRT - Insurgency Sandstorm RCON Tool; 19.11.2020, Madman
+ISRT - Insurgency Sandstorm RCON Tool; 21.12.2020, Madman
 In case of questions: isrt@edelmeier.org
 Git: https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool
 v0.7 - Win-Installer, Update Mechanism, Listplayers Scrumble, Refresh Timer and so on....
@@ -58,6 +58,7 @@ class rngui(QtWidgets.QWidget):
             c.execute("UPDATE release_info SET show_rn = :rnset", {'rnset' :rnsetoff})
             conn.commit()
             conn.close()
+        
         self.close()
 
     def closeEvent(self, event):
@@ -98,12 +99,8 @@ class maingui(QtWidgets.QWidget):
 
         #Setup ISRT Monitor Call
         def call_monitor():
-            def start_monitor_thread():
-                os.system("isrt_monitor.py")
+            os.system("isrt_monitor.py")
             
-            t1 = threading.Thread(target=start_monitor_thread)
-            t1.start()
-
         #Define buttons and menu items including their functionalities
         self.gui.btn_main_exec_query.clicked.connect(self.checkandgoquery)
         self.gui.btn_main_open_server_monitor.clicked.connect(call_monitor)
@@ -223,6 +220,38 @@ class maingui(QtWidgets.QWidget):
             self.checkandgoquery()
 
         self.gui.dropdown_server_list.activated[str].connect(assign_server_values)
+
+
+
+
+
+
+
+
+
+
+
+
+        def db2import(self):
+            self.c.execute("select import from configuration")
+            self.conn.commit()
+            importbox_result = self.c.fetchone()
+            if importbox_result[0] == 1:
+                choice = QtWidgets.QMessageBox.question(self, 'DB Import!', "Do you have a v0.5/0.6 database? Want to import it?", QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+                if choice == QtWidgets.QMessageBox.Yes:
+                    self.gui.TabWidget_Main_overall.setCurrentWidget(self.gui.Tab_Server)
+                    import_val = 1
+                    self.c.execute("UPDATE configuration SET import=:importval", {'importval': import_val})
+                    #lambda: self.DB_import("select_db")
+                else:
+                    print("No import")
+                    import_val = 1
+                    self.c.execute("UPDATE configuration SET import=:importval", {'importval': import_val})
+        
+
+
+
+
 
         #Assign custom Commands variables for Dropdown menu
         def assign_custom_commands_values_list(text):
@@ -1681,7 +1710,7 @@ if __name__ == "__main__":
         app = QtWidgets.QApplication(sys.argv)
         msg = QtWidgets.QMessageBox()
         msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
-        msg.setIcon(QtWidgets.QMessageBox.Critical)
+        msg.setIcon(QtWidgets.QMessageBox.Warning)
         msg.setWindowTitle("ISRT Error Message")
         msg.setText("App is already running - exiting!")
         msg.exec_()
