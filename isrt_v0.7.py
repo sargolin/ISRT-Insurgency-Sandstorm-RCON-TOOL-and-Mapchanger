@@ -1768,15 +1768,22 @@ class maingui(QtWidgets.QWidget):
 if __name__ == "__main__":
     #Check if app is alredy running
     runcheck = 1
+    runlist = []
     for pid in psutil.pids():
         try:
             p = psutil.Process(pid)
         except Exception:
             pass
-        if p.name().startswith("isrt_v0.7.exe") or p.name().startswith("ISRT_v0.7.exe"):
-            runcheck = 0
-            break
-        
+        if p.name().startswith("isrt"):
+            runlist.append(p.name())
+            
+    runcounter = len(runlist)
+    if runcounter >=2:
+        runcheck = 0
+    else:
+        pass
+
+
     if runcheck == 1:
         app = QtWidgets.QApplication(sys.argv)
         ISRT_Main_Window = QtWidgets.QWidget()
@@ -1825,7 +1832,7 @@ if __name__ == "__main__":
         msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
         msg.setIcon(QtWidgets.QMessageBox.Warning)
         msg.setWindowTitle("ISRT Error Message")
-        msg.setText("App is already running - exiting!")
+        msg.setText("ISRT is already running - exiting!")
         msg.exec_()
         
  
