@@ -1921,22 +1921,37 @@ class maingui(QtWidgets.QWidget):
 #
 
 if __name__ == "__main__":
+
+    #Database connection setup
+    self.dbdir = Path(__file__).absolute().parent
+    dbdir = Path(__file__).absolute().parent
+    self.conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
+    self.c = self.conn.cursor()
+    self.c.execute("select import from configuration")
+    self.first_start = self.c.fetchone()
+    self.conn.commit()
+    self.conn.close()
+
     #Check if app is alredy running
     runcheck = 1
     runlist = []
-    for pid in psutil.pids():
-        try:
-            p = psutil.Process(pid)
-        except Exception:
-            pass
-        if p.name().startswith("isrt.exe"):
-            runlist.append(p.name())
     
-    runcounter = len(runlist)
-    if runcounter >=2:
-        runcheck = 0
-    else:
+    if self.first_start == 1:
         pass
+    else:
+        for pid in psutil.pids():
+            try:
+                p = psutil.Process(pid)
+            except Exception:
+                pass
+            if p.name().startswith("isrt"):
+                runlist.append(p.name())
+        
+        runcounter = len(runlist)
+        if runcounter >= 2:
+            runcheck = 0
+        else:
+            pass
 
 
     if runcheck == 1:
