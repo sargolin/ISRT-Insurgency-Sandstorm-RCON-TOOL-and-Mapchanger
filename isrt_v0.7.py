@@ -24,6 +24,7 @@ from shutil import copy2
 from pathlib import Path
 from bin.isrt_gui import Ui_ISRT_Main_Window
 from bin.rn_gui import Ui_rn_window
+from bin.isrt_db_gui import Ui_db_importer_gui
 from bin.rcon.console import Console
 
 
@@ -55,7 +56,7 @@ class rngui(QtWidgets.QWidget):
         
         if self.rngui.chkbx_show_rn.isChecked():
             rnsetoff = 0
-            c.execute("UPDATE release_info SET show_rn = :rnset", {'rnset' :rnsetoff})
+            c.execute("UPDATE configuration SET show_rn = :rnset", {'rnset' :rnsetoff})
             conn.commit()
             conn.close()
         
@@ -67,6 +68,111 @@ class rngui(QtWidgets.QWidget):
 
 
 
+
+
+
+
+
+
+'''------------------------------------------------------------------
+DB Importer GUI Handler
+------------------------------------------------------------------'''
+class dbgui(QtWidgets.QWidget):
+    def __init__(self, *args, **kwargs):
+        #Gui Setup
+        super().__init__(*args, **kwargs)
+        self.dbgui = Ui_db_importer_gui()
+        self.dbgui.setupUi(self)
+        #Database connection setup
+        self.dbdir = Path(__file__).absolute().parent
+        dbdir = Path(__file__).absolute().parent
+        self.conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
+        self.c = self.conn.cursor()
+        self.data_path = None
+        self.dbgui.btn_dbg_close.clicked.connect(self.close_dbg)
+        self.dbgui.btn_dbi_select_database.clicked.connect(lambda: self.DBI_executor("select_db"))
+        self.dbgui.btn_dbi_import_database.clicked.connect(lambda: self.DBI_executor("replace_db")) 
+
+    def DBI_executor(self, db_action):
+        if db_action == 'select_db':
+            db_select_directory = (str(self.dbdir) + '\\db\\')
+            self.data_path=QtWidgets.QFileDialog.getOpenFileName(self,'Select Database', db_select_directory, '*.db',)
+            self.dbgui.label_dbi_selected_db.setText(self.data_path[0])
+        elif db_action == 'replace_db':
+            if self.data_path and self.data_path[0].endswith(".db"):
+                #Database connection setup for Importing
+                dbimportdir = self.data_path[0]
+                connimport = sqlite3.connect(dbimportdir)
+                cidb = connimport.cursor()
+                cidb.execute("select * FROM server")
+                dbimport_result = cidb.fetchall()
+                connimport.commit()
+
+                self.c.execute("DELETE FROM server")
+                self.conn.commit()
+                for import_result in dbimport_result:
+                    import_server_alias = import_result[0]
+                    import_server_ip = import_result[1]
+                    import_server_queryport = import_result[2]
+                    import_server_rconport = import_result[3]
+                    import_server_rconpw = import_result[4]
+                    self.c.execute("INSERT INTO server VALUES (:alias, :ipaddress, :queryport, :rconport, :rconpw)", {'alias': import_server_alias, 'ipaddress': import_server_ip, 'queryport': import_server_queryport, 'rconport': import_server_rconport, 'rconpw': import_server_rconpw})
+                    
+                self.conn.commit()
+
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
+                msg.setIcon(QtWidgets.QMessageBox.Information)
+                msg.setWindowTitle("ISRT DB imported")
+                msg.setText("Server Import Successful\nRestarting ISRT!")
+                msg.exec_()
+                self.data_path = ''
+                #Database connection setup
+                self.dbdir = Path(__file__).absolute().parent
+                dbdir = Path(__file__).absolute().parent
+                self.conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
+                self.c = self.conn.cursor()
+                self.data_path = None
+                dbgsetoff = 1
+                self.c.execute("UPDATE configuration SET import=:importval", {'importval' :dbgsetoff})
+                self.conn.commit()
+                self.conn.close()
+                restart_program()
+
+            else:
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
+                msg.setIcon(QtWidgets.QMessageBox.Warning)
+                msg.setWindowTitle("ISRT Error Message")
+                msg.setText("No file selected or wrong file type\nPlease select a database first!")
+                msg.exec_()
+        
+
+    def close_dbg(self):
+        #Database connection setup
+        self.dbdir = Path(__file__).absolute().parent
+        dbdir = Path(__file__).absolute().parent
+        self.conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
+        self.c = self.conn.cursor()
+        self.data_path = None
+        dbgsetoff = 1
+        self.c.execute("UPDATE configuration SET import=:importval", {'importval' :dbgsetoff})
+        self.conn.commit()
+        self.conn.close()
+        self.close()
+
+    def closeEvent(self, event):
+        #Database connection setup
+        self.dbdir = Path(__file__).absolute().parent
+        dbdir = Path(__file__).absolute().parent
+        self.conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
+        self.c = self.conn.cursor()
+        self.data_path = None
+        dbgsetoff = 1
+        self.c.execute("UPDATE configuration SET import=:importval", {'importval' :dbgsetoff})
+        self.conn.commit()
+        self.conn.close()
+        self.close()
 
 
 
@@ -222,37 +328,6 @@ class maingui(QtWidgets.QWidget):
         self.gui.dropdown_server_list.activated[str].connect(assign_server_values)
 
 
-
-
-
-
-
-
-
-
-
-
-        def db2import(self):
-            self.c.execute("select import from configuration")
-            self.conn.commit()
-            importbox_result = self.c.fetchone()
-            if importbox_result[0] == 1:
-                choice = QtWidgets.QMessageBox.question(self, 'DB Import!', "Do you have a v0.5/0.6 database? Want to import it?", QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
-                if choice == QtWidgets.QMessageBox.Yes:
-                    self.gui.TabWidget_Main_overall.setCurrentWidget(self.gui.Tab_Server)
-                    import_val = 1
-                    self.c.execute("UPDATE configuration SET import=:importval", {'importval': import_val})
-                    #lambda: self.DB_import("select_db")
-                else:
-                    print("No import")
-                    import_val = 1
-                    self.c.execute("UPDATE configuration SET import=:importval", {'importval': import_val})
-        
-
-
-
-
-
         #Assign custom Commands variables for Dropdown menu
         def assign_custom_commands_values_list(text):
             self.assign_custom_commands_values_list_text = text
@@ -311,6 +386,12 @@ class maingui(QtWidgets.QWidget):
         self.conn.commit()
     #Fill Dropdown Menue Server Selection and Serverlist plus TableWidget in Server Manager
     def fill_dropdown_server_box(self):
+        #Database connection setup
+        self.dbdir = Path(__file__).absolute().parent
+        dbdir = Path(__file__).absolute().parent
+        self.conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
+        self.c = self.conn.cursor()
+        self.data_path = None
         self.c.execute("select alias FROM server")
         dd_alias = self.c.fetchall()
         self.gui.dropdown_select_server.clear()
@@ -1664,6 +1745,18 @@ class maingui(QtWidgets.QWidget):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 #
 #Main program
 #
@@ -1686,9 +1779,10 @@ if __name__ == "__main__":
         app = QtWidgets.QApplication(sys.argv)
         ISRT_Main_Window = QtWidgets.QWidget()
         rn_window = QtWidgets.QWidget()
+        db_window = QtWidgets.QWidget()
         mgui = maingui()
         mgui.show()
-
+        
         #Release Notes Viewer
         dbdir = Path(__file__).absolute().parent
         rn_conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
@@ -1696,7 +1790,18 @@ if __name__ == "__main__":
         rnc.execute("SELECT show_rn FROM configuration")
         show_rn = rnc.fetchone()
         rn_conn.commit()
+        rnc.execute("Select import from configuration")
+        show_importer = rnc.fetchone()
+        rn_conn.commit()
         rn_conn.close()
+
+        #Check if DB Importer shall be shown or not
+        if show_importer[0] == 1:
+            db_gui = dbgui()
+            db_gui.show()
+        else:
+            pass
+       
 
         #Check if Release Notes shall be shown or not
         if show_rn[0] == 1:
@@ -1704,6 +1809,12 @@ if __name__ == "__main__":
             rngui.show()
         else:
             pass
+
+        def restart_program():
+            python = sys.executable
+            os.execl(python, python, * sys.argv)    
+
+            
 
         sys.exit(app.exec_())
     else:
