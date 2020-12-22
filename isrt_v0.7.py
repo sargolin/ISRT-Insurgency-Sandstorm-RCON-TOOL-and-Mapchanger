@@ -1773,7 +1773,7 @@ if __name__ == "__main__":
             p = psutil.Process(pid)
         except Exception:
             pass
-        if p.name().startswith("isrt") or p.name().startswith("ISRT"):
+        if p.name().startswith("isrt_v0.7.exe") or p.name().startswith("ISRT_v0.7.exe"):
             runcheck = 0
             break
         
