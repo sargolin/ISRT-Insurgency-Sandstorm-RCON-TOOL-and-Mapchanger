@@ -97,6 +97,7 @@ class mongui(QtWidgets.QWidget):
 
     #Create Row 0 and Headers
     def fill_overview_headers(self):
+        
         self.mogui.tbl_server_overview.setRowCount(0)
         self.mogui.tbl_server_overview.insertRow(0)
         self.mogui.tbl_server_overview.setColumnWidth(0, 200)
@@ -128,18 +129,42 @@ class mongui(QtWidgets.QWidget):
         self.c = self.conn.cursor()
         self.c.execute("SELECT alias FROM server")
         self.conn.commit()
+        
         for row, form in enumerate(self.c):
             row = row + 1
             self.mogui.tbl_server_overview.insertRow(row)
             for column, item in enumerate(form):
                 self.mogui.tbl_server_overview.setItem(row, column, QtWidgets.QTableWidgetItem(str(item)))
         self.mogui.mon_progress_bar.setValue(0)
-
+        self.c.execute("SELECT alias FROM server")
+        self.conn.commit()
+        self.server_alias_list = self.c.fetchall()
+        self.conn.close()
     #Query Servers from Aliases and push data into table
     def get_server_data(self):
         self.dbdir = Path(__file__).absolute().parent
         self.conn = sqlite3.connect(str(self.dbdir / 'db/isrt_data.db'))
         self.c = self.conn.cursor()
+        self.c.execute("SELECT alias FROM server")
+        self.conn.commit()
+        self.server_alias_checklist = self.c.fetchall()
+        
+        if self.server_alias_list != self.server_alias_checklist:            
+            self.mogui.tbl_server_overview.setRowCount(1)
+            self.c.execute("SELECT alias FROM server")
+            self.conn.commit()
+            for row, form in enumerate(self.c):
+                row = row + 1
+                self.mogui.tbl_server_overview.insertRow(row)
+                for column, item in enumerate(form):
+                    self.mogui.tbl_server_overview.setItem(row, column, QtWidgets.QTableWidgetItem(str(item)))
+            self.mogui.mon_progress_bar.setValue(0)
+            self.server_alias_list = self.server_alias_checklist
+        else:
+            pass
+
+
+
         rowcount = self.mogui.tbl_server_overview.rowCount()
         i = 1
         progress_multiplier = int(100/rowcount)
@@ -182,11 +207,13 @@ class mongui(QtWidgets.QWidget):
             i = i + 1
             progress_value = progress_value + progress_multiplier
         self.mogui.mon_progress_bar.setValue(100)
+        self.conn.close()
         time.sleep(0.3)
         self.mogui.mon_progress_bar.setValue(0)
 
     #Handle the Close Event
     def closeEvent(self, event):
+        self.conn.close()
         self.close() 
 
 
@@ -1902,11 +1929,10 @@ if __name__ == "__main__":
             p = psutil.Process(pid)
         except Exception:
             pass
-        if p.name().startswith("isrt"):
+        if p.name().startswith("isrt.exe"):
             runlist.append(p.name())
     
     runcounter = len(runlist)
-    print(runcounter, runlist)
     if runcounter >=2:
         runcheck = 0
     else:
