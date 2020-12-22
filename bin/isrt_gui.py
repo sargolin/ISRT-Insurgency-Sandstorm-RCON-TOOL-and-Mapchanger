@@ -793,6 +793,7 @@ class Ui_ISRT_Main_Window(object):
         self.label_selected_db.setMinimumSize(QtCore.QSize(150, 0))
         self.label_selected_db.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.label_selected_db.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.label_selected_db.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByMouse|QtCore.Qt.TextSelectableByMouse)
         self.label_selected_db.setObjectName("label_selected_db")
         self.horizontalLayout_18.addWidget(self.label_selected_db)
         self.btn_add_database = QtWidgets.QPushButton(self.Tab_Server)

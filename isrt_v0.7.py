@@ -88,7 +88,7 @@ class dbgui(QtWidgets.QWidget):
         dbdir = Path(__file__).absolute().parent
         self.conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
         self.c = self.conn.cursor()
-        self.data_path = None
+        self.dbi_path = None
         self.dbgui.btn_dbg_close.clicked.connect(self.close_dbg)
         self.dbgui.btn_dbi_select_database.clicked.connect(lambda: self.DBI_executor("select_db"))
         self.dbgui.btn_dbi_import_database.clicked.connect(lambda: self.DBI_executor("replace_db")) 
@@ -96,12 +96,12 @@ class dbgui(QtWidgets.QWidget):
     def DBI_executor(self, db_action):
         if db_action == 'select_db':
             db_select_directory = (str(self.dbdir) + '\\db\\')
-            self.data_path=QtWidgets.QFileDialog.getOpenFileName(self,'Select Database', db_select_directory, '*.db',)
-            self.dbgui.label_dbi_selected_db.setText(self.data_path[0])
+            self.dbi_path=QtWidgets.QFileDialog.getOpenFileName(self,'Select Database', db_select_directory, '*.db',)
+            self.dbgui.label_dbi_selected_db.setText(self.dbi_path[0])
         elif db_action == 'replace_db':
-            if self.data_path and self.data_path[0].endswith(".db"):
+            if self.dbi_path and self.dbi_path[0].endswith(".db"):
                 #Database connection setup for Importing
-                dbimportdir = self.data_path[0]
+                dbimportdir = self.dbi_path[0]
                 connimport = sqlite3.connect(dbimportdir)
                 cidb = connimport.cursor()
                 cidb.execute("select * FROM server")
@@ -126,14 +126,14 @@ class dbgui(QtWidgets.QWidget):
                 msg.setWindowTitle("ISRT DB imported")
                 msg.setText("Server Import Successful\nRestarting ISRT!")
                 msg.exec_()
-                self.data_path = ''
+                self.dbi_path = ''
                 #Database connection setup
                 self.dbdir = Path(__file__).absolute().parent
                 dbdir = Path(__file__).absolute().parent
                 self.conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
                 self.c = self.conn.cursor()
-                self.data_path = None
-                dbgsetoff = 1
+                self.dbi_path = None
+                dbgsetoff = 0
                 self.c.execute("UPDATE configuration SET import=:importval", {'importval' :dbgsetoff})
                 self.conn.commit()
                 self.conn.close()
@@ -154,8 +154,8 @@ class dbgui(QtWidgets.QWidget):
         dbdir = Path(__file__).absolute().parent
         self.conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
         self.c = self.conn.cursor()
-        self.data_path = None
-        dbgsetoff = 1
+        self.dbi_path = None
+        dbgsetoff = 0
         self.c.execute("UPDATE configuration SET import=:importval", {'importval' :dbgsetoff})
         self.conn.commit()
         self.conn.close()
@@ -167,8 +167,8 @@ class dbgui(QtWidgets.QWidget):
         dbdir = Path(__file__).absolute().parent
         self.conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
         self.c = self.conn.cursor()
-        self.data_path = None
-        dbgsetoff = 1
+        self.dbi_path = None
+        dbgsetoff = 0
         self.c.execute("UPDATE configuration SET import=:importval", {'importval' :dbgsetoff})
         self.conn.commit()
         self.conn.close()
@@ -346,7 +346,6 @@ class maingui(QtWidgets.QWidget):
         self.assign_main_custom_buttons()
 
         #DB Import Buttons and fields
-        self.data_path = None
         self.gui.btn_select_database.clicked.connect(lambda: self.DB_import("select_db"))
         self.gui.btn_add_database.clicked.connect(lambda: self.DB_import("add_db"))
         self.gui.btn_replace_database.clicked.connect(lambda: self.DB_import("replace_db"))
@@ -391,7 +390,6 @@ class maingui(QtWidgets.QWidget):
         dbdir = Path(__file__).absolute().parent
         self.conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
         self.c = self.conn.cursor()
-        self.data_path = None
         self.c.execute("select alias FROM server")
         dd_alias = self.c.fetchall()
         self.gui.dropdown_select_server.clear()
@@ -794,6 +792,8 @@ class maingui(QtWidgets.QWidget):
     def selected_map_switch(self):
         self.selected_map = self.gui.dropdown_select_travelscenario.currentText()
 
+
+
         self.c.execute("select map_alias FROM map_config WHERE map_name=:var_selected_map", {'var_selected_map': self.selected_map})
         dsma_alias = self.c.fetchone()
         self.conn.commit() 
@@ -927,7 +927,7 @@ class maingui(QtWidgets.QWidget):
             else:
                 self.gui.label_output_window.setText("Something went wrong with the Travel command, please check above and report it!")  
             
-            self.checkandgoquery()
+            self.checkandgorcon()
             self.gui.progressbar_map_changer.setProperty("value", 0)
     #Direct RCON Command handling
     def direct_rcon_command(self, command):
@@ -950,7 +950,7 @@ class maingui(QtWidgets.QWidget):
         save_command_check = None
         #Save commands while hitting Submit
         save_command_check = 1
- 
+
         val_localhost = "127.0.0.1"
 
         if self.gui.entry_ip.text() == val_localhost:
@@ -977,7 +977,7 @@ class maingui(QtWidgets.QWidget):
                                 self.gui.progressbar_map_changer.setProperty("value", 66)
                                 time.sleep(1)
                                 self.gui.progressbar_map_changer.setProperty("value", 100)
-                                time.sleep(0.1)
+                                time.sleep(0.2)
                                 self.gui.progressbar_map_changer.setProperty("value", 0)
                             except Exception as e: 
                                 msg = QtWidgets.QMessageBox()
@@ -998,6 +998,8 @@ class maingui(QtWidgets.QWidget):
             else:
                 self.gui.label_output_window.setText("No RCON Password given or no valid RCON command - please retry!")    
                 self.gui.progressbar_map_changer.setProperty("value", 0)
+        self.checkandgoquery()
+        self.gui.progressbar_map_changer.setProperty("value", 0)
     #Execute RCON Command, when called by checkandgorcon()!
     def rconserver(self, serverhost, rconpassword, rconport, rconcommand):
         if rconcommand.startswith("say") or rconcommand.startswith("Say"):
