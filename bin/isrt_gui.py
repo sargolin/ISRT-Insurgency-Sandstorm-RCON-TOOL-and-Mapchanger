@@ -1259,7 +1259,7 @@ class Ui_ISRT_Main_Window(object):
         self.verticalLayout_23.addWidget(self.TabWidget_Main_overall)
 
         self.retranslateUi(ISRT_Main_Window)
-        self.TabWidget_Main_overall.setCurrentIndex(5)
+        self.TabWidget_Main_overall.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(ISRT_Main_Window)
 
     def retranslateUi(self, ISRT_Main_Window):

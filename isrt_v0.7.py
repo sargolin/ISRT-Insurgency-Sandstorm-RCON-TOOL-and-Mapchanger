@@ -1790,7 +1790,7 @@ if __name__ == "__main__":
                 p = psutil.Process(pid)
             except Exception:
                 pass
-            if p.name().startswith("isrt"):
+            if p.name().startswith("isrt.exe"):
                 runlist.append(p.name())
         
         runcounter = len(runlist)
