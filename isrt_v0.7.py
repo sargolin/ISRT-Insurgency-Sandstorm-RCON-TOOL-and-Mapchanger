@@ -93,11 +93,8 @@ class mongui(QtWidgets.QWidget):
         self.fill_overview_headers()
         self.get_aliases()
         self.mogui.mon_progress_bar.setValue(0)
-
-
     #Create Row 0 and Headers
     def fill_overview_headers(self):
-        
         self.mogui.tbl_server_overview.setRowCount(0)
         self.mogui.tbl_server_overview.insertRow(0)
         self.mogui.tbl_server_overview.setColumnWidth(0, 200)
@@ -121,7 +118,6 @@ class mongui(QtWidgets.QWidget):
         self.mogui.tbl_server_overview.setColumnWidth(6, 50)
         self.mogui.tbl_server_overview.setItem(0, 6, QtWidgets.QTableWidgetItem("Players"))
         self.mogui.tbl_server_overview.item(0, 6).setBackground(QtGui.QColor(254,254,254))
-
     #Get Headers from DB and fill in Row 0
     def get_aliases(self):
         self.dbdir = Path(__file__).absolute().parent
@@ -142,13 +138,14 @@ class mongui(QtWidgets.QWidget):
         self.conn.close()
     #Query Servers from Aliases and push data into table
     def get_server_data(self):
+        #Database startup
         self.dbdir = Path(__file__).absolute().parent
         self.conn = sqlite3.connect(str(self.dbdir / 'db/isrt_data.db'))
         self.c = self.conn.cursor()
         self.c.execute("SELECT alias FROM server")
         self.conn.commit()
         self.server_alias_checklist = self.c.fetchall()
-        
+        #check if anything changed in the server manager
         if self.server_alias_list != self.server_alias_checklist:            
             self.mogui.tbl_server_overview.setRowCount(1)
             self.c.execute("SELECT alias FROM server")
@@ -169,6 +166,7 @@ class mongui(QtWidgets.QWidget):
         i = 1
         progress_multiplier = int(100/rowcount)
         progress_value = int(progress_multiplier) + int(progress_multiplier)
+
         while i <= (rowcount - 1):
             self.mogui.mon_progress_bar.setValue(progress_value)
             server_temp_alias = (self.mogui.tbl_server_overview.item(i,0)).text()
@@ -1923,21 +1921,22 @@ class maingui(QtWidgets.QWidget):
 if __name__ == "__main__":
 
     #Database connection setup
-    self.dbdir = Path(__file__).absolute().parent
     dbdir = Path(__file__).absolute().parent
-    self.conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
-    self.c = self.conn.cursor()
-    self.c.execute("select import from configuration")
-    self.first_start = self.c.fetchone()
-    self.conn.commit()
-    self.conn.close()
+    conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
+    c = conn.cursor()
+    c.execute("select startcounter from configuration")
+    startcounter = c.fetchone()
+    conn.commit()
 
     #Check if app is alredy running
     runcheck = 1
     runlist = []
     
-    if self.first_start == 1:
-        pass
+    #Decide if self-restart is okay and exempted from runcheck
+    if startcounter[0] <= 2:
+        new_startcounter = startcounter[0] + 1
+        c.execute("update configuration set startcounter=:newstartcounter", {'newstartcounter': new_startcounter})
+        conn.commit()
     else:
         for pid in psutil.pids():
             try:
@@ -1955,6 +1954,7 @@ if __name__ == "__main__":
 
 
     if runcheck == 1:
+        #Initialize GUIs
         app = QtWidgets.QApplication(sys.argv)
         ISRT_Main_Window = QtWidgets.QWidget()
         UI_Server_Monitor = QtWidgets.QWidget()
@@ -1966,23 +1966,13 @@ if __name__ == "__main__":
         mgui.show()
         
         #Release Notes Viewer
-        dbdir = Path(__file__).absolute().parent
-        rn_conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
-        rnc = rn_conn.cursor()
-        rnc.execute("SELECT show_rn FROM configuration")
-        show_rn = rnc.fetchone()
-        rn_conn.commit()
-        rnc.execute("Select import from configuration")
-        show_importer = rnc.fetchone()
-        rn_conn.commit()
-        rn_conn.close()
-
-
-
-
-
-
-
+        c.execute("SELECT show_rn FROM configuration")
+        show_rn = c.fetchone()
+        conn.commit()
+        c.execute("Select import from configuration")
+        show_importer = c.fetchone()
+        conn.commit()
+        conn.close()
 
         #Check if DB Importer shall be shown or not
         if show_importer[0] == 1:
@@ -1991,7 +1981,6 @@ if __name__ == "__main__":
         else:
             pass
        
-
         #Check if Release Notes shall be shown or not
         if show_rn[0] == 1:
             rngui = rngui()
@@ -1999,14 +1988,14 @@ if __name__ == "__main__":
         else:
             pass
 
+        #Restart on first DB-Import
         def restart_program():
             python = sys.executable
             os.execl(python, python, * sys.argv)    
 
-            
-
         sys.exit(app.exec_())
     else:
+        #Show Error that app is already running
         app = QtWidgets.QApplication(sys.argv)
         msg = QtWidgets.QMessageBox()
         msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
