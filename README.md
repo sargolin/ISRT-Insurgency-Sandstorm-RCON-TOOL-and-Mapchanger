@@ -43,12 +43,7 @@ https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/wiki
 - Windows 10 Home (Version 20H2 Build 19042.572): Successful - no errors
 - Windows 10 Pro (Version 2004, Build 19041.630): Successful - no errors
 
-### Linux (Python 3.7/8 .py-Version) -> Ensure Python3 and libPyQt5 are installed -> "sudo apt-get install python3 python3-pyqt5":
-- Debian 10.6: Successful - no errors
-- Ubuntu - Linux Mint 20.04: Successful - no errors
-
-### Mac OSX (Python 3.9 .py-Version) -> Ensure Python3.X and PyQt5 are installed:
-- Mac OS Catalina: Successful - no errors
+* I have decided to focus on releases for Windows Clients as of v0.7, since I haven't even heard of anybody using it on Linux or Mac.
 
 ## 4. General Remarks, Feedback and stuff...
 This release is proudly powered by <a href="https://www.advancedinstaller.com">AdvancedInstaller.com:
