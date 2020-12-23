@@ -15,7 +15,7 @@ Thanks to Helsing and Stuermer for the pre-release testing - I appreciate that s
 ------------------------------------------------------------------
 Importing required classes and libraries
 ------------------------------------------------------------------'''
-import sys, os, re, sqlite3, time, socket, threading, psutil, subprocess
+import sys, os, re, sqlite3, time, socket, threading, psutil, subprocess, urllib.request, urlopen
 from PyQt5 import QtCore, QtGui, QtWidgets
 from datetime import datetime
 from shutil import copy2
@@ -1799,6 +1799,23 @@ if __name__ == "__main__":
         else:
             pass
 
+    #Check for Check updates?
+    c.execute("select check_updates from configuration")
+    check_updates_ok = c.fetchone()
+    conn.commit
+    c.execute("select version from configuration")
+    current_version = c.fetchone()
+    conn.commit
+
+    r = urllib.request.urlopen("http://www.isrt.info/version/version_check.txt")
+    for line in r.readlines():
+        line = line.decode("utf-8")
+        line = line.strip('\n')
+        new_version = line
+
+    print(check_updates_ok[0])
+    print(new_version)
+    print(current_version[0])
 
     if runcheck == 1:
         #Initialize GUIs
@@ -1808,6 +1825,9 @@ if __name__ == "__main__":
         db_window = QtWidgets.QWidget()
         mgui = maingui()
         mgui.show()
+
+        
+
         
         #Release Notes Viewer
         c.execute("SELECT show_rn FROM configuration")
