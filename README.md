@@ -10,7 +10,9 @@ https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/wiki
 
 <center><img src="http://src.isrt.info/isrt_v0.7.jpg"></center>
 
-#### Status: In development phase of full release - open for all ideas
+<center><img src="http://src.isrt.info/isrt_v0.7-2.jpg"></center>
+
+#### Status: Slowly reaching end of development phase - still open for all ideas
 
 ## 1. Release Notes
 - Renamed a couple of items for better understanding
@@ -43,10 +45,10 @@ https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/wiki
 - Windows 10 Home (Version 20H2 Build 19042.572): Successful - no errors
 - Windows 10 Pro (Version 2004, Build 19041.630): Successful - no errors
 
-* I have decided to focus on releases for Windows Clients as of v0.7, since I haven't even heard of anybody using it on Linux or Mac.
+I have decided to focus on releases for Windows Clients as of v0.7, since I haven't even heard of anybody using it on Linux or Mac.
 
 ## 4. General Remarks, Feedback and stuff...
-This release is proudly powered by <a href="https://www.advancedinstaller.com">AdvancedInstaller.com:
+This release is proudly sponsored by <a href="https://www.advancedinstaller.com">AdvancedInstaller.com:
   
 <img src="https://cdn.advancedinstaller.com/svg/pressinfo/AiLogoColor.svg" width="300"></a>
 
