@@ -10,12 +10,12 @@ class mongui(QtWidgets.QWidget):
         super().__init__(*args, **kwargs)
         self.mogui = Ui_UI_Server_Monitor()
         self.mogui.setupUi(self)
-        #Define Refresh Button
-        self.mogui.btn_exec_overview_refresh.clicked.connect(self.get_server_data)
         #Define Method Calls to execute on script call
         self.fill_overview_headers()
         self.get_aliases()
         self.mogui.mon_progress_bar.setValue(0)
+        #Define Refresh Button
+        self.mogui.btn_exec_overview_refresh.clicked.connect(self.get_server_data)
 
 
     #Create Row 0 and Headers
@@ -62,7 +62,6 @@ class mongui(QtWidgets.QWidget):
         self.conn.commit()
         self.server_alias_list = self.c.fetchall()
         self.conn.close()
-
     #Query Servers from Aliases and push data into table
     def get_server_data(self):
         #Database startup
@@ -132,13 +131,7 @@ class mongui(QtWidgets.QWidget):
                 i = i + 1
                 progress_value = progress_value + progress_multiplier
             
-        # with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
-        #     future = executor.submit(execute_list_query(self))
         execute_list_query(self)
-        
-
-
-
 
         self.mogui.mon_progress_bar.setValue(100)
         self.conn.close()
