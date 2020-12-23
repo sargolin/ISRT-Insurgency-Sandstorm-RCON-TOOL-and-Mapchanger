@@ -1,0 +1,6 @@
+__pycache__
+.vscode
+.git
+.github
+source_files
+.pylintrc
