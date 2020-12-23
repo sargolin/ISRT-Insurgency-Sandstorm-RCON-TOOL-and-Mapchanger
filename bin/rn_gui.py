@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '.\source_files\rn_gui.ui'
+# Form implementation generated from reading ui file '.\source_files\rn_gui_v0.7.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.1
 #
@@ -16,7 +16,7 @@ class Ui_rn_window(object):
         rn_window.setObjectName("rn_window")
         rn_window.resize(640, 720)
         rn_window.setMinimumSize(QtCore.QSize(640, 720))
-        rn_window.setMaximumSize(QtCore.QSize(640, 720))
+        rn_window.setMaximumSize(QtCore.QSize(640, 723))
         font = QtGui.QFont()
         font.setPointSize(10)
         rn_window.setFont(font)
@@ -40,8 +40,8 @@ class Ui_rn_window(object):
         spacerItem2 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem2)
         self.rn_middle_layer = QtWidgets.QLabel(rn_window)
-        self.rn_middle_layer.setMinimumSize(QtCore.QSize(566, 600))
-        self.rn_middle_layer.setMaximumSize(QtCore.QSize(566, 600))
+        self.rn_middle_layer.setMinimumSize(QtCore.QSize(566, 580))
+        self.rn_middle_layer.setMaximumSize(QtCore.QSize(566, 580))
         self.rn_middle_layer.setFrameShape(QtWidgets.QFrame.Box)
         self.rn_middle_layer.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.rn_middle_layer.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
@@ -87,8 +87,33 @@ class Ui_rn_window(object):
     def retranslateUi(self, rn_window):
         _translate = QtCore.QCoreApplication.translate
         rn_window.setWindowTitle(_translate("rn_window", "Release Notes ISRT"))
-        self.rn_top_layer.setText(_translate("rn_window", "<html><head/><body><p align=\"center\"><span style=\" font-size:16pt; font-weight:600;\">ISRT v0.6 Release Notes</span></p></body></html>"))
-        self.rn_middle_layer.setText(_translate("rn_window", "<html><head/><body><p>Welcome to the version 0.6 November 2020 release of of the Insurgency Sandstorm RCON Tool again coming with a lot of new features that I list down below. Of course I would love, to hear from you via the issue tracker, my Discord (=TCT= Madman#2803), my Steam Account (=TCT= Madman) or via e-mail (isrt@edelmeier.org).<br/></p><p align=\"center\">Report bugs or errors here:<a href=\"https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/issues\"><span style=\" text-decoration: underline; color:#0000ff;\">Bug Tracker</span></a></p><p><span style=\" font-size:11pt; font-weight:600;\">What\'s new?</span></p><p><span style=\" font-size:11pt;\">- Re-Designed to &quot;tabbed&quot; layout for easier usage</span></p><p><span style=\" font-size:11pt;\">- Customizable RCON buttons are available now</span></p><p><span style=\" font-size:11pt;\">- Database can be backed up, imported or combined (Yes, you can import your v0.5 database now!)</span></p><p><span style=\" font-size:11pt;\">- Imported the new maps: Frost, Stork_Castle_x, Temple and Toro from mod.io</span></p><p><span style=\" font-size:11pt;\">- Added Wiki reference</span></p><p><span style=\" font-size:11pt;\">- Added customizable RCON commands as Custom Command Manager - save, add, delete</span><br/></p><p><span style=\" font-size:11pt; font-weight:600;\">Known bugs </span><span style=\" font-size:11pt;\">(green = will be fixed; red = not possible to fix - NWI Server Bug):</span></p><p><span style=\" color:#00aa00;\">- List Player command produces a weird output that has to be structured - working on it - solution found, but a lot more difficult than I thought</span></p><p><span style=\" color:#00aa00;\">- Program throws an error if using 127.0.0.1 as IP - SourceQuery bug - will change it in the next version - switching sourcequery code - use your LAN IP instead</span></p><p><span style=\" color:#ff0000;\">- When chosing random map change, the map is not updated correctly (NWI Server Bug reported - I unfortunately can\'t change false reporting on server side....</span><br/></p><p align=\"center\"><span style=\" font-family:\'Consolas\',\'Courier New\',\'monospace\'; font-size:8pt; font-weight:600; color:#00557f;\">Thanks to Helsing and Stuermer for the pre-release testing - I appreciate that very much!</span><br/></p><p><br/></p></body></html>"))
+        self.rn_top_layer.setText(_translate("rn_window", "<html><head/><body><p align=\"center\"><span style=\" font-size:16pt; font-weight:600;\">ISRT v0.7 Release Notes</span></p></body></html>"))
+        self.rn_middle_layer.setText(_translate("rn_window", "<html><head/><body>Welcome to the version 0.7 December 2020 release with a lot of new features and changes. I would love, to hear from you via my Discord (=TCT= Madman#2803), my Steam Account (=TCT= Madman) or via e-mail (madman@isrt.info).<p>\n"
+"<p align=\"center\">Report bugs or errors here:<a href=\"https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/issues\"><span style=\" text-decoration: underline; color:#0000ff;\">Bug Tracker</span></a></p><p><span style=\" font-size:11pt; font-weight:600;\">What\'s new?</span></p><p>\n"
+"\n"
+"\n"
+"- Renamed a couple of items for better understanding<br>\n"
+"- RCON commands are now automatically saved if not already in the history<br>\n"
+"- Inserted Security/Insurgents DropDown Menu for selecting travel commands<br>\n"
+"- Changed the Tell Map picture for better identification<br>\n"
+"- Added rcon commands quit and exit as valid commands<br>\n"
+"- Removed the automatic execution of custom commands on selection<br>\n"
+"- Added DB Table View to Server Manager for easier overview<br>\n"
+"- Discarded Night-View Maps, because you can\'t actually see anything in them<br>\n"
+"- Re-Designed the server info box and a couple other GUI elements<br>\n"
+"- Integrated Password Image display, removed the text display<br>\n"
+"- Added DB Table View for online players directly on query execution<br>\n"
+"- Aggregated the VAC/Ranked view<br>\n"
+"- Implemented Threading for monitor to prevent app freeze<br>\n"
+"- Added Maps Sheds, Stork_Castle_x Map, Frost, Temple, TORO and Bap<br>\n"
+"- Changed the Mapchanger so the Scenarios are based on what the server provides<br>\n"
+"- Removed the Side-Selector in the Mapchanger - now done by selecting the specific scenario.<br>\n"
+"- Modified 127.0.0.1 handling to auto-switch to LAN IP, due to a Windows bug.<br>\n"
+"- Removed auto-execution of commands selected from the Cutom Commands Dropdown menu<br>\n"
+"- Added server monitor to view all saved servers in one table overview<p><p>\n"
+"\n"
+"\n"
+"<span style=\" font-size:11pt; font-weight:600;\">Known bug </span><span style=\" font-size:11pt;\">(red = not possible to fix - NWI Server Bug):</span></p><p><span style=\" color:#aa0000;\">- When chosing random map change, the map is not updated correctly (NWI Server Bug reported; I unfortunately can\'t change false reporting on server side...)</span><br/></p><p align=\"center\"><span style=\" font-family:\'Consolas\',\'Courier New\',\'monospace\'; font-size:8pt; font-weight:600; color:#00557f;\">Thanks to Helsing and Stuermer for the pre-release testing - I appreciate that very much!</span><br/></p><p><br/></p></body></html>"))
         self.chkbx_show_rn.setText(_translate("rn_window", "Do not show this window again"))
         self.btn_rn_close.setToolTip(_translate("rn_window", "Close Release Notes"))
         self.btn_rn_close.setStatusTip(_translate("rn_window", "Close Release Notes"))

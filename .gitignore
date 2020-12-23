@@ -1,5 +1,6 @@
-.vscode/
-__pychache__
-old
+__pycache__
+.vscode
+.git
+.github
 source_files
-res.qrc
+.pylintrc
