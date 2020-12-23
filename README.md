@@ -10,7 +10,7 @@ https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/wiki
 
 <center><img src="http://src.isrt.info/isrt_v0.7.jpg"></center>
 
-<center><img src="http://src.isrt.info/isrt_v0.7-2.jpg"></center>
+<center><img src="http://src.isrt.info/isrt_v0.7-2.jpg" width="863"></center>
 
 #### Status: Slowly reaching end of development phase - still open for all ideas
 
