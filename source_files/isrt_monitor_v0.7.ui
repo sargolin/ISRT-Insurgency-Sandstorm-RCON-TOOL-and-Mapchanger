@@ -72,10 +72,14 @@ selection-background-color: rgb(216, 216, 216);</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(247, 247, 247);</string>
+        <string notr="true">border-image: url(:/img/img/monbck.jpg);
+background-color: rgb(247, 247, 247);</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
        </property>
        <property name="frameShadow">
-        <enum>QFrame::Sunken</enum>
+        <enum>QFrame::Raised</enum>
        </property>
        <property name="verticalScrollBarPolicy">
         <enum>Qt::ScrollBarAsNeeded</enum>
@@ -98,8 +102,11 @@ selection-background-color: rgb(216, 216, 216);</string>
        <property name="textElideMode">
         <enum>Qt::ElideNone</enum>
        </property>
+       <property name="showGrid">
+        <bool>true</bool>
+       </property>
        <property name="gridStyle">
-        <enum>Qt::CustomDashLine</enum>
+        <enum>Qt::NoPen</enum>
        </property>
        <attribute name="horizontalHeaderVisible">
         <bool>false</bool>
@@ -131,6 +138,21 @@ selection-background-color: rgb(216, 216, 216);</string>
        <attribute name="verticalHeaderStretchLastSection">
         <bool>false</bool>
        </attribute>
+       <row>
+        <property name="text">
+         <string>New Row</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>New Row</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>efsf</string>
+        </property>
+       </row>
        <column>
         <property name="text">
          <string>Alias</string>
@@ -166,6 +188,36 @@ selection-background-color: rgb(216, 216, 216);</string>
          <string>Players</string>
         </property>
        </column>
+       <item row="1" column="0">
+        <property name="text">
+         <string>daw</string>
+        </property>
+       </item>
+       <item row="1" column="1">
+        <property name="text">
+         <string>adwad</string>
+        </property>
+       </item>
+       <item row="1" column="2">
+        <property name="text">
+         <string>asd</string>
+        </property>
+       </item>
+       <item row="2" column="0">
+        <property name="text">
+         <string>awd</string>
+        </property>
+       </item>
+       <item row="2" column="1">
+        <property name="text">
+         <string>awd</string>
+        </property>
+       </item>
+       <item row="2" column="2">
+        <property name="text">
+         <string>ad</string>
+        </property>
+       </item>
       </widget>
      </item>
      <item>
