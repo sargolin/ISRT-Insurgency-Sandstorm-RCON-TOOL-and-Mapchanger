@@ -1799,23 +1799,8 @@ if __name__ == "__main__":
         else:
             pass
 
-    #Check for Check updates?
-    c.execute("select check_updates from configuration")
-    check_updates_ok = c.fetchone()
-    conn.commit
-    c.execute("select version from configuration")
-    current_version = c.fetchone()
-    conn.commit
 
-    r = urllib.request.urlopen("http://www.isrt.info/version/version_check.txt")
-    for line in r.readlines():
-        line = line.decode("utf-8")
-        line = line.strip('\n')
-        new_version = line
 
-    print(check_updates_ok[0])
-    print(new_version)
-    print(current_version[0])
 
     if runcheck == 1:
         #Initialize GUIs
@@ -1826,7 +1811,36 @@ if __name__ == "__main__":
         mgui = maingui()
         mgui.show()
 
-        
+        #Check for Check updates?
+        c.execute("select check_updates from configuration")
+        check_updates_ok = c.fetchone()
+        conn.commit
+        c.execute("select version from configuration")
+        current_version = c.fetchone()
+        conn.commit
+
+        r = urllib.request.urlopen("http://www.isrt.info/version/version_check.txt")
+        for line in r.readlines():
+            line = line.decode("utf-8")
+            line = line.strip('\n')
+            new_version = line
+
+        if new_version:
+            pass
+        else:
+            new_version = current_version
+
+        if check_updates_ok[0] == 1 and new_version != current_version[0]:
+ 
+            msg = QtWidgets.QMessageBox()
+            msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
+            msg.setIcon(QtWidgets.QMessageBox.Information)
+            msg.setWindowTitle("ISRT Update Notification")
+            #msg.setTextFormat(QtCore.Qt.RichText)
+            msg.setText('A new version of ISRT is available on http://www.isrt.info!')
+            msg.exec_()
+        else:
+            pass
 
         
         #Release Notes Viewer
