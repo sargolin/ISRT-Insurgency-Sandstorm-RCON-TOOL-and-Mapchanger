@@ -1175,6 +1175,18 @@ class Ui_ISRT_Main_Window(object):
         self.verticalLayout_17.addWidget(self.line)
         spacerItem12 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_17.addItem(spacerItem12)
+        self.lbl_client_id = QtWidgets.QLabel(self.Tab_Configure)
+        self.lbl_client_id.setAutoFillBackground(False)
+        self.lbl_client_id.setStyleSheet("background-color: rgb(228, 228, 228);\n"
+"border-radius: 10px;\n"
+"min-height: 20px;")
+        self.lbl_client_id.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.lbl_client_id.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.lbl_client_id.setScaledContents(False)
+        self.lbl_client_id.setAlignment(QtCore.Qt.AlignCenter)
+        self.lbl_client_id.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByMouse|QtCore.Qt.TextSelectableByMouse)
+        self.lbl_client_id.setObjectName("lbl_client_id")
+        self.verticalLayout_17.addWidget(self.lbl_client_id)
         self.label_saving_indicator = QtWidgets.QLabel(self.Tab_Configure)
         font = QtGui.QFont()
         font.setPointSize(12)
@@ -1455,6 +1467,7 @@ class Ui_ISRT_Main_Window(object):
         self.btn_main_drcon_showroundtime_definition.setText(_translate("ISRT_Main_Window", "Show Round Time"))
         self.btn_main_drcon_help_2definition.setToolTip(_translate("ISRT_Main_Window", "Custom Button 11"))
         self.btn_main_drcon_help_2definition.setText(_translate("ISRT_Main_Window", "Help"))
+        self.lbl_client_id.setText(_translate("ISRT_Main_Window", "<html><head/><body><p><span style=\" color:#505050;\">Client-ID</span></p></body></html>"))
         self.TabWidget_Main_overall.setTabText(self.TabWidget_Main_overall.indexOf(self.Tab_Configure), _translate("ISRT_Main_Window", "Configure"))
         self.helpbody.setText(_translate("ISRT_Main_Window", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"

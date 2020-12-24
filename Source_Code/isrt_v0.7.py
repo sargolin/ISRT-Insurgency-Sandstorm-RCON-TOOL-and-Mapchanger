@@ -15,7 +15,7 @@ Thanks to Helsing and Stuermer for the pre-release testing - I appreciate that s
 ------------------------------------------------------------------
 Importing required classes and libraries
 ------------------------------------------------------------------'''
-import sys, os, re, sqlite3, time, socket, threading, psutil, subprocess, urllib.request, urlopen
+import sys, os, re, sqlite3, time, socket, threading, psutil, subprocess, random, requests, urllib.request
 from PyQt5 import QtCore, QtGui, QtWidgets
 from datetime import datetime
 from shutil import copy2
@@ -219,6 +219,16 @@ class maingui(QtWidgets.QWidget):
         self.gui.btn_add_cust_command.clicked.connect(self.add_custom_command_manually)
         self.gui.btn_exec_db_backup.clicked.connect(self.create_db_backup)
         self.gui.btn_main_add_server_db.clicked.connect(self.server_add_main)
+
+        #Set client id
+        self.c.execute("select client_id from configuration")
+        client = self.c.fetchone()
+        self.conn.commit()
+        self.client_id = client[0]
+        if self.client_id:
+            self.gui.lbl_client_id.setText(f"Client-ID: {self.client_id}")
+        else:
+            self.gui.lbl_client_id.setText("No Client ID defined yet - will be displayed automatically on next restart")
 
         #Define entry fields for user input
         self.gui.entry_ip.returnPressed.connect(self.checkandgoquery)
@@ -1712,21 +1722,6 @@ class maingui(QtWidgets.QWidget):
     def copy2clipboard(self):
         copyvar = self.gui.label_output_window.text()
         QtWidgets.QApplication.clipboard().setText(copyvar)
-    #Exit the App itself in a secure manner 
-    def exit_app(self):
-        self.c.execute("select quitbox from configuration")
-        self.conn.commit()
-        quitbox_result = self.c.fetchone()
-        if quitbox_result[0] == 1:
-            choice = QtWidgets.QMessageBox.warning(self, 'Quit Message!', "Really close the app?", QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
-            if choice == QtWidgets.QMessageBox.Yes:
-                self.conn.close() 
-                self.close()
-            else:
-                event.ignore()
-        else:
-            self.conn.close() 
-            self.close()
     #Exit using the break command
     def closeEvent(self, event):
         self.c.execute("select quitbox from configuration")
@@ -1772,18 +1767,34 @@ if __name__ == "__main__":
     conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
     c = conn.cursor()
     c.execute("select startcounter from configuration")
-    startcounter = c.fetchone()
+    startc = c.fetchone()
     conn.commit()
-
-    #Check if app is alredy running
+    startcounter = startc[0]
+    c.execute("select client_id from configuration")
+    client = c.fetchone()
+    conn.commit()
+    client_id = client[0]
+    c.execute("select version from configuration")
+    current_ver = c.fetchone()
+    current_version = str(current_ver[0])
+    conn.commit
+    
     runcheck = 1
     runlist = []
     
     #Decide if self-restart is okay and exempted from runcheck
-    if startcounter[0] <= 2:
-        new_startcounter = startcounter[0] + 1
+    if startcounter <= 2:
+        new_startcounter = 1
         c.execute("update configuration set startcounter=:newstartcounter", {'newstartcounter': new_startcounter})
         conn.commit()
+        if client_id:
+            pass
+        else:
+            client_hash = random.getrandbits(128)
+            client_id_new = ("ISRT_" + current_version + "_" + str(client_hash))
+            c.execute("update configuration set client_id=:cid",{'cid': str(client_id_new)})
+            client_id = client_id_new
+
     else:
         for pid in psutil.pids():
             try:
@@ -1800,8 +1811,6 @@ if __name__ == "__main__":
             pass
 
 
-
-
     if runcheck == 1:
         #Initialize GUIs
         app = QtWidgets.QApplication(sys.argv)
@@ -1811,13 +1820,11 @@ if __name__ == "__main__":
         mgui = maingui()
         mgui.show()
 
-        #Check for Check updates?
+        #Check for Check_updates?
         c.execute("select check_updates from configuration")
         check_updates_ok = c.fetchone()
         conn.commit
-        c.execute("select version from configuration")
-        current_version = c.fetchone()
-        conn.commit
+        
 
         r = urllib.request.urlopen("http://www.isrt.info/version/version_check.txt")
         for line in r.readlines():
@@ -1830,14 +1837,13 @@ if __name__ == "__main__":
         else:
             new_version = current_version
 
-        if check_updates_ok[0] == 1 and new_version != current_version[0]:
- 
+        if check_updates_ok[0] == 1 and new_version != current_version:
             msg = QtWidgets.QMessageBox()
             msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
             msg.setIcon(QtWidgets.QMessageBox.Information)
             msg.setWindowTitle("ISRT Update Notification")
             #msg.setTextFormat(QtCore.Qt.RichText)
-            msg.setText('A new version of ISRT is available on http://www.isrt.info!')
+            msg.setText(f'A new version of ISRT is available on http://www.isrt.info!\nCurrent Version: {current_version}\nNew Verrsion: {new_version}')
             msg.exec_()
         else:
             pass
