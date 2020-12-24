@@ -1794,6 +1794,8 @@ if __name__ == "__main__":
             client_id_new = ("ISRT_" + current_version + "_" + str(client_hash))
             c.execute("update configuration set client_id=:cid",{'cid': str(client_id_new)})
             client_id = client_id_new
+            register = f'http://www.isrt.info/version/register.php?clientid={client_id}'
+            register_post = requests.post(register)
 
     else:
         for pid in psutil.pids():
