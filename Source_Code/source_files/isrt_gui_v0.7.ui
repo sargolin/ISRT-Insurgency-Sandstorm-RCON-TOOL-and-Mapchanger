@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>745</width>
-    <height>850</height>
+    <height>877</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -26,7 +26,7 @@
    <enum>Qt::CustomContextMenu</enum>
   </property>
   <property name="windowTitle">
-   <string>ISRT - Insurgency Sandstorm RCON Tool</string>
+   <string>ISRT - Insurgency Sandstorm RCON Tool v0.7</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../res.qrc">
@@ -349,8 +349,8 @@ selection-background-color: rgb(216, 216, 216);</string>
                    </property>
                    <property name="font">
                     <font>
-                     <weight>50</weight>
-                     <bold>false</bold>
+                     <weight>75</weight>
+                     <bold>true</bold>
                     </font>
                    </property>
                    <property name="toolTip">
@@ -1491,11 +1491,16 @@ background-repeat: no-repeat;</string>
              <bold>false</bold>
             </font>
            </property>
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
            <property name="styleSheet">
             <string notr="true">border-image:url(:/img/img/rcon-bck.jpg);
 background-color: #f0f0f0;
 background-position: center;
-background-repeat: no-repeat;</string>
+background-repeat: no-repeat;
+
+</string>
            </property>
            <property name="inputMethodHints">
             <set>Qt::ImhNone</set>
@@ -1664,9 +1669,9 @@ background-repeat: no-repeat;</string>
       <attribute name="title">
        <string>Server Manager</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_20">
+      <layout class="QVBoxLayout" name="verticalLayout_26">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_19">
+        <layout class="QVBoxLayout" name="verticalLayout_25">
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_18">
            <item>
@@ -2182,9 +2187,9 @@ p, li { white-space: pre-wrap; }
           </layout>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_29">
+          <layout class="QVBoxLayout" name="verticalLayout_20">
            <item>
-            <widget class="QLabel" name="label_13">
+            <widget class="QLabel" name="lbl_name_import">
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -2193,121 +2198,181 @@ p, li { white-space: pre-wrap; }
               </font>
              </property>
              <property name="text">
-              <string>Import Database:</string>
+              <string>Import Database</string>
              </property>
             </widget>
            </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_18">
            <item>
-            <widget class="QToolButton" name="btn_select_database">
-             <property name="minimumSize">
-              <size>
-               <width>70</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-color:rgb(228, 228, 228)
+            <layout class="QVBoxLayout" name="verticalLayout_19">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_18">
+               <item>
+                <widget class="QToolButton" name="btn_select_database">
+                 <property name="minimumSize">
+                  <size>
+                   <width>70</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color:rgb(228, 228, 228)
 </string>
-             </property>
-             <property name="text">
-              <string>Browse</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_selected_db">
-             <property name="minimumSize">
-              <size>
-               <width>150</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Sunken</enum>
-             </property>
-             <property name="text">
-              <string>Selected DB File</string>
-             </property>
-             <property name="textInteractionFlags">
-              <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="btn_add_database">
-             <property name="minimumSize">
-              <size>
-               <width>150</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>150</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-color:rgb(228, 228, 228)
+                 </property>
+                 <property name="text">
+                  <string>Browse</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_selected_db">
+                 <property name="minimumSize">
+                  <size>
+                   <width>150</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Sunken</enum>
+                 </property>
+                 <property name="text">
+                  <string>Selected DB File</string>
+                 </property>
+                 <property name="textInteractionFlags">
+                  <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btn_add_database">
+                 <property name="minimumSize">
+                  <size>
+                   <width>150</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>150</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color:rgb(228, 228, 228)
 </string>
-             </property>
-             <property name="text">
-              <string>Add to existing DB</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="btn_replace_database">
-             <property name="minimumSize">
-              <size>
-               <width>150</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>150</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-color:rgb(228, 228, 228)
+                 </property>
+                 <property name="text">
+                  <string>Add to existing DB</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btn_replace_database">
+                 <property name="minimumSize">
+                  <size>
+                   <width>150</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>150</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color:rgb(228, 228, 228)
 </string>
-             </property>
-             <property name="text">
-              <string>Replace existing DB</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="btn_exec_db_backup">
-             <property name="minimumSize">
-              <size>
-               <width>150</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>150</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-color:rgb(228, 228, 228)
+                 </property>
+                 <property name="text">
+                  <string>Replace existing DB</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="Line" name="line_10">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_31">
+               <item>
+                <widget class="QLabel" name="label_2">
+                 <property name="font">
+                  <font>
+                   <pointsize>9</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Database Backup</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeType">
+                  <enum>QSizePolicy::Expanding</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>200</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btn_exec_db_backup">
+                 <property name="minimumSize">
+                  <size>
+                   <width>150</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>15616</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color:rgb(228, 228, 228)
 </string>
-             </property>
-             <property name="text">
-              <string>Create DB Backup</string>
-             </property>
-            </widget>
+                 </property>
+                 <property name="text">
+                  <string>Create Database  Backup</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btn_exec_open_bck_dir">
+                 <property name="minimumSize">
+                  <size>
+                   <width>150</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color:rgb(228, 228, 228)
+</string>
+                 </property>
+                 <property name="text">
+                  <string>Open Backup Folder</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
            </item>
           </layout>
          </item>

@@ -207,8 +207,16 @@ class maingui(QtWidgets.QWidget):
         def call_monitor():
             subprocess.Popen(["isrt_monitor.exe"])
 
+        #Open Explorer Backup Window
+        def open_explorer():
+            self.dbdir = Path(__file__).absolute().parent
+            dbdir = Path(__file__).absolute().parent
+            fulldir = (str(dbdir / 'db/'))
+            os.system(f'start %windir%\\explorer.exe "{fulldir}"')
+
         #Define buttons and menu items including their functionalities
         self.gui.btn_main_exec_query.clicked.connect(self.checkandgoquery)
+        self.gui.btn_exec_open_bck_dir.clicked.connect(open_explorer)
         self.gui.btn_main_open_server_monitor.clicked.connect(call_monitor)
         self.gui.btn_main_exec_rcon.clicked.connect(self.checkandgorcon)
         self.gui.btn_cust_delete_selected.clicked.connect(self.custom_command_clear_selected)
@@ -393,6 +401,7 @@ class maingui(QtWidgets.QWidget):
         for row in dcust_alias:
             self.gui.list_custom_commands_console.addItems(row)
         self.conn.commit()
+        
     #Fill Dropdown Menue Server Selection and Serverlist plus TableWidget in Server Manager
     def fill_dropdown_server_box(self):
         #Database connection setup
@@ -1317,8 +1326,8 @@ class maingui(QtWidgets.QWidget):
         db_source_filename = (db_backup_directory + 'isrt_data.db')
         db_backup_filename = (db_backup_directory + datetime.now().strftime(FORMAT) + '_isrt_data.db')
         copy2(str(db_source_filename), str(db_backup_filename))
-        
-        self.gui.label_db_console.setText("Backup created at: \n" + db_backup_filename)
+        dbb_filename = db_backup_filename.replace("\\", "/")
+        self.gui.label_db_console.setText("Backup created at: \n" + dbb_filename)
 
 
 

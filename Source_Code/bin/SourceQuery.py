@@ -22,7 +22,7 @@ class SourceQuery(object):
     __challenge = None
 
 
-    def __init__(self, addr, port=27102, timeout=2.0):
+    def __init__(self, addr, port=27201, timeout=2.0):
         self.ip, self.port, self.timeout = socket.gethostbyname(addr), port, timeout
         if sys.version_info >= (3, 0):
             self.is_third = True
@@ -282,7 +282,7 @@ class SourceQuery(object):
 
 # if __name__ == '__main__':
 #     try:
-#         query = SourceQuery('93.186.198.185', 27416) # Test Server you can use as long as it lives
+#         query = SourceQuery('93.186.198.185', 27216) # Test Server you can use as long as it lives
 #         res = query.get_info()
 #         print(res['Hostname'])
 #         print(res['Map'])
@@ -298,7 +298,7 @@ class SourceQuery(object):
 #             print("{id:<2} {Name:<35} {Frags:<5} {PrettyTime} {NetID}".format(**player))
 
 #         rules = query.get_rules()
-
+#         
 #         print
 #         "\n{0:d} Rules".format(len(rules))
 #         print
