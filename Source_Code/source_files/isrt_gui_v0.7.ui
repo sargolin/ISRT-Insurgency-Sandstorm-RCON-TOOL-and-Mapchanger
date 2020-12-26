@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>745</width>
-    <height>877</height>
+    <height>860</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,7 +19,7 @@
   <property name="minimumSize">
    <size>
     <width>745</width>
-    <height>850</height>
+    <height>860</height>
    </size>
   </property>
   <property name="contextMenuPolicy">
@@ -150,7 +150,7 @@ selection-background-color: rgb(216, 216, 216);</string>
                     <widget class="QLineEdit" name="entry_ip">
                      <property name="minimumSize">
                       <size>
-                       <width>100</width>
+                       <width>130</width>
                        <height>20</height>
                       </size>
                      </property>
@@ -174,15 +174,21 @@ selection-background-color: rgb(216, 216, 216);</string>
                       <string/>
                      </property>
                      <property name="placeholderText">
-                      <string>Query IP-Address</string>
+                      <string>IP-Address of Server</string>
                      </property>
                     </widget>
                    </item>
                    <item>
                     <widget class="QLineEdit" name="entry_queryport">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
                      <property name="minimumSize">
                       <size>
-                       <width>80</width>
+                       <width>140</width>
                        <height>20</height>
                       </size>
                      </property>
@@ -202,7 +208,7 @@ selection-background-color: rgb(216, 216, 216);</string>
                       <string/>
                      </property>
                      <property name="placeholderText">
-                      <string>Query Port (NOT Game Port!)</string>
+                      <string>Query Port (not Game Port)</string>
                      </property>
                     </widget>
                    </item>
@@ -214,7 +220,7 @@ selection-background-color: rgb(216, 216, 216);</string>
                     <widget class="QLineEdit" name="entry_rconport">
                      <property name="minimumSize">
                       <size>
-                       <width>100</width>
+                       <width>130</width>
                        <height>20</height>
                       </size>
                      </property>
@@ -243,9 +249,15 @@ selection-background-color: rgb(216, 216, 216);</string>
                    </item>
                    <item>
                     <widget class="QLineEdit" name="entry_rconpw">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
                      <property name="minimumSize">
                       <size>
-                       <width>100</width>
+                       <width>140</width>
                        <height>20</height>
                       </size>
                      </property>
@@ -370,7 +382,7 @@ selection-background-color: rgb(216, 216, 216);</string>
 </string>
                    </property>
                    <property name="text">
-                    <string>Get/Refresh Server Info</string>
+                    <string>Refresh Server Info</string>
                    </property>
                    <property name="checkable">
                     <bool>false</bool>
@@ -1070,7 +1082,7 @@ background-repeat: no-repeat;</string>
 </string>
                </property>
                <property name="text">
-                <string>Listplayers</string>
+                <string>Admin Say</string>
                </property>
               </widget>
              </item>
@@ -1380,7 +1392,7 @@ background-repeat: no-repeat;</string>
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>210</height>
+             <height>200</height>
             </size>
            </property>
            <property name="font">
@@ -1475,7 +1487,7 @@ background-repeat: no-repeat;</string>
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>200</height>
+             <height>210</height>
             </size>
            </property>
            <property name="maximumSize">
@@ -1532,12 +1544,40 @@ background-repeat: no-repeat;
           </widget>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout">
+          <layout class="QHBoxLayout" name="horizontalLayout_29">
+           <item>
+            <widget class="QComboBox" name="dropdown_custom_commands">
+             <property name="minimumSize">
+              <size>
+               <width>150</width>
+               <height>23</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>Select from Command history</string>
+             </property>
+             <property name="statusTip">
+              <string>Select from Command history</string>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:rgb(248, 248, 248);</string>
+             </property>
+             <property name="editable">
+              <bool>false</bool>
+             </property>
+             <property name="currentText">
+              <string>Command history</string>
+             </property>
+             <property name="placeholderText">
+              <string>Command history</string>
+             </property>
+            </widget>
+           </item>
            <item>
             <widget class="QLineEdit" name="label_rconcommand">
              <property name="minimumSize">
               <size>
-               <width>350</width>
+               <width>400</width>
                <height>21</height>
               </size>
              </property>
@@ -1560,60 +1600,9 @@ background-repeat: no-repeat;
               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
              </property>
              <property name="placeholderText">
-              <string>RCON Command</string>
+              <string>Type in RCON Command or select from History, then hit &quot;Submit&quot;</string>
              </property>
              <property name="clearButtonEnabled">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QComboBox" name="dropdown_custom_commands">
-             <property name="minimumSize">
-              <size>
-               <width>180</width>
-               <height>20</height>
-              </size>
-             </property>
-             <property name="toolTip">
-              <string>Select from Command history</string>
-             </property>
-             <property name="statusTip">
-              <string>Select from Command history</string>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-color:rgb(248, 248, 248);</string>
-             </property>
-             <property name="currentText">
-              <string>Command History</string>
-             </property>
-             <property name="placeholderText">
-              <string>Command History</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="btn_main_copytoclipboard">
-             <property name="toolTip">
-              <string>Copy the output of console to Clipboard</string>
-             </property>
-             <property name="statusTip">
-              <string>Copy the output of console to Clipboard</string>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-color:rgb(218, 218, 218)
-</string>
-             </property>
-             <property name="text">
-              <string>Copy Console</string>
-             </property>
-             <property name="autoDefault">
-              <bool>false</bool>
-             </property>
-             <property name="default">
-              <bool>false</bool>
-             </property>
-             <property name="flat">
               <bool>false</bool>
              </property>
             </widget>
@@ -1622,20 +1611,21 @@ background-repeat: no-repeat;
             <widget class="QPushButton" name="btn_main_exec_rcon">
              <property name="minimumSize">
               <size>
-               <width>80</width>
+               <width>120</width>
                <height>0</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
-               <width>75</width>
+               <width>15000</width>
                <height>23</height>
               </size>
              </property>
              <property name="font">
               <font>
-               <weight>50</weight>
-               <bold>false</bold>
+               <pointsize>9</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
               </font>
              </property>
              <property name="toolTip">
@@ -1660,6 +1650,9 @@ background-repeat: no-repeat;
             </widget>
            </item>
           </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout"/>
          </item>
         </layout>
        </item>
@@ -2582,7 +2575,14 @@ p, li { white-space: pre-wrap; }
          <item>
           <widget class="QCheckBox" name="chkbox_close_question">
            <property name="text">
-            <string>Show the &quot;Close App&quot; question when trying to close ISRT?</string>
+            <string>Show the &quot;Close App&quot; question when trying to close the program?</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="chkbox_chec_updates">
+           <property name="text">
+            <string>Check for Updates, when starting the program</string>
            </property>
           </widget>
          </item>
@@ -3385,6 +3385,21 @@ p, li { white-space: pre-wrap; }
         </spacer>
        </item>
        <item>
+        <widget class="QLabel" name="label_saving_indicator">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QLabel" name="lbl_client_id">
          <property name="autoFillBackground">
           <bool>false</bool>
@@ -3411,21 +3426,6 @@ min-height: 20px;</string>
          </property>
          <property name="textInteractionFlags">
           <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_saving_indicator">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>

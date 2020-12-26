@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_UI_Server_Monitor(object):
     def setupUi(self, UI_Server_Monitor):
         UI_Server_Monitor.setObjectName("UI_Server_Monitor")
-        UI_Server_Monitor.resize(860, 678)
+        UI_Server_Monitor.resize(860, 679)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/img/img/isrt.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         UI_Server_Monitor.setWindowIcon(icon)
@@ -29,9 +29,9 @@ class Ui_UI_Server_Monitor(object):
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.btn_exec_overview_refresh = QtWidgets.QPushButton(UI_Server_Monitor)
         font = QtGui.QFont()
-        font.setPointSize(9)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
         self.btn_exec_overview_refresh.setFont(font)
         self.btn_exec_overview_refresh.setAutoDefault(False)
         self.btn_exec_overview_refresh.setDefault(False)
@@ -120,7 +120,7 @@ class Ui_UI_Server_Monitor(object):
     def retranslateUi(self, UI_Server_Monitor):
         _translate = QtCore.QCoreApplication.translate
         UI_Server_Monitor.setWindowTitle(_translate("UI_Server_Monitor", "ISRT Server Monitor"))
-        self.btn_exec_overview_refresh.setText(_translate("UI_Server_Monitor", "Get data for all Servers"))
+        self.btn_exec_overview_refresh.setText(_translate("UI_Server_Monitor", "Refresh Server Infos"))
         item = self.tbl_server_overview.verticalHeaderItem(0)
         item.setText(_translate("UI_Server_Monitor", "New Row"))
         item = self.tbl_server_overview.verticalHeaderItem(1)

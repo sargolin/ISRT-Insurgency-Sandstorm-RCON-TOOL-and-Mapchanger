@@ -215,6 +215,7 @@ class maingui(QtWidgets.QWidget):
             os.system(f'start %windir%\\explorer.exe "{fulldir}"')
 
         #Define buttons and menu items including their functionalities
+        self.gui.btn_main_adminsay.clicked.connect(self.adminsay)
         self.gui.btn_main_exec_query.clicked.connect(self.checkandgoquery)
         self.gui.btn_exec_open_bck_dir.clicked.connect(open_explorer)
         self.gui.btn_main_open_server_monitor.clicked.connect(call_monitor)
@@ -222,7 +223,7 @@ class maingui(QtWidgets.QWidget):
         self.gui.btn_cust_delete_selected.clicked.connect(self.custom_command_clear_selected)
         self.gui.btn_cust_delete_all.clicked.connect(self.custom_command_clear_all)
         self.gui.btn_save_settings.clicked.connect(self.save_settings)
-        self.gui.btn_main_copytoclipboard.clicked.connect(self.copy2clipboard)
+        #self.gui.btn_main_copytoclipboard.clicked.connect(self.copy2clipboard)
         self.gui.btn_main_drcon_changemap.clicked.connect(self.map_changer)
         self.gui.btn_add_cust_command.clicked.connect(self.add_custom_command_manually)
         self.gui.btn_exec_db_backup.clicked.connect(self.create_db_backup)
@@ -244,28 +245,28 @@ class maingui(QtWidgets.QWidget):
         self.gui.entry_queryport.returnPressed.connect(self.checkandgoquery)
         self.gui.entry_rconport.returnPressed.connect(self.checkandgoquery)
         self.gui.entry_rconpw.returnPressed.connect(self.checkandgoquery)
-        self.gui.label_button_name_1.returnPressed.connect(self.save_settings)
+        #self.gui.label_button_name_1.returnPressed.connect(self.save_settings)
         self.gui.label_button_name_2.returnPressed.connect(self.save_settings)
         self.gui.label_button_name_3.returnPressed.connect(self.save_settings)
-        self.gui.label_button_name_4.returnPressed.connect(self.save_settings)
+        #self.gui.label_button_name_4.returnPressed.connect(self.save_settings)
         self.gui.label_button_name_5.returnPressed.connect(self.save_settings)
         self.gui.label_button_name_6.returnPressed.connect(self.save_settings)
         self.gui.label_button_name_7.returnPressed.connect(self.save_settings)
         self.gui.label_button_name_8.returnPressed.connect(self.save_settings)
         self.gui.label_button_name_9.returnPressed.connect(self.save_settings)
         self.gui.label_button_name_10.returnPressed.connect(self.save_settings)
-        self.gui.label_button_name_11.returnPressed.connect(self.save_settings)
-        self.gui.label_command_button_1.returnPressed.connect(self.save_settings)
+        #self.gui.label_button_name_11.returnPressed.connect(self.save_settings)
+        #self.gui.label_command_button_1.returnPressed.connect(self.save_settings)
         self.gui.label_command_button_2.returnPressed.connect(self.save_settings)
         self.gui.label_command_button_3.returnPressed.connect(self.save_settings)
-        self.gui.label_command_button_4.returnPressed.connect(self.save_settings)
+        #self.gui.label_command_button_4.returnPressed.connect(self.save_settings)
         self.gui.label_command_button_5.returnPressed.connect(self.save_settings)
         self.gui.label_command_button_6.returnPressed.connect(self.save_settings)
         self.gui.label_command_button_7.returnPressed.connect(self.save_settings)
         self.gui.label_command_button_8.returnPressed.connect(self.save_settings)
         self.gui.label_command_button_9.returnPressed.connect(self.save_settings)
         self.gui.label_command_button_10.returnPressed.connect(self.save_settings)
-        self.gui.label_command_button_11.returnPressed.connect(self.save_settings)
+        #self.gui.label_command_button_11.returnPressed.connect(self.save_settings)
 
         #Connect Labels with enter key press
         self.gui.label_rconcommand.returnPressed.connect(self.checkandgorcon)
@@ -556,14 +557,14 @@ class maingui(QtWidgets.QWidget):
         dbconf_cust_strip = dbconf_cust[0]
         #Split Tuple and extract buttons names and commands
 
-        self.button1_name = (dbconf_cust_strip[0]) 
-        self.button1_command = (dbconf_cust_strip[1]) 
+        # self.button1_name = (dbconf_cust_strip[0]) 
+        # self.button1_command = (dbconf_cust_strip[1]) 
         self.button2_name = (dbconf_cust_strip[2])
         self.button2_command = (dbconf_cust_strip[3])
         self.button3_name = (dbconf_cust_strip[4])
         self.button3_command = (dbconf_cust_strip[5])
-        self.button4_name = (dbconf_cust_strip[6])
-        self.button4_command = (dbconf_cust_strip[7])
+        # self.button4_name = (dbconf_cust_strip[6])
+        # self.button4_command = (dbconf_cust_strip[7])
         self.button5_name = (dbconf_cust_strip[8])
         self.button5_command = (dbconf_cust_strip[9])
         self.button6_name = (dbconf_cust_strip[10])
@@ -579,14 +580,14 @@ class maingui(QtWidgets.QWidget):
         self.button11_name = (dbconf_cust_strip[20])
         self.button11_command = (dbconf_cust_strip[21])
         #Assign variables (Button names and commands) to custom Buttons
-        self.gui.btn_main_drcon_listplayers.setText(self.button1_name)
-        self.gui.btn_main_drcon_listplayers_definition.setText(self.button1_name)
+        #self.gui.btn_main_drcon_listplayers.setText(self.button1_name)
+        #self.gui.btn_main_drcon_listplayers_definition.setText(self.button1_name)
         self.gui.btn_main_drcon_listbans.setText(self.button2_name)
         self.gui.btn_main_drcon_listbans_definition.setText(self.button2_name)
         self.gui.btn_main_drcon_listmaps.setText(self.button3_name)
         self.gui.btn_main_drcon_listmaps_definition.setText(self.button3_name)
-        self.gui.btn_main_drcon_listscenarios.setText(self.button4_name)
-        self.gui.btn_main_drcon_listscenarios_definition.setText(self.button4_name)
+        #self.gui.btn_main_drcon_listscenarios.setText(self.button4_name)
+        #self.gui.btn_main_drcon_listscenarios_definition.setText(self.button4_name)
         self.gui.btn_main_drcon_restartround.setText(self.button5_name)
         self.gui.btn_main_drcon_restartround_definition.setText(self.button5_name)
         self.gui.btn_main_drcon_showgamemode.setText(self.button6_name)
@@ -600,11 +601,11 @@ class maingui(QtWidgets.QWidget):
         self.gui.btn_main_drcon_showroundtime.setText(self.button10_name)
         self.gui.btn_main_drcon_showroundtime_definition.setText(self.button10_name)
         self.gui.btn_main_drcon_help.setText(self.button11_name)
-        self.gui.btn_main_drcon_help_2definition.setText(self.button11_name)
-        self.gui.btn_main_drcon_listplayers.clicked.connect(lambda: self.direct_rcon_command(self.button1_command))
+        #self.gui.btn_main_drcon_help_2definition.setText(self.button11_name)
+        # self.gui.btn_main_drcon_listplayers.clicked.connect(lambda: self.direct_rcon_command(self.button1_command))
         self.gui.btn_main_drcon_listbans.clicked.connect(lambda: self.direct_rcon_command(self.button2_command))
         self.gui.btn_main_drcon_listmaps.clicked.connect(lambda: self.direct_rcon_command(self.button3_command))
-        self.gui.btn_main_drcon_listscenarios.clicked.connect(lambda: self.direct_rcon_command(self.button4_command))
+        #self.gui.btn_main_drcon_listscenarios.clicked.connect(lambda: self.direct_rcon_command(self.button4_command))
         self.gui.btn_main_drcon_restartround.clicked.connect(lambda: self.direct_rcon_command(self.button5_command))
         self.gui.btn_main_drcon_showgamemode.clicked.connect(lambda: self.direct_rcon_command(self.button6_command))
         self.gui.btn_main_drcon_showaidiff.clicked.connect(lambda: self.direct_rcon_command(self.button7_command))
@@ -811,8 +812,6 @@ class maingui(QtWidgets.QWidget):
     def selected_map_switch(self):
         self.selected_map = self.gui.dropdown_select_travelscenario.currentText()
 
-
-
         self.c.execute("select map_alias FROM map_config WHERE map_name=:var_selected_map", {'var_selected_map': self.selected_map})
         dsma_alias = self.c.fetchone()
         self.conn.commit() 
@@ -895,8 +894,6 @@ class maingui(QtWidgets.QWidget):
         val_map = self.gui.dropdown_select_travelscenario.currentText()
         val_gamemode = self.gui.dropdown_select_gamemode.currentText()
         val_light = self.gui.dropdown_select_lighting.currentText()
-        
-
 
         if val_gamemode == "CheckPoint Security":
             val_gamemode = "checkpoint"
@@ -1037,7 +1034,9 @@ class maingui(QtWidgets.QWidget):
             # print(commandconsole)
             # '''Test'''
         console.close() 
-
+    #Execute Admin Say
+    def adminsay(self):
+        pass
 
 
 
@@ -1356,14 +1355,14 @@ class maingui(QtWidgets.QWidget):
         dbbutton_conf = self.c.fetchall()
         self.conn.commit()
         dbbutton_conf_strip = dbbutton_conf[0]
-        self.gui.label_button_name_1.setText(dbbutton_conf_strip[0])
-        self.gui.label_command_button_1.setText(dbbutton_conf_strip[1])
+        #self.gui.label_button_name_1.setText(dbbutton_conf_strip[0])
+        #self.gui.label_command_button_1.setText(dbbutton_conf_strip[1])
         self.gui.label_button_name_2.setText(dbbutton_conf_strip[2])
         self.gui.label_command_button_2.setText(dbbutton_conf_strip[3])
         self.gui.label_button_name_3.setText(dbbutton_conf_strip[4])
         self.gui.label_command_button_3.setText(dbbutton_conf_strip[5])
-        self.gui.label_button_name_4.setText(dbbutton_conf_strip[6])
-        self.gui.label_command_button_4.setText(dbbutton_conf_strip[7])
+        #self.gui.label_button_name_4.setText(dbbutton_conf_strip[6])
+        #self.gui.label_command_button_4.setText(dbbutton_conf_strip[7])
         self.gui.label_button_name_5.setText(dbbutton_conf_strip[8])
         self.gui.label_command_button_5.setText(dbbutton_conf_strip[9])
         self.gui.label_button_name_6.setText(dbbutton_conf_strip[10])
@@ -1376,8 +1375,8 @@ class maingui(QtWidgets.QWidget):
         self.gui.label_command_button_9.setText(dbbutton_conf_strip[17])
         self.gui.label_button_name_10.setText(dbbutton_conf_strip[18])
         self.gui.label_command_button_10.setText(dbbutton_conf_strip[19])
-        self.gui.label_button_name_11.setText(dbbutton_conf_strip[20])
-        self.gui.label_command_button_11.setText(dbbutton_conf_strip[21])
+        #self.gui.label_button_name_11.setText(dbbutton_conf_strip[20])
+        #self.gui.label_command_button_11.setText(dbbutton_conf_strip[21])
         self.c.execute("select quitbox from configuration")
         quitbox_setting = self.c.fetchone()
         self.conn.commit()
@@ -1388,14 +1387,14 @@ class maingui(QtWidgets.QWidget):
     #Save changed settings
     def save_settings(self):
         #Assign new vairbales for check and update
-        new_btn1_name_var = self.gui.label_button_name_1.text()
-        new_btn1_command_var = self.gui.label_command_button_1.text()
+        #new_btn1_name_var = self.gui.label_button_name_1.text()
+        #new_btn1_command_var = self.gui.label_command_button_1.text()
         new_btn2_name_var = self.gui.label_button_name_2.text()
         new_btn2_command_var = self.gui.label_command_button_2.text()
         new_btn3_name_var = self.gui.label_button_name_3.text()
         new_btn3_command_var = self.gui.label_command_button_3.text()
-        new_btn4_name_var = self.gui.label_button_name_4.text()
-        new_btn4_command_var = self.gui.label_command_button_4.text()
+        #new_btn4_name_var = self.gui.label_button_name_4.text()
+        #new_btn4_command_var = self.gui.label_command_button_4.text()
         new_btn5_name_var = self.gui.label_button_name_5.text()
         new_btn5_command_var = self.gui.label_command_button_5.text()
         new_btn6_name_var = self.gui.label_button_name_6.text()
@@ -1408,8 +1407,8 @@ class maingui(QtWidgets.QWidget):
         new_btn9_command_var = self.gui.label_command_button_9.text()
         new_btn10_name_var = self.gui.label_button_name_10.text()
         new_btn10_command_var = self.gui.label_command_button_10.text()
-        new_btn11_name_var = self.gui.label_button_name_11.text()
-        new_btn11_command_var = self.gui.label_command_button_11.text()
+        #new_btn11_name_var = self.gui.label_button_name_11.text()
+        #new_btn11_command_var = self.gui.label_command_button_11.text()
         
         #Check new RCON commands for validity
         def assess_command_var(new_button_command):
@@ -1436,30 +1435,30 @@ class maingui(QtWidgets.QWidget):
             else:
                 self.positive_command_check = 0
         
-        #Check and update new Button 1 name
-        if new_btn1_name_var and self.button1_name != new_btn1_name_var:
-            self.c.execute("UPDATE configuration SET btn1_name=:btn1name", {'btn1name': new_btn1_name_var})
-            self.conn.commit()
-            self.button1_name = new_btn1_name_var
-            self.gui.btn_main_drcon_listplayers.setText(new_btn1_name_var)
-            self.gui.btn_main_drcon_listplayers_definition.setText(new_btn1_name_var)
-            self.gui.label_saving_indicator.setText("Saved!")
-        #Check and update new Button 1 command
-        if new_btn1_command_var and self.button1_command != new_btn1_command_var:
-            new_button_command = new_btn1_command_var
-            assess_command_var(new_button_command)
-            if self.positive_command_check == 1:
-                self.c.execute("UPDATE configuration SET btn1_command=:btn1command", {'btn1command': new_btn1_command_var})
-                self.conn.commit()
-                self.button1_command = new_btn1_command_var
-                self.gui.label_saving_indicator.setText("Saved!")
-            else:
-                msg = QtWidgets.QMessageBox()
-                msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
-                msg.setIcon(QtWidgets.QMessageBox.Critical)
-                msg.setWindowTitle("ISRT Error Message")
-                msg.setText(f"Something went wrong: \n\n {new_btn1_command_var} is no valid RCON command for Button 1! \n\n Please try again!")
-                msg.exec_()
+        # #Check and update new Button 1 name
+        # if new_btn1_name_var and self.button1_name != new_btn1_name_var:
+        #     self.c.execute("UPDATE configuration SET btn1_name=:btn1name", {'btn1name': new_btn1_name_var})
+        #     self.conn.commit()
+        #     self.button1_name = new_btn1_name_var
+        #     self.gui.btn_main_drcon_listplayers.setText(new_btn1_name_var)
+        #     self.gui.btn_main_drcon_listplayers_definition.setText(new_btn1_name_var)
+        #     self.gui.label_saving_indicator.setText("Saved!")
+        # #Check and update new Button 1 command
+        # if new_btn1_command_var and self.button1_command != new_btn1_command_var:
+        #     new_button_command = new_btn1_command_var
+        #     assess_command_var(new_button_command)
+        #     if self.positive_command_check == 1:
+        #         self.c.execute("UPDATE configuration SET btn1_command=:btn1command", {'btn1command': new_btn1_command_var})
+        #         self.conn.commit()
+        #         self.button1_command = new_btn1_command_var
+        #         self.gui.label_saving_indicator.setText("Saved!")
+        #     else:
+        #         msg = QtWidgets.QMessageBox()
+        #         msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
+        #         msg.setIcon(QtWidgets.QMessageBox.Critical)
+        #         msg.setWindowTitle("ISRT Error Message")
+        #         msg.setText(f"Something went wrong: \n\n {new_btn1_command_var} is no valid RCON command for Button 1! \n\n Please try again!")
+        #         msg.exec_()
 
         #Check and update new Button 2 name
         if new_btn2_name_var and self.button2_name != new_btn2_name_var:
@@ -1511,30 +1510,30 @@ class maingui(QtWidgets.QWidget):
                 msg.setText(f"Something went wrong: \n\n {new_btn3_command_var} is no valid RCON command for Button 3! \n\n Please try again!")
                 msg.exec_()  
 
-        #Check and update new Button 4 name
-        if new_btn4_name_var and self.button4_name != new_btn4_name_var:
-            self.c.execute("UPDATE configuration SET btn4_name=:btn4name", {'btn4name': new_btn4_name_var})
-            self.conn.commit()
-            self.button4_name = new_btn4_name_var
-            self.gui.btn_main_drcon_listscenarios.setText(new_btn4_name_var)
-            self.gui.btn_main_drcon_listscenarios_definition.setText(new_btn4_name_var)
-            self.gui.label_saving_indicator.setText("Saved!")
-        #Check and update new Button 4 command
-        if new_btn4_command_var and self.button4_command != new_btn4_command_var:
-            new_button_command = new_btn4_command_var
-            assess_command_var(new_button_command)
-            if self.positive_command_check == 1:
-                self.c.execute("UPDATE configuration SET btn4_command=:btn4command", {'btn4command': new_btn4_command_var})
-                self.conn.commit()
-                self.button4_command = new_btn4_command_var
-                self.gui.label_saving_indicator.setText("Saved!")
-            else:
-                msg = QtWidgets.QMessageBox()
-                msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
-                msg.setIcon(QtWidgets.QMessageBox.Critical)
-                msg.setWindowTitle("ISRT Error Message")
-                msg.setText(f"Something went wrong: \n\n {new_btn4_command_var} is no valid RCON command for Button 4! \n\n Please try again!")
-                msg.exec_()  
+        # #Check and update new Button 4 name
+        # if new_btn4_name_var and self.button4_name != new_btn4_name_var:
+        #     self.c.execute("UPDATE configuration SET btn4_name=:btn4name", {'btn4name': new_btn4_name_var})
+        #     self.conn.commit()
+        #     self.button4_name = new_btn4_name_var
+        #     self.gui.btn_main_drcon_listscenarios.setText(new_btn4_name_var)
+        #     self.gui.btn_main_drcon_listscenarios_definition.setText(new_btn4_name_var)
+        #     self.gui.label_saving_indicator.setText("Saved!")
+        # #Check and update new Button 4 command
+        # if new_btn4_command_var and self.button4_command != new_btn4_command_var:
+        #     new_button_command = new_btn4_command_var
+        #     assess_command_var(new_button_command)
+        #     if self.positive_command_check == 1:
+        #         self.c.execute("UPDATE configuration SET btn4_command=:btn4command", {'btn4command': new_btn4_command_var})
+        #         self.conn.commit()
+        #         self.button4_command = new_btn4_command_var
+        #         self.gui.label_saving_indicator.setText("Saved!")
+        #     else:
+        #         msg = QtWidgets.QMessageBox()
+        #         msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
+        #         msg.setIcon(QtWidgets.QMessageBox.Critical)
+        #         msg.setWindowTitle("ISRT Error Message")
+        #         msg.setText(f"Something went wrong: \n\n {new_btn4_command_var} is no valid RCON command for Button 4! \n\n Please try again!")
+        #         msg.exec_()  
 
         #Check and update new Button 5 name
         if new_btn5_name_var and self.button5_name != new_btn5_name_var:
@@ -1686,30 +1685,30 @@ class maingui(QtWidgets.QWidget):
                 msg.setText(f"Something went wrong: \n\n {new_btn10_command_var} is no valid RCON command for Button 10! \n\n Please try again!")
                 msg.exec_()  
 
-        #Check and update new Button 11 name
-        if new_btn11_name_var and self.button11_name != new_btn11_name_var:
-            self.c.execute("UPDATE configuration SET btn11_name=:btn11name", {'btn11name': new_btn11_name_var})
-            self.conn.commit()
-            self.button11_name = new_btn11_name_var
-            self.gui.btn_main_drcon_help.setText(new_btn11_name_var)
-            self.gui.btn_main_drcon_help_2definition.setText(new_btn11_name_var)
-            self.gui.label_saving_indicator.setText("Saved!")
-        #Check and update new Button 11 command
-        if new_btn11_command_var and self.button11_command != new_btn11_command_var:
-            new_button_command = new_btn11_command_var
-            assess_command_var(new_button_command)
-            if self.positive_command_check == 1:
-                self.c.execute("UPDATE configuration SET btn11_command=:btn11command", {'btn11command': new_btn11_command_var})
-                self.conn.commit()
-                self.button11_command = new_btn11_command_var
-                self.gui.label_saving_indicator.setText("Saved!")
-            else:
-                msg = QtWidgets.QMessageBox()
-                msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
-                msg.setIcon(QtWidgets.QMessageBox.Critical)
-                msg.setWindowTitle("ISRT Error Message")
-                msg.setText(f"Something went wrong: \n\n {new_btn11_command_var} is no valid RCON command for Button 11! \n\n Please try again!")
-                msg.exec_()  
+        # #Check and update new Button 11 name
+        # if new_btn11_name_var and self.button11_name != new_btn11_name_var:
+        #     self.c.execute("UPDATE configuration SET btn11_name=:btn11name", {'btn11name': new_btn11_name_var})
+        #     self.conn.commit()
+        #     self.button11_name = new_btn11_name_var
+        #     self.gui.btn_main_drcon_help.setText(new_btn11_name_var)
+        #     self.gui.btn_main_drcon_help_2definition.setText(new_btn11_name_var)
+        #     self.gui.label_saving_indicator.setText("Saved!")
+        # #Check and update new Button 11 command
+        # if new_btn11_command_var and self.button11_command != new_btn11_command_var:
+        #     new_button_command = new_btn11_command_var
+        #     assess_command_var(new_button_command)
+        #     if self.positive_command_check == 1:
+        #         self.c.execute("UPDATE configuration SET btn11_command=:btn11command", {'btn11command': new_btn11_command_var})
+        #         self.conn.commit()
+        #         self.button11_command = new_btn11_command_var
+        #         self.gui.label_saving_indicator.setText("Saved!")
+        #     else:
+        #         msg = QtWidgets.QMessageBox()
+        #         msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
+        #         msg.setIcon(QtWidgets.QMessageBox.Critical)
+        #         msg.setWindowTitle("ISRT Error Message")
+        #         msg.setText(f"Something went wrong: \n\n {new_btn11_command_var} is no valid RCON command for Button 11! \n\n Please try again!")
+        #         msg.exec_()  
         #Refresh the Settings in clicking save!
         self.c.execute("select quitbox from configuration")
         self.conn.commit()
