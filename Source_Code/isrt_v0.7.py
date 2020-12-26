@@ -944,6 +944,7 @@ class maingui(QtWidgets.QWidget):
                 self.gui.label_output_window.setText("Something went wrong with the Travel command, please check above and report it!")  
             
             self.checkandgorcon()
+            self.checkandgoquery()
             self.gui.progressbar_map_changer.setProperty("value", 0)
     #Direct RCON Command handling
     def direct_rcon_command(self, command):
@@ -1014,7 +1015,6 @@ class maingui(QtWidgets.QWidget):
             else:
                 self.gui.label_output_window.setText("No RCON Password given or no valid RCON command - please retry!")    
                 self.gui.progressbar_map_changer.setProperty("value", 0)
-        self.checkandgoquery()
         self.gui.progressbar_map_changer.setProperty("value", 0)
     #Execute RCON Command, when called by checkandgorcon()!
     def rconserver(self, serverhost, rconpassword, rconport, rconcommand):
@@ -1030,16 +1030,19 @@ class maingui(QtWidgets.QWidget):
             console = Console(host=serverhost, password=rconpassword, port=rconport)
             commandconsole = (console.command(rconcommand))
             self.gui.label_output_window.setText(str(commandconsole))
-            # '''Test'''
-            # print(commandconsole)
-            # '''Test'''
         console.close() 
     #Execute Admin Say
     def adminsay(self):
-        pass
-
-
-
+        print 
+        if self.gui.entry_ip.text() and self.gui.entry_rconport.text():
+            qid = QtWidgets.QInputDialog.getText(self, "Input Dialog", "Enter Admin Message:")
+            message = qid[0]
+            retval = qid[1]
+            if retval == True and message:
+                saycommand = (f"say {message}")
+                self.direct_rcon_command(saycommand)
+        else:
+            self.gui.label_output_window.setText("You have to enter an IP-address and an RCON Port at least!")
 
 
 
@@ -1384,6 +1387,13 @@ class maingui(QtWidgets.QWidget):
             self.gui.chkbox_close_question.setChecked(True)
         else:
             self.gui.chkbox_close_question.setChecked(False)
+        self.c.execute("select check_updates from configuration")
+        update_setting = self.c.fetchone()
+        self.conn.commit()
+        if update_setting[0] == 1:
+            self.gui.chkbox_chec_updates.setChecked(True)
+        else:
+            self.gui.chkbox_chec_updates.setChecked(False)
     #Save changed settings
     def save_settings(self):
         #Assign new vairbales for check and update
@@ -1725,6 +1735,29 @@ class maingui(QtWidgets.QWidget):
                 self.c.execute("UPDATE configuration SET quitbox=0")
                 self.conn.commit()
             self.gui.label_saving_indicator.setText("Saved!")
+
+        self.c.execute("select check_updates from configuration")
+        self.conn.commit()
+        update_result = self.c.fetchone()
+        if self.gui.chkbox_chec_updates.isChecked():
+            check_updateapp = 1
+        else:
+            check_updateapp = 0
+        if update_result[0] != check_updateapp:
+            if self.gui.chkbox_chec_updates.isChecked():
+                self.c.execute("UPDATE configuration SET check_updates=1")
+                self.conn.commit()
+            else:
+                self.c.execute("UPDATE configuration SET check_updates=0")
+                self.conn.commit()
+            self.gui.label_saving_indicator.setText("Saved!")
+
+
+
+
+
+
+
         self.get_configuration_from_DB_and_set_settings()
     #Copy2Clipboard
     def copy2clipboard(self):
@@ -1835,29 +1868,36 @@ if __name__ == "__main__":
         check_updates_ok = c.fetchone()
         conn.commit
         
+        if check_updates_ok[0] == 1:
+            r = urllib.request.urlopen("http://www.isrt.info/version/version_check.txt")
+            for line in r.readlines():
+                line = line.decode("utf-8")
+                line = line.strip('\n')
+                new_version = line
 
-        r = urllib.request.urlopen("http://www.isrt.info/version/version_check.txt")
-        for line in r.readlines():
-            line = line.decode("utf-8")
-            line = line.strip('\n')
-            new_version = line
+            if new_version:
+                pass
+            else:
+                new_version = current_version
 
-        if new_version:
-            pass
+
+            if check_updates_ok[0] == 1 and new_version != current_version:
+                def open_website():
+                    os.system(f'start %windir%\\explorer.exe "https://www.isrt.info/?page_id=50"')
+                updatemsg = QtWidgets.QMessageBox()
+                updatemsg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
+                updatemsg.setIcon(QtWidgets.QMessageBox.Information)
+                updatemsg.setWindowTitle("ISRT Update Notification")
+                #updatemsg.setTextFormat(QtCore.Qt.RichText)
+                updatemsg.setText(f'A new version of ISRT is available\n\nCurrent Version: {current_version}\nLatest Verrsion: {new_version}\n\nClick on Download to get it!')
+                download_button = updatemsg.addButton("Download", updatemsg.ActionRole)
+                updatemsg.addButton(updatemsg.Ok)
+                download_button.clicked.connect(open_website)
+                updatemsg.exec_()
+            else:
+                pass
         else:
-            new_version = current_version
-
-        if check_updates_ok[0] == 1 and new_version != current_version:
-            msg = QtWidgets.QMessageBox()
-            msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
-            msg.setIcon(QtWidgets.QMessageBox.Information)
-            msg.setWindowTitle("ISRT Update Notification")
-            #msg.setTextFormat(QtCore.Qt.RichText)
-            msg.setText(f'A new version of ISRT is available on http://www.isrt.info!\nCurrent Version: {current_version}\nNew Verrsion: {new_version}')
-            msg.exec_()
-        else:
             pass
-
         
         #Release Notes Viewer
         c.execute("SELECT show_rn FROM configuration")
