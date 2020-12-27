@@ -15,6 +15,7 @@ https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/wiki
 #### Status: Slowly reaching end of development phase - still open for all ideas
 
 ## 1. Release Notes
+- Implemented Day/Night display with night vision map pics
 - Renamed a couple of items for better understanding
 - RCON commands are now automatically saved if not already in the history
 - Inserted Security/Insurgents DropDown Menu for selecting travel commands
@@ -37,6 +38,7 @@ https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/wiki
 
 ## 2. Known bugs
 - When chosing random map change, the map is not updated correctly (NWI Server Bug reported - I unfortunately can't change false reporting on server side...)
+- Day/Night View is buggy after random map choice, because of faulty query implementation by NWI - can't do anything about it
 
 ## 3. Tested on the following virtualized systems:
 
