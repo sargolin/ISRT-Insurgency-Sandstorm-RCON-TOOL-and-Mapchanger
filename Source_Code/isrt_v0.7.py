@@ -15,7 +15,7 @@ Thanks to Helsing and Stuermer for the pre-release testing - I appreciate that s
 ------------------------------------------------------------------
 Importing required classes and libraries
 ------------------------------------------------------------------'''
-import sys, os, re, sqlite3, time, socket, threading, psutil, subprocess, random, requests, urllib.request
+import sys, os, re, sqlite3, time, socket, threading, psutil, subprocess, random, requests, urllib.request, res_rc
 from PyQt5 import QtCore, QtGui, QtWidgets
 from datetime import datetime
 from shutil import copy2
@@ -1897,15 +1897,15 @@ if __name__ == "__main__":
             if check_updates_ok[0] == 1 and new_version != current_version:
                 def open_website():
                     os.system(f'start %windir%\\explorer.exe "https://www.isrt.info/?page_id=50"')
+                icondir = Path(__file__).absolute().parent
                 updatemsg = QtWidgets.QMessageBox()
-                updatemsg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
                 updatemsg.setIcon(QtWidgets.QMessageBox.Information)
                 updatemsg.setWindowTitle("ISRT Update Notification")
-                #updatemsg.setTextFormat(QtCore.Qt.RichText)
-                updatemsg.setText(f'A new version of ISRT is available\n\nCurrent Version: {current_version}\nLatest Verrsion: {new_version}\n\nClick on Download to get it!')
+                updatemsg.setWindowIcon(QtGui.QIcon(str(icondir / 'img/isrt.ico')))
+                updatemsg.setText(f'A new version of ISRT is available\n\nCurrent Version: {current_version}\nLatest Version: {new_version}\n\nClick on Download to get it!')
                 download_button = updatemsg.addButton("Download", updatemsg.ActionRole)
-                updatemsg.addButton(updatemsg.Ok)
                 download_button.clicked.connect(open_website)
+                updatemsg.addButton(updatemsg.Ok)
                 updatemsg.exec_()
             else:
                 pass
