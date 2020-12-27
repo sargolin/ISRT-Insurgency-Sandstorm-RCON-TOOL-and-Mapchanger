@@ -15,38 +15,38 @@
     <file>img/sbck.png</file>
   </qresource>
   <qresource prefix="map_thumbs">
-    <file>img/maps/thumbs/TIDEWAY_night.PNG</file>
-    <file>img/maps/thumbs/TEMPLE_night.PNG</file>
-    <file>img/maps/thumbs/SUMMIT_night.PNG</file>
-    <file>img/maps/thumbs/REFINERY_night.PNG</file>
-    <file>img/maps/thumbs/PRUEFSTAND7_night.PNG</file>
-    <file>img/maps/thumbs/PRECINCT_night.PNG</file>
-    <file>img/maps/thumbs/PANZERSCHLACHT_night.PNG</file>
-    <file>img/maps/thumbs/NOSHAHR_night.PNG</file>
-    <file>img/maps/thumbs/MINISTRY_night.PNG</file>
-    <file>img/maps/thumbs/METRO_night.PNG</file>
-    <file>img/maps/thumbs/HILLSIDE_night.PNG</file>
-    <file>img/maps/thumbs/HIGHLANDS_night.PNG</file>
-    <file>img/maps/thumbs/HIDEOUT_night.PNG</file>
-    <file>img/maps/thumbs/GLASSDOME_night.PNG</file>
-    <file>img/maps/thumbs/FROST_night.PNG</file>
-    <file>img/maps/thumbs/FARMHOUSE_night.PNG</file>
-    <file>img/maps/thumbs/DERRIESE_night.PNG</file>
-    <file>img/maps/thumbs/DERBUNKER_night.PNG</file>
-    <file>img/maps/thumbs/CROSSING_night.PNG</file>
-    <file>img/maps/thumbs/COMPOUND_night.PNG</file>
-    <file>img/maps/thumbs/MACEDONIA_night.JPG</file>
-    <file>img/maps/thumbs/MOUNTAINPASS_night.JPG</file>
-    <file>img/maps/thumbs/OUTSKIRTS_night.JPG</file>
-    <file>img/maps/thumbs/PALUJA.JPEG_night.JPG</file>
-    <file>img/maps/thumbs/POWERPLANT_night.JPG</file>
-    <file>img/maps/thumbs/SCORCHED_night.JPG</file>
-    <file>img/maps/thumbs/SHEDS_night.JPG</file>
-    <file>img/maps/thumbs/STORK_CASTLE_night.JPG</file>
-    <file>img/maps/thumbs/TORO_night.JPG</file>
-    <file>img/maps/thumbs/BAB_night.JPG</file>
-    <file>img/maps/thumbs/TELL_night.JPG</file>
     <file>img/maps/thumbs/bab.jpg</file>
+    <file>img/maps/thumbs/tideway_night.png</file>
+    <file>img/maps/thumbs/temple_night.png</file>
+    <file>img/maps/thumbs/summit_night.png</file>
+    <file>img/maps/thumbs/refinery_night.png</file>
+    <file>img/maps/thumbs/pruefstand7_night.png</file>
+    <file>img/maps/thumbs/precinct_night.png</file>
+    <file>img/maps/thumbs/panzerschlacht_night.png</file>
+    <file>img/maps/thumbs/noshahr_night.png</file>
+    <file>img/maps/thumbs/ministry_night.png</file>
+    <file>img/maps/thumbs/metro_night.png</file>
+    <file>img/maps/thumbs/hillside_night.png</file>
+    <file>img/maps/thumbs/highlands_night.png</file>
+    <file>img/maps/thumbs/hideout_night.png</file>
+    <file>img/maps/thumbs/glassdome_night.png</file>
+    <file>img/maps/thumbs/frost_night.png</file>
+    <file>img/maps/thumbs/farmhouse_night.png</file>
+    <file>img/maps/thumbs/derriese_night.png</file>
+    <file>img/maps/thumbs/derbunker_night.png</file>
+    <file>img/maps/thumbs/crossing_night.png</file>
+    <file>img/maps/thumbs/compound_night.png</file>
+    <file>img/maps/thumbs/macedonia_night.jpg</file>
+    <file>img/maps/thumbs/mountainpass_night.jpg</file>
+    <file>img/maps/thumbs/outskirts_night.jpg</file>
+    <file>img/maps/thumbs/paluja_night.jpg</file>
+    <file>img/maps/thumbs/powerplant_night.jpg</file>
+    <file>img/maps/thumbs/scorched_night.jpg</file>
+    <file>img/maps/thumbs/sheds_night.jpg</file>
+    <file>img/maps/thumbs/stork_castle_night.jpg</file>
+    <file>img/maps/thumbs/toro_night.jpg</file>
+    <file>img/maps/thumbs/bab_night.jpg</file>
+    <file>img/maps/thumbs/tell_night.jpg</file>
     <file>img/maps/thumbs/sheds.jpg</file>
     <file>img/maps/thumbs/tell.jpg</file>
     <file>img/maps/thumbs/frost.png</file>

@@ -298,7 +298,7 @@ class SourceQuery(object):
 #             print("{id:<2} {Name:<35} {Frags:<5} {PrettyTime} {NetID}".format(**player))
 
 #         rules = query.get_rules()
-#         
+        
 #         print
 #         "\n{0:d} Rules".format(len(rules))
 #         print

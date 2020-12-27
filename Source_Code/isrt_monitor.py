@@ -25,10 +25,10 @@ class mongui(QtWidgets.QWidget):
         self.mogui.tbl_server_overview.setColumnWidth(0, 200)
         self.mogui.tbl_server_overview.setItem(0, 0, QtWidgets.QTableWidgetItem("Server Alias"))
         self.mogui.tbl_server_overview.item(0, 0).setBackground(QtGui.QColor(254,254,254))
-        self.mogui.tbl_server_overview.setColumnWidth(1, 150)
+        self.mogui.tbl_server_overview.setColumnWidth(1, 140)
         self.mogui.tbl_server_overview.setItem(0, 1, QtWidgets.QTableWidgetItem("IP-Address:Port"))
         self.mogui.tbl_server_overview.item(0, 1).setBackground(QtGui.QColor(254,254,254))
-        self.mogui.tbl_server_overview.setColumnWidth(2, 150)
+        self.mogui.tbl_server_overview.setColumnWidth(2, 140)
         self.mogui.tbl_server_overview.setItem(0, 2, QtWidgets.QTableWidgetItem("GameMode"))
         self.mogui.tbl_server_overview.item(0, 2).setBackground(QtGui.QColor(254,254,254))
         self.mogui.tbl_server_overview.setColumnWidth(3, 80)
@@ -37,10 +37,10 @@ class mongui(QtWidgets.QWidget):
         self.mogui.tbl_server_overview.setColumnWidth(4, 80)
         self.mogui.tbl_server_overview.setItem(0, 4, QtWidgets.QTableWidgetItem("Ping"))
         self.mogui.tbl_server_overview.item(0, 4).setBackground(QtGui.QColor(254,254,254))
-        self.mogui.tbl_server_overview.setColumnWidth(5, 110)
+        self.mogui.tbl_server_overview.setColumnWidth(5, 140)
         self.mogui.tbl_server_overview.setItem(0, 5, QtWidgets.QTableWidgetItem("Map"))
         self.mogui.tbl_server_overview.item(0, 5).setBackground(QtGui.QColor(254,254,254))
-        self.mogui.tbl_server_overview.setColumnWidth(6, 50)
+        self.mogui.tbl_server_overview.setColumnWidth(6, 40)
         self.mogui.tbl_server_overview.setItem(0, 6, QtWidgets.QTableWidgetItem("Players"))
         self.mogui.tbl_server_overview.item(0, 6).setBackground(QtGui.QColor(254,254,254))
 
@@ -107,10 +107,15 @@ class mongui(QtWidgets.QWidget):
                     self.server_info = sq.SourceQuery(serverhost, queryport)
                     resinfo = self.server_info.get_info()
                     resrules = self.server_info.get_rules()
+                    lighting_val = resrules['Day_b']
+                    if lighting_val == "true":
+                        lighting = "Day"
+                    else:
+                        lighting = "Night"
                     self.server_info.disconnect()
                     if resinfo:
                         self.mogui.tbl_server_overview.setItem(i, 1, QtWidgets.QTableWidgetItem(serverhost +":" + str(resinfo['GamePort'])))
-                        self.mogui.tbl_server_overview.setItem(i, 5, QtWidgets.QTableWidgetItem(resinfo['Map']))
+                        self.mogui.tbl_server_overview.setItem(i, 5, QtWidgets.QTableWidgetItem(resinfo['Map'] + " (" + lighting + ")"))
                         self.mogui.tbl_server_overview.setItem(i, 6, QtWidgets.QTableWidgetItem("%i/%i" % (resinfo['Players'], resinfo['MaxPlayers'])))
                         self.mogui.tbl_server_overview.setItem(i, 3, QtWidgets.QTableWidgetItem("Online"))
                         self.mogui.tbl_server_overview.item(i, 3).setBackground(QtGui.QColor(0,254,0))

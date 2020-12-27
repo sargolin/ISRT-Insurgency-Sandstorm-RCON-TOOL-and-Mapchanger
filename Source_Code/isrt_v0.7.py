@@ -712,6 +712,7 @@ class maingui(QtWidgets.QWidget):
         self.ranked = (self.serverruledetails['RankedServer_b'])
         self.coop = (self.serverruledetails['Coop_b'])
         self.mods = (self.serverruledetails['Mutated_b'])    
+        self.day = (self.serverruledetails['Day_b'])
         if  self.mods == "true":
             self.servermodcheck = "Yes"
         else:
@@ -741,6 +742,11 @@ class maingui(QtWidgets.QWidget):
             self.mutatorids = self.serverruledetails['Mutators_s']
         else:
             self.mutatorids = "None"
+        
+        if self.day == "true":
+            self.lighting_map = "Day"
+        else:
+            self.lighting_map = "Night"
 
         self.gui.le_servername.setText(str(self.servergamedetails['server_name']))
         self.gui.le_gamemode.setText(str(self.serverruledetails['GameMode_s']) + " (" + str(self.servercoopcheck) + ")")
@@ -748,9 +754,8 @@ class maingui(QtWidgets.QWidget):
         self.gui.le_vac.setText(str(self.servervaccheck) + "/" + str(self.serverrulecheck))
         self.gui.le_players.setText(str(self.servergamedetails['players_current']) + "/" + str(self.servergamedetails['players_max']))
         self.gui.le_ping.setText(str(self.servernetworkdetails['ping']))
-        self.gui.le_map.setText(str(self.servergamedetails['game_map']))
+        self.gui.le_map.setText(str(self.servergamedetails['game_map']) + " (" + self.lighting_map + ")")
         self.gui.le_mods.setText(str(self.mutatorids))
-        
         
         #Creating a list for mutator-IDs to identify installed maps
         check_modlist = self.serverruledetails.get('ModList_s')
@@ -765,9 +770,17 @@ class maingui(QtWidgets.QWidget):
             map_view_pic = str(self.servergamedetails['game_map'])
             self.c.execute("select map_pic FROM map_config WHERE map_alias=:map_view_result", {'map_view_result': map_view_pic})
             dpmap_alias = self.c.fetchone()
+            dpmap_split = dpmap_alias[0].split(".")
+            mapname = dpmap_split[0]
+            ending = dpmap_split[1]
+   	    
+            if self.lighting_map == "Day":
+                mapview_pic = (mapname + "." + ending)
+            else:
+                mapview_pic = (mapname + "_night." + ending)
             self.conn.commit()
             if dpmap_alias:
-                self.gui.label_map_view.setStyleSheet(f"border-image: url(:map_thumbs/img/maps/thumbs/{dpmap_alias[0]}); background-color: #f0f0f0;background-position: center;background-repeat: no-repeat;")
+                self.gui.label_map_view.setStyleSheet(f"border-image: url(:map_thumbs/img/maps/thumbs/{mapview_pic}); background-color: #f0f0f0;background-position: center;background-repeat: no-repeat;")
             else:
                 self.gui.label_output_window.setText("No Map Image available - referring to placeholder!") 
                 self.gui.label_map_view.setStyleSheet("border-image: url(:/map_view/img/maps/map_views.jpg); background-color: #f0f0f0;background-position: center;background-repeat: no-repeat;")        
