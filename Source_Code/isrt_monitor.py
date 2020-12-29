@@ -4,6 +4,7 @@ from pathlib import Path
 from bin.isrt_monitor_gui import Ui_UI_Server_Monitor
 import bin.MonitorQuery as sq
 
+#Prepare Main GUI of Server Monitor
 class mongui(QtWidgets.QWidget):
     def __init__(self, *args, **kwargs):
         #Gui Setup
@@ -16,8 +17,6 @@ class mongui(QtWidgets.QWidget):
         self.mogui.mon_progress_bar.setValue(0)
         #Define Refresh Button
         self.mogui.btn_exec_overview_refresh.clicked.connect(self.get_server_data)
-
-
     #Create Row 0 and Headers
     def fill_overview_headers(self):
         self.mogui.tbl_server_overview.setRowCount(0)
@@ -43,7 +42,6 @@ class mongui(QtWidgets.QWidget):
         self.mogui.tbl_server_overview.setColumnWidth(6, 40)
         self.mogui.tbl_server_overview.setItem(0, 6, QtWidgets.QTableWidgetItem("Players"))
         self.mogui.tbl_server_overview.item(0, 6).setBackground(QtGui.QColor(254,254,254))
-
     #Get Headers from DB and fill in Row 0
     def get_aliases(self):
         self.dbdir = Path(__file__).absolute().parent
@@ -51,7 +49,6 @@ class mongui(QtWidgets.QWidget):
         self.c = self.conn.cursor()
         self.c.execute("SELECT alias FROM server")
         self.conn.commit()
-        
         for row, form in enumerate(self.c):
             row = row + 1
             self.mogui.tbl_server_overview.insertRow(row)
@@ -85,14 +82,12 @@ class mongui(QtWidgets.QWidget):
             self.server_alias_list = self.server_alias_checklist
         else:
             pass
-
-
+        #Define Executor for polling the Servrs
         def execute_list_query(self):
             rowcount = self.mogui.tbl_server_overview.rowCount()
             i = 1
             progress_multiplier = int(100/rowcount)
             progress_value = int(progress_multiplier) + int(progress_multiplier)
-
             while i <= (rowcount - 1):
                 self.mogui.mon_progress_bar.setValue(progress_value)
                 server_temp_alias = (self.mogui.tbl_server_overview.item(i,0)).text()
@@ -135,14 +130,13 @@ class mongui(QtWidgets.QWidget):
                     self.server_info.disconnect()
                 i = i + 1
                 progress_value = progress_value + progress_multiplier
-            
+        #Execute the Executor  
         execute_list_query(self)
-
+        #Set Progress Bar
         self.mogui.mon_progress_bar.setValue(100)
         self.conn.close()
         time.sleep(0.3)
         self.mogui.mon_progress_bar.setValue(0)
-
     #Handle the Close Event
     def closeEvent(self, event):
         self.conn.close()
