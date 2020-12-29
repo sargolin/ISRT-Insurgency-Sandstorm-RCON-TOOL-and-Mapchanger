@@ -1,17 +1,12 @@
 '''
-ISRT - Insurgency Sandstorm RCON Tool; 21.12.2020, Madman
+ISRT - Insurgency Sandstorm RCON Tool; 29.12.2020, Madman
 In case of questions: isrt@edelmeier.org
+Website: http://www.isrt.info
 Git: https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool
-v0.7 - Win-Installer, Update Mechanism, Listplayers Scrumble, Refresh Timer and so on....
+Current Version: v0.8
 Database: ./db/isrt_data.db
 This is open Source, you may use, copy, modify it as you wish - feel free!
-Thanks to Helsing and Stuermer for the pre-release testing - I appreciate that so much!
-
-
-
-
-
-
+Thanks to Helsing and Stuermer for the pre-release testing - I appreciate that very much!
 ------------------------------------------------------------------
 Importing required classes and libraries
 ------------------------------------------------------------------'''
@@ -26,16 +21,13 @@ from bin.isrt_gui import Ui_ISRT_Main_Window
 from bin.rn_gui import Ui_rn_window
 from bin.isrt_db_gui import Ui_db_importer_gui
 from bin.rcon.console import Console
-
-
-
-
-
-
+'''
+------------------------------------------------------------------
+------------------------------------------------------------------
+'''
 #PyQt5 Main UI Initialization
-'''------------------------------------------------------------------
-Release Notes GUI Handler
-------------------------------------------------------------------'''
+#
+#Release Notes GUI Handler
 class rngui(QtWidgets.QWidget):
     def __init__(self, *args, **kwargs):
         #Gui Setup
@@ -43,40 +35,26 @@ class rngui(QtWidgets.QWidget):
         self.rngui = Ui_rn_window()
         self.rngui.setupUi(self)
         self.rngui.btn_rn_close.clicked.connect(self.close_rn)
-
+    #Close RN per Button
     def close_rn(self):
         #Database connection setup
         dbdir = Path(__file__).absolute().parent
         conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
         c = conn.cursor()
-        
         if self.rngui.chkbx_show_rn.isChecked():
             rnsetoff = 0
             c.execute("UPDATE configuration SET show_rn = :rnset", {'rnset' :rnsetoff})
             conn.commit()
             conn.close()
-        
         self.close()
-
+    #Close Event Handling
     def closeEvent(self, event):
         self.close() 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-'''------------------------------------------------------------------
-DB Importer GUI Handler
-------------------------------------------------------------------'''
+'''
+------------------------------------------------------------------
+------------------------------------------------------------------
+'''
+#DB Importer GUI Handler
 class dbgui(QtWidgets.QWidget):
     def __init__(self, *args, **kwargs):
         #Gui Setup
@@ -92,7 +70,7 @@ class dbgui(QtWidgets.QWidget):
         self.dbgui.btn_dbg_close.clicked.connect(self.close_dbg)
         self.dbgui.btn_dbi_select_database.clicked.connect(lambda: self.DBI_executor("select_db"))
         self.dbgui.btn_dbi_import_database.clicked.connect(lambda: self.DBI_executor("replace_db")) 
-
+    #Grep all Servers from old DB and import them
     def DBI_executor(self, db_action):
         if db_action == 'select_db':
             db_select_directory = (str(self.dbdir) + '\\db\\')
@@ -107,7 +85,6 @@ class dbgui(QtWidgets.QWidget):
                 cidb.execute("select * FROM server")
                 dbimport_result = cidb.fetchall()
                 connimport.commit()
-
                 self.c.execute("DELETE FROM server")
                 self.conn.commit()
                 for import_result in dbimport_result:
@@ -117,9 +94,7 @@ class dbgui(QtWidgets.QWidget):
                     import_server_rconport = import_result[3]
                     import_server_rconpw = import_result[4]
                     self.c.execute("INSERT INTO server VALUES (:alias, :ipaddress, :queryport, :rconport, :rconpw)", {'alias': import_server_alias, 'ipaddress': import_server_ip, 'queryport': import_server_queryport, 'rconport': import_server_rconport, 'rconpw': import_server_rconpw})
-                    
                 self.conn.commit()
-
                 msg = QtWidgets.QMessageBox()
                 msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
                 msg.setIcon(QtWidgets.QMessageBox.Information)
@@ -138,7 +113,6 @@ class dbgui(QtWidgets.QWidget):
                 self.conn.commit()
                 self.conn.close()
                 restart_program()
-
             else:
                 msg = QtWidgets.QMessageBox()
                 msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
@@ -146,8 +120,7 @@ class dbgui(QtWidgets.QWidget):
                 msg.setWindowTitle("ISRT Error Message")
                 msg.setText("No file selected or wrong file type\nPlease select a database first!")
                 msg.exec_()
-        
-
+    #Handle Close per Button    
     def close_dbg(self):
         #Database connection setup
         self.dbdir = Path(__file__).absolute().parent
@@ -160,7 +133,7 @@ class dbgui(QtWidgets.QWidget):
         self.conn.commit()
         self.conn.close()
         self.close()
-
+    #Handle Close Event
     def closeEvent(self, event):
         #Database connection setup
         self.dbdir = Path(__file__).absolute().parent
@@ -173,47 +146,31 @@ class dbgui(QtWidgets.QWidget):
         self.conn.commit()
         self.conn.close()
         self.close()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-'''------------------------------------------------------------------
-Main GUI Handlers
-------------------------------------------------------------------'''
+'''
+------------------------------------------------------------------
+------------------------------------------------------------------
+'''
+#Main GUI Handlers
 class maingui(QtWidgets.QWidget):
     def __init__(self, *args, **kwargs):
         #Gui Setup
         super().__init__(*args, **kwargs)
         self.gui = Ui_ISRT_Main_Window()
         self.gui.setupUi(self)
-
         #Database connection setup
         self.dbdir = Path(__file__).absolute().parent
         dbdir = Path(__file__).absolute().parent
         self.conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
         self.c = self.conn.cursor()
-
         #Setup ISRT Monitor Call
         def call_monitor():
             subprocess.Popen(["isrt_monitor.exe"])
-
         #Open Explorer Backup Window
         def open_explorer():
             self.dbdir = Path(__file__).absolute().parent
             dbdir = Path(__file__).absolute().parent
             fulldir = (str(dbdir / 'db/'))
             os.system(f'start %windir%\\explorer.exe "{fulldir}"')
-
         #Define buttons and menu items including their functionalities
         self.gui.btn_main_adminsay.clicked.connect(self.adminsay)
         self.gui.btn_main_exec_query.clicked.connect(self.checkandgoquery)
@@ -228,7 +185,6 @@ class maingui(QtWidgets.QWidget):
         self.gui.btn_add_cust_command.clicked.connect(self.add_custom_command_manually)
         self.gui.btn_exec_db_backup.clicked.connect(self.create_db_backup)
         self.gui.btn_main_add_server_db.clicked.connect(self.server_add_main)
-
         #Set client id
         self.c.execute("select client_id from configuration")
         client = self.c.fetchone()
@@ -238,58 +194,48 @@ class maingui(QtWidgets.QWidget):
             self.gui.lbl_client_id.setText(f"Client-ID: {self.client_id}")
         else:
             self.gui.lbl_client_id.setText("No Client ID defined yet - will be displayed automatically on next restart")
-
         #Define entry fields for user input
         self.gui.entry_ip.returnPressed.connect(self.checkandgoquery)
         self.gui.LE_add_custom_command.returnPressed.connect(self.add_custom_command_manually)
         self.gui.entry_queryport.returnPressed.connect(self.checkandgoquery)
         self.gui.entry_rconport.returnPressed.connect(self.checkandgoquery)
         self.gui.entry_rconpw.returnPressed.connect(self.checkandgoquery)
-        #self.gui.label_button_name_1.returnPressed.connect(self.save_settings)
         self.gui.label_button_name_2.returnPressed.connect(self.save_settings)
         self.gui.label_button_name_3.returnPressed.connect(self.save_settings)
-        #self.gui.label_button_name_4.returnPressed.connect(self.save_settings)
         self.gui.label_button_name_5.returnPressed.connect(self.save_settings)
         self.gui.label_button_name_6.returnPressed.connect(self.save_settings)
         self.gui.label_button_name_7.returnPressed.connect(self.save_settings)
         self.gui.label_button_name_8.returnPressed.connect(self.save_settings)
         self.gui.label_button_name_9.returnPressed.connect(self.save_settings)
         self.gui.label_button_name_10.returnPressed.connect(self.save_settings)
-        #self.gui.label_button_name_11.returnPressed.connect(self.save_settings)
-        #self.gui.label_command_button_1.returnPressed.connect(self.save_settings)
         self.gui.label_command_button_2.returnPressed.connect(self.save_settings)
         self.gui.label_command_button_3.returnPressed.connect(self.save_settings)
-        #self.gui.label_command_button_4.returnPressed.connect(self.save_settings)
         self.gui.label_command_button_5.returnPressed.connect(self.save_settings)
         self.gui.label_command_button_6.returnPressed.connect(self.save_settings)
         self.gui.label_command_button_7.returnPressed.connect(self.save_settings)
         self.gui.label_command_button_8.returnPressed.connect(self.save_settings)
         self.gui.label_command_button_9.returnPressed.connect(self.save_settings)
         self.gui.label_command_button_10.returnPressed.connect(self.save_settings)
-        #self.gui.label_command_button_11.returnPressed.connect(self.save_settings)
-
         #Connect Labels with enter key press
         self.gui.label_rconcommand.returnPressed.connect(self.checkandgorcon)
-
         #self.gui.entry_refresh_timer.returnPressed.connect(self.checkandgorcon)
         self.gui.server_alias.returnPressed.connect(self.server_add)
         self.gui.server_ip.returnPressed.connect(self.server_add)
         self.gui.server_query.returnPressed.connect(self.server_add)
         self.gui.server_rconport.returnPressed.connect(self.server_add)
         self.gui.server_rconpw.returnPressed.connect(self.server_add)
-
         #Fill the Dropdown menus
         self.fill_dropdown_server_box()
         self.fill_dropdown_custom_command()
         self.fill_list_custom_command()
         self.get_configuration_from_DB_and_set_settings()
-
         #Define the server manager tab
         self.gui.btn_server_add.clicked.connect(self.server_add)
         self.gui.btn_server_modify.clicked.connect(self.server_modify)
         self.gui.btn_server_delete.clicked.connect(self.server_delete)
-
+        #
         #Fill the Server dropdown menu
+        #
         def assign_server_values(text):
             self.assign_server_values_text = text
             selection = self.assign_server_values_text
@@ -316,8 +262,9 @@ class maingui(QtWidgets.QWidget):
             self.gui.server_query.setText(sel_queryport)
             self.gui.server_rconport.setText(sel_rconport)
             self.gui.server_rconpw.setText(sel_rconpw)
-
+        #
         #Assign Server variables for Dropdown menu on selection
+        #
         def assign_server_values_list(text):
             self.assign_server_values_list_text = text
             selection = self.assign_server_values_list_text
@@ -343,49 +290,35 @@ class maingui(QtWidgets.QWidget):
             self.gui.entry_rconport.setText(sel_rconport)
             self.gui.entry_rconpw.setText(sel_rconpw)
             self.checkandgoquery()
-
         self.gui.dropdown_server_list.activated[str].connect(assign_server_values)
-
-
-        #Assign custom Commands variables for Dropdown menu
+        #
+        # Assign custom Commands variables for Dropdown menu
+        #
         def assign_custom_commands_values_list(text):
             self.assign_custom_commands_values_list_text = text
             selection = self.assign_custom_commands_values_list_text
             #Handover selected RCON Command
             self.gui.label_rconcommand.setText(selection)
-
         #Connect execution of selected variables with drop down menu select
         self.gui.dropdown_select_server.activated[str].connect(assign_server_values_list)
         self.gui.dropdown_custom_commands.activated[str].connect(assign_custom_commands_values_list)
-
         #Set empty saved indicator for configuration window
         self.gui.label_saving_indicator.clear()
-
         #Call method to define the custom buttons
         self.assign_main_custom_buttons()
-
         #DB Import Buttons and fields
         self.gui.btn_select_database.clicked.connect(lambda: self.DB_import("select_db"))
         self.gui.btn_add_database.clicked.connect(lambda: self.DB_import("add_db"))
         self.gui.btn_replace_database.clicked.connect(lambda: self.DB_import("replace_db"))
-
         #Map and option assignment
         self.gui.dropdown_select_travelscenario.activated[str].connect(self.selected_map_switch)
 
-
-
-
-
-
- 
-
-
-
-
-            
-    '''------------------------------------------------------------------
-    Dropdown Menu Handling
-    ------------------------------------------------------------------'''            
+    '''
+    ------------------------------------------------------------------
+    ------------------------------------------------------------------
+    '''
+    #Dropdown Menu Handling
+    #
     #Fill Dropdown Menue for custom commands from scratch
     def fill_dropdown_custom_command(self):
         self.c.execute("select distinct commands FROM cust_commands")
@@ -402,7 +335,6 @@ class maingui(QtWidgets.QWidget):
         for row in dcust_alias:
             self.gui.list_custom_commands_console.addItems(row)
         self.conn.commit()
-        
     #Fill Dropdown Menue Server Selection and Serverlist plus TableWidget in Server Manager
     def fill_dropdown_server_box(self):
         #Database connection setup
@@ -418,9 +350,7 @@ class maingui(QtWidgets.QWidget):
             self.gui.dropdown_select_server.addItems(row)
             self.gui.dropdown_server_list.addItems(row)
         self.conn.commit()
-
         self.gui.tbl_server_manager.clearSpans()
-
         self.c.execute("SELECT * FROM server")
         self.gui.tbl_server_manager.setRowCount(0)
         self.conn.commit()
@@ -428,7 +358,6 @@ class maingui(QtWidgets.QWidget):
             self.gui.tbl_server_manager.insertRow(row)
             for column, item in enumerate(form):
                 self.gui.tbl_server_manager.setItem(row, column, QtWidgets.QTableWidgetItem(str(item)))  
-
         self.gui.tbl_server_manager.insertRow(0)
         self.gui.tbl_server_manager.setItem(0, 0, QtWidgets.QTableWidgetItem("Alias"))
         self.gui.tbl_server_manager.item(0, 0).setBackground(QtGui.QColor(254,254,254))
@@ -448,7 +377,6 @@ class maingui(QtWidgets.QWidget):
         self.gui.dropdown_select_travelscenario.clear()
         for rowmaps in dm_alias:
             self.gui.dropdown_select_travelscenario.addItems(rowmaps)
-
         if self.mutator_id_list == "None":
             pass
         else:
@@ -460,19 +388,12 @@ class maingui(QtWidgets.QWidget):
                     self.conn.commit()
                     if dm2_alias != None: 
                         self.gui.dropdown_select_travelscenario.addItems(dm2_alias)
-           
-
-
-
-
-
-
-
-
-
-    '''------------------------------------------------------------------
-    Custom Command Handling
-    ------------------------------------------------------------------'''    
+    '''
+    ------------------------------------------------------------------
+    ------------------------------------------------------------------
+    '''
+    #Custom Command Handling
+    #
     #Add custom command manually
     def add_custom_command_manually(self):
         #Check new RCON commands for validity
@@ -499,7 +420,6 @@ class maingui(QtWidgets.QWidget):
                 self.positive_c_command_check = 1
             else:
                 self.positive_c_command_check = 0
-     
         #Check and assign for positive assesment value and insert or throw error
         new__manual_custom_command = self.gui.LE_add_custom_command.text()
         if new__manual_custom_command:
@@ -556,15 +476,10 @@ class maingui(QtWidgets.QWidget):
         self.conn.commit()
         dbconf_cust_strip = dbconf_cust[0]
         #Split Tuple and extract buttons names and commands
-
-        # self.button1_name = (dbconf_cust_strip[0]) 
-        # self.button1_command = (dbconf_cust_strip[1]) 
         self.button2_name = (dbconf_cust_strip[2])
         self.button2_command = (dbconf_cust_strip[3])
         self.button3_name = (dbconf_cust_strip[4])
         self.button3_command = (dbconf_cust_strip[5])
-        # self.button4_name = (dbconf_cust_strip[6])
-        # self.button4_command = (dbconf_cust_strip[7])
         self.button5_name = (dbconf_cust_strip[8])
         self.button5_command = (dbconf_cust_strip[9])
         self.button6_name = (dbconf_cust_strip[10])
@@ -580,14 +495,10 @@ class maingui(QtWidgets.QWidget):
         self.button11_name = (dbconf_cust_strip[20])
         self.button11_command = (dbconf_cust_strip[21])
         #Assign variables (Button names and commands) to custom Buttons
-        #self.gui.btn_main_drcon_listplayers.setText(self.button1_name)
-        #self.gui.btn_main_drcon_listplayers_definition.setText(self.button1_name)
         self.gui.btn_main_drcon_listbans.setText(self.button2_name)
         self.gui.btn_main_drcon_listbans_definition.setText(self.button2_name)
         self.gui.btn_main_drcon_listmaps.setText(self.button3_name)
         self.gui.btn_main_drcon_listmaps_definition.setText(self.button3_name)
-        #self.gui.btn_main_drcon_listscenarios.setText(self.button4_name)
-        #self.gui.btn_main_drcon_listscenarios_definition.setText(self.button4_name)
         self.gui.btn_main_drcon_restartround.setText(self.button5_name)
         self.gui.btn_main_drcon_restartround_definition.setText(self.button5_name)
         self.gui.btn_main_drcon_showgamemode.setText(self.button6_name)
@@ -601,11 +512,8 @@ class maingui(QtWidgets.QWidget):
         self.gui.btn_main_drcon_showroundtime.setText(self.button10_name)
         self.gui.btn_main_drcon_showroundtime_definition.setText(self.button10_name)
         self.gui.btn_main_drcon_help.setText(self.button11_name)
-        #self.gui.btn_main_drcon_help_2definition.setText(self.button11_name)
-        # self.gui.btn_main_drcon_listplayers.clicked.connect(lambda: self.direct_rcon_command(self.button1_command))
         self.gui.btn_main_drcon_listbans.clicked.connect(lambda: self.direct_rcon_command(self.button2_command))
         self.gui.btn_main_drcon_listmaps.clicked.connect(lambda: self.direct_rcon_command(self.button3_command))
-        #self.gui.btn_main_drcon_listscenarios.clicked.connect(lambda: self.direct_rcon_command(self.button4_command))
         self.gui.btn_main_drcon_restartround.clicked.connect(lambda: self.direct_rcon_command(self.button5_command))
         self.gui.btn_main_drcon_showgamemode.clicked.connect(lambda: self.direct_rcon_command(self.button6_command))
         self.gui.btn_main_drcon_showaidiff.clicked.connect(lambda: self.direct_rcon_command(self.button7_command))
@@ -613,18 +521,12 @@ class maingui(QtWidgets.QWidget):
         self.gui.btn_main_drcon_roundlimit.clicked.connect(lambda: self.direct_rcon_command(self.button9_command))
         self.gui.btn_main_drcon_showroundtime.clicked.connect(lambda: self.direct_rcon_command(self.button10_command))
         self.gui.btn_main_drcon_help.clicked.connect(lambda: self.direct_rcon_command(self.button11_command))
-
-
-
-
-
-
-
-
-
-    '''------------------------------------------------------------------
-    Query Handling
-    ------------------------------------------------------------------'''
+    '''
+    ------------------------------------------------------------------
+    ------------------------------------------------------------------
+    '''
+    #Query Handling
+    #
     #Check for the IP and Queryport to be correct in syntax and range and go for the query
     def checkandgoquery(self):
         #Check IP
@@ -632,9 +534,7 @@ class maingui(QtWidgets.QWidget):
         25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
         25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
         25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)$'''
-        
         val_localhost = "127.0.0.1"
-
         if self.gui.entry_ip.text() == val_localhost:
             try:
                 qmsg = QtWidgets.QMessageBox()
@@ -717,12 +617,10 @@ class maingui(QtWidgets.QWidget):
             self.servermodcheck = "Yes"
         else:
             self.servermodcheck = "No"  
-
         if  self.pwcheck == 0:
             self.gui.le_password.setStyleSheet("border-image: url(:/img/img/lock-unlocked.png);")
         else:
             self.gui.le_password.setStyleSheet("border-image: url(:/img/img/lock-locked.png);")
-
         if  self.vaccheck == 0:
             self.servervaccheck = "No"
         else:
@@ -732,22 +630,18 @@ class maingui(QtWidgets.QWidget):
             self.serverrulecheck = "Yes"
         else:
             self.serverrulecheck = "No"
-
         if  self.coop == "true":
             self.servercoopcheck = "Coop"
         else:
             self.servercoopcheck = "Versus"
-        
         if self.servermodcheck == "Yes":
             self.mutatorids = self.serverruledetails['Mutators_s']
         else:
             self.mutatorids = "None"
-        
         if self.day == "true":
             self.lighting_map = "Day"
         else:
             self.lighting_map = "Night"
-
         self.gui.le_servername.setText(str(self.servergamedetails['server_name']))
         self.gui.le_gamemode.setText(str(self.serverruledetails['GameMode_s']) + " (" + str(self.servercoopcheck) + ")")
         self.gui.le_serverip_port.setText(str(self.servernetworkdetails['ip']) + ":" + str(self.servergamedetails['server_port']))
@@ -756,16 +650,15 @@ class maingui(QtWidgets.QWidget):
         self.gui.le_ping.setText(str(self.servernetworkdetails['ping']))
         self.gui.le_map.setText(str(self.servergamedetails['game_map']) + " (" + self.lighting_map + ")")
         self.gui.le_mods.setText(str(self.mutatorids))
-        
         #Creating a list for mutator-IDs to identify installed maps
         check_modlist = self.serverruledetails.get('ModList_s')
         if check_modlist:
             self.mutator_id_list = (self.serverruledetails['ModList_s'].split(','))
         else:
             self.mutator_id_list = "None"
-
-
+        #
         #Create Map View Picture based on running map
+        #
         def assign_map_view_pic(self):
             map_view_pic = str(self.servergamedetails['game_map'])
             self.c.execute("select map_pic FROM map_config WHERE map_alias=:map_view_result", {'map_view_result': map_view_pic})
@@ -799,7 +692,6 @@ class maingui(QtWidgets.QWidget):
                 data_name = ("{Name}".format(**player))
                 data_frags = ("{Frags}".format(**player))
                 data_prettyTime = ("{PrettyTime}".format(**player))
-
                 self.gui.tbl_player_output.insertRow(row)
                 self.gui.tbl_player_output.setItem(row, 0, QtWidgets.QTableWidgetItem(data_id))
                 self.gui.tbl_player_output.setItem(row, 1, QtWidgets.QTableWidgetItem(data_name))
@@ -808,28 +700,19 @@ class maingui(QtWidgets.QWidget):
                 row = row + 1
         else:
             self.gui.label_output_window.setText("No Players online")
-
-
-
-
-
-
-
-
-
-
-    '''------------------------------------------------------------------
-    RCON Handling
-    ------------------------------------------------------------------'''
+    '''
+    ------------------------------------------------------------------
+    ------------------------------------------------------------------
+    '''
+    #RCON Handling
+    #
     #Map Changer Preparation - Selector
     def selected_map_switch(self):
         self.selected_map = self.gui.dropdown_select_travelscenario.currentText()
-
         self.c.execute("select map_alias FROM map_config WHERE map_name=:var_selected_map", {'var_selected_map': self.selected_map})
         dsma_alias = self.c.fetchone()
         self.conn.commit() 
         var_selected_map = (dsma_alias[0])
-
         self.c.execute("select * from map_modes where map_alias=:varselmap", {'varselmap': var_selected_map})        
         dsmam_alias = self.c.fetchall()
         self.conn.commit()
@@ -848,57 +731,39 @@ class maingui(QtWidgets.QWidget):
         var_pu_ins = dsmam_list[12]
         var_ski = dsmam_list[13]
         var_tdm = dsmam_list[14]
-
         self.gui.dropdown_select_lighting.clear()
         self.gui.dropdown_select_gamemode.clear()
-
         if var_dn == 10:
             self.gui.dropdown_select_lighting.addItem("Day")
         else:
             var_dn_list = ("Day", "Night")
             self.gui.dropdown_select_lighting.addItems(var_dn_list)
-            
-
         if var_cp == 1:
             self.gui.dropdown_select_gamemode.addItem("CheckPoint Security")
-        
         if var_cp_ins == 1:
             self.gui.dropdown_select_gamemode.addItem("CheckPoint Insurgents")
-
         if var_cphc == 1:
             self.gui.dropdown_select_gamemode.addItem("CheckPoint Hardcore Security")
-
         if var_cphc_ins == 1:
             self.gui.dropdown_select_gamemode.addItem("CheckPoint Hardcore Insurgents")
-
         if var_dom == 1:
             self.gui.dropdown_select_gamemode.addItem("Domination")
-
         if var_ffe == 1:
             self.gui.dropdown_select_gamemode.addItem("Firefight East")
-
         if var_ffw == 1:
             self.gui.dropdown_select_gamemode.addItem("Firefight West")
-
         if var_fl == 1:
             self.gui.dropdown_select_gamemode.addItem("Frontline")
-
         if var_op == 1:
             self.gui.dropdown_select_gamemode.addItem("Outpost")
-
         if var_pu == 1:
             self.gui.dropdown_select_gamemode.addItem("Push Security")
-
         if var_pu_ins == 1:
             self.gui.dropdown_select_gamemode.addItem("Push Insurgents")
-
         if var_ski == 1:
             self.gui.dropdown_select_gamemode.addItem("Skirmish")
-
         if var_tdm == 1:
             self.gui.dropdown_select_gamemode.addItem("TeamDeathMatch")
-
-        
         self.gui.dropdown_select_gamemode.setCurrentText("CheckPoint Hardcore Security")
         self.gui.dropdown_select_lighting.setCurrentText("Day")
     #Mapchanger
@@ -907,7 +772,6 @@ class maingui(QtWidgets.QWidget):
         val_map = self.gui.dropdown_select_travelscenario.currentText()
         val_gamemode = self.gui.dropdown_select_gamemode.currentText()
         val_light = self.gui.dropdown_select_lighting.currentText()
-
         if val_gamemode == "CheckPoint Security":
             val_gamemode = "checkpoint"
         elif val_gamemode == "CheckPoint Insurgents":
@@ -934,9 +798,6 @@ class maingui(QtWidgets.QWidget):
             val_gamemode = "skirmish"
         elif val_gamemode == "TeamDeathMatch":
             val_gamemode = "teamdeathmath"
-
-
-
         if val_map.startswith("Select") or val_map.startswith("---"):
             self.gui.label_output_window.setText("This is not a valid map, please chose one first!")
         else:
@@ -948,14 +809,11 @@ class maingui(QtWidgets.QWidget):
             val_travel_alias = self.c.fetchone()
             val_travel_alias_result = (str(val_travel_alias[0]))
             self.conn.commit()
-
             command = ("travel " + val_map_alias_result + "?Scenario=" + val_travel_alias_result + "?Lighting=" + val_light + "?game=" + val_gamemode)
-
             if command:
                 self.gui.label_rconcommand.setText(command)
             else:
                 self.gui.label_output_window.setText("Something went wrong with the Travel command, please check above and report it!")  
-            
             self.checkandgorcon()
             self.checkandgoquery()
             self.gui.progressbar_map_changer.setProperty("value", 0)
@@ -974,15 +832,11 @@ class maingui(QtWidgets.QWidget):
         25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
         25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
         25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)$'''
-
         command_check = self.gui.label_rconcommand.text()
-
         save_command_check = None
         #Save commands while hitting Submit
         save_command_check = 1
-
         val_localhost = "127.0.0.1"
-
         if self.gui.entry_ip.text() == val_localhost:
             self.gui.label_output_window.setText("Due to a Windows connection problem, 127.0.0.1 cannot be used currently, please use your LAN IP-Address!")
         else:    
@@ -1056,14 +910,12 @@ class maingui(QtWidgets.QWidget):
                 self.direct_rcon_command(saycommand)
         else:
             self.gui.label_output_window.setText("You have to enter an IP-address and an RCON Port at least!")
-
-
-
-
-
-    '''------------------------------------------------------------------
-    Server Manager
-    ------------------------------------------------------------------'''
+    '''
+    ------------------------------------------------------------------
+    ------------------------------------------------------------------
+    '''
+    #Server Manager
+    #
     #Add a server to DB
     def server_add(self):
         val_alias = self.gui.server_alias.text()
@@ -1071,15 +923,12 @@ class maingui(QtWidgets.QWidget):
         val_queryport = self.gui.server_query.text()
         val_rconport = self.gui.server_rconport.text()
         val_rconpw = self.gui.server_rconpw.text()
-
         go_addserver_check = 0
-
         #Check IP
         self.regexip = r'''^(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
         25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
         25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
         25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)$'''
-
         self.regexport = r'''^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$'''
 
         if val_alias and val_ipaddress and val_queryport:
@@ -1093,28 +942,21 @@ class maingui(QtWidgets.QWidget):
         else:
             self.gui.label_db_console.setText(val_ipaddress + " is no valid IP address - please check and retry!")
             go_addserver_ipcheck = 0
-
-
         if val_queryport and (re.search(self.regexport, val_queryport)):
             go_addserver_qpcheck = 1
         else:
             self.gui.label_db_console.setText(val_queryport + " is no valid Query Port - please check and retry!")
             go_addserver_qpcheck = 0
-
-
         if val_rconport:
             if (re.search(self.regexport, val_rconport)):
                 pass
             else:
                 self.gui.label_db_console.setText(val_rconport + " is no valid RCON Port - please check and retry!")
                 go_addserver_check = 0
-
-
         self.c.execute("select alias FROM server")
         check_alias = self.c.fetchall()
         self.conn.commit()
         nogocheck = 1                
-
         for check in check_alias:
             for item in check:
                 if item and val_alias == item:
@@ -1123,7 +965,6 @@ class maingui(QtWidgets.QWidget):
                     nogocheck = 0
                 else:
                     nogocheck = 1
-
         if go_addserver_check == 1 and nogocheck == 1 and go_addserver_ipcheck == 1 and go_addserver_qpcheck == 1:
             try:
                
@@ -1132,9 +973,8 @@ class maingui(QtWidgets.QWidget):
                 self.gui.label_db_console.append("Server inserted successfully into database")
             except sqlite3.Error as error:
                 self.gui.label_db_console.append("Failed to insert server into database " + str(error))
-
         self.fill_dropdown_server_box()
-   #Add a server to DB
+    #Add a server to DB
     def server_add_main(self):
         self.gui.label_output_window.setStyleSheet("border-image:url(:/img/img/rcon-bck.jpg);\n")
         transferalias = self.gui.dropdown_select_server.currentText()
@@ -1142,19 +982,15 @@ class maingui(QtWidgets.QWidget):
         transferqport = self.gui.entry_queryport.text()
         transferrport = self.gui.entry_rconport.text()
         transferrpw = self.gui.entry_rconpw.text()
-
         #Check IP
         self.regextransip = r'''^(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
         25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
         25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
         25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)$'''
-
         self.regextransport = r'''^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$'''
-
         go_addserver_check = 0
         go_addserver_ipcheck = 0
         go_addserver_qpcheck = 0
-
         if transferip and transferqport:
             go_addserver_check = 1
             if transferip and (re.search(self.regextransip, transferip)):  
@@ -1181,13 +1017,10 @@ class maingui(QtWidgets.QWidget):
         else:
             self.gui.label_output_window.append("At least IP-Adress and Query Port have to contain a value!")
             go_addserver_check = 0
-
-        
         if go_addserver_check == 1 and  go_addserver_ipcheck == 1 and go_addserver_qpcheck == 1:
             self.gui.TabWidget_Main_overall.setCurrentWidget(self.gui.Tab_Server)
             if transferalias == "Select Server":
                 transferalias = ""
-
             self.gui.server_alias.setText(transferalias)
             self.gui.server_ip.setText(transferip)
             self.gui.server_query.setText(transferqport)
@@ -1200,58 +1033,43 @@ class maingui(QtWidgets.QWidget):
         val_queryport = self.gui.server_query.text()
         val_rconport = self.gui.server_rconport.text()
         val_rconpw = self.gui.server_rconpw.text()
-
         self.c.execute("select alias FROM server")
         check_m_alias = self.c.fetchall()
         self.conn.commit()
         go2check = 1
         nogo2check = 0
-
         for check2 in check_m_alias:
             for item2 in check2:
                 if val_alias == item2:
                     go2check = 1
                 else:
                     nogo2check = 0
-
-
         if go2check == 1 and nogo2check == 0:
             if val_ipaddress and val_queryport and val_alias:
-                try:
-                                
+                try:        
                     self.c.execute("UPDATE server SET ipaddress=:ipaddress, queryport=:queryport, rconport=:rconport, rconpw=:rconpw WHERE alias=:alias", {'ipaddress': val_ipaddress, 'queryport': val_queryport, 'rconport': val_rconport, 'rconpw': val_rconpw, 'alias': val_alias})
-
                     self.conn.commit()
                     self.gui.label_db_console.append("Server updated successfully in database")
-
-
                 except sqlite3.Error as error:
-                    self.gui.label_db_console.append("Failed to update server in database " + str(error))
-                        
+                    self.gui.label_db_console.append("Failed to update server in database " + str(error))     
             else:
                 self.gui.label_db_console.append("At least Alias, IP-Adress and Query Port have to contain a value!")
         else:
             self.gui.label_db_console.append("Update not possible, Server does not exist in Database - try to add it first!")
-
         self.fill_dropdown_server_box()
     #Delete a Server from DB
     def server_delete(self):
         val_alias = self.gui.server_alias.text()
-
         if val_alias:
             try:
                 self.c.execute("DELETE FROM server WHERE alias=:alias", {'alias': val_alias})
                 self.conn.commit()
                 self.gui.label_db_console.append("Record deleted successfully from database")
-
             except sqlite3.Error as error:
                 self.gui.label_db_console.append("Failed to delete data from database " + str(error))
                 pass
-
         else:
             self.gui.label_db_console.append("At least Alias has to contain a value!")
-
-
         self.fill_dropdown_server_box()
     #Import Database Routines
     def DB_import(self, db_action):
@@ -1262,7 +1080,6 @@ class maingui(QtWidgets.QWidget):
         elif db_action == 'add_db':
             if self.data_path and self.data_path[0].endswith(".db"):
                 self.gui.label_db_console.setText("Adding Server from " + self.data_path[0] + " to current database")
-
                 #Database connection setup for Importing
                 dbimportdir = self.data_path[0]
                 connimport = sqlite3.connect(dbimportdir)
@@ -1278,14 +1095,12 @@ class maingui(QtWidgets.QWidget):
                     import_server_rconpw = import_result[4]
                     self.c.execute("INSERT INTO server VALUES (:alias, :ipaddress, :queryport, :rconport, :rconpw)", {'alias': import_server_alias, 'ipaddress': import_server_ip, 'queryport': import_server_queryport, 'rconport': import_server_rconport, 'rconpw': import_server_rconpw})
                     self.conn.commit()
-                    
                 self.gui.label_db_console.setText("Added Server from " + self.data_path[0] + " to current database")
             else:
                 self.gui.label_db_console.setText("Please select a database first!")
         elif db_action == 'replace_db':
             if self.data_path and self.data_path[0].endswith(".db"):
                 self.gui.label_db_console.setText("Replacing Server from " + self.data_path[0] + " in current database")
-
                 #Database connection setup for Importing
                 dbimportdir = self.data_path[0]
                 connimport = sqlite3.connect(dbimportdir)
@@ -1293,7 +1108,9 @@ class maingui(QtWidgets.QWidget):
                 cidb.execute("select * FROM server")
                 dbimport_result = cidb.fetchall()
                 connimport.commit()
-
+                #
+                #Show Import Dialog
+                #
                 def showImport_Dialog():
                     msgBox = QtWidgets.QMessageBox()
                     msgBox.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
@@ -1304,7 +1121,9 @@ class maingui(QtWidgets.QWidget):
                     msgBox.setDefaultButton(QtWidgets.QMessageBox.No)
                     msgBox.buttonClicked.connect(delete_and_import_db)
                     msgBox.exec()
-
+                #
+                #Delete All and replace
+                #
                 def delete_and_import_db(i):
                     if i.text() == "&Yes":
                         self.c.execute("DELETE FROM server")
@@ -1316,22 +1135,16 @@ class maingui(QtWidgets.QWidget):
                             import_server_rconport = import_result[3]
                             import_server_rconpw = import_result[4]
                             self.c.execute("INSERT INTO server VALUES (:alias, :ipaddress, :queryport, :rconport, :rconpw)", {'alias': import_server_alias, 'ipaddress': import_server_ip, 'queryport': import_server_queryport, 'rconport': import_server_rconport, 'rconpw': import_server_rconpw})
-                            
                         self.conn.commit()
                         self.gui.label_db_console.setText("Replaced Server from " + self.data_path[0] + " in current database")
                         self.gui.label_selected_db.clear()
-
                     else:
                         self.gui.label_db_console.setText("Import canceled!")
                         self.gui.label_selected_db.clear()
-
-
                 showImport_Dialog()
                 self.data_path = ''
-
             else:
                 self.gui.label_db_console.setText("Please select a database first!")
-        
         self.fill_dropdown_server_box()
     #Backup current Server-DB
     def create_db_backup(self):
@@ -1343,17 +1156,12 @@ class maingui(QtWidgets.QWidget):
         copy2(str(db_source_filename), str(db_backup_filename))
         dbb_filename = db_backup_filename.replace("\\", "/")
         self.gui.label_db_console.setText("Backup created at: \n" + dbb_filename)
-
-
-
-
-
-
-
-
-    '''------------------------------------------------------------------
-    Exit App and special Handling Routines
-    ------------------------------------------------------------------'''
+    '''
+    ------------------------------------------------------------------
+    ------------------------------------------------------------------
+    '''
+    #Exit App and special Handling Routines
+    #
     #Check status of configuration of refresh trigger
     def get_configuration_from_DB_and_set_settings(self):
         self.c.execute('''select btn1_name, btn1_command, 
@@ -1371,14 +1179,10 @@ class maingui(QtWidgets.QWidget):
         dbbutton_conf = self.c.fetchall()
         self.conn.commit()
         dbbutton_conf_strip = dbbutton_conf[0]
-        #self.gui.label_button_name_1.setText(dbbutton_conf_strip[0])
-        #self.gui.label_command_button_1.setText(dbbutton_conf_strip[1])
         self.gui.label_button_name_2.setText(dbbutton_conf_strip[2])
         self.gui.label_command_button_2.setText(dbbutton_conf_strip[3])
         self.gui.label_button_name_3.setText(dbbutton_conf_strip[4])
         self.gui.label_command_button_3.setText(dbbutton_conf_strip[5])
-        #self.gui.label_button_name_4.setText(dbbutton_conf_strip[6])
-        #self.gui.label_command_button_4.setText(dbbutton_conf_strip[7])
         self.gui.label_button_name_5.setText(dbbutton_conf_strip[8])
         self.gui.label_command_button_5.setText(dbbutton_conf_strip[9])
         self.gui.label_button_name_6.setText(dbbutton_conf_strip[10])
@@ -1391,8 +1195,6 @@ class maingui(QtWidgets.QWidget):
         self.gui.label_command_button_9.setText(dbbutton_conf_strip[17])
         self.gui.label_button_name_10.setText(dbbutton_conf_strip[18])
         self.gui.label_command_button_10.setText(dbbutton_conf_strip[19])
-        #self.gui.label_button_name_11.setText(dbbutton_conf_strip[20])
-        #self.gui.label_command_button_11.setText(dbbutton_conf_strip[21])
         self.c.execute("select quitbox from configuration")
         quitbox_setting = self.c.fetchone()
         self.conn.commit()
@@ -1410,14 +1212,10 @@ class maingui(QtWidgets.QWidget):
     #Save changed settings
     def save_settings(self):
         #Assign new vairbales for check and update
-        #new_btn1_name_var = self.gui.label_button_name_1.text()
-        #new_btn1_command_var = self.gui.label_command_button_1.text()
         new_btn2_name_var = self.gui.label_button_name_2.text()
         new_btn2_command_var = self.gui.label_command_button_2.text()
         new_btn3_name_var = self.gui.label_button_name_3.text()
         new_btn3_command_var = self.gui.label_command_button_3.text()
-        #new_btn4_name_var = self.gui.label_button_name_4.text()
-        #new_btn4_command_var = self.gui.label_command_button_4.text()
         new_btn5_name_var = self.gui.label_button_name_5.text()
         new_btn5_command_var = self.gui.label_command_button_5.text()
         new_btn6_name_var = self.gui.label_button_name_6.text()
@@ -1430,10 +1228,9 @@ class maingui(QtWidgets.QWidget):
         new_btn9_command_var = self.gui.label_command_button_9.text()
         new_btn10_name_var = self.gui.label_button_name_10.text()
         new_btn10_command_var = self.gui.label_command_button_10.text()
-        #new_btn11_name_var = self.gui.label_button_name_11.text()
-        #new_btn11_command_var = self.gui.label_command_button_11.text()
-        
+        #
         #Check new RCON commands for validity
+        #
         def assess_command_var(new_button_command):
             self.positive_command_check = 0
             if (new_button_command.startswith("exit") or 
@@ -1457,32 +1254,6 @@ class maingui(QtWidgets.QWidget):
                 self.positive_command_check = 1
             else:
                 self.positive_command_check = 0
-        
-        # #Check and update new Button 1 name
-        # if new_btn1_name_var and self.button1_name != new_btn1_name_var:
-        #     self.c.execute("UPDATE configuration SET btn1_name=:btn1name", {'btn1name': new_btn1_name_var})
-        #     self.conn.commit()
-        #     self.button1_name = new_btn1_name_var
-        #     self.gui.btn_main_drcon_listplayers.setText(new_btn1_name_var)
-        #     self.gui.btn_main_drcon_listplayers_definition.setText(new_btn1_name_var)
-        #     self.gui.label_saving_indicator.setText("Saved!")
-        # #Check and update new Button 1 command
-        # if new_btn1_command_var and self.button1_command != new_btn1_command_var:
-        #     new_button_command = new_btn1_command_var
-        #     assess_command_var(new_button_command)
-        #     if self.positive_command_check == 1:
-        #         self.c.execute("UPDATE configuration SET btn1_command=:btn1command", {'btn1command': new_btn1_command_var})
-        #         self.conn.commit()
-        #         self.button1_command = new_btn1_command_var
-        #         self.gui.label_saving_indicator.setText("Saved!")
-        #     else:
-        #         msg = QtWidgets.QMessageBox()
-        #         msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
-        #         msg.setIcon(QtWidgets.QMessageBox.Critical)
-        #         msg.setWindowTitle("ISRT Error Message")
-        #         msg.setText(f"Something went wrong: \n\n {new_btn1_command_var} is no valid RCON command for Button 1! \n\n Please try again!")
-        #         msg.exec_()
-
         #Check and update new Button 2 name
         if new_btn2_name_var and self.button2_name != new_btn2_name_var:
             self.c.execute("UPDATE configuration SET btn2_name=:btn2name", {'btn2name': new_btn2_name_var})
@@ -1507,7 +1278,6 @@ class maingui(QtWidgets.QWidget):
                 msg.setWindowTitle("ISRT Error Message")
                 msg.setText(f"Something went wrong: \n\n {new_btn2_command_var} is no valid RCON command for Button 2! \n\n Please try again!")
                 msg.exec_()    
-
         #Check and update new Button 3 name
         if new_btn3_name_var and self.button3_name != new_btn3_name_var:
             self.c.execute("UPDATE configuration SET btn3_name=:btn3name", {'btn3name': new_btn3_name_var})
@@ -1532,32 +1302,6 @@ class maingui(QtWidgets.QWidget):
                 msg.setWindowTitle("ISRT Error Message")
                 msg.setText(f"Something went wrong: \n\n {new_btn3_command_var} is no valid RCON command for Button 3! \n\n Please try again!")
                 msg.exec_()  
-
-        # #Check and update new Button 4 name
-        # if new_btn4_name_var and self.button4_name != new_btn4_name_var:
-        #     self.c.execute("UPDATE configuration SET btn4_name=:btn4name", {'btn4name': new_btn4_name_var})
-        #     self.conn.commit()
-        #     self.button4_name = new_btn4_name_var
-        #     self.gui.btn_main_drcon_listscenarios.setText(new_btn4_name_var)
-        #     self.gui.btn_main_drcon_listscenarios_definition.setText(new_btn4_name_var)
-        #     self.gui.label_saving_indicator.setText("Saved!")
-        # #Check and update new Button 4 command
-        # if new_btn4_command_var and self.button4_command != new_btn4_command_var:
-        #     new_button_command = new_btn4_command_var
-        #     assess_command_var(new_button_command)
-        #     if self.positive_command_check == 1:
-        #         self.c.execute("UPDATE configuration SET btn4_command=:btn4command", {'btn4command': new_btn4_command_var})
-        #         self.conn.commit()
-        #         self.button4_command = new_btn4_command_var
-        #         self.gui.label_saving_indicator.setText("Saved!")
-        #     else:
-        #         msg = QtWidgets.QMessageBox()
-        #         msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
-        #         msg.setIcon(QtWidgets.QMessageBox.Critical)
-        #         msg.setWindowTitle("ISRT Error Message")
-        #         msg.setText(f"Something went wrong: \n\n {new_btn4_command_var} is no valid RCON command for Button 4! \n\n Please try again!")
-        #         msg.exec_()  
-
         #Check and update new Button 5 name
         if new_btn5_name_var and self.button5_name != new_btn5_name_var:
             self.c.execute("UPDATE configuration SET btn5_name=:btn5name", {'btn5name': new_btn5_name_var})
@@ -1582,7 +1326,6 @@ class maingui(QtWidgets.QWidget):
                 msg.setWindowTitle("ISRT Error Message")
                 msg.setText(f"Something went wrong: \n\n {new_btn5_command_var} is no valid RCON command for Button 5! \n\n Please try again!")
                 msg.exec_()  
-
         #Check and update new Button 6 name
         if new_btn6_name_var and self.button6_name != new_btn6_name_var:
             self.c.execute("UPDATE configuration SET btn6_name=:btn6name", {'btn6name': new_btn6_name_var})
@@ -1607,7 +1350,6 @@ class maingui(QtWidgets.QWidget):
                 msg.setWindowTitle("ISRT Error Message")
                 msg.setText(f"Something went wrong: \n\n {new_btn6_command_var} is no valid RCON command for Button 6! \n\n Please try again!")
                 msg.exec_()  
-
         #Check and update new Button 7 name
         if new_btn7_name_var and self.button7_name != new_btn7_name_var:
             self.c.execute("UPDATE configuration SET btn7_name=:btn7name", {'btn7name': new_btn7_name_var})
@@ -1632,7 +1374,6 @@ class maingui(QtWidgets.QWidget):
                 msg.setWindowTitle("ISRT Error Message")
                 msg.setText(f"Something went wrong: \n\n {new_btn7_command_var} is no valid RCON command for Button 7! \n\n Please try again!")
                 msg.exec_()  
-
         #Check and update new Button 8 name
         if new_btn8_name_var and self.button8_name != new_btn8_name_var:
             self.c.execute("UPDATE configuration SET btn8_name=:btn8name", {'btn8name': new_btn8_name_var})
@@ -1657,7 +1398,6 @@ class maingui(QtWidgets.QWidget):
                 msg.setWindowTitle("ISRT Error Message")
                 msg.setText(f"Something went wrong: \n\n {new_btn8_command_var} is no valid RCON command for Button 8! \n\n Please try again!")
                 msg.exec_()  
-
         #Check and update new Button 9 name
         if new_btn9_name_var and self.button9_name != new_btn9_name_var:
             self.c.execute("UPDATE configuration SET btn9_name=:btn9name", {'btn9name': new_btn9_name_var})
@@ -1682,7 +1422,6 @@ class maingui(QtWidgets.QWidget):
                 msg.setWindowTitle("ISRT Error Message")
                 msg.setText(f"Something went wrong: \n\n {new_btn9_command_var} is no valid RCON command for Button 9! \n\n Please try again!")
                 msg.exec_()  
-
         #Check and update new Button 10 name
         if new_btn10_name_var and self.button10_name != new_btn10_name_var:
             self.c.execute("UPDATE configuration SET btn10_name=:btn10name", {'btn10name': new_btn10_name_var})
@@ -1707,31 +1446,6 @@ class maingui(QtWidgets.QWidget):
                 msg.setWindowTitle("ISRT Error Message")
                 msg.setText(f"Something went wrong: \n\n {new_btn10_command_var} is no valid RCON command for Button 10! \n\n Please try again!")
                 msg.exec_()  
-
-        # #Check and update new Button 11 name
-        # if new_btn11_name_var and self.button11_name != new_btn11_name_var:
-        #     self.c.execute("UPDATE configuration SET btn11_name=:btn11name", {'btn11name': new_btn11_name_var})
-        #     self.conn.commit()
-        #     self.button11_name = new_btn11_name_var
-        #     self.gui.btn_main_drcon_help.setText(new_btn11_name_var)
-        #     self.gui.btn_main_drcon_help_2definition.setText(new_btn11_name_var)
-        #     self.gui.label_saving_indicator.setText("Saved!")
-        # #Check and update new Button 11 command
-        # if new_btn11_command_var and self.button11_command != new_btn11_command_var:
-        #     new_button_command = new_btn11_command_var
-        #     assess_command_var(new_button_command)
-        #     if self.positive_command_check == 1:
-        #         self.c.execute("UPDATE configuration SET btn11_command=:btn11command", {'btn11command': new_btn11_command_var})
-        #         self.conn.commit()
-        #         self.button11_command = new_btn11_command_var
-        #         self.gui.label_saving_indicator.setText("Saved!")
-        #     else:
-        #         msg = QtWidgets.QMessageBox()
-        #         msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
-        #         msg.setIcon(QtWidgets.QMessageBox.Critical)
-        #         msg.setWindowTitle("ISRT Error Message")
-        #         msg.setText(f"Something went wrong: \n\n {new_btn11_command_var} is no valid RCON command for Button 11! \n\n Please try again!")
-        #         msg.exec_()  
         #Refresh the Settings in clicking save!
         self.c.execute("select quitbox from configuration")
         self.conn.commit()
@@ -1748,7 +1462,6 @@ class maingui(QtWidgets.QWidget):
                 self.c.execute("UPDATE configuration SET quitbox=0")
                 self.conn.commit()
             self.gui.label_saving_indicator.setText("Saved!")
-
         self.c.execute("select check_updates from configuration")
         self.conn.commit()
         update_result = self.c.fetchone()
@@ -1764,13 +1477,6 @@ class maingui(QtWidgets.QWidget):
                 self.c.execute("UPDATE configuration SET check_updates=0")
                 self.conn.commit()
             self.gui.label_saving_indicator.setText("Saved!")
-
-
-
-
-
-
-
         self.get_configuration_from_DB_and_set_settings()
     #Copy2Clipboard
     def copy2clipboard(self):
@@ -1791,52 +1497,38 @@ class maingui(QtWidgets.QWidget):
         else:
             self.conn.close() 
             self.close()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#
+    '''
+    ------------------------------------------------------------------
+    ------------------------------------------------------------------
+    '''
 #Main program
 #
 #Call program class
-#
-
 if __name__ == "__main__":
-
     #Database connection setup
     dbdir = Path(__file__).absolute().parent
     conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
     c = conn.cursor()
+    #Grep Startcounter
     c.execute("select startcounter from configuration")
     startc = c.fetchone()
     conn.commit()
     startcounter = startc[0]
+    #Grep Client ID
     c.execute("select client_id from configuration")
     client = c.fetchone()
     conn.commit()
     client_id = client[0]
+    #Grep current version
     c.execute("select version from configuration")
     current_ver = c.fetchone()
     current_version = str(current_ver[0])
     conn.commit
-    
+    #Set runchecker as fallback
     runcheck = 1
+    #Set list for running proccesses
     runlist = []
-    
-    #Decide if self-restart is okay and exempted from runcheck
+    #Decide if self-restart is okay at first start and exempted from runcheck
     if startcounter <= 2:
         new_startcounter = 1
         c.execute("update configuration set startcounter=:newstartcounter", {'newstartcounter': new_startcounter})
@@ -1850,7 +1542,6 @@ if __name__ == "__main__":
             client_id = client_id_new
             register = f'http://www.isrt.info/version/register.php?clientid={client_id}'
             register_post = requests.post(register)
-
     else:
         for pid in psutil.pids():
             try:
@@ -1859,14 +1550,10 @@ if __name__ == "__main__":
                 pass
             if p.name().startswith("isrt.exe"):
                 runlist.append(p.name())
-        
         runcounter = len(runlist)
         if runcounter >= 2:
             runcheck = 0
-        else:
-            pass
-
-
+    #Check if App may run
     if runcheck == 1:
         #Initialize GUIs
         app = QtWidgets.QApplication(sys.argv)
@@ -1875,25 +1562,22 @@ if __name__ == "__main__":
         db_window = QtWidgets.QWidget()
         mgui = maingui()
         mgui.show()
-
         #Check for Check_updates?
         c.execute("select check_updates from configuration")
         check_updates_ok = c.fetchone()
         conn.commit
-        
+        #Check for Updates if configuration allows it
         if check_updates_ok[0] == 1:
             r = urllib.request.urlopen("http://www.isrt.info/version/version_check.txt")
             for line in r.readlines():
                 line = line.decode("utf-8")
                 line = line.strip('\n')
                 new_version = line
-
             if new_version:
                 pass
             else:
                 new_version = current_version
-
-
+            #If new version available show Messagebox
             if check_updates_ok[0] == 1 and new_version != current_version:
                 def open_website():
                     os.system(f'start %windir%\\explorer.exe "https://www.isrt.info/?page_id=50"')
@@ -1906,40 +1590,32 @@ if __name__ == "__main__":
                 download_button = updatemsg.addButton("Download", updatemsg.ActionRole)
                 download_button.clicked.connect(open_website)
                 updatemsg.addButton(updatemsg.Ok)
-                updatemsg.exec_()
-            else:
-                pass
-        else:
-            pass
-        
-        #Release Notes Viewer
+                updatemsg.exec_()       
+        #Release Notes Viewer - check if okay
         c.execute("SELECT show_rn FROM configuration")
         show_rn = c.fetchone()
         conn.commit()
+        #Check if importer must run
         c.execute("Select import from configuration")
         show_importer = c.fetchone()
         conn.commit()
         conn.close()
-
         #Check if DB Importer shall be shown or not
         if show_importer[0] == 1:
             db_gui = dbgui()
             db_gui.show()
         else:
             pass
-       
         #Check if Release Notes shall be shown or not
         if show_rn[0] == 1:
             rngui = rngui()
             rngui.show()
         else:
             pass
-
         #Restart on first DB-Import
         def restart_program():
             python = sys.executable
             os.execl(python, python, * sys.argv)    
-
         sys.exit(app.exec_())
     else:
         #Show Error that app is already running
@@ -1950,6 +1626,3 @@ if __name__ == "__main__":
         msg.setWindowTitle("ISRT Error Message")
         msg.setText("ISRT is already running - exiting!")
         msg.exec_()
-        
- 
-
