@@ -8,9 +8,9 @@ Report any bug or feature/change requests here or send me an e-mail/steam messag
 ### For Installation How-to, common problems, issue reporting, commands and the general usage, visit the Wiki pages via the link below: 
 https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/wiki
 
-<center><img src="http://src.isrt.info/isrt_v0.7.jpg"></center>
+<center><img src="http://src.isrt.info/isrt_v0.7-1.jpg"></center>
 
-<center><img src="http://src.isrt.info/isrt_v0.7-2.jpg" width="863"></center>
+<center><img src="http://src.isrt.info/isrt_v0.7-2.jpg"></center>
 
 #### Status: Slowly reaching end of development phase - still open for all ideas
 
