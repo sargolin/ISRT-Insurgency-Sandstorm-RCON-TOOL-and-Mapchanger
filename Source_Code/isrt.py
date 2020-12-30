@@ -166,7 +166,7 @@ class maingui(QtWidgets.QWidget):
         self.gui.btn_main_drcon_changemap.clicked.connect(self.map_changer)
         self.gui.btn_add_cust_command.clicked.connect(self.add_custom_command_manually)
         self.gui.btn_exec_db_backup.clicked.connect(self.create_db_backup)
-        self.gui.btn_main_add_server_db.clicked.connect(self.server_add_main)
+        self.gui.btn_main_add_server_db.clicked.connect(self.add_server_directly)
         #Set client id
         self.c.execute("select client_id from configuration")
         client = self.c.fetchone()
@@ -945,7 +945,6 @@ class maingui(QtWidgets.QWidget):
                     nogocheck = 1
         if go_addserver_check == 1 and nogocheck == 1 and go_addserver_ipcheck == 1 and go_addserver_qpcheck == 1:
             try:
-               
                 self.c.execute("INSERT INTO server VALUES (:alias, :ipaddress, :queryport, :rconport, :rconpw)", {'alias': val_alias, 'ipaddress': val_ipaddress, 'queryport': val_queryport, 'rconport': val_rconport, 'rconpw': val_rconpw})
                 self.conn.commit()
                 self.gui.label_db_console.append("Server inserted successfully into database")
@@ -1134,6 +1133,79 @@ class maingui(QtWidgets.QWidget):
         copy2(str(db_source_filename), str(db_backup_filename))
         dbb_filename = db_backup_filename.replace("\\", "/")
         self.gui.label_db_console.setText("Backup created at: \n" + dbb_filename)
+        #Add a server to DB
+    def add_server_directly(self):
+        #self.gui.label_output_window.setStyleSheet("border-image:url(:/img/img/rcon-bck.jpg);\n")
+        asd_transferip = self.gui.entry_ip.text()
+        asd_transferqport = self.gui.entry_queryport.text()
+        asd_transferrport = self.gui.entry_rconport.text()
+        asd_transferrpw = self.gui.entry_rconpw.text()
+        #Check IP
+        self.asd_regextransip = r'''^(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)$'''
+        self.asd_regextransport = r'''^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$'''
+        go_addserver_check = 0
+        go_addserver_ipcheck = 0
+        go_addserver_qpcheck = 0
+        if asd_transferip and asd_transferqport:
+            go_addserver_check = 1
+            if asd_transferip and (re.search(self.asd_regextransip, asd_transferip)):  
+                go_addserver_ipcheck = 1
+                if asd_transferqport and (re.search(self.asd_regextransport, asd_transferqport)):
+                    go_addserver_qpcheck = 1
+                    if asd_transferqport and (re.search(self.asd_regextransport, asd_transferqport)):
+                        go_addserver_qpcheck = 1
+                        if asd_transferrport:
+                            if (re.search(self.asd_regextransport, asd_transferrport)):
+                                pass
+                            else:
+                                self.gui.label_output_window.append("You entered no valid RCON Port - please check and retry!")
+                                go_addserver_check = 0
+                    else:
+                        self.gui.label_output_window.append("You entered no valid Query Port - please check and retry!")
+                        go_addserver_qpcheck = 0
+                else:
+                    self.gui.label_output_window.append("You entered no valid Query Port - please check and retry!")
+                    go_addserver_qpcheck = 0
+            else:
+                self.gui.label_output_window.append("You entered no valid IP address - please check and retry!")
+                go_addserver_ipcheck = 0
+        else:
+            self.gui.label_output_window.append("At least IP-Adress and Query Port have to contain a value!")
+            go_addserver_check = 0
+        if go_addserver_check == 1 and  go_addserver_ipcheck == 1 and go_addserver_qpcheck == 1:
+            asd_alias = None
+            try:
+                asd_server = query.Query(asd_transferip, asd_transferqport)
+                asd_serverinfo = (asd_server.info())
+                asd_servergamedetails = (asd_serverinfo['info'])
+                asd_alias = (asd_servergamedetails['server_name'])
+                if asd_alias:
+                    if asd_transferip and asd_transferqport:
+                        self.c.execute("INSERT INTO server VALUES (:alias, :ipaddress, :queryport, :rconport, :rconpw)", {'alias': asd_alias, 'ipaddress': asd_transferip, 'queryport': asd_transferqport, 'rconport': asd_transferrport, 'rconpw': asd_transferrpw})
+                        self.conn.commit()
+                        self.checkandgoquery()
+                        self.fill_dropdown_server_box()
+                        self.gui.label_output_window.append("Server inserted successfully into database")
+            except Exception:
+                self.gui.TabWidget_Main_overall.setCurrentWidget(self.gui.Tab_Server)
+                asd_alias = ""
+                self.gui.server_alias.setText(asd_alias)
+                self.gui.server_ip.setText(asd_transferip)
+                self.gui.server_query.setText(asd_transferqport)
+                self.gui.server_rconport.setText(asd_transferrport)
+                self.gui.server_rconpw.setText(asd_transferrpw) 
+                self.gui.label_db_console.append("Could not add Server, it is not responding - please manually enter an Alias and click Add!")
+            
+
+        
+            
+
+
+
+        #self.fill_dropdown_server_box()
     '''
     ------------------------------------------------------------------
     ------------------------------------------------------------------

@@ -22,7 +22,7 @@ class SourceQuery(object):
     __challenge = None
 
 
-    def __init__(self, addr, port=27201, timeout=2.0):
+    def __init__(self, addr, port=27201, timeout=1.0):
         self.ip, self.port, self.timeout = socket.gethostbyname(addr), port, timeout
         if sys.version_info >= (3, 0):
             self.is_third = True

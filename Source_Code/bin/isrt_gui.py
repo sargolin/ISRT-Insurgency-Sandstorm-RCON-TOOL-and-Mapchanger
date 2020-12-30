@@ -552,9 +552,9 @@ class Ui_ISRT_Main_Window(object):
         self.label_output_window.setMinimumSize(QtCore.QSize(0, 210))
         self.label_output_window.setMaximumSize(QtCore.QSize(2500, 1400))
         font = QtGui.QFont()
-        font.setPointSize(10)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
         self.label_output_window.setFont(font)
         self.label_output_window.setAutoFillBackground(False)
         self.label_output_window.setStyleSheet("border-image:url(:/img/img/rcon-bck.jpg);\n"
@@ -1347,6 +1347,11 @@ class Ui_ISRT_Main_Window(object):
         item.setText(_translate("ISRT_Main_Window", "XP collected"))
         item = self.tbl_player_output.horizontalHeaderItem(3)
         item.setText(_translate("ISRT_Main_Window", "Online Time"))
+        self.label_output_window.setHtml(_translate("ISRT_Main_Window", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:11pt; font-weight:600; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.dropdown_custom_commands.setToolTip(_translate("ISRT_Main_Window", "Select from Command history"))
         self.dropdown_custom_commands.setStatusTip(_translate("ISRT_Main_Window", "Select from Command history"))
         self.dropdown_custom_commands.setCurrentText(_translate("ISRT_Main_Window", "Command history"))
