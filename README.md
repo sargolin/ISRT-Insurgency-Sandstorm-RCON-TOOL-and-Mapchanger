@@ -50,10 +50,6 @@ https://www.isrt.info/?page_id=2
 I have decided to focus on releases for Windows Clients as of v0.7, since I haven't even heard of anybody using it on Linux or Mac.
 
 ## 4. General Remarks, Feedback and stuff...
-This release is proudly sponsored by <a href="https://www.advancedinstaller.com">AdvancedInstaller.com:
-  
-<img src="https://cdn.advancedinstaller.com/svg/pressinfo/AiLogoColor.svg" width="300"></a>
-
 If you have any questions or feedback, please send me an e-mail to: madman@isrt.info - In case of feature requests or find any error in the software, please open an issue or in any other case, just write to me on our Discord: https://discord.gg/zEdTrgg
 
 If you think that my software is cool and helps you do your daily tasks, why not buy me a coffee ;-) I love coffee. You can do so by clicking one of the buttons below!
