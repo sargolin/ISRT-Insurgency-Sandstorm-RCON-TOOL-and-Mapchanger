@@ -32,20 +32,20 @@ class rngui(QtWidgets.QWidget):
     def __init__(self, *args, **kwargs):
         #Gui Setup
         super().__init__(*args, **kwargs)
+        #Database connection setup
+        self.dbdir = Path(__file__).absolute().parent
+        self.conn = sqlite3.connect(str(self.dbdir / 'db/isrt_data.db'))
+        self.c = self.conn.cursor()
         self.rngui = Ui_rn_window()
         self.rngui.setupUi(self)
         self.rngui.btn_rn_close.clicked.connect(self.close_rn)
     #Close RN per Button
     def close_rn(self):
-        #Database connection setup
-        dbdir = Path(__file__).absolute().parent
-        conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
-        c = conn.cursor()
         if self.rngui.chkbx_show_rn.isChecked():
             rnsetoff = 0
-            c.execute("UPDATE configuration SET show_rn = :rnset", {'rnset' :rnsetoff})
-            conn.commit()
-            conn.close()
+            self.c.execute("UPDATE configuration SET show_rn = :rnset", {'rnset' :rnsetoff})
+            self.conn.commit()
+            self.conn.close()
         self.close()
     #Close Event Handling
     def closeEvent(self, event):
@@ -63,8 +63,7 @@ class dbgui(QtWidgets.QWidget):
         self.dbgui.setupUi(self)
         #Database connection setup
         self.dbdir = Path(__file__).absolute().parent
-        dbdir = Path(__file__).absolute().parent
-        self.conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
+        self.conn = sqlite3.connect(str(self.dbdir / 'db/isrt_data.db'))
         self.c = self.conn.cursor()
         self.dbi_path = None
         self.dbgui.btn_dbg_close.clicked.connect(self.close_dbg)
@@ -103,10 +102,6 @@ class dbgui(QtWidgets.QWidget):
                 msg.exec_()
                 self.dbi_path = ''
                 #Database connection setup
-                self.dbdir = Path(__file__).absolute().parent
-                dbdir = Path(__file__).absolute().parent
-                self.conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
-                self.c = self.conn.cursor()
                 self.dbi_path = None
                 dbgsetoff = 0
                 self.c.execute("UPDATE configuration SET import=:importval", {'importval' :dbgsetoff})
@@ -122,11 +117,6 @@ class dbgui(QtWidgets.QWidget):
                 msg.exec_()
     #Handle Close per Button    
     def close_dbg(self):
-        #Database connection setup
-        self.dbdir = Path(__file__).absolute().parent
-        dbdir = Path(__file__).absolute().parent
-        self.conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
-        self.c = self.conn.cursor()
         self.dbi_path = None
         dbgsetoff = 0
         self.c.execute("UPDATE configuration SET import=:importval", {'importval' :dbgsetoff})
@@ -135,11 +125,6 @@ class dbgui(QtWidgets.QWidget):
         self.close()
     #Handle Close Event
     def closeEvent(self, event):
-        #Database connection setup
-        self.dbdir = Path(__file__).absolute().parent
-        dbdir = Path(__file__).absolute().parent
-        self.conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
-        self.c = self.conn.cursor()
         self.dbi_path = None
         dbgsetoff = 0
         self.c.execute("UPDATE configuration SET import=:importval", {'importval' :dbgsetoff})
@@ -159,17 +144,14 @@ class maingui(QtWidgets.QWidget):
         self.gui.setupUi(self)
         #Database connection setup
         self.dbdir = Path(__file__).absolute().parent
-        dbdir = Path(__file__).absolute().parent
-        self.conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
+        self.conn = sqlite3.connect(str(self.dbdir / 'db/isrt_data.db'))
         self.c = self.conn.cursor()
         #Setup ISRT Monitor Call
         def call_monitor():
             subprocess.Popen(["isrt_monitor.exe"])
         #Open Explorer Backup Window
         def open_explorer():
-            self.dbdir = Path(__file__).absolute().parent
-            dbdir = Path(__file__).absolute().parent
-            fulldir = (str(dbdir / 'db/'))
+            fulldir = (str(self.dbdir / 'db/'))
             os.system(f'start %windir%\\explorer.exe "{fulldir}"')
         #Define buttons and menu items including their functionalities
         self.gui.btn_main_adminsay.clicked.connect(self.adminsay)
@@ -338,10 +320,6 @@ class maingui(QtWidgets.QWidget):
     #Fill Dropdown Menue Server Selection and Serverlist plus TableWidget in Server Manager
     def fill_dropdown_server_box(self):
         #Database connection setup
-        self.dbdir = Path(__file__).absolute().parent
-        dbdir = Path(__file__).absolute().parent
-        self.conn = sqlite3.connect(str(dbdir / 'db/isrt_data.db'))
-        self.c = self.conn.cursor()
         self.c.execute("select alias FROM server")
         dd_alias = self.c.fetchall()
         self.gui.dropdown_select_server.clear()
