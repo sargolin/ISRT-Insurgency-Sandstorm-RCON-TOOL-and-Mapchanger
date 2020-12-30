@@ -1619,7 +1619,7 @@ if __name__ == "__main__":
             else:
                 new_version = current_version
             #If new version available show Messagebox
-            if check_updates_ok[0] == 1 and new_version != current_version:
+            if check_updates_ok[0] == 1 and new_version >= current_version:
                 def open_website():
                     os.system(f'start %windir%\\explorer.exe "https://www.isrt.info/?page_id=50"')
                 icondir = Path(__file__).absolute().parent
