@@ -1135,7 +1135,6 @@ class maingui(QtWidgets.QWidget):
         self.gui.label_db_console.setText("Backup created at: \n" + dbb_filename)
         #Add a server to DB
     def add_server_directly(self):
-        #self.gui.label_output_window.setStyleSheet("border-image:url(:/img/img/rcon-bck.jpg);\n")
         asd_transferip = self.gui.entry_ip.text()
         asd_transferqport = self.gui.entry_queryport.text()
         asd_transferrport = self.gui.entry_rconport.text()
@@ -1198,14 +1197,6 @@ class maingui(QtWidgets.QWidget):
                 self.gui.server_rconport.setText(asd_transferrport)
                 self.gui.server_rconpw.setText(asd_transferrpw) 
                 self.gui.label_db_console.append("Could not add Server, it is not responding - please manually enter an Alias and click Add!")
-            
-
-        
-            
-
-
-
-        #self.fill_dropdown_server_box()
     '''
     ------------------------------------------------------------------
     ------------------------------------------------------------------
