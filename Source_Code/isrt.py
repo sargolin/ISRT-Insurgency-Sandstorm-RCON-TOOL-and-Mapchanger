@@ -1188,7 +1188,7 @@ class maingui(QtWidgets.QWidget):
                         self.conn.commit()
                         self.checkandgoquery()
                         self.fill_dropdown_server_box()
-                        self.gui.label_output_window.append("Server inserted successfully into database")
+                        self.gui.label_output_window.append(f"Server inserted successfully into database with Alias: {asd_alias}")
             except Exception:
                 self.gui.TabWidget_Main_overall.setCurrentWidget(self.gui.Tab_Server)
                 asd_alias = ""
