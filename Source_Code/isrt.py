@@ -10,7 +10,7 @@ Thanks to Helsing and Stuermer for the pre-release testing - I appreciate that v
 ------------------------------------------------------------------
 Importing required classes and libraries
 ------------------------------------------------------------------'''
-import sys, os, re, sqlite3, time, socket, threading, psutil, subprocess, random, requests, urllib.request, res_rc
+import sys, os, re, sqlite3, time, socket, threading, psutil, subprocess, random, requests, urllib.request, res_rc, platform
 import bin.SourceQuery as sq
 import bin.query as query
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -142,13 +142,25 @@ class maingui(QtWidgets.QWidget):
         super().__init__(*args, **kwargs)
         self.gui = Ui_ISRT_Main_Window()
         self.gui.setupUi(self)
+        ##################################################################################
+        ##################################################################################
+        self.running_dev_mode = 1
+        ##################################################################################
+        ##################################################################################
         #Database connection setup
         self.dbdir = Path(__file__).absolute().parent
         self.conn = sqlite3.connect(str(self.dbdir / 'db/isrt_data.db'))
         self.c = self.conn.cursor()
         #Setup ISRT Monitor Call
         def call_monitor():
-            subprocess.Popen(["isrt_monitor.exe"])
+            os_running = platform.system()
+            if self.running_dev_mode == 1:
+                os.system(f"python {self.dbdir}/isrt_monitor.py")
+            else:
+                if os_running == "Windows":
+                    subprocess.Popen(["isrt_monitor.exe"])
+                else:
+                    os.system(f"python {self.dbdir}/isrt_monitor.py")
         #Open Explorer Backup Window
         def open_explorer():
             fulldir = (str(self.dbdir / 'db/'))
