@@ -50,7 +50,7 @@ https://www.isrt.info/?page_id=2
 ### Linux/MacOS (py-Version):
 For Linux and Mac OS the Exe files are not working of course. To make this work on those systems, you need to get the pure python code from the Download page and run the “isrt_v0.7.py” or the “isrt_monitor.py” – once again having all of the files in one folder. The rest works the same. You have to make sure that you have python 3.7.x or above and libPyQt5 installed.
 
-sudo apt-get install python3 python3-pyqt5
+`sudo apt-get install python3 python3-pyqt5`
 
 - Debian 10.6: Successful – no errors
 - Ubuntu – Linux Mint 20.04: Successful – no errors
