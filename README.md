@@ -52,9 +52,7 @@ I have decided to focus on releases for Windows Clients as of v0.7, since I have
 ## 4. General Remarks, Feedback and stuff...
 If you have any questions or feedback, please send me an e-mail to: madman@isrt.info - In case of feature requests or find any error in the software, please open an issue or in any other case, just write to me on our Discord: https://discord.gg/zEdTrgg
 
-If you think that my software is cool and helps you do your daily tasks, why not buy me a coffee ;-) I love coffee. You can do so by clicking one of the buttons below!
-
-<a href="https://www.buymeacoffee.com/oedelmeier"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=oedelmeier&button_colour=5176e6&font_colour=ffffff&font_family=Lato&outline_colour=ffffff&coffee_colour=FFDD00"></a>
+If you think that my software is cool and helps you do your daily tasks, why not buy me a coffee or drop me a couple of bucks ;-) I love coffee. You can do so by clicking one of the buttons below!
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate?hosted_button_id=RLSPYUNWLYA9Y)
 
