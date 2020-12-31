@@ -47,7 +47,14 @@ https://www.isrt.info/?page_id=2
 - Windows 10 Home (Version 20H2 Build 19042.572): Successful - no errors
 - Windows 10 Pro (Version 2004, Build 19041.630): Successful - no errors
 
-I have decided to focus on releases for Windows Clients as of v0.7, since I haven't even heard of anybody using it on Linux or Mac.
+### Linux/MacOS (py-Version):
+For Linux and Mac OS the Exe files are not working of course. To make this work on those systems, you need to get the pure python code from the Download page and run the “isrt_v0.7.py” or the “isrt_monitor.py” – once again having all of the files in one folder. The rest works the same. You have to make sure that you have python 3.7.x or above and libPyQt5 installed.
+
+sudo apt-get install python3 python3-pyqt5
+
+- Debian 10.6: Successful – no errors
+- Ubuntu – Linux Mint 20.04: Successful – no errors
+- Mac OSX (Python 3.9 .py-Version) -> Ensure Python3.X and PyQt5 are installed – Mac OS Catalina: Successful – no errors
 
 ## 4. General Remarks, Feedback and stuff...
 If you have any questions or feedback, please send me an e-mail to: madman@isrt.info - In case of feature requests or find any error in the software, please open an issue or in any other case, just write to me on our Discord: https://discord.gg/zEdTrgg
