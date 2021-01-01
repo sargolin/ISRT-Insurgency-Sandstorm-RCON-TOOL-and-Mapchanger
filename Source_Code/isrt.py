@@ -22,6 +22,7 @@ from bin.rn_gui import Ui_rn_window
 from bin.isrt_db_gui import Ui_db_importer_gui
 from bin.rcon.console import Console
 
+#Set Dev Mode during development here, to not mix the register and other stuff
 ##################################################################################
 ##################################################################################
 running_dev_mode = 1
