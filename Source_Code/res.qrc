@@ -15,6 +15,8 @@
     <file>img/sbck.png</file>
   </qresource>
   <qresource prefix="map_thumbs">
+    <file>img/maps/thumbs/mud_village.png</file>
+    <file>img/maps/thumbs/mud_village_night.png</file>
     <file>img/maps/thumbs/bab.jpg</file>
     <file>img/maps/thumbs/bab_night.jpg</file>
     <file>img/maps/thumbs/compound.png</file>
