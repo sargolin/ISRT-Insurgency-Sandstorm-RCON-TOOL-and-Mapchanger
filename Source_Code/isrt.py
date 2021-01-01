@@ -158,13 +158,17 @@ class maingui(QtWidgets.QWidget):
         self.c = self.conn.cursor()
         #Setup ISRT Monitor Call
         def call_monitor():
+            #Check which version of OS is ISRT running on
             os_running = platform.system()
+            #If in Dev Mode, use the Python variant
             if self.running_dev_mode == 1:
                 os.system(f"python {self.dbdir}/isrt_monitor.py")
             else:
+                #If on Windows, use the exe-file
                 if os_running == "Windows":
                     subprocess.Popen(["isrt_monitor.exe"])
                 else:
+                    #If on Linux or Mac, use the python file
                     os.system(f"python {self.dbdir}/isrt_monitor.py")
         #Open Explorer Backup Window
         def open_explorer():
