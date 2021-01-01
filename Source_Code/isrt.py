@@ -21,6 +21,14 @@ from bin.isrt_gui import Ui_ISRT_Main_Window
 from bin.rn_gui import Ui_rn_window
 from bin.isrt_db_gui import Ui_db_importer_gui
 from bin.rcon.console import Console
+
+##################################################################################
+##################################################################################
+running_dev_mode = 1
+##################################################################################
+##################################################################################
+
+
 '''
 ------------------------------------------------------------------
 ------------------------------------------------------------------
@@ -138,15 +146,12 @@ class dbgui(QtWidgets.QWidget):
 #Main GUI Handlers
 class maingui(QtWidgets.QWidget):
     def __init__(self, *args, **kwargs):
+        global running_dev_mode
+        self.running_dev_mode = running_dev_mode
         #Gui Setup
         super().__init__(*args, **kwargs)
         self.gui = Ui_ISRT_Main_Window()
         self.gui.setupUi(self)
-        ##################################################################################
-        ##################################################################################
-        self.running_dev_mode = 1
-        ##################################################################################
-        ##################################################################################
         #Database connection setup
         self.dbdir = Path(__file__).absolute().parent
         self.conn = sqlite3.connect(str(self.dbdir / 'db/isrt_data.db'))
@@ -1145,7 +1150,7 @@ class maingui(QtWidgets.QWidget):
         copy2(str(db_source_filename), str(db_backup_filename))
         dbb_filename = db_backup_filename.replace("\\", "/")
         self.gui.label_db_console.setText("Backup created at: \n" + dbb_filename)
-        #Add a server to DB
+    #Add a server to DB
     def add_server_directly(self):
         asd_transferip = self.gui.entry_ip.text()
         asd_transferqport = self.gui.entry_queryport.text()
@@ -1586,15 +1591,25 @@ if __name__ == "__main__":
         new_startcounter = 1
         c.execute("update configuration set startcounter=:newstartcounter", {'newstartcounter': new_startcounter})
         conn.commit()
-        if client_id:
-            pass
-        else:
+        if running_dev_mode == 1:
             client_hash = random.getrandbits(128)
-            client_id_new = ("ISRT_" + current_version + "_" + str(client_hash))
-            c.execute("update configuration set client_id=:cid",{'cid': str(client_id_new)})
-            client_id = client_id_new
-            register = f'http://www.isrt.info/version/register.php?clientid={client_id}'
-            register_post = requests.post(register)
+            FORMAT = '%Y%m%d%H%M%S'
+            datestamp = datetime.now().strftime(FORMAT)
+            client_os = platform.system()
+            client_id_new = ("ISRT_" + current_version + "_" + client_os + "_" + datestamp + "_" + str(client_hash))
+        else:
+            if client_id:
+                pass
+            else:
+                client_hash = random.getrandbits(128)
+                FORMAT = '%Y%m%d%H%M%S'
+                datestamp = datetime.now().strftime(FORMAT)
+                client_os = platform.system()
+                client_id_new = ("ISRT_" + current_version + "_" + client_os + "_" + datestamp + "_" + str(client_hash))
+                c.execute("update configuration set client_id=:cid",{'cid': str(client_id_new)})
+                client_id = client_id_new
+                register = f'http://www.isrt.info/version/register.php?clientid={client_id}'
+                register_post = requests.post(register)
     else:
         for pid in psutil.pids():
             try:
