@@ -22,7 +22,7 @@ class SourceQuery(object):
     __challenge = None
 
 
-    def __init__(self, addr, port=27201, timeout=2.0):
+    def __init__(self, addr, port, timeout=2.0):
         self.ip, self.port, self.timeout = socket.gethostbyname(addr), port, timeout
         if sys.version_info >= (3, 0):
             self.is_third = True
@@ -39,7 +39,7 @@ class SourceQuery(object):
         self.__sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.__sock.settimeout(self.timeout)
         self.__sock.connect((self.ip, self.port))
-
+        
     def get_ping(self):
         """ Get ping to server """
         return self.get_info()['Ping']
@@ -282,7 +282,7 @@ class SourceQuery(object):
 
 # if __name__ == '__main__':
 #     try:
-#         query = SourceQuery('93.186.198.185', 27216) # Test Server you can use as long as it lives
+#         query = SourceQuery('192.168.1.4', 27102) # Test Server you can use as long as it lives
 #         res = query.get_info()
 #         print(res['Hostname'])
 #         print(res['Map'])
