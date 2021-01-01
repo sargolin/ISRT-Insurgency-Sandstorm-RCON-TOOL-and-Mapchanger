@@ -1591,15 +1591,28 @@ if __name__ == "__main__":
         new_startcounter = 1
         c.execute("update configuration set startcounter=:newstartcounter", {'newstartcounter': new_startcounter})
         conn.commit()
+        #Check if running in Dev Mode
         if running_dev_mode == 1:
+            print("************************************")
+            print("*                                  *")
+            print("* Running in DEVELOPMENT MODE!!!!! *")
+            print("*                                  *")
+            print("************************************")
             client_hash = random.getrandbits(128)
             FORMAT = '%Y%m%d%H%M%S'
             datestamp = datetime.now().strftime(FORMAT)
             client_os = platform.system()
             client_id_new = ("ISRT_" + current_version + "_" + client_os + "_" + datestamp + "_" + str(client_hash))
+            c.execute("update configuration set client_id=:cid",{'cid': str(client_id_new)})
+            conn.commit
+            client_id = client_id_new
+            register = f'http://www.isrt.info/version/regtest.php?clientid={client_id}'
+            register_post = requests.post(register)
         else:
+            #Check if Client ID is already existing
             if client_id:
                 pass
+            #If no client ID is there, create one and register with the server
             else:
                 client_hash = random.getrandbits(128)
                 FORMAT = '%Y%m%d%H%M%S'
@@ -1607,6 +1620,7 @@ if __name__ == "__main__":
                 client_os = platform.system()
                 client_id_new = ("ISRT_" + current_version + "_" + client_os + "_" + datestamp + "_" + str(client_hash))
                 c.execute("update configuration set client_id=:cid",{'cid': str(client_id_new)})
+                conn.commit
                 client_id = client_id_new
                 register = f'http://www.isrt.info/version/register.php?clientid={client_id}'
                 register_post = requests.post(register)
