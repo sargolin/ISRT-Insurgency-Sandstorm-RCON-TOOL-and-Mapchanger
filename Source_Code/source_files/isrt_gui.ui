@@ -77,7 +77,7 @@ selection-background-color: rgb(216, 216, 216);</string>
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="elideMode">
       <enum>Qt::ElideNone</enum>
@@ -2014,7 +2014,7 @@ p, li { white-space: pre-wrap; }
              <property name="minimumSize">
               <size>
                <width>0</width>
-               <height>350</height>
+               <height>450</height>
               </size>
              </property>
              <property name="mouseTracking">
@@ -2036,7 +2036,7 @@ p, li { white-space: pre-wrap; }
               <enum>Qt::ScrollBarAlwaysOff</enum>
              </property>
              <property name="sizeAdjustPolicy">
-              <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
+              <enum>QAbstractScrollArea::AdjustIgnored</enum>
              </property>
              <property name="editTriggers">
               <set>QAbstractItemView::NoEditTriggers</set>
@@ -2044,23 +2044,32 @@ p, li { white-space: pre-wrap; }
              <property name="alternatingRowColors">
               <bool>true</bool>
              </property>
+             <property name="selectionMode">
+              <enum>QAbstractItemView::SingleSelection</enum>
+             </property>
+             <property name="selectionBehavior">
+              <enum>QAbstractItemView::SelectRows</enum>
+             </property>
              <property name="textElideMode">
               <enum>Qt::ElideNone</enum>
              </property>
              <property name="sortingEnabled">
               <bool>false</bool>
              </property>
+             <property name="columnCount">
+              <number>6</number>
+             </property>
              <attribute name="horizontalHeaderVisible">
               <bool>false</bool>
              </attribute>
              <attribute name="horizontalHeaderCascadingSectionResizes">
-              <bool>true</bool>
+              <bool>false</bool>
              </attribute>
              <attribute name="horizontalHeaderMinimumSectionSize">
-              <number>130</number>
+              <number>20</number>
              </attribute>
              <attribute name="horizontalHeaderDefaultSectionSize">
-              <number>130</number>
+              <number>50</number>
              </attribute>
              <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
               <bool>true</bool>
@@ -2080,6 +2089,14 @@ p, li { white-space: pre-wrap; }
              <attribute name="verticalHeaderStretchLastSection">
               <bool>false</bool>
              </attribute>
+             <column>
+              <property name="text">
+               <string>ID</string>
+              </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
+              </property>
+             </column>
              <column>
               <property name="text">
                <string>Alias</string>

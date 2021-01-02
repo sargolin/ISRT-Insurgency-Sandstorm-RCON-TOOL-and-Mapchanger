@@ -229,6 +229,8 @@ class maingui(QtWidgets.QWidget):
         self.gui.server_rconport.returnPressed.connect(self.server_add)
         self.gui.server_rconpw.returnPressed.connect(self.server_add)
         #Fill the Dropdown menus
+        self.create_server_table_widget()
+        self.fill_server_table_widget()
         self.fill_dropdown_server_box()
         self.fill_dropdown_custom_command()
         self.fill_list_custom_command()
@@ -316,6 +318,7 @@ class maingui(QtWidgets.QWidget):
         self.gui.btn_replace_database.clicked.connect(lambda: self.DB_import("replace_db"))
         #Map and option assignment
         self.gui.dropdown_select_travelscenario.activated[str].connect(self.selected_map_switch)
+        
 
     '''
     ------------------------------------------------------------------
@@ -339,6 +342,27 @@ class maingui(QtWidgets.QWidget):
         for row in dcust_alias:
             self.gui.list_custom_commands_console.addItems(row)
         self.conn.commit()
+    #Create Sevrer Manager Table
+    def create_server_table_widget(self):
+        self.gui.tbl_server_manager.setRowCount(0)
+        self.gui.tbl_server_manager.insertRow(0)
+        self.gui.tbl_server_manager.setColumnWidth(0, 30)
+        self.gui.tbl_server_manager.setItem(0, 0, QtWidgets.QTableWidgetItem("ID"))
+        self.gui.tbl_server_manager.item(0, 0).setBackground(QtGui.QColor(254,254,254))
+        self.gui.tbl_server_manager.setColumnWidth(1, 270)
+        self.gui.tbl_server_manager.setItem(0, 1, QtWidgets.QTableWidgetItem("Alias"))
+        self.gui.tbl_server_manager.item(0, 1).setBackground(QtGui.QColor(254,254,254))
+        self.gui.tbl_server_manager.setColumnWidth(2, 110)
+        self.gui.tbl_server_manager.setItem(0, 2, QtWidgets.QTableWidgetItem("IP-Address"))
+        self.gui.tbl_server_manager.item(0, 2).setBackground(QtGui.QColor(254,254,254))
+        self.gui.tbl_server_manager.setColumnWidth(3, 90)
+        self.gui.tbl_server_manager.setItem(0, 3, QtWidgets.QTableWidgetItem("Query Port"))
+        self.gui.tbl_server_manager.item(0, 3).setBackground(QtGui.QColor(254,254,254))
+        self.gui.tbl_server_manager.setColumnWidth(4, 90)
+        self.gui.tbl_server_manager.setItem(0, 4, QtWidgets.QTableWidgetItem("RCON Port"))
+        self.gui.tbl_server_manager.item(0, 4).setBackground(QtGui.QColor(254,254,254))
+        self.gui.tbl_server_manager.setItem(0, 5, QtWidgets.QTableWidgetItem("RCON Password"))
+        self.gui.tbl_server_manager.item(0, 5).setBackground(QtGui.QColor(254,254,254))
     #Fill Dropdown Menue Server Selection and Serverlist plus TableWidget in Server Manager
     def fill_dropdown_server_box(self):
         #Database connection setup
@@ -350,25 +374,37 @@ class maingui(QtWidgets.QWidget):
             self.gui.dropdown_select_server.addItems(row)
             self.gui.dropdown_server_list.addItems(row)
         self.conn.commit()
+    #Fill the server Table Widget
+    def fill_server_table_widget(self):
         self.gui.tbl_server_manager.clearSpans()
         self.c.execute("SELECT * FROM server")
-        self.gui.tbl_server_manager.setRowCount(0)
         self.conn.commit()
         for row, form in enumerate(self.c):
+            row = row + 1
             self.gui.tbl_server_manager.insertRow(row)
             for column, item in enumerate(form):
-                self.gui.tbl_server_manager.setItem(row, column, QtWidgets.QTableWidgetItem(str(item)))  
-        self.gui.tbl_server_manager.insertRow(0)
-        self.gui.tbl_server_manager.setItem(0, 0, QtWidgets.QTableWidgetItem("Alias"))
-        self.gui.tbl_server_manager.item(0, 0).setBackground(QtGui.QColor(254,254,254))
-        self.gui.tbl_server_manager.setItem(0, 1, QtWidgets.QTableWidgetItem("IP-Address"))
-        self.gui.tbl_server_manager.item(0, 1).setBackground(QtGui.QColor(254,254,254))
-        self.gui.tbl_server_manager.setItem(0, 2, QtWidgets.QTableWidgetItem("Query Port"))
-        self.gui.tbl_server_manager.item(0, 2).setBackground(QtGui.QColor(254,254,254))
-        self.gui.tbl_server_manager.setItem(0, 3, QtWidgets.QTableWidgetItem("RCON Port"))
-        self.gui.tbl_server_manager.item(0, 3).setBackground(QtGui.QColor(254,254,254))
-        self.gui.tbl_server_manager.setItem(0, 4, QtWidgets.QTableWidgetItem("RCON Password"))
-        self.gui.tbl_server_manager.item(0, 4).setBackground(QtGui.QColor(254,254,254))
+                self.gui.tbl_server_manager.setItem(row, column, QtWidgets.QTableWidgetItem(str(item)))
+        def prepare_update_server(item):
+            self.selected_row = item.row()
+            if self.selected_row != 0:
+                try:
+                    self.c.execute("SELECT alias, ipaddress, queryport, rconport, rconpw FROM server where id=:sel_id", {'sel_id': self.selected_row})
+                    select_result = self.c.fetchone()
+                    self.conn.commit()
+                    self.gui.server_alias.setText(select_result[0])
+                    self.gui.server_ip.setText(select_result[1])
+                    self.gui.server_query.setText(str(select_result[2]))
+                    self.gui.server_rconport.setText(str(select_result[3]))
+                    self.gui.server_rconpw.setText(select_result[4])
+                    self.c.execute("SELECT id FROM server where alias=:sel_alias", {'sel_alias': select_result[0]})
+                    select_id_result = self.c.fetchone()
+                    self.unique_modifier_id = select_id_result[0]
+                    self.conn.commit()
+                except Exception:
+                    self.gui.label_db_console.append(f"No server with ID {self.selected_row} exists")
+            else:
+                pass
+        self.gui.tbl_server_manager.clicked.connect(prepare_update_server)
     #Fill Dropdown Menu for Mapchanging from scratch
     def fill_dropdown_map_box(self):
         self.c.execute("select map_name FROM map_config WHERE modid = '0' ORDER by Map_name")
@@ -961,18 +997,24 @@ class maingui(QtWidgets.QWidget):
             for item in check:
                 if item and val_alias == item:
                     go_addserver_check = 0
-                    self.gui.label_db_console.append("Alias already exists, please rename it")
+                    self.gui.label_db_console.append("Alias already exists, please choose another one")
                     nogocheck = 0
                 else:
                     nogocheck = 1
         if go_addserver_check == 1 and nogocheck == 1 and go_addserver_ipcheck == 1 and go_addserver_qpcheck == 1:
+            self.c.execute("SELECT COALESCE(MAX(id), 0) FROM server")
+            raw_table_counter = self.c.fetchone()
+            self.conn.commit()
+            val_id = raw_table_counter[0] + 1
             try:
-                self.c.execute("INSERT INTO server VALUES (:alias, :ipaddress, :queryport, :rconport, :rconpw)", {'alias': val_alias, 'ipaddress': val_ipaddress, 'queryport': val_queryport, 'rconport': val_rconport, 'rconpw': val_rconpw})
+                self.c.execute("INSERT INTO server VALUES (:id, :alias, :ipaddress, :queryport, :rconport, :rconpw)", {'id': val_id, 'alias': val_alias, 'ipaddress': val_ipaddress, 'queryport': val_queryport, 'rconport': val_rconport, 'rconpw': val_rconpw})
                 self.conn.commit()
-                self.gui.label_db_console.append("Server inserted successfully into database")
+                self.gui.label_db_console.append("Server successfully inserted")
             except sqlite3.Error as error:
                 self.gui.label_db_console.append("Failed to insert server into database " + str(error))
         self.fill_dropdown_server_box()
+        self.create_server_table_widget()
+        self.fill_server_table_widget()
     #Add a server to DB
     def server_add_main(self):
         self.gui.label_output_window.setStyleSheet("border-image:url(:/img/img/rcon-bck.jpg);\n")
@@ -1025,51 +1067,170 @@ class maingui(QtWidgets.QWidget):
             self.gui.server_query.setText(transferqport)
             self.gui.server_rconport.setText(transferrport)
             self.gui.server_rconpw.setText(transferrpw)
+    #Add a server to DB
+    def add_server_directly(self):
+        asd_transferip = self.gui.entry_ip.text()
+        asd_transferqport = self.gui.entry_queryport.text()
+        asd_transferrport = self.gui.entry_rconport.text()
+        asd_transferrpw = self.gui.entry_rconpw.text()
+        #Check IP
+        self.asd_regextransip = r'''^(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)$'''
+        self.asd_regextransport = r'''^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$'''
+        go_addserver_check = 0
+        go_addserver_ipcheck = 0
+        go_addserver_qpcheck = 0
+        if asd_transferip and asd_transferqport:
+            go_addserver_check = 1
+            if asd_transferip and (re.search(self.asd_regextransip, asd_transferip)):  
+                go_addserver_ipcheck = 1
+                if asd_transferqport and (re.search(self.asd_regextransport, asd_transferqport)):
+                    go_addserver_qpcheck = 1
+                    if asd_transferqport and (re.search(self.asd_regextransport, asd_transferqport)):
+                        go_addserver_qpcheck = 1
+                        if asd_transferrport:
+                            if (re.search(self.asd_regextransport, asd_transferrport)):
+                                pass
+                            else:
+                                self.gui.label_output_window.append("You entered no valid RCON Port - please check and retry!")
+                                go_addserver_check = 0
+                    else:
+                        self.gui.label_output_window.append("You entered no valid Query Port - please check and retry!")
+                        go_addserver_qpcheck = 0
+                else:
+                    self.gui.label_output_window.append("You entered no valid Query Port - please check and retry!")
+                    go_addserver_qpcheck = 0
+            else:
+                self.gui.label_output_window.append("You entered no valid IP address - please check and retry!")
+                go_addserver_ipcheck = 0
+        else:
+            self.gui.label_output_window.append("At least IP-Adress and Query Port have to contain a value!")
+            go_addserver_check = 0
+        if go_addserver_check == 1 and  go_addserver_ipcheck == 1 and go_addserver_qpcheck == 1:
+            asd_alias = None
+            try:
+                asd_server = query.Query(asd_transferip, asd_transferqport)
+                asd_serverinfo = (asd_server.info())
+                asd_servergamedetails = (asd_serverinfo['info'])
+                asd_alias = (asd_servergamedetails['server_name'])
+                self.c.execute("SELECT COALESCE(MAX(id), 0) FROM server")
+                raw_table_counter = self.c.fetchone()
+                self.conn.commit()
+                val_id = raw_table_counter[0] + 1
+                if asd_alias:
+                    if asd_transferip and asd_transferqport:
+                        self.c.execute("INSERT INTO server VALUES (:id, :alias, :ipaddress, :queryport, :rconport, :rconpw)", {'id': val_id, 'alias': asd_alias, 'ipaddress': asd_transferip, 'queryport': asd_transferqport, 'rconport': asd_transferrport, 'rconpw': asd_transferrpw})
+                        self.conn.commit()
+                        self.checkandgoquery()
+                        self.fill_dropdown_server_box()
+                        self.create_server_table_widget()
+                        self.fill_server_table_widget()
+                        self.gui.label_output_window.append(f"Server successfully inserted with Alias: {asd_alias}")
+            except Exception:
+                self.gui.TabWidget_Main_overall.setCurrentWidget(self.gui.Tab_Server)
+                asd_alias = ""
+                self.gui.server_alias.setText(asd_alias)
+                self.gui.server_ip.setText(asd_transferip)
+                self.gui.server_query.setText(asd_transferqport)
+                self.gui.server_rconport.setText(asd_transferrport)
+                self.gui.server_rconpw.setText(asd_transferrpw) 
+                self.gui.label_db_console.append("Could not add Server, it is not responding - please manually enter an Alias and click Add!")
     #Modify a server in DB
     def server_modify(self):
+        val_id = self.unique_modifier_id
         val_alias = self.gui.server_alias.text()
         val_ipaddress = self.gui.server_ip.text()
         val_queryport = self.gui.server_query.text()
         val_rconport = self.gui.server_rconport.text()
         val_rconpw = self.gui.server_rconpw.text()
+        #Check IP
+        self.regexip = r'''^(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
+        25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)$'''
+        self.regexport = r'''^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         self.c.execute("select alias FROM server")
-        check_m_alias = self.c.fetchall()
+        check_alias = self.c.fetchall()
         self.conn.commit()
-        go2check = 1
-        nogo2check = 0
-        for check2 in check_m_alias:
-            for item2 in check2:
-                if val_alias == item2:
-                    go2check = 1
+        alias_nogocheck = 0
+        alias_gocheck = 0                
+        for check in check_alias:
+            for item in check:
+                if item and val_alias == item:
+                    alias_gocheck = 1
                 else:
-                    nogo2check = 0
-        if go2check == 1 and nogo2check == 0:
-            if val_ipaddress and val_queryport and val_alias:
-                try:        
-                    self.c.execute("UPDATE server SET ipaddress=:ipaddress, queryport=:queryport, rconport=:rconport, rconpw=:rconpw WHERE alias=:alias", {'ipaddress': val_ipaddress, 'queryport': val_queryport, 'rconport': val_rconport, 'rconpw': val_rconpw, 'alias': val_alias})
-                    self.conn.commit()
-                    self.gui.label_db_console.append("Server updated successfully in database")
-                except sqlite3.Error as error:
-                    self.gui.label_db_console.append("Failed to update server in database " + str(error))     
+                    alias_nogocheck = 0
+
+
+        
+
+        if alias_gocheck == 1 and alias_nogocheck == 0:
+            if val_ipaddress and (re.search(self.regexip, val_ipaddress)): 
+                if val_queryport and (re.search(self.regexport, val_queryport)):
+                    if val_ipaddress and val_queryport and val_alias and val_id:
+                        try:        
+                            self.c.execute("UPDATE server SET alias=:alias, ipaddress=:ipaddress, queryport=:queryport, rconport=:rconport, rconpw=:rconpw WHERE id=:mid", {'alias': val_alias, 'ipaddress': val_ipaddress, 'queryport': val_queryport, 'rconport': val_rconport, 'rconpw': val_rconpw, 'mid': val_id})
+                            self.conn.commit()
+                            self.gui.label_db_console.append("Server successfully updated")
+                        except sqlite3.Error as error:
+                            self.gui.label_db_console.append("Failed to update server in database " + str(error))
+                    else:
+                        self.gui.label_db_console.append("At least Alias, IP-Adress and Query Port have to contain a value!")
+                else:
+                    self.gui.label_db_console.append(val_queryport + " is no valid Query Port - please check and retry!")
             else:
-                self.gui.label_db_console.append("At least Alias, IP-Adress and Query Port have to contain a value!")
+                self.gui.label_db_console.append(val_ipaddress + " is no valid IP address - please check and retry!")
         else:
-            self.gui.label_db_console.append("Update not possible, Server does not exist in Database - try to add it first!")
+            self.gui.label_db_console.append("Alias " + val_alias + " already exists in DB, please choose another one!")
+        self.create_server_table_widget()
+        self.fill_server_table_widget()
         self.fill_dropdown_server_box()
     #Delete a Server from DB
     def server_delete(self):
         val_alias = self.gui.server_alias.text()
-        if val_alias:
+        self.c.execute("SELECT id FROM server WHERE alias=:alias", {'alias': val_alias})
+        self.conn.commit()
+        delete_selected_id = self.c.fetchone()
+        start_update_id = delete_selected_id[0] + 1
+        self.c.execute("SELECT COALESCE(MAX(id), 0) FROM server")
+        raw_end_update_id = self.c.fetchone()
+        self.conn.commit()
+        end_update_id = raw_end_update_id[0] + 1
+        self.conn.commit()
+        if start_update_id and end_update_id:
             try:
-                self.c.execute("DELETE FROM server WHERE alias=:alias", {'alias': val_alias})
+                self.c.execute("DELETE FROM server WHERE id=:val_id", {'val_id': delete_selected_id[0]})
                 self.conn.commit()
-                self.gui.label_db_console.append("Record deleted successfully from database")
+                for i in range(start_update_id, end_update_id):
+                    seti = i - 1
+                    self.c.execute("UPDATE server SET id=:vid WHERE id=:rowdid", {'vid': seti, 'rowdid': i})
+                    self.conn.commit()
+                self.gui.label_db_console.append("Record successfully deleted")
             except sqlite3.Error as error:
                 self.gui.label_db_console.append("Failed to delete data from database " + str(error))
                 pass
         else:
             self.gui.label_db_console.append("At least Alias has to contain a value!")
         self.fill_dropdown_server_box()
+        self.create_server_table_widget()
+        self.fill_server_table_widget()
     #Import Database Routines
     def DB_import(self, db_action):
         if db_action == 'select_db':
@@ -1155,70 +1316,7 @@ class maingui(QtWidgets.QWidget):
         copy2(str(db_source_filename), str(db_backup_filename))
         dbb_filename = db_backup_filename.replace("\\", "/")
         self.gui.label_db_console.setText("Backup created at: \n" + dbb_filename)
-    #Add a server to DB
-    def add_server_directly(self):
-        asd_transferip = self.gui.entry_ip.text()
-        asd_transferqport = self.gui.entry_queryport.text()
-        asd_transferrport = self.gui.entry_rconport.text()
-        asd_transferrpw = self.gui.entry_rconpw.text()
-        #Check IP
-        self.asd_regextransip = r'''^(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
-        25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
-        25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
-        25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)$'''
-        self.asd_regextransport = r'''^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$'''
-        go_addserver_check = 0
-        go_addserver_ipcheck = 0
-        go_addserver_qpcheck = 0
-        if asd_transferip and asd_transferqport:
-            go_addserver_check = 1
-            if asd_transferip and (re.search(self.asd_regextransip, asd_transferip)):  
-                go_addserver_ipcheck = 1
-                if asd_transferqport and (re.search(self.asd_regextransport, asd_transferqport)):
-                    go_addserver_qpcheck = 1
-                    if asd_transferqport and (re.search(self.asd_regextransport, asd_transferqport)):
-                        go_addserver_qpcheck = 1
-                        if asd_transferrport:
-                            if (re.search(self.asd_regextransport, asd_transferrport)):
-                                pass
-                            else:
-                                self.gui.label_output_window.append("You entered no valid RCON Port - please check and retry!")
-                                go_addserver_check = 0
-                    else:
-                        self.gui.label_output_window.append("You entered no valid Query Port - please check and retry!")
-                        go_addserver_qpcheck = 0
-                else:
-                    self.gui.label_output_window.append("You entered no valid Query Port - please check and retry!")
-                    go_addserver_qpcheck = 0
-            else:
-                self.gui.label_output_window.append("You entered no valid IP address - please check and retry!")
-                go_addserver_ipcheck = 0
-        else:
-            self.gui.label_output_window.append("At least IP-Adress and Query Port have to contain a value!")
-            go_addserver_check = 0
-        if go_addserver_check == 1 and  go_addserver_ipcheck == 1 and go_addserver_qpcheck == 1:
-            asd_alias = None
-            try:
-                asd_server = query.Query(asd_transferip, asd_transferqport)
-                asd_serverinfo = (asd_server.info())
-                asd_servergamedetails = (asd_serverinfo['info'])
-                asd_alias = (asd_servergamedetails['server_name'])
-                if asd_alias:
-                    if asd_transferip and asd_transferqport:
-                        self.c.execute("INSERT INTO server VALUES (:alias, :ipaddress, :queryport, :rconport, :rconpw)", {'alias': asd_alias, 'ipaddress': asd_transferip, 'queryport': asd_transferqport, 'rconport': asd_transferrport, 'rconpw': asd_transferrpw})
-                        self.conn.commit()
-                        self.checkandgoquery()
-                        self.fill_dropdown_server_box()
-                        self.gui.label_output_window.append(f"Server inserted successfully into database with Alias: {asd_alias}")
-            except Exception:
-                self.gui.TabWidget_Main_overall.setCurrentWidget(self.gui.Tab_Server)
-                asd_alias = ""
-                self.gui.server_alias.setText(asd_alias)
-                self.gui.server_ip.setText(asd_transferip)
-                self.gui.server_query.setText(asd_transferqport)
-                self.gui.server_rconport.setText(asd_transferrport)
-                self.gui.server_rconpw.setText(asd_transferrpw) 
-                self.gui.label_db_console.append("Could not add Server, it is not responding - please manually enter an Alias and click Add!")
+
     '''
     ------------------------------------------------------------------
     ------------------------------------------------------------------
