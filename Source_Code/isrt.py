@@ -1148,7 +1148,20 @@ class maingui(QtWidgets.QWidget):
         self.regexport = r'''^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$'''
         self.c.execute("select alias FROM server")
         check_alias = self.c.fetchall()
+        self.c.execute("select alias, ipaddress, queryport, rconport, rconpw from server where id=:fid", {'fid': val_id})
+        check_changes = self.c.fetchone()
+        check_changes_alias = check_changes[0]
+        check_changes_ip = check_changes[1]
+        check_changes_qport = str(check_changes[2])
+        check_changes_rport = str(check_changes[3])
+        check_changes_rpw = check_changes[4]
         self.conn.commit()
+        nothing_to_change = 0
+        if val_alias == check_changes_alias and val_ipaddress == check_changes_ip == val_ipaddress and val_queryport == check_changes_qport and val_rconport == check_changes_rport and val_rconpw == check_changes_rpw:
+            nothing_to_change = 1
+        else:
+            nothing_to_change = 0
+
         alias_nogocheck = 0
         alias_gocheck = 0                
         for check in check_alias:
@@ -1157,12 +1170,27 @@ class maingui(QtWidgets.QWidget):
                     alias_gocheck = 1
                 else:
                     alias_nogocheck = 0
-        if alias_gocheck == 1 and alias_nogocheck == 0:
-            if val_ipaddress and (re.search(self.regexip, val_ipaddress)): 
-                if val_queryport and (re.search(self.regexport, val_queryport)):
 
-                    if val_rconport:
-                        if (re.search(self.regexport, val_rconport)):
+        if nothing_to_change == 1:
+            self.gui.label_db_console.append("No changes made - nothing to do!")
+        else:
+            if alias_gocheck == 1 and alias_nogocheck == 0:
+                if val_ipaddress and (re.search(self.regexip, val_ipaddress)): 
+                    if val_queryport and (re.search(self.regexport, val_queryport)):
+                        if val_rconport:
+                            if (re.search(self.regexport, val_rconport)):
+                                if val_ipaddress and val_queryport and val_alias and val_id:
+                                    try:        
+                                        self.c.execute("UPDATE server SET alias=:alias, ipaddress=:ipaddress, queryport=:queryport, rconport=:rconport, rconpw=:rconpw WHERE id=:mid", {'alias': val_alias, 'ipaddress': val_ipaddress, 'queryport': val_queryport, 'rconport': val_rconport, 'rconpw': val_rconpw, 'mid': val_id})
+                                        self.conn.commit()
+                                        self.gui.label_db_console.append("Server successfully updated")
+                                    except sqlite3.Error as error:
+                                        self.gui.label_db_console.append("Failed to update server in database " + str(error))
+                                else:
+                                    self.gui.label_db_console.append("At least Alias, IP-Adress and Query Port have to contain a value!")
+                            else:
+                                self.gui.label_db_console.append(val_rconport + " is no valid RCON Port - please check and retry!")
+                        else:
                             if val_ipaddress and val_queryport and val_alias and val_id:
                                 try:        
                                     self.c.execute("UPDATE server SET alias=:alias, ipaddress=:ipaddress, queryport=:queryport, rconport=:rconport, rconpw=:rconpw WHERE id=:mid", {'alias': val_alias, 'ipaddress': val_ipaddress, 'queryport': val_queryport, 'rconport': val_rconport, 'rconpw': val_rconpw, 'mid': val_id})
@@ -1172,24 +1200,12 @@ class maingui(QtWidgets.QWidget):
                                     self.gui.label_db_console.append("Failed to update server in database " + str(error))
                             else:
                                 self.gui.label_db_console.append("At least Alias, IP-Adress and Query Port have to contain a value!")
-                        else:
-                            self.gui.label_db_console.append(val_rconport + " is no valid RCON Port - please check and retry!")
                     else:
-                        if val_ipaddress and val_queryport and val_alias and val_id:
-                            try:        
-                                self.c.execute("UPDATE server SET alias=:alias, ipaddress=:ipaddress, queryport=:queryport, rconport=:rconport, rconpw=:rconpw WHERE id=:mid", {'alias': val_alias, 'ipaddress': val_ipaddress, 'queryport': val_queryport, 'rconport': val_rconport, 'rconpw': val_rconpw, 'mid': val_id})
-                                self.conn.commit()
-                                self.gui.label_db_console.append("Server successfully updated")
-                            except sqlite3.Error as error:
-                                self.gui.label_db_console.append("Failed to update server in database " + str(error))
-                        else:
-                            self.gui.label_db_console.append("At least Alias, IP-Adress and Query Port have to contain a value!")
+                        self.gui.label_db_console.append(val_queryport + " is no valid Query Port - please check and retry!")
                 else:
-                    self.gui.label_db_console.append(val_queryport + " is no valid Query Port - please check and retry!")
+                    self.gui.label_db_console.append(val_ipaddress + " is no valid IP address - please check and retry!")
             else:
-                self.gui.label_db_console.append(val_ipaddress + " is no valid IP address - please check and retry!")
-        else:
-            self.gui.label_db_console.append("Alias " + val_alias + " already exists in DB, please choose another one!")
+                self.gui.label_db_console.append("Alias " + val_alias + " already exists in DB, please choose another one!")
         self.create_server_table_widget()
         self.fill_server_table_widget()
         self.fill_dropdown_server_box()
