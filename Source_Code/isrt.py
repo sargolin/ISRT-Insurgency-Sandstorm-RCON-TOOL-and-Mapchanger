@@ -1190,17 +1190,29 @@ class maingui(QtWidgets.QWidget):
             if val_ipaddress and (re.search(self.regexip, val_ipaddress)): 
                 if val_queryport and (re.search(self.regexport, val_queryport)):
 
-                    if val_ipaddress and val_queryport and val_alias and val_id:
-                        try:        
-                            self.c.execute("UPDATE server SET alias=:alias, ipaddress=:ipaddress, queryport=:queryport, rconport=:rconport, rconpw=:rconpw WHERE id=:mid", {'alias': val_alias, 'ipaddress': val_ipaddress, 'queryport': val_queryport, 'rconport': val_rconport, 'rconpw': val_rconpw, 'mid': val_id})
-                            self.conn.commit()
-                            self.gui.label_db_console.append("Server successfully updated")
-                        except sqlite3.Error as error:
-                            self.gui.label_db_console.append("Failed to update server in database " + str(error))
+                    if val_rconport:
+                        if (re.search(self.regexport, val_rconport)):
+                            if val_ipaddress and val_queryport and val_alias and val_id:
+                                try:        
+                                    self.c.execute("UPDATE server SET alias=:alias, ipaddress=:ipaddress, queryport=:queryport, rconport=:rconport, rconpw=:rconpw WHERE id=:mid", {'alias': val_alias, 'ipaddress': val_ipaddress, 'queryport': val_queryport, 'rconport': val_rconport, 'rconpw': val_rconpw, 'mid': val_id})
+                                    self.conn.commit()
+                                    self.gui.label_db_console.append("Server successfully updated")
+                                except sqlite3.Error as error:
+                                    self.gui.label_db_console.append("Failed to update server in database " + str(error))
+                            else:
+                                self.gui.label_db_console.append("At least Alias, IP-Adress and Query Port have to contain a value!")
+                        else:
+                            self.gui.label_db_console.append(val_rconport + " is no valid RCON Port - please check and retry!")
                     else:
-                        self.gui.label_db_console.append("At least Alias, IP-Adress and Query Port have to contain a value!")
-
-
+                        if val_ipaddress and val_queryport and val_alias and val_id:
+                            try:        
+                                self.c.execute("UPDATE server SET alias=:alias, ipaddress=:ipaddress, queryport=:queryport, rconport=:rconport, rconpw=:rconpw WHERE id=:mid", {'alias': val_alias, 'ipaddress': val_ipaddress, 'queryport': val_queryport, 'rconport': val_rconport, 'rconpw': val_rconpw, 'mid': val_id})
+                                self.conn.commit()
+                                self.gui.label_db_console.append("Server successfully updated")
+                            except sqlite3.Error as error:
+                                self.gui.label_db_console.append("Failed to update server in database " + str(error))
+                        else:
+                            self.gui.label_db_console.append("At least Alias, IP-Adress and Query Port have to contain a value!")
                 else:
                     self.gui.label_db_console.append(val_queryport + " is no valid Query Port - please check and retry!")
             else:
