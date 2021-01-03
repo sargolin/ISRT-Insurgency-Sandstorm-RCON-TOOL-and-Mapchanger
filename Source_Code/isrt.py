@@ -296,7 +296,6 @@ class maingui(QtWidgets.QWidget):
             self.gui.entry_rconport.setText(sel_rconport)
             self.gui.entry_rconpw.setText(sel_rconpw)
             self.checkandgoquery()
-        self.gui.dropdown_server_list.activated[str].connect(assign_server_values)
         #
         # Assign custom Commands variables for Dropdown menu
         #
@@ -342,6 +341,13 @@ class maingui(QtWidgets.QWidget):
         for row in dcust_alias:
             self.gui.list_custom_commands_console.addItems(row)
         self.conn.commit()
+
+        def onClicked(item):
+            QtWidgets.QApplication.clipboard().setText(item.text())
+        self.gui.list_custom_commands_console.itemDoubleClicked.connect(onClicked)
+        
+        
+
     #Create Sevrer Manager Table
     def create_server_table_widget(self):
         self.gui.tbl_server_manager.setRowCount(0)
@@ -363,16 +369,14 @@ class maingui(QtWidgets.QWidget):
         self.gui.tbl_server_manager.item(0, 4).setBackground(QtGui.QColor(254,254,254))
         self.gui.tbl_server_manager.setItem(0, 5, QtWidgets.QTableWidgetItem("RCON Password"))
         self.gui.tbl_server_manager.item(0, 5).setBackground(QtGui.QColor(254,254,254))
-    #Fill Dropdown Menue Server Selection and Serverlist plus TableWidget in Server Manager
+    #Fill Dropdown Menue Server Selection on Main Window
     def fill_dropdown_server_box(self):
         #Database connection setup
         self.c.execute("select alias FROM server")
         dd_alias = self.c.fetchall()
         self.gui.dropdown_select_server.clear()
-        self.gui.dropdown_server_list.clear()
         for row in dd_alias:
             self.gui.dropdown_select_server.addItems(row)
-            self.gui.dropdown_server_list.addItems(row)
         self.conn.commit()
     #Fill the server Table Widget
     def fill_server_table_widget(self):
