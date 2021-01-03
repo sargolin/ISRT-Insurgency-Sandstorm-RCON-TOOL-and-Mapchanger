@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>860</width>
-    <height>679</height>
+    <width>862</width>
+    <height>684</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -68,7 +68,7 @@ selection-background-color: rgb(216, 216, 216);</string>
        </property>
        <property name="font">
         <font>
-         <pointsize>10</pointsize>
+         <pointsize>9</pointsize>
         </font>
        </property>
        <property name="styleSheet">

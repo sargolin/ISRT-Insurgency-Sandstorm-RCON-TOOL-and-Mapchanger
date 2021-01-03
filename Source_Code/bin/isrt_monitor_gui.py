@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '.\source_files\isrt_monitor_v0.7.ui'
+# Form implementation generated from reading ui file '.\source_files\isrt_monitor.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.1
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_UI_Server_Monitor(object):
     def setupUi(self, UI_Server_Monitor):
         UI_Server_Monitor.setObjectName("UI_Server_Monitor")
-        UI_Server_Monitor.resize(860, 679)
+        UI_Server_Monitor.resize(862, 684)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/img/img/isrt.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         UI_Server_Monitor.setWindowIcon(icon)
@@ -47,7 +47,7 @@ class Ui_UI_Server_Monitor(object):
         self.tbl_server_overview.setSizePolicy(sizePolicy)
         self.tbl_server_overview.setMinimumSize(QtCore.QSize(840, 600))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(9)
         self.tbl_server_overview.setFont(font)
         self.tbl_server_overview.setStyleSheet("border-image: url(:/img/img/monbck.jpg);\n"
 "background-color: rgb(247, 247, 247);")
