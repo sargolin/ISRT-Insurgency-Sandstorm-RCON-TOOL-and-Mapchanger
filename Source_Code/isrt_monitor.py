@@ -6,7 +6,15 @@ import bin.MonitorQuery as sq
 
 
 
+class Worker(QtCore.QObject):
 
+    #hashed = qtc.pyqtSignal(str, str)
+    queried = QtCore.pyqtSignal(str, str)
+
+    @QtCore.pyqtSlot(str)
+    def query_server(self, serverhost, queryport):
+        server_query = self.execute_query(serverhost, queryport)
+        self.queried.emit(self.resinfo, self.resrules)
 
 
 #Prepare Main GUI of Server Monitor
@@ -86,10 +94,8 @@ class mongui(QtWidgets.QWidget):
             self.mogui.mon_progress_bar.setValue(0)
             self.server_alias_list = self.server_alias_checklist
         else:
-            pass
-        #Execute the Executor  
+            pass 
         self.prepare_list_query()
-        #Set Progress Bar
         self.mogui.mon_progress_bar.setValue(100)
         self.conn.close()
         time.sleep(0.3)
