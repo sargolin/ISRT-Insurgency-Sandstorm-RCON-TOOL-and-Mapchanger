@@ -1841,7 +1841,7 @@ p, li { white-space: pre-wrap; }
                 <string/>
                </property>
                <property name="echoMode">
-                <enum>QLineEdit::PasswordEchoOnEdit</enum>
+                <enum>QLineEdit::Normal</enum>
                </property>
                <property name="placeholderText">
                 <string>RCON Password</string>
@@ -2030,7 +2030,7 @@ p, li { white-space: pre-wrap; }
               <bool>false</bool>
              </property>
              <property name="columnCount">
-              <number>6</number>
+              <number>5</number>
              </property>
              <attribute name="horizontalHeaderVisible">
               <bool>false</bool>
@@ -2097,14 +2097,6 @@ p, li { white-space: pre-wrap; }
              <column>
               <property name="text">
                <string>RCON Port</string>
-              </property>
-              <property name="textAlignment">
-               <set>AlignCenter</set>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>RCON Password</string>
               </property>
               <property name="textAlignment">
                <set>AlignCenter</set>

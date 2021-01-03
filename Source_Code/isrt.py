@@ -364,11 +364,10 @@ class maingui(QtWidgets.QWidget):
         self.gui.tbl_server_manager.setColumnWidth(3, 90)
         self.gui.tbl_server_manager.setItem(0, 3, QtWidgets.QTableWidgetItem("Query Port"))
         self.gui.tbl_server_manager.item(0, 3).setBackground(QtGui.QColor(254,254,254))
-        self.gui.tbl_server_manager.setColumnWidth(4, 90)
+
         self.gui.tbl_server_manager.setItem(0, 4, QtWidgets.QTableWidgetItem("RCON Port"))
         self.gui.tbl_server_manager.item(0, 4).setBackground(QtGui.QColor(254,254,254))
-        self.gui.tbl_server_manager.setItem(0, 5, QtWidgets.QTableWidgetItem("RCON Password"))
-        self.gui.tbl_server_manager.item(0, 5).setBackground(QtGui.QColor(254,254,254))
+
     #Fill Dropdown Menue Server Selection on Main Window
     def fill_dropdown_server_box(self):
         #Database connection setup
