@@ -345,9 +345,6 @@ class maingui(QtWidgets.QWidget):
         def onClicked(item):
             QtWidgets.QApplication.clipboard().setText(item.text())
         self.gui.list_custom_commands_console.itemDoubleClicked.connect(onClicked)
-        
-        
-
     #Create Sevrer Manager Table
     def create_server_table_widget(self):
         self.gui.tbl_server_manager.setRowCount(0)
@@ -355,10 +352,10 @@ class maingui(QtWidgets.QWidget):
         self.gui.tbl_server_manager.setColumnWidth(0, 30)
         self.gui.tbl_server_manager.setItem(0, 0, QtWidgets.QTableWidgetItem("ID"))
         self.gui.tbl_server_manager.item(0, 0).setBackground(QtGui.QColor(254,254,254))
-        self.gui.tbl_server_manager.setColumnWidth(1, 270)
+        self.gui.tbl_server_manager.setColumnWidth(1, 370)
         self.gui.tbl_server_manager.setItem(0, 1, QtWidgets.QTableWidgetItem("Alias"))
         self.gui.tbl_server_manager.item(0, 1).setBackground(QtGui.QColor(254,254,254))
-        self.gui.tbl_server_manager.setColumnWidth(2, 110)
+        self.gui.tbl_server_manager.setColumnWidth(2, 120)
         self.gui.tbl_server_manager.setItem(0, 2, QtWidgets.QTableWidgetItem("IP-Address"))
         self.gui.tbl_server_manager.item(0, 2).setBackground(QtGui.QColor(254,254,254))
         self.gui.tbl_server_manager.setColumnWidth(3, 90)
@@ -395,6 +392,7 @@ class maingui(QtWidgets.QWidget):
                     select_result = self.c.fetchone()
                     self.conn.commit()
                     self.gui.server_alias.setText(select_result[0])
+                    self.gui.server_alias.setCursorPosition(1)
                     self.gui.server_ip.setText(select_result[1])
                     self.gui.server_query.setText(str(select_result[2]))
                     self.gui.server_rconport.setText(str(select_result[3]))
@@ -689,6 +687,8 @@ class maingui(QtWidgets.QWidget):
         self.gui.le_ping.setText(str(self.servernetworkdetails['ping']))
         self.gui.le_map.setText(str(self.servergamedetails['game_map']) + " (" + self.lighting_map + ")")
         self.gui.le_mods.setText(str(self.mutatorids))
+        self.gui.le_mods.setToolTip(str(self.mutatorids))
+        self.gui.le_mods.setCursorPosition(1)
         #Creating a list for mutator-IDs to identify installed maps
         check_modlist = self.serverruledetails.get('ModList_s')
         if check_modlist:
@@ -1114,16 +1114,29 @@ class maingui(QtWidgets.QWidget):
         if go_addserver_check == 1 and  go_addserver_ipcheck == 1 and go_addserver_qpcheck == 1:
             asd_alias = None
             try:
+                self.gui.progressbar_map_changer.setProperty("value", 33)
                 asd_server = query.Query(asd_transferip, asd_transferqport)
                 asd_serverinfo = (asd_server.info())
+                self.gui.progressbar_map_changer.setProperty("value", 66)
                 asd_servergamedetails = (asd_serverinfo['info'])
                 asd_alias = (asd_servergamedetails['server_name'])
                 self.c.execute("SELECT COALESCE(MAX(id), 0) FROM server")
                 raw_table_counter = self.c.fetchone()
                 self.conn.commit()
                 val_id = raw_table_counter[0] + 1
+                alias_exists = 0
+                alias_not_existing = 0
                 if asd_alias:
-                    if asd_transferip and asd_transferqport:
+                    self.c.execute("SELECT alias from server")
+                    check_alias_list = self.c.fetchall()
+                    self.conn.commit()
+                    for checkalias in check_alias_list:
+                        for item in checkalias:
+                            if asd_alias == item:
+                                alias_exists = 1
+                            else:
+                                alias_not_existing = 1
+                    if asd_transferip and asd_transferqport and alias_exists == 0 and alias_not_existing == 1:
                         self.c.execute("INSERT INTO server VALUES (:id, :alias, :ipaddress, :queryport, :rconport, :rconpw)", {'id': val_id, 'alias': asd_alias, 'ipaddress': asd_transferip, 'queryport': asd_transferqport, 'rconport': asd_transferrport, 'rconpw': asd_transferrpw})
                         self.conn.commit()
                         self.checkandgoquery()
@@ -1131,7 +1144,15 @@ class maingui(QtWidgets.QWidget):
                         self.create_server_table_widget()
                         self.fill_server_table_widget()
                         self.gui.label_output_window.append(f"Server successfully inserted with Alias: {asd_alias}")
+                        self.gui.progressbar_map_changer.setProperty("value", 100)
+                        time.sleep(0.2)
+                        self.gui.progressbar_map_changer.setProperty("value", 0)
+                    else:
+                        raise Exception
             except Exception:
+                self.gui.progressbar_map_changer.setProperty("value", 100)
+                time.sleep(0.2)
+                self.gui.progressbar_map_changer.setProperty("value", 0)
                 self.gui.TabWidget_Main_overall.setCurrentWidget(self.gui.Tab_Server)
                 asd_alias = ""
                 self.gui.server_alias.setText(asd_alias)
@@ -1139,7 +1160,7 @@ class maingui(QtWidgets.QWidget):
                 self.gui.server_query.setText(asd_transferqport)
                 self.gui.server_rconport.setText(asd_transferrport)
                 self.gui.server_rconpw.setText(asd_transferrpw) 
-                self.gui.label_db_console.append("Could not add Server, it is not responding - please manually enter an Alias and click Add!")
+                self.gui.label_db_console.append("Could not add Server, it is not responding or Alias already exists\nPlease manually enter an Alias and click Add!")
     #Modify a server in DB
     def server_modify(self):
         val_id = self.unique_modifier_id
@@ -1154,21 +1175,6 @@ class maingui(QtWidgets.QWidget):
         25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
         25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)$'''
         self.regexport = r'''^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$'''
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         self.c.execute("select alias FROM server")
         check_alias = self.c.fetchall()
         self.conn.commit()
@@ -1180,13 +1186,10 @@ class maingui(QtWidgets.QWidget):
                     alias_gocheck = 1
                 else:
                     alias_nogocheck = 0
-
-
-        
-
         if alias_gocheck == 1 and alias_nogocheck == 0:
             if val_ipaddress and (re.search(self.regexip, val_ipaddress)): 
                 if val_queryport and (re.search(self.regexport, val_queryport)):
+
                     if val_ipaddress and val_queryport and val_alias and val_id:
                         try:        
                             self.c.execute("UPDATE server SET alias=:alias, ipaddress=:ipaddress, queryport=:queryport, rconport=:rconport, rconpw=:rconpw WHERE id=:mid", {'alias': val_alias, 'ipaddress': val_ipaddress, 'queryport': val_queryport, 'rconport': val_rconport, 'rconpw': val_rconpw, 'mid': val_id})
@@ -1196,6 +1199,8 @@ class maingui(QtWidgets.QWidget):
                             self.gui.label_db_console.append("Failed to update server in database " + str(error))
                     else:
                         self.gui.label_db_console.append("At least Alias, IP-Adress and Query Port have to contain a value!")
+
+
                 else:
                     self.gui.label_db_console.append(val_queryport + " is no valid Query Port - please check and retry!")
             else:

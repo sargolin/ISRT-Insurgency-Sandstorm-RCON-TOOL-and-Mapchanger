@@ -82,7 +82,7 @@ selection-background-color: rgb(216, 216, 216);</string>
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <property name="elideMode">
       <enum>Qt::ElideNone</enum>
@@ -640,7 +640,7 @@ background-repeat: no-repeat;</string>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
-                     <width>15</width>
+                     <width>10</width>
                      <height>20</height>
                     </size>
                    </property>
@@ -650,6 +650,12 @@ background-repeat: no-repeat;</string>
                   <layout class="QVBoxLayout" name="verticalLayout_4">
                    <item>
                     <widget class="QLineEdit" name="le_gamemode">
+                     <property name="minimumSize">
+                      <size>
+                       <width>220</width>
+                       <height>0</height>
+                      </size>
+                     </property>
                      <property name="font">
                       <font>
                        <pointsize>8</pointsize>
@@ -683,6 +689,12 @@ background-repeat: no-repeat;</string>
                    </item>
                    <item>
                     <widget class="QLineEdit" name="le_serverip_port">
+                     <property name="minimumSize">
+                      <size>
+                       <width>220</width>
+                       <height>0</height>
+                      </size>
+                     </property>
                      <property name="font">
                       <font>
                        <pointsize>8</pointsize>
@@ -713,10 +725,19 @@ background-repeat: no-repeat;</string>
                    </item>
                    <item>
                     <widget class="QLineEdit" name="le_mods">
+                     <property name="minimumSize">
+                      <size>
+                       <width>220</width>
+                       <height>0</height>
+                      </size>
+                     </property>
                      <property name="font">
                       <font>
                        <pointsize>8</pointsize>
                       </font>
+                     </property>
+                     <property name="toolTip">
+                      <string>Server Mods</string>
                      </property>
                      <property name="statusTip">
                       <string>Servermods</string>
@@ -753,7 +774,7 @@ background-repeat: no-repeat;</string>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
-                     <width>35</width>
+                     <width>10</width>
                      <height>30</height>
                     </size>
                    </property>
@@ -797,7 +818,7 @@ background-repeat: no-repeat;</string>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
-                     <width>15</width>
+                     <width>10</width>
                      <height>20</height>
                     </size>
                    </property>
@@ -807,6 +828,12 @@ background-repeat: no-repeat;</string>
                   <layout class="QVBoxLayout" name="verticalLayout_6">
                    <item>
                     <widget class="QLineEdit" name="le_vac">
+                     <property name="minimumSize">
+                      <size>
+                       <width>110</width>
+                       <height>0</height>
+                      </size>
+                     </property>
                      <property name="font">
                       <font>
                        <pointsize>8</pointsize>
@@ -825,7 +852,7 @@ background-repeat: no-repeat;</string>
                       <bool>false</bool>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                      </property>
                      <property name="readOnly">
                       <bool>true</bool>
@@ -837,6 +864,12 @@ background-repeat: no-repeat;</string>
                    </item>
                    <item>
                     <widget class="QLineEdit" name="le_ping">
+                     <property name="minimumSize">
+                      <size>
+                       <width>110</width>
+                       <height>0</height>
+                      </size>
+                     </property>
                      <property name="font">
                       <font>
                        <pointsize>8</pointsize>
@@ -855,7 +888,7 @@ background-repeat: no-repeat;</string>
                       <bool>false</bool>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                      </property>
                      <property name="readOnly">
                       <bool>true</bool>
@@ -867,6 +900,12 @@ background-repeat: no-repeat;</string>
                    </item>
                    <item>
                     <widget class="QLineEdit" name="le_map">
+                     <property name="minimumSize">
+                      <size>
+                       <width>110</width>
+                       <height>0</height>
+                      </size>
+                     </property>
                      <property name="font">
                       <font>
                        <pointsize>8</pointsize>
@@ -885,7 +924,7 @@ background-repeat: no-repeat;</string>
                       <bool>false</bool>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                      </property>
                      <property name="readOnly">
                       <bool>true</bool>
@@ -1694,7 +1733,7 @@ p, li { white-space: pre-wrap; }
                <property name="minimumSize">
                 <size>
                  <width>200</width>
-                 <height>20</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="font">
@@ -1724,7 +1763,7 @@ p, li { white-space: pre-wrap; }
                <property name="minimumSize">
                 <size>
                  <width>150</width>
-                 <height>20</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="font">
@@ -1754,7 +1793,7 @@ p, li { white-space: pre-wrap; }
                <property name="minimumSize">
                 <size>
                  <width>60</width>
-                 <height>20</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="font">
@@ -1784,7 +1823,7 @@ p, li { white-space: pre-wrap; }
                <property name="minimumSize">
                 <size>
                  <width>60</width>
-                 <height>20</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="font">
@@ -1817,7 +1856,7 @@ p, li { white-space: pre-wrap; }
                <property name="minimumSize">
                 <size>
                  <width>105</width>
-                 <height>20</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="font">
