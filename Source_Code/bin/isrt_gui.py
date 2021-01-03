@@ -177,6 +177,7 @@ class Ui_ISRT_Main_Window(object):
         self.horizontalLayout_10.addWidget(self.line_9)
         self.label_map_view = QtWidgets.QLabel(self.Tab_Main)
         self.label_map_view.setMinimumSize(QtCore.QSize(250, 125))
+        self.label_map_view.setContextMenuPolicy(QtCore.Qt.PreventContextMenu)
         self.label_map_view.setStyleSheet("border-image: url(:/map_view/img/maps/map_views.jpg);\n"
 "background-color: #f0f0f0;\n"
 "background-position: center;\n"
@@ -565,7 +566,8 @@ class Ui_ISRT_Main_Window(object):
         font.setBold(True)
         font.setWeight(75)
         self.label_output_window.setFont(font)
-        self.label_output_window.setAutoFillBackground(False)
+        self.label_output_window.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
+        self.label_output_window.setAutoFillBackground(True)
         self.label_output_window.setStyleSheet("border-image:url(:/img/img/rcon-bck.jpg);\n"
 "background-color: #f0f0f0;\n"
 "background-position: center;\n"
@@ -1364,6 +1366,8 @@ class Ui_ISRT_Main_Window(object):
         item.setText(_translate("ISRT_Main_Window", "XP collected"))
         item = self.tbl_player_output.horizontalHeaderItem(3)
         item.setText(_translate("ISRT_Main_Window", "Online Time"))
+        self.label_output_window.setToolTip(_translate("ISRT_Main_Window", "Console output"))
+        self.label_output_window.setStatusTip(_translate("ISRT_Main_Window", "Console output"))
         self.label_output_window.setHtml(_translate("ISRT_Main_Window", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"

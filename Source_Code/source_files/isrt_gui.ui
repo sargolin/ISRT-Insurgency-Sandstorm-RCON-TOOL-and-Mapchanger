@@ -433,6 +433,9 @@ selection-background-color: rgb(216, 216, 216);</string>
                    <height>125</height>
                   </size>
                  </property>
+                 <property name="contextMenuPolicy">
+                  <enum>Qt::PreventContextMenu</enum>
+                 </property>
                  <property name="styleSheet">
                   <string notr="true">border-image: url(:/map_view/img/maps/map_views.jpg);
 background-color: #f0f0f0;
@@ -1555,8 +1558,17 @@ background-repeat: no-repeat;</string>
              <bold>true</bold>
             </font>
            </property>
+           <property name="contextMenuPolicy">
+            <enum>Qt::DefaultContextMenu</enum>
+           </property>
+           <property name="toolTip">
+            <string>Console output</string>
+           </property>
+           <property name="statusTip">
+            <string>Console output</string>
+           </property>
            <property name="autoFillBackground">
-            <bool>false</bool>
+            <bool>true</bool>
            </property>
            <property name="styleSheet">
             <string notr="true">border-image:url(:/img/img/rcon-bck.jpg);

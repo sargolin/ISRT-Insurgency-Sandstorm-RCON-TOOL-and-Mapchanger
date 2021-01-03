@@ -240,35 +240,6 @@ class maingui(QtWidgets.QWidget):
         self.gui.btn_server_modify.clicked.connect(self.server_modify)
         self.gui.btn_server_delete.clicked.connect(self.server_delete)
         #
-        #Fill the Server dropdown menu
-        #
-        def assign_server_values(text):
-            self.assign_server_values_text = text
-            selection = self.assign_server_values_text
-            #Get variables for servers to fill dropdpwn            
-            self.c.execute("select ipaddress FROM server WHERE alias = (:select_alias)", {'select_alias': selection})
-            extract = self.c.fetchone()
-            for selip in extract:
-                sel_ipaddress = selip
-            self.c.execute("select queryport FROM server WHERE alias = (:select_alias)", {'select_alias': selection})
-            extract = self.c.fetchone()
-            for selqp in extract:
-                sel_queryport = str(selqp)
-            self.c.execute("select rconport FROM server WHERE alias = (:select_alias)", {'select_alias': selection})
-            extract = self.c.fetchone()
-            for selrp in extract:
-                sel_rconport = str(selrp)
-            self.c.execute("select rconpw FROM server WHERE alias = (:select_alias)", {'select_alias': selection})
-            extract = self.c.fetchone()
-            for selrpw in extract:
-                sel_rconpw = selrpw                
-            self.conn.commit()
-            self.gui.server_alias.setText(selection)
-            self.gui.server_ip.setText(sel_ipaddress)
-            self.gui.server_query.setText(sel_queryport)
-            self.gui.server_rconport.setText(sel_rconport)
-            self.gui.server_rconpw.setText(sel_rconpw)
-        #
         #Assign Server variables for Dropdown menu on selection
         #
         def assign_server_values_list(text):
