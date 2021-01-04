@@ -8,7 +8,6 @@ Dunes
 Outpost 31
 Outpost Sandcastle
 Island_Outpost
-Sheds
 Labs
 Scenario_HGMod6_CP
 Ambush

@@ -3,15 +3,12 @@
     <file>img/paypal.png</file>
     <file>img/monbck.jpg</file>
     <file>img/lock-unchecked.png</file>
-    <file>img/ai-image.png</file>
-    <file>img/about-bck.jpg</file>
     <file>img/lock-locked.png</file>
     <file>img/lock-unlocked.png</file>
     <file>img/offline.jpg</file>
     <file>img/rcon-bck.jpg</file>
     <file>img/isrt.ico</file>
     <file>img/isrt-bck.png</file>
-    <file>img/Insurgency-Sandstorm.jpg</file>
     <file>img/sbck.png</file>
   </qresource>
   <qresource prefix="map_thumbs">

@@ -3321,7 +3321,7 @@ min-height: 20px;</string>
            <property name="sizeHint" stdset="0">
             <size>
              <width>20</width>
-             <height>5</height>
+             <height>10</height>
             </size>
            </property>
           </spacer>
@@ -3334,6 +3334,11 @@ min-height: 20px;</string>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+            </font>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(240, 240, 240);</string>
            </property>
@@ -3341,39 +3346,10 @@ min-height: 20px;</string>
             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:10px; margin-bottom:10px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;ISRT Help&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:10px; margin-bottom:10px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Which RCON commands can you use and what do they mean?&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
-         </item>
-         <item>
-          <spacer name="verticalSpacer_14">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Minimum</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>5</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <spacer name="verticalSpacer">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_9">
@@ -3382,7 +3358,7 @@ p, li { white-space: pre-wrap; }
              <property name="minimumSize">
               <size>
                <width>0</width>
-               <height>707</height>
+               <height>450</height>
               </size>
              </property>
              <property name="font">
@@ -3498,26 +3474,67 @@ Lists available gamemode properties for the current gamemode.</string>
           </layout>
          </item>
          <item>
-          <widget class="QLabel" name="label_bottom_help">
+          <spacer name="verticalSpacer">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>10</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_5">
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Tutorials and HowTos on the ISRT Website&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>10</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_7">
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>150</height>
+             <height>120</height>
             </size>
            </property>
            <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
+            <enum>QFrame::NoFrame</enum>
            </property>
            <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;For FAQs, Installation Instructions, error handling and further tutorials please visit the Wiki:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=2&quot;&gt;&lt;span style=&quot; font-size:18pt; text-decoration: underline; color:#0000ff;&quot;&gt;Online-Wiki&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Report issues &lt;/span&gt;&lt;a href=&quot;https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/issues&quot;&gt;&lt;span style=&quot; font-size:16pt; text-decoration: underline; color:#0000ff;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=263#installwin&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;Installing ISRT on Windows&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; color:#000000;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=263#installlin&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;Installing ISRT on Linux with pre-requisites&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; color:#000000;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=263#installmac&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;Installing ISRT on MacOS &lt;/span&gt;&lt;/a&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=263#installlin&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;with pre-requisites&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; color:#000000;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=316&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;Making an ISRT Desktop Shortcut look good on Windows&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; color:#000000;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=316#linsc&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;Creating a Starter on your Linux Desktop that looks good&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; color:#000000;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=276&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;Using the right ports - What's the difference between Game, Query and RCON ports&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; color:#000000;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=278&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;Known Bugs and Problems with the Software&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; color:#000000;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=280&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;Reporting Bugs and Issue - How to reach out?!&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; color:#000000;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="openExternalLinks">
             <bool>true</bool>
            </property>
            <property name="textInteractionFlags">
-            <set>Qt::TextBrowserInteraction</set>
+            <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
            </property>
           </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_32"/>
          </item>
          <item>
           <spacer name="verticalSpacer_4">
@@ -3531,6 +3548,28 @@ Lists available gamemode properties for the current gamemode.</string>
             </size>
            </property>
           </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_bottom_help">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Report issues &lt;/span&gt;&lt;a href=&quot;https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/issues&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; text-decoration: underline; color:#000000;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt; or write to &lt;/span&gt;&lt;a href=&quot;mailto:madman@isrt.info&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; text-decoration: underline; color:#000000;&quot;&gt;madman@isrt.info&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="openExternalLinks">
+            <bool>true</bool>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::TextBrowserInteraction</set>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
