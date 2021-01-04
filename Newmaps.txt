@@ -1,7 +1,7 @@
-Somodag
-CQB_PRS
-OC_Map_1
-Necropolis
+Somodag 455703 - D/N - CP (FL PU Sec PU Ins Dom TDM) - Somodag?Scenario=Scenario_ Somodag_Checkpoint_Security?Lighting=Day
+CQB_PRS 234468 - D/N - TDM, DOM - Open CQBfun?Scenario=TDM_prs?Lighting=Day - Open CQBfun?Scenario=Domination_prs_cqb?Lighting=Day
+OC_Map_1 176551 - D - TDM, DOM, CP - Scenario_OC_Map_1_TDM - Scenario_OC_Map_1_DOM - Scenario_OC_Map_1_Checkpoint_Security
+Necropolis 175070 - D - CP, OP - Scenario_Necropolis_Outpost - Scenario_Necropolis_Checkpoint_Security
 The_Tower
 fy_iceworld
 Dunes
@@ -38,3 +38,8 @@ Shipment
 Wolf-land
 CS_Bloodstrike
 Operation Redwood
+
+
+
+Trying to insert your map in the Insurgency Sandstorm RCOn Tool - How do you call the FL PU-Sec PU-Ins Dom TDM Modes aside from CheckPoint - usually they have a different scenario name. Thanks.
+Madman
