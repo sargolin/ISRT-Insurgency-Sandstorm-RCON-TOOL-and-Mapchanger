@@ -35,9 +35,7 @@
     <file>img/maps/thumbs/dawnbreaker.jpg</file>
     <file>img/maps/thumbs/dawnbreaker_night.jpg</file>
     <file>img/maps/thumbs/derbunker.jpg</file>
-    <file>img/maps/thumbs/derbunker_night.jpg</file>
     <file>img/maps/thumbs/derriese.jpg</file>
-    <file>img/maps/thumbs/derriese_night.jpg</file>
     <file>img/maps/thumbs/dunes.jpg</file>
     <file>img/maps/thumbs/dunes_night.jpg</file>
     <file>img/maps/thumbs/farmhouse.jpg</file>
@@ -61,19 +59,16 @@
     <file>img/maps/thumbs/macedonia.jpg</file>
     <file>img/maps/thumbs/macedonia_night.jpg</file>
     <file>img/maps/thumbs/mallconflict.jpg</file>
-    <file>img/maps/thumbs/mallconflict_night.jpg</file>
     <file>img/maps/thumbs/metro.jpg</file>
     <file>img/maps/thumbs/metro_night.jpg</file>
     <file>img/maps/thumbs/ministry.jpg</file>
     <file>img/maps/thumbs/ministry_night.jpg</file>
     <file>img/maps/thumbs/mountainpass.jpg</file>
-    <file>img/maps/thumbs/mountainpass_night.jpg</file>
     <file>img/maps/thumbs/mud_village.jpg</file>
     <file>img/maps/thumbs/mud_village_night.jpg</file>
     <file>img/maps/thumbs/necropolis.jpg</file>
     <file>img/maps/thumbs/necropolis_night.jpg</file>
     <file>img/maps/thumbs/noshahr.jpg</file>
-    <file>img/maps/thumbs/noshahr_night.jpg</file>
     <file>img/maps/thumbs/oc_map_1.jpg</file>
     <file>img/maps/thumbs/operation_pipeline.jpg</file>
     <file>img/maps/thumbs/operation_redwood.jpg</file>
@@ -81,7 +76,6 @@
     <file>img/maps/thumbs/outskirts.jpg</file>
     <file>img/maps/thumbs/outskirts_night.jpg</file>
     <file>img/maps/thumbs/paluja.jpeg</file>
-    <file>img/maps/thumbs/paluja_night.jpg</file>
     <file>img/maps/thumbs/panzerschlacht.jpg</file>
     <file>img/maps/thumbs/panzerschlacht_night.jpg</file>
     <file>img/maps/thumbs/powerplant.jpg</file>
@@ -111,13 +105,11 @@
     <file>img/maps/thumbs/stork_castle.jpg</file>
     <file>img/maps/thumbs/stork_castle_night.jpg</file>
     <file>img/maps/thumbs/sultan.jpg</file>
-    <file>img/maps/thumbs/sultan_night.jpg</file>
     <file>img/maps/thumbs/summit.jpg</file>
     <file>img/maps/thumbs/summit_night.jpg</file>
     <file>img/maps/thumbs/tell.jpg</file>
     <file>img/maps/thumbs/tell_night.jpg</file>
     <file>img/maps/thumbs/temple.jpg</file>
-    <file>img/maps/thumbs/temple_night.jpg</file>
     <file>img/maps/thumbs/the_tower.jpg</file>
     <file>img/maps/thumbs/the_tower_night.jpg</file>
     <file>img/maps/thumbs/thefarm.jpg</file>
@@ -128,7 +120,6 @@
     <file>img/maps/thumbs/trenches.jpg</file>
     <file>img/maps/thumbs/vacant.jpg</file>
     <file>img/maps/thumbs/winter.jpg</file>
-    <file>img/maps/thumbs/winter_night.jpg</file>
     <file>img/maps/thumbs/wolfland.jpg</file>
     <file>img/maps/thumbs/wolfland_night.jpg</file>
   </qresource>
