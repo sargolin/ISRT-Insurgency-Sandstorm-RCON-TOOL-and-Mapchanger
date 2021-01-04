@@ -11,83 +11,125 @@
     <file>img/isrt-bck.png</file>
     <file>img/sbck.png</file>
   </qresource>
+  <qresource prefix="map_view">
+    <file>img/maps/map_views.jpg</file>
+  </qresource>
   <qresource prefix="map_thumbs">
-    <file>img/maps/thumbs/mud_village.png</file>
-    <file>img/maps/thumbs/mud_village_night.png</file>
+    <file>img/maps/thumbs/airsoftministry.jpg</file>
+    <file>img/maps/thumbs/ambush.jpg</file>
+    <file>img/maps/thumbs/ambush_night.jpg</file>
     <file>img/maps/thumbs/bab.jpg</file>
     <file>img/maps/thumbs/bab_night.jpg</file>
-    <file>img/maps/thumbs/compound.png</file>
-    <file>img/maps/thumbs/compound_night.png</file>
-    <file>img/maps/thumbs/crossing.png</file>
-    <file>img/maps/thumbs/crossing_night.png</file>
-    <file>img/maps/thumbs/dawnbreaker.png</file>
-    <file>img/maps/thumbs/dawnbreaker_night.png</file>
-    <file>img/maps/thumbs/derbunker.png</file>
-    <file>img/maps/thumbs/derbunker_night.png</file>
-    <file>img/maps/thumbs/derriese.png</file>
-    <file>img/maps/thumbs/derriese_night.png</file>
-    <file>img/maps/thumbs/farmhouse.png</file>
-    <file>img/maps/thumbs/farmhouse_night.png</file>
-    <file>img/maps/thumbs/frost.png</file>
-    <file>img/maps/thumbs/frost_night.png</file>
-    <file>img/maps/thumbs/glassdome.png</file>
-    <file>img/maps/thumbs/glassdome_night.png</file>
-    <file>img/maps/thumbs/hideout.png</file>
-    <file>img/maps/thumbs/hideout_night.png</file>
-    <file>img/maps/thumbs/highlands.png</file>
-    <file>img/maps/thumbs/highlands_night.png</file>
-    <file>img/maps/thumbs/hillside.png</file>
-    <file>img/maps/thumbs/hillside_night.png</file>
+    <file>img/maps/thumbs/banane.jpg</file>
+    <file>img/maps/thumbs/banane_night.jpg</file>
+    <file>img/maps/thumbs/bridge_crossing.jpg</file>
+    <file>img/maps/thumbs/carentan.jpg</file>
+    <file>img/maps/thumbs/complex_facility.jpg</file>
+    <file>img/maps/thumbs/compound.jpg</file>
+    <file>img/maps/thumbs/compound_night.jpg</file>
+    <file>img/maps/thumbs/courtyard.jpg</file>
+    <file>img/maps/thumbs/cqb_prs.jpg</file>
+    <file>img/maps/thumbs/cqb_prs_night.jpg</file>
+    <file>img/maps/thumbs/crossing.jpg</file>
+    <file>img/maps/thumbs/crossing_night.jpg</file>
+    <file>img/maps/thumbs/dawnbreaker.jpg</file>
+    <file>img/maps/thumbs/dawnbreaker_night.jpg</file>
+    <file>img/maps/thumbs/derbunker.jpg</file>
+    <file>img/maps/thumbs/derbunker_night.jpg</file>
+    <file>img/maps/thumbs/derriese.jpg</file>
+    <file>img/maps/thumbs/derriese_night.jpg</file>
+    <file>img/maps/thumbs/dunes.jpg</file>
+    <file>img/maps/thumbs/dunes_night.jpg</file>
+    <file>img/maps/thumbs/farmhouse.jpg</file>
+    <file>img/maps/thumbs/farmhouse_night.jpg</file>
+    <file>img/maps/thumbs/frost.jpg</file>
+    <file>img/maps/thumbs/frost_night.jpg</file>
+    <file>img/maps/thumbs/fy_iceworld.jpg</file>
+    <file>img/maps/thumbs/fy_iceworld_night.jpg</file>
+    <file>img/maps/thumbs/glassdome.jpg</file>
+    <file>img/maps/thumbs/glassdome_night.jpg</file>
+    <file>img/maps/thumbs/hideout.jpg</file>
+    <file>img/maps/thumbs/hideout_night.jpg</file>
+    <file>img/maps/thumbs/highlands.jpg</file>
+    <file>img/maps/thumbs/highlands_night.jpg</file>
+    <file>img/maps/thumbs/hillside.jpg</file>
+    <file>img/maps/thumbs/hillside_night.jpg</file>
+    <file>img/maps/thumbs/irca_snow_map.jpg</file>
+    <file>img/maps/thumbs/irca_snow_map_night.jpg</file>
+    <file>img/maps/thumbs/junkyard.jpg</file>
+    <file>img/maps/thumbs/junkyard_night.jpg</file>
     <file>img/maps/thumbs/macedonia.jpg</file>
     <file>img/maps/thumbs/macedonia_night.jpg</file>
-    <file>img/maps/thumbs/mallconflict.png</file>
-    <file>img/maps/thumbs/mallconflict_night.png</file>
-    <file>img/maps/thumbs/metro.png</file>
-    <file>img/maps/thumbs/metro_night.png</file>
-    <file>img/maps/thumbs/ministry.png</file>
-    <file>img/maps/thumbs/ministry_night.png</file>
+    <file>img/maps/thumbs/mallconflict.jpg</file>
+    <file>img/maps/thumbs/mallconflict_night.jpg</file>
+    <file>img/maps/thumbs/metro.jpg</file>
+    <file>img/maps/thumbs/metro_night.jpg</file>
+    <file>img/maps/thumbs/ministry.jpg</file>
+    <file>img/maps/thumbs/ministry_night.jpg</file>
     <file>img/maps/thumbs/mountainpass.jpg</file>
     <file>img/maps/thumbs/mountainpass_night.jpg</file>
-    <file>img/maps/thumbs/noshahr.png</file>
-    <file>img/maps/thumbs/noshahr_night.png</file>
+    <file>img/maps/thumbs/mud_village.jpg</file>
+    <file>img/maps/thumbs/mud_village_night.jpg</file>
+    <file>img/maps/thumbs/necropolis.jpg</file>
+    <file>img/maps/thumbs/necropolis_night.jpg</file>
+    <file>img/maps/thumbs/noshahr.jpg</file>
+    <file>img/maps/thumbs/noshahr_night.jpg</file>
+    <file>img/maps/thumbs/oc_map_1.jpg</file>
+    <file>img/maps/thumbs/operation_pipeline.jpg</file>
+    <file>img/maps/thumbs/operation_redwood.jpg</file>
+    <file>img/maps/thumbs/outpost31.jpg</file>
     <file>img/maps/thumbs/outskirts.jpg</file>
     <file>img/maps/thumbs/outskirts_night.jpg</file>
     <file>img/maps/thumbs/paluja.jpeg</file>
     <file>img/maps/thumbs/paluja_night.jpg</file>
-    <file>img/maps/thumbs/panzerschlacht.png</file>
-    <file>img/maps/thumbs/panzerschlacht_night.png</file>
+    <file>img/maps/thumbs/panzerschlacht.jpg</file>
+    <file>img/maps/thumbs/panzerschlacht_night.jpg</file>
     <file>img/maps/thumbs/powerplant.jpg</file>
     <file>img/maps/thumbs/powerplant_night.jpg</file>
-    <file>img/maps/thumbs/precinct.png</file>
-    <file>img/maps/thumbs/precinct_night.png</file>
+    <file>img/maps/thumbs/precinct.jpg</file>
+    <file>img/maps/thumbs/precinct_night.jpg</file>
     <file>img/maps/thumbs/prison.jpg</file>
     <file>img/maps/thumbs/prison_night.jpg</file>
-    <file>img/maps/thumbs/pruefstand7.png</file>
-    <file>img/maps/thumbs/pruefstand7_night.png</file>
-    <file>img/maps/thumbs/refinery.png</file>
-    <file>img/maps/thumbs/refinery_night.png</file>
+    <file>img/maps/thumbs/project_pancake.jpg</file>
+    <file>img/maps/thumbs/pruefstand7.jpg</file>
+    <file>img/maps/thumbs/pruefstand7_night.jpg</file>
+    <file>img/maps/thumbs/refinery.jpg</file>
+    <file>img/maps/thumbs/refinery_night.jpg</file>
+    <file>img/maps/thumbs/road_to_sandstorm.jpg</file>
+    <file>img/maps/thumbs/saltmine.jpg</file>
+    <file>img/maps/thumbs/sandcastle.jpg</file>
+    <file>img/maps/thumbs/scenario_hgmod6_cp.jpg</file>
     <file>img/maps/thumbs/scorched.jpg</file>
     <file>img/maps/thumbs/scorched_night.jpg</file>
+    <file>img/maps/thumbs/sewer_rats.jpg</file>
     <file>img/maps/thumbs/sheds.jpg</file>
     <file>img/maps/thumbs/sheds_night.jpg</file>
+    <file>img/maps/thumbs/shipment.jpg</file>
+    <file>img/maps/thumbs/shipment_night.jpg</file>
+    <file>img/maps/thumbs/somodag.jpg</file>
+    <file>img/maps/thumbs/somodag_night.jpg</file>
     <file>img/maps/thumbs/stork_castle.jpg</file>
     <file>img/maps/thumbs/stork_castle_night.jpg</file>
     <file>img/maps/thumbs/sultan.jpg</file>
     <file>img/maps/thumbs/sultan_night.jpg</file>
-    <file>img/maps/thumbs/summit.png</file>
-    <file>img/maps/thumbs/summit_night.png</file>
+    <file>img/maps/thumbs/summit.jpg</file>
+    <file>img/maps/thumbs/summit_night.jpg</file>
     <file>img/maps/thumbs/tell.jpg</file>
     <file>img/maps/thumbs/tell_night.jpg</file>
-    <file>img/maps/thumbs/temple.png</file>
-    <file>img/maps/thumbs/temple_night.png</file>
-    <file>img/maps/thumbs/tideway.png</file>
-    <file>img/maps/thumbs/tideway_night.png</file>
+    <file>img/maps/thumbs/temple.jpg</file>
+    <file>img/maps/thumbs/temple_night.jpg</file>
+    <file>img/maps/thumbs/the_tower.jpg</file>
+    <file>img/maps/thumbs/the_tower_night.jpg</file>
+    <file>img/maps/thumbs/thefarm.jpg</file>
+    <file>img/maps/thumbs/tideway.jpg</file>
+    <file>img/maps/thumbs/tideway_night.jpg</file>
     <file>img/maps/thumbs/toro.jpg</file>
     <file>img/maps/thumbs/toro_night.jpg</file>
-    <file>img/maps/thumbs/winter.png</file>
-    <file>img/maps/thumbs/winter_night.png</file>
-  </qresource>
-  <qresource prefix="map_view">
-    <file>img/maps/map_views.jpg</file>
+    <file>img/maps/thumbs/trenches.jpg</file>
+    <file>img/maps/thumbs/vacant.jpg</file>
+    <file>img/maps/thumbs/winter.jpg</file>
+    <file>img/maps/thumbs/winter_night.jpg</file>
+    <file>img/maps/thumbs/wolfland.jpg</file>
+    <file>img/maps/thumbs/wolfland_night.jpg</file>
   </qresource>
 </RCC>
