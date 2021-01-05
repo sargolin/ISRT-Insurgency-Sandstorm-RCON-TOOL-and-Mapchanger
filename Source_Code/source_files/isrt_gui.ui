@@ -2483,24 +2483,6 @@ p, li { white-space: pre-wrap; }
           </layout>
          </item>
          <item>
-          <widget class="QLabel" name="label_4">
-           <property name="font">
-            <font>
-             <pointsize>7</pointsize>
-             <weight>50</weight>
-             <italic>false</italic>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Double-Click on command to copy to Clipboard</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
           <widget class="QListWidget" name="list_custom_commands_console">
            <property name="mouseTracking">
             <bool>true</bool>
@@ -2518,10 +2500,27 @@ p, li { white-space: pre-wrap; }
             <set>QAbstractItemView::NoEditTriggers</set>
            </property>
            <property name="selectionMode">
-            <enum>QAbstractItemView::SingleSelection</enum>
+            <enum>QAbstractItemView::MultiSelection</enum>
            </property>
            <property name="selectionBehavior">
             <enum>QAbstractItemView::SelectRows</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="lbl_command_copied">
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Double-Click on command to copy to Clipboard</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -3523,7 +3522,7 @@ Lists available gamemode properties for the current gamemode.</string>
             <enum>QFrame::NoFrame</enum>
            </property>
            <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=263#installwin&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;Installing ISRT on Windows&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; color:#000000;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=263#installlin&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;Installing ISRT on Linux with pre-requisites&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; color:#000000;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=263#installmac&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;Installing ISRT on MacOS &lt;/span&gt;&lt;/a&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=263#installlin&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;with pre-requisites&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; color:#000000;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=316&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;Making an ISRT Desktop Shortcut look good on Windows&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; color:#000000;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=316#linsc&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;Creating a Starter on your Linux Desktop that looks good&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; color:#000000;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=276&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;Using the right ports - What's the difference between Game, Query and RCON ports&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; color:#000000;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=278&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;Known Bugs and Problems with the Software&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; color:#000000;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=280&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;Reporting Bugs and Issue - How to reach out?!&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; color:#000000;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=467&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#000000;&quot;&gt;Is ISRT free of Viruses and Trojans? See the Anti-Virus report!&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=263#installwin&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#000000;&quot;&gt;Installing ISRT on Windows&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; color:#000000;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=263#installlin&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#000000;&quot;&gt;Installing ISRT on Linux with pre-requisites&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; color:#000000;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=263#installmac&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#000000;&quot;&gt;Installing ISRT on MacOS &lt;/span&gt;&lt;/a&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=263#installlin&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#000000;&quot;&gt;with pre-requisites&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; color:#000000;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=316&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#000000;&quot;&gt;Making an ISRT Desktop Shortcut look good on Windows&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; color:#000000;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=316#linsc&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#000000;&quot;&gt;Creating a Starter on your Linux Desktop that looks good&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; color:#000000;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=276&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#000000;&quot;&gt;Using the right ports - What's the difference between Game, Query and RCON ports&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; color:#000000;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=278&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#000000;&quot;&gt;Known Bugs and Problems with the Software&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; color:#000000;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;a href=&quot;https://www.isrt.info/?page_id=280&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#000000;&quot;&gt;Reporting Bugs and Issue - How to reach out?!&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; color:#000000;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="openExternalLinks">
             <bool>true</bool>

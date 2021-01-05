@@ -29,15 +29,6 @@ running_dev_mode = 1
 ##################################################################################
 ##################################################################################
 
-#Define path to installation
-installdir = Path(__file__).absolute().parent
-
-#Database connection setup
-dbfile = (str(installdir / 'db/isrt_data.db'))
-
-conn = sqlite3.connect(dbfile)
-c = conn.cursor()
-
 '''
 ------------------------------------------------------------------
 ------------------------------------------------------------------
@@ -47,12 +38,11 @@ c = conn.cursor()
 #Release Notes GUI Handler
 class rngui(QtWidgets.QWidget):
     def __init__(self, *args, **kwargs):
-        #Import global variables
-        global dbfile, conn, c
         #Gui Setup
         super().__init__(*args, **kwargs)
         #Database connection setup
-        self.conn = sqlite3.connect(dbfile)
+        self.dbdir = Path(__file__).absolute().parent
+        self.conn = sqlite3.connect(str(self.dbdir / 'db/isrt_data.db'))
         self.c = self.conn.cursor()
         self.rngui = Ui_rn_window()
         self.rngui.setupUi(self)
@@ -75,16 +65,14 @@ class rngui(QtWidgets.QWidget):
 #DB Importer GUI Handler
 class dbgui(QtWidgets.QWidget):
     def __init__(self, *args, **kwargs):
-        #Import global variables
-        global dbfile, conn, c, installdir
         #Gui Setup
         super().__init__(*args, **kwargs)
         self.dbgui = Ui_db_importer_gui()
         self.dbgui.setupUi(self)
         #Database connection setup
-        self.conn = sqlite3.connect(dbfile)
+        self.dbdir = Path(__file__).absolute().parent
+        self.conn = sqlite3.connect(str(self.dbdir / 'db/isrt_data.db'))
         self.c = self.conn.cursor()
-        self.installdir = installdir
         self.dbi_path = None
         self.dbgui.btn_dbg_close.clicked.connect(self.close_dbg)
         self.dbgui.btn_dbi_select_database.clicked.connect(lambda: self.DBI_executor("select_db"))
@@ -92,7 +80,7 @@ class dbgui(QtWidgets.QWidget):
     #Grep all Servers from old DB and import them
     def DBI_executor(self, db_action):
         if db_action == 'select_db':
-            db_select_directory = (str(self.installdir) + '\\db\\')
+            db_select_directory = (str(self.dbdir) + '\\db\\')
             self.dbi_path=QtWidgets.QFileDialog.getOpenFileName(self,'Select Database', db_select_directory, '*.db',)
             self.dbgui.label_dbi_selected_db.setText(self.dbi_path[0])
         elif db_action == 'replace_db':
@@ -107,13 +95,12 @@ class dbgui(QtWidgets.QWidget):
                 self.c.execute("DELETE FROM server")
                 self.conn.commit()
                 for import_result in dbimport_result:
-                    import_server_id = import_result[0]
-                    import_server_alias = import_result[1]
-                    import_server_ip = import_result[2]
-                    import_server_queryport = import_result[3]
-                    import_server_rconport = import_result[4]
-                    import_server_rconpw = import_result[5]
-                    self.c.execute("INSERT INTO server VALUES (:id, :alias, :ipaddress, :queryport, :rconport, :rconpw)", {'id': import_server_id, 'alias': import_server_alias, 'ipaddress': import_server_ip, 'queryport': import_server_queryport, 'rconport': import_server_rconport, 'rconpw': import_server_rconpw})
+                    import_server_alias = import_result[0]
+                    import_server_ip = import_result[1]
+                    import_server_queryport = import_result[2]
+                    import_server_rconport = import_result[3]
+                    import_server_rconpw = import_result[4]
+                    self.c.execute("INSERT INTO server VALUES (:alias, :ipaddress, :queryport, :rconport, :rconpw)", {'alias': import_server_alias, 'ipaddress': import_server_ip, 'queryport': import_server_queryport, 'rconport': import_server_rconport, 'rconpw': import_server_rconpw})
                 self.conn.commit()
                 msg = QtWidgets.QMessageBox()
                 msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
@@ -121,6 +108,7 @@ class dbgui(QtWidgets.QWidget):
                 msg.setWindowTitle("ISRT DB imported")
                 msg.setText("Server Import Successful\nRestarting ISRT!")
                 msg.exec_()
+                self.dbi_path = ''
                 #Database connection setup
                 self.dbi_path = None
                 dbgsetoff = 0
@@ -158,14 +146,15 @@ class dbgui(QtWidgets.QWidget):
 #Main GUI Handlers
 class maingui(QtWidgets.QWidget):
     def __init__(self, *args, **kwargs):
-        global running_dev_mode, dbfile, conn, c
+        global running_dev_mode
         self.running_dev_mode = running_dev_mode
         #Gui Setup
         super().__init__(*args, **kwargs)
         self.gui = Ui_ISRT_Main_Window()
         self.gui.setupUi(self)
         #Database connection setup
-        self.conn = sqlite3.connect(dbfile)
+        self.dbdir = Path(__file__).absolute().parent
+        self.conn = sqlite3.connect(str(self.dbdir / 'db/isrt_data.db'))
         self.c = self.conn.cursor()
         #Setup ISRT Monitor Call
         def call_monitor():
@@ -325,6 +314,12 @@ class maingui(QtWidgets.QWidget):
 
         def onClicked(item):
             QtWidgets.QApplication.clipboard().setText(item.text())
+            self.gui.lbl_command_copied.setText("Command copied to Clipboard!")
+            def waitandreturn():
+                time.sleep(1)
+                self.gui.lbl_command_copied.setText("Double-Click on command to copy to Clipboard")
+            thread1 = threading.Thread(target=waitandreturn)
+            thread1.start()
         self.gui.list_custom_commands_console.itemDoubleClicked.connect(onClicked)
     #Create Sevrer Manager Table
     def create_server_table_widget(self):
@@ -477,8 +472,10 @@ class maingui(QtWidgets.QWidget):
     #Define the Custom Buttons in the Main menu
     def assign_main_custom_buttons(self):
         #Get DB variables for custom buttons
-        self.c.execute('''select btn2_name, btn2_command, 
+        self.c.execute('''select btn1_name, btn1_command, 
+                            btn2_name, btn2_command, 
                             btn3_name, btn3_command, 
+                            btn4_name, btn4_command, 
                             btn5_name, btn5_command, 
                             btn6_name, btn6_command, 
                             btn7_name, btn7_command, 
@@ -491,24 +488,24 @@ class maingui(QtWidgets.QWidget):
         self.conn.commit()
         dbconf_cust_strip = dbconf_cust[0]
         #Split Tuple and extract buttons names and commands
-        self.button2_name = (dbconf_cust_strip[1])
-        self.button2_command = (dbconf_cust_strip[2])
-        self.button3_name = (dbconf_cust_strip[3])
-        self.button3_command = (dbconf_cust_strip[4])
-        self.button5_name = (dbconf_cust_strip[5])
-        self.button5_command = (dbconf_cust_strip[5])
-        self.button6_name = (dbconf_cust_strip[6])
-        self.button6_command = (dbconf_cust_strip[7])
-        self.button7_name = (dbconf_cust_strip[8])
-        self.button7_command = (dbconf_cust_strip[9])
-        self.button8_name = (dbconf_cust_strip[10])
-        self.button8_command = (dbconf_cust_strip[11])
-        self.button9_name = (dbconf_cust_strip[12])
-        self.button9_command = (dbconf_cust_strip[13])
-        self.button10_name = (dbconf_cust_strip[14])
-        self.button10_command = (dbconf_cust_strip[15])
-        self.button11_name = (dbconf_cust_strip[16])
-        self.button11_command = (dbconf_cust_strip[17])
+        self.button2_name = (dbconf_cust_strip[2])
+        self.button2_command = (dbconf_cust_strip[3])
+        self.button3_name = (dbconf_cust_strip[4])
+        self.button3_command = (dbconf_cust_strip[5])
+        self.button5_name = (dbconf_cust_strip[8])
+        self.button5_command = (dbconf_cust_strip[9])
+        self.button6_name = (dbconf_cust_strip[10])
+        self.button6_command = (dbconf_cust_strip[11])
+        self.button7_name = (dbconf_cust_strip[12])
+        self.button7_command = (dbconf_cust_strip[13])
+        self.button8_name = (dbconf_cust_strip[14])
+        self.button8_command = (dbconf_cust_strip[15])
+        self.button9_name = (dbconf_cust_strip[16])
+        self.button9_command = (dbconf_cust_strip[17])
+        self.button10_name = (dbconf_cust_strip[18])
+        self.button10_command = (dbconf_cust_strip[19])
+        self.button11_name = (dbconf_cust_strip[20])
+        self.button11_command = (dbconf_cust_strip[21])
         #Assign variables (Button names and commands) to custom Buttons
         self.gui.btn_main_drcon_listbans.setText(self.button2_name)
         self.gui.btn_main_drcon_listbans_definition.setText(self.button2_name)
@@ -873,13 +870,8 @@ class maingui(QtWidgets.QWidget):
                                 self.fill_list_custom_command()
                             try:
                                 self.rconserver(serverhost, rconpassword,  rconport, rconcommand)
-                                self.gui.progressbar_map_changer.setProperty("value", 33)
-                                time.sleep(1)
-                                self.gui.progressbar_map_changer.setProperty("value", 66)
-                                time.sleep(1)
-                                self.gui.progressbar_map_changer.setProperty("value", 100)
-                                time.sleep(0.2)
-                                self.gui.progressbar_map_changer.setProperty("value", 0)
+                                thread_progress = threading.Thread(target=self.progress_rcon)
+                                thread_progress.start()
                             except Exception as e: 
                                 msg = QtWidgets.QMessageBox()
                                 msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
@@ -927,6 +919,15 @@ class maingui(QtWidgets.QWidget):
                 self.direct_rcon_command(saycommand)
         else:
             self.gui.label_output_window.setText("You have to enter an IP-address and an RCON Port at least!")
+    #Progressbar Test
+    def progress_rcon(self):
+        self.gui.progressbar_map_changer.setProperty("value", 33)
+        time.sleep(1)
+        self.gui.progressbar_map_changer.setProperty("value", 66)
+        time.sleep(1)
+        self.gui.progressbar_map_changer.setProperty("value", 100)
+        time.sleep(0.2)
+        self.gui.progressbar_map_changer.setProperty("value", 0)
     '''
     ------------------------------------------------------------------
     ------------------------------------------------------------------
@@ -1248,7 +1249,7 @@ class maingui(QtWidgets.QWidget):
     #Import Database Routines
     def DB_import(self, db_action):
         if db_action == 'select_db':
-            db_select_directory = (str(self.installdir) + '\\db\\')
+            db_select_directory = (str(self.dbdir) + '\\db\\')
             self.data_path=QtWidgets.QFileDialog.getOpenFileName(self,'Select Database', db_select_directory, '*.db',)
             self.gui.label_selected_db.setText(self.data_path[0])
         elif db_action == 'add_db':
@@ -1324,7 +1325,7 @@ class maingui(QtWidgets.QWidget):
     def create_db_backup(self):
         #Define a timestamp format for backup
         FORMAT = '%Y%m%d%H%M%S'
-        db_backup_directory = (str(self.installdir) + '/db/')
+        db_backup_directory = (str(self.dbdir) + '/db/')
         db_source_filename = (db_backup_directory + 'isrt_data.db')
         db_backup_filename = (db_backup_directory + datetime.now().strftime(FORMAT) + '_isrt_data.db')
         copy2(str(db_source_filename), str(db_backup_filename))
@@ -1680,7 +1681,13 @@ class maingui(QtWidgets.QWidget):
 #
 #Call program class
 if __name__ == "__main__":
-    #Grep start variables
+    #Define path to installation
+    installdir = Path(__file__).absolute().parent
+    #Database connection setup
+    dbfile = (str(installdir / 'db/isrt_data.db'))
+    conn = sqlite3.connect(dbfile)
+    c = conn.cursor()
+    #Grep or define start variables
     c.execute("select startcounter, version, client_id, show_rn, import, check_updates from configuration")
     check_startvars = c.fetchall()
     startvars = check_startvars[0]
@@ -1691,13 +1698,8 @@ if __name__ == "__main__":
     show_rn = startvars[3]
     show_importer = startvars[4]
     check_updates_ok = startvars[5]
-    #Set runchecker and runlist as fallback
     runcheck = 1
     runlist = []
-
-
-    ###
-
     #Decide if self-restart is okay at first start and exempted from runcheck
     if startcounter <= 2:
         new_startcounter = 1
@@ -1747,11 +1749,6 @@ if __name__ == "__main__":
         runcounter = len(runlist)
         if runcounter >= 2:
             runcheck = 0
-
-
-    ######
-
-
     #Check if App may run
     if runcheck == 1:
         #Initialize GUIs
@@ -1761,12 +1758,7 @@ if __name__ == "__main__":
         db_window = QtWidgets.QWidget()
         mgui = maingui()
         mgui.show()
-
-
-        #####
-
-
-
+        conn.close()
 
         #Check for Updates if configuration allows it
         if check_updates_ok == 1:
@@ -1792,21 +1784,20 @@ if __name__ == "__main__":
                 download_button = updatemsg.addButton("Download", updatemsg.ActionRole)
                 download_button.clicked.connect(open_website)
                 updatemsg.addButton(updatemsg.Ok)
-                updatemsg.exec_()
+                updatemsg.exec_()       
 
-
-
-        
         #Check if DB Importer shall be shown or not
         if show_importer == 1:
             db_gui = dbgui()
             db_gui.show()
-
+        else:
+            pass
         #Check if Release Notes shall be shown or not
         if show_rn == 1:
             rngui = rngui()
             rngui.show()
-
+        else:
+            pass
         #Restart on first DB-Import
         def restart_program():
             python = sys.executable
@@ -1821,3 +1812,4 @@ if __name__ == "__main__":
         msg.setWindowTitle("ISRT Error Message")
         msg.setText("ISRT is already running - exiting!")
         msg.exec_()
+        conn.close()
