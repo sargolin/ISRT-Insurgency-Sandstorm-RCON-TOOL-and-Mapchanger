@@ -870,8 +870,13 @@ class maingui(QtWidgets.QWidget):
                                 self.fill_list_custom_command()
                             try:
                                 self.rconserver(serverhost, rconpassword,  rconport, rconcommand)
-                                thread_progress = threading.Thread(target=self.progress_rcon)
-                                thread_progress.start()
+                                self.gui.progressbar_map_changer.setProperty("value", 33)
+                                time.sleep(1)
+                                self.gui.progressbar_map_changer.setProperty("value", 66)
+                                time.sleep(1)
+                                self.gui.progressbar_map_changer.setProperty("value", 100)
+                                time.sleep(0.2)
+                                self.gui.progressbar_map_changer.setProperty("value", 0)
                             except Exception as e: 
                                 msg = QtWidgets.QMessageBox()
                                 msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
@@ -919,15 +924,6 @@ class maingui(QtWidgets.QWidget):
                 self.direct_rcon_command(saycommand)
         else:
             self.gui.label_output_window.setText("You have to enter an IP-address and an RCON Port at least!")
-    #Progressbar Test
-    def progress_rcon(self):
-        self.gui.progressbar_map_changer.setProperty("value", 33)
-        time.sleep(1)
-        self.gui.progressbar_map_changer.setProperty("value", 66)
-        time.sleep(1)
-        self.gui.progressbar_map_changer.setProperty("value", 100)
-        time.sleep(0.2)
-        self.gui.progressbar_map_changer.setProperty("value", 0)
     '''
     ------------------------------------------------------------------
     ------------------------------------------------------------------
@@ -1174,7 +1170,7 @@ class maingui(QtWidgets.QWidget):
         alias_gocheck = 0                
         for check in check_alias:
             for item in check:
-                if item and val_alias == item:
+                if item and val_alias != item:
                     alias_gocheck = 1
                 else:
                     alias_nogocheck = 0
