@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="img">
+    <file>img/help.png</file>
     <file>img/paypal.png</file>
     <file>img/monbck.jpg</file>
     <file>img/lock-unchecked.png</file>

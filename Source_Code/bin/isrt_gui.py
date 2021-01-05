@@ -1208,56 +1208,16 @@ class Ui_ISRT_Main_Window(object):
         self.verticalLayout_12.setObjectName("verticalLayout_12")
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
-        spacerItem12 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        spacerItem12 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.verticalLayout.addItem(spacerItem12)
-        self.helpbody = QtWidgets.QLabel(self.Tab_Help)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.helpbody.sizePolicy().hasHeightForWidth())
-        self.helpbody.setSizePolicy(sizePolicy)
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.helpbody.setFont(font)
-        self.helpbody.setStyleSheet("background-color: rgb(240, 240, 240);")
-        self.helpbody.setObjectName("helpbody")
-        self.verticalLayout.addWidget(self.helpbody)
-        self.horizontalLayout_9 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_9.setObjectName("horizontalLayout_9")
-        self.plainTextEdit = QtWidgets.QPlainTextEdit(self.Tab_Help)
-        self.plainTextEdit.setMinimumSize(QtCore.QSize(0, 450))
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.plainTextEdit.setFont(font)
-        self.plainTextEdit.setAutoFillBackground(False)
-        self.plainTextEdit.setStyleSheet("background-color: rgb(240, 240, 240);")
-        self.plainTextEdit.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.plainTextEdit.setReadOnly(True)
-        self.plainTextEdit.setObjectName("plainTextEdit")
-        self.horizontalLayout_9.addWidget(self.plainTextEdit)
-        self.label_21 = QtWidgets.QLabel(self.Tab_Help)
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        font.setItalic(True)
-        self.label_21.setFont(font)
-        self.label_21.setStyleSheet("background-color: rgb(240, 240, 240);")
-        self.label_21.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.label_21.setLineWidth(1)
-        self.label_21.setMidLineWidth(0)
-        self.label_21.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
-        self.label_21.setObjectName("label_21")
-        self.horizontalLayout_9.addWidget(self.label_21)
-        self.verticalLayout.addLayout(self.horizontalLayout_9)
-        spacerItem13 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout.addItem(spacerItem13)
         self.label_5 = QtWidgets.QLabel(self.Tab_Help)
         font = QtGui.QFont()
         font.setPointSize(9)
         self.label_5.setFont(font)
         self.label_5.setObjectName("label_5")
         self.verticalLayout.addWidget(self.label_5)
-        spacerItem14 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout.addItem(spacerItem14)
+        spacerItem13 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout.addItem(spacerItem13)
         self.label_7 = QtWidgets.QLabel(self.Tab_Help)
         self.label_7.setMinimumSize(QtCore.QSize(0, 120))
         self.label_7.setFrameShape(QtWidgets.QFrame.NoFrame)
@@ -1265,11 +1225,19 @@ class Ui_ISRT_Main_Window(object):
         self.label_7.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByKeyboard|QtCore.Qt.LinksAccessibleByMouse|QtCore.Qt.TextBrowserInteraction|QtCore.Qt.TextSelectableByKeyboard|QtCore.Qt.TextSelectableByMouse)
         self.label_7.setObjectName("label_7")
         self.verticalLayout.addWidget(self.label_7)
+        spacerItem14 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem14)
+        self.label_4 = QtWidgets.QLabel(self.Tab_Help)
+        self.label_4.setMinimumSize(QtCore.QSize(0, 200))
+        self.label_4.setStyleSheet("image: url(:/img/img/help.png);")
+        self.label_4.setText("")
+        self.label_4.setObjectName("label_4")
+        self.verticalLayout.addWidget(self.label_4)
+        spacerItem15 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem15)
         self.horizontalLayout_32 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_32.setObjectName("horizontalLayout_32")
         self.verticalLayout.addLayout(self.horizontalLayout_32)
-        spacerItem15 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout.addItem(spacerItem15)
         self.label_bottom_help = QtWidgets.QLabel(self.Tab_Help)
         self.label_bottom_help.setMinimumSize(QtCore.QSize(0, 50))
         self.label_bottom_help.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -1492,75 +1460,28 @@ class Ui_ISRT_Main_Window(object):
         self.btn_main_drcon_showroundtime_definition.setText(_translate("ISRT_Main_Window", "Show Round Time"))
         self.lbl_client_id.setText(_translate("ISRT_Main_Window", "<html><head/><body><p><span style=\" color:#505050;\">Client-ID</span></p></body></html>"))
         self.TabWidget_Main_overall.setTabText(self.TabWidget_Main_overall.indexOf(self.Tab_Configure), _translate("ISRT_Main_Window", "Configure"))
-        self.helpbody.setText(_translate("ISRT_Main_Window", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:10px; margin-bottom:10px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt; font-weight:600;\">Which RCON commands can you use and what do they mean?</span></p></body></html>"))
-        self.plainTextEdit.setPlainText(_translate("ISRT_Main_Window", "General Commands:\n"
+        self.label_5.setText(_translate("ISRT_Main_Window", "<html><head/><body><p align=\"center\"><span style=\" font-size:11pt; font-weight:600;\">Help Center - Tutorials and HowTos about ISRT Usage</span></p></body></html>"))
+        self.label_7.setText(_translate("ISRT_Main_Window", "<html><head/><body>\n"
+"<ul style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li style=\" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.isrt.info/?page_id=263#installwin\"><span style=\" font-size:11pt; text-decoration: underline; color:#000000;\">Installing ISRT on Windows</span></a></li>\n"
+"<ul style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li style=\" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.isrt.info/?page_id=263#installin\"><span style=\" font-size:11pt; text-decoration: underline; color:#000000;\">Installing ISRT on Linux with pre-requisites</span></a></li>\n"
 "\n"
-"help\n"
-"say <message>\n"
-"listplayers\n"
-"listbans\n"
-"exit/quit\n"
+"<ul style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li style=\" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.isrt.info/?page_id=263#installmac\"><span style=\" font-size:11pt; text-decoration: underline; color:#000000;\">Installing ISRT on MacOS with pre-requisites</span></a></li>\n"
 "\n"
+"<ul style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li style=\" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.isrt.info/?page_id=316\"><span style=\" font-size:11pt; text-decoration: underline; color:#000000;\">Fix ISRT Desktop Shortcut looking ugly on Windows</span></a></li>\n"
 "\n"
-"Kick/Ban commands:\n"
+"<ul style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li style=\" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.isrt.info/?page_id=316#linsc\"><span style=\" font-size:11pt; text-decoration: underline; color:#000000;\">Creating a Starter on your Linux Desktop that looks good</span></a></li>\n"
 "\n"
-"kick <id/netid/name> [reason]\n"
-"ban <id/netid/name> [duration in minutes] [reason]\n"
-"permban <id/netid/name> [reason]\n"
-"banid <netid> [duration in minutes] [reason]\n"
-"unban <netid>\n"
+"<ul style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li style=\" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.isrt.info/?page_id=276\"><span style=\" font-size:11pt; text-decoration: underline; color:#000000;\">Using the right ports - What\'s the difference between Game, Query and RCON ports</span></a></li>\n"
+"\n"
+"<ul style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li style=\" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.isrt.info/?page_id=508\"><span style=\" font-size:11pt; text-decoration: underline; color:#000000;\">Gamemode properties you can use with RCON</span></a></li>\n"
+"\n"
+"<ul style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li style=\" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.isrt.info/?page_id=504\"><span style=\" font-size:11pt; text-decoration: underline; color:#000000;\">What RCON commands can I use and what do they do?</span></a></li>\n"
+"\n"
+"<ul style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li style=\" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.isrt.info/?page_id=278\"><span style=\" font-size:11pt; text-decoration: underline; color:#000000;\">Known Bugs and Problems with the Software</span></a></li>\n"
 "\n"
 "\n"
-"Round/Scenario/Travel commands:\n"
-"\n"
-"restartround [0 = no team switch, 1 = swap teams]\n"
-"maps [level filter]\n"
-"travel <travel url>\n"
-"scenarios [level filter]\n"
-"travelscenario <scenario>\n"
-"\n"
-"\n"
-"Gamemode & Property commands:\n"
-"\n"
-"gamemodeproperty <property> [new value]\n"
-"listgamemodeproperties [property filter]"))
-        self.label_21.setText(_translate("ISRT_Main_Window", "Meaning: \n"
-"\n"
-"Displays a list of commands.\n"
-"Shows a message to all players in the chat box.\n"
-"Lists players currently connected to the server.\n"
-"Shows the ban list for the server.\n"
-"Shuts the server down gracefully.\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"Kicks a player from the server.\n"
-"Bans a player from the server.\n"
-"Permanently bans a player from the server.\n"
-"Bans a player by net ID from the server.\n"
-"Lifts a ban for a user.   \n"
-"\n"
-"\n"
-"\n"
-"\n"
-"Restarts the current round.\n"
-"Lists available maps.\n"
-"Transitions the server to a different level.\n"
-"Lists available scenarios.\n"
-"Change level to given scenario.\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"Gets or sets a gamemode property for the length of the scenario.\n"
-"Lists available gamemode properties for the current gamemode."))
-        self.label_5.setText(_translate("ISRT_Main_Window", "<html><head/><body><p align=\"center\"><span style=\" font-size:11pt; font-weight:600;\">Tutorials and HowTos on the ISRT Website</span></p></body></html>"))
-        self.label_7.setText(_translate("ISRT_Main_Window", "<html><head/><body><p><a href=\"https://www.isrt.info/?page_id=467\"><span style=\" font-size:11pt; text-decoration: underline; color:#000000;\">Is ISRT free of Viruses and Trojans? See the Anti-Virus report!</span></a></p><p><a href=\"https://www.isrt.info/?page_id=263#installwin\"><span style=\" font-size:11pt; text-decoration: underline; color:#000000;\">Installing ISRT on Windows</span></a><span style=\" color:#000000;\"><br/></span><a href=\"https://www.isrt.info/?page_id=263#installlin\"><span style=\" font-size:11pt; text-decoration: underline; color:#000000;\">Installing ISRT on Linux with pre-requisites</span></a><span style=\" color:#000000;\"><br/></span><a href=\"https://www.isrt.info/?page_id=263#installmac\"><span style=\" font-size:11pt; text-decoration: underline; color:#000000;\">Installing ISRT on MacOS </span></a><a href=\"https://www.isrt.info/?page_id=263#installlin\"><span style=\" font-size:11pt; text-decoration: underline; color:#000000;\">with pre-requisites</span></a><span style=\" color:#000000;\"><br/></span><a href=\"https://www.isrt.info/?page_id=316\"><span style=\" font-size:11pt; text-decoration: underline; color:#000000;\">Making an ISRT Desktop Shortcut look good on Windows</span></a><span style=\" color:#000000;\"><br/></span><a href=\"https://www.isrt.info/?page_id=316#linsc\"><span style=\" font-size:11pt; text-decoration: underline; color:#000000;\">Creating a Starter on your Linux Desktop that looks good</span></a><span style=\" color:#000000;\"><br/></span><a href=\"https://www.isrt.info/?page_id=276\"><span style=\" font-size:11pt; text-decoration: underline; color:#000000;\">Using the right ports - What\'s the difference between Game, Query and RCON ports</span></a><span style=\" color:#000000;\"><br/></span><a href=\"https://www.isrt.info/?page_id=278\"><span style=\" font-size:11pt; text-decoration: underline; color:#000000;\">Known Bugs and Problems with the Software</span></a><span style=\" color:#000000;\"><br/></span><a href=\"https://www.isrt.info/?page_id=280\"><span style=\" font-size:11pt; text-decoration: underline; color:#000000;\">Reporting Bugs and Issue - How to reach out?!</span></a><span style=\" color:#000000;\"><br/></span></p></body></html>"))
+"<ul style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li style=\" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.isrt.info/?page_id=467\"><span style=\" font-size:11pt; text-decoration: underline; color:#000000;\">Is ISRT free of Viruses and Trojans? See the Anti-Virus report!</span></a></li>\n"
+""))
         self.label_bottom_help.setText(_translate("ISRT_Main_Window", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">Report issues </span><a href=\"https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/issues\"><span style=\" font-size:12pt; font-weight:600; text-decoration: underline; color:#000000;\">here</span></a><span style=\" font-size:12pt;\"> or write to </span><a href=\"mailto:madman@isrt.info\"><span style=\" font-size:12pt; font-weight:600; text-decoration: underline; color:#000000;\">madman@isrt.info</span></a></p></body></html>"))
         self.TabWidget_Main_overall.setTabText(self.TabWidget_Main_overall.indexOf(self.Tab_Help), _translate("ISRT_Main_Window", "Help"))
         self.aboutbody.setText(_translate("ISRT_Main_Window", "<html><head/><body><p align=\"center\"><span style=\" font-size:22pt; font-weight:600;\">ISRT v0.8</span></p><p align=\"center\"><br/></p><p align=\"center\"><span style=\" font-size:16pt;\">Insurgency Sandstorm RCON/Query Tool</span></p><p align=\"center\"><span style=\" font-size:16pt;\">by Olli E. aka </span><a href=\"mailto:madman@isrt.info\"><span style=\" font-size:18pt; text-decoration: underline; color:#0000ff;\">Madman@isrt.info</span></a></p><p align=\"center\"><br/></p><p align=\"center\"><br/></p><p align=\"center\"><span style=\" font-size:16pt;\">Get Support: </span><a href=\"http://www.isrt.info\"><span style=\" font-size:16pt; text-decoration: underline; color:#0000ff;\">http://www.isrt.info</span></a></p><p align=\"center\"><a href=\"https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool\"><span style=\" font-size:16pt; text-decoration: underline; color:#0000ff;\">GitHub</span></a></p><p align=\"center\"><br/></p><p align=\"center\"><span style=\" font-size:14pt;\">Donate for the development of ISRT!</span></p><p align=\"center\"><br/></p><p align=\"center\"><a href=\"https://www.paypal.com/donate?hosted_button_id=RLSPYUNWLYA9Y\"><img src=\":/img/img/paypal.png\"/></a></p><p align=\"center\"><br/></p><p align=\"center\"><span style=\" font-size:16pt;\">Report issues </span><a href=\"https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/issues\"><span style=\" font-size:16pt; text-decoration: underline; color:#0000ff;\">here</span></a><br/></p><p align=\"center\"><a href=\"https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/blob/main/LICENSE\"><span style=\" font-size:14pt; text-decoration: underline; color:#0000ff;\">GNU/Public License Software</span></a></p></body></html>"))
