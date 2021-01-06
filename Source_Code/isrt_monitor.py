@@ -93,8 +93,6 @@ class mongui(QtWidgets.QWidget):
                     self.mogui.tbl_server_overview.setItem(row, column, QtWidgets.QTableWidgetItem(str(item)))
             self.mogui.mon_progress_bar.setValue(0)
             self.server_alias_list = self.server_alias_checklist
-        else:
-            pass 
         self.prepare_list_query()
         self.mogui.mon_progress_bar.setValue(100)
         self.conn.close()
@@ -153,7 +151,6 @@ class mongui(QtWidgets.QWidget):
         self.server_info.disconnect()
         self.resinfo = self.server_info.get_info()
         self.resrules = self.server_info.get_rules()
-        print(self.resinfo)
         return self.resinfo, self.resrules
     #Handle the Close Event
     def closeEvent(self, event):

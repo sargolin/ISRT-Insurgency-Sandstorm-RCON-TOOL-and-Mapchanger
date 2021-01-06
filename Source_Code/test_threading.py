@@ -2,13 +2,11 @@ import sys
 from PyQt5 import QtWidgets as qtw
 from PyQt5 import QtGui as qtg
 from PyQt5 import QtCore as qtc
-
 from pathlib import Path
 from hashlib import sha1
 
 
 def recursive_hashes(path):
-    """Generate name and SHA1 hash of all files under the given path"""
     if path.is_file():
         sha1_obj = sha1()
         try:
@@ -32,9 +30,7 @@ def recursive_hashes(path):
         yield (str(path), 'Not a file or dir')
 
 class Worker(qtc.QObject):
-
     hashed = qtc.pyqtSignal(str, str)
-
     @qtc.pyqtSlot(str)
     def hash_directory(self, root):
         hash_gen = recursive_hashes(Path(root))
@@ -46,21 +42,17 @@ class MainWindow(qtw.QMainWindow):
     hash_requested = qtc.pyqtSignal(str)
 
     def __init__(self):
-        """MainWindow constructor."""
         super().__init__()
-        # Main UI code goes here
         form = qtw.QWidget()
         self.setCentralWidget(form)
         layout = qtw.QFormLayout()
         form.setLayout(layout)
-
         self.file_root = qtw.QLineEdit(returnPressed=self.start_hashing)
         self.go_button = qtw.QPushButton('Start Hashing', clicked=self.start_hashing)
         self.results = qtw.QTableWidget(0, 2)
         self.results.setHorizontalHeaderLabels(['Name', 'SHA1-sum'])
         self.results.horizontalHeader().setSectionResizeMode(qtw.QHeaderView.Stretch)
         self.results.setSizePolicy(qtw.QSizePolicy.Expanding, qtw.QSizePolicy.Expanding)
-
         layout.addRow(qtw.QLabel('SHA1 Recursive Hasher'))
         layout.addRow('File Root', self.file_root)
         layout.addRow('', self.go_button)
@@ -71,20 +63,15 @@ class MainWindow(qtw.QMainWindow):
         self.worker_thread = qtc.QThread()
         self.worker.hashed.connect(self.add_hash_to_table)
         self.hash_requested.connect(self.worker.hash_directory)
-
         # Assign the worker to the thread and start the thread
         self.worker.moveToThread(self.worker_thread)
         self.worker_thread.start()
 
-        # Connect signals & slots AFTER moving the object to the thread
 
 
-        # End main UI code
         self.show()
 
     def add_hash_to_table(self, name, sha1_sum):
-        """Add the given name and sha1 sum to the table"""
-
         row = self.results.rowCount()
         self.results.insertRow(row)
         self.results.setItem(row, 0, qtw.QTableWidgetItem(name))
@@ -92,13 +79,8 @@ class MainWindow(qtw.QMainWindow):
         print(name, sha1_sum)
 
     def start_hashing(self):
-        """Prepare the GUI and emit the hash_requested signal"""
-
-        # Clear the table
         while self.results.rowCount() > 0:
             self.results.removeRow(0)
-
-        # Get the file root and validate it
         file_root = self.file_root.text()
         if not Path(file_root).exists():
             qtw.QMessageBox.critical(self, 'Invalid Path', 'The specified file root does not exist.')
@@ -106,7 +88,7 @@ class MainWindow(qtw.QMainWindow):
 
         # Emit the signal
         self.hash_requested.emit(file_root)
-        #self.worker.hash_directory(file_root)
+
 
 
 

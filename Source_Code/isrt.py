@@ -1770,7 +1770,7 @@ if __name__ == "__main__":
             #If new version available show Messagebox
             if check_updates_ok == 1 and new_version >= current_version:
                 def open_website():
-                    os.system(f'start %windir%\\explorer.exe "https://www.isrt.info/?page_id=50"')
+                    os.system(f'start %windir%\\explorer.exe "http://www.isrt.info/?page_id=50"')
                 icondir = Path(__file__).absolute().parent
                 updatemsg = QtWidgets.QMessageBox()
                 updatemsg.setIcon(QtWidgets.QMessageBox.Information)
