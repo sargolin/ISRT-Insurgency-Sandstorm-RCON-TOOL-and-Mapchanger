@@ -4,7 +4,7 @@ import sys, time
 #################################################
 def count_generator(start, end):
     starten = int(start)
-    ende = int(end)    
+    ende = int(end)
     for item in range(starten, ende):
         yield item
 
@@ -69,16 +69,12 @@ class MainWindow(QtWidgets.QMainWindow):
         print(adopted_zahl)
 
     #################################################
+    #Button called diese Funktion
     def setzahl(self):
         zahl = int(self.lineEdit.text())
         start = 1
-        resulting_generator = count_generator(start, zahl)
-        while resulting_generator:
-            try:
-                self.result = next(resulting_generator)
-            except StopIteration:
-                break
-        self.counter_requested.emit(str(start), str(zahl))
+        ende = zahl
+        self.counter_requested.emit(str(start), str(ende))
 #############################################################
 
 
