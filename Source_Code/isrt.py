@@ -10,13 +10,26 @@ Thanks to Helsing and Stuermer for the pre-release testing - I appreciate that v
 ------------------------------------------------------------------
 Importing required classes and libraries
 ------------------------------------------------------------------'''
-import sys, os, re, sqlite3, time, socket, threading, psutil, subprocess, random, requests, urllib.request, res_rc, platform
-import bin.SourceQuery as sq
-import bin.query as query
-from PyQt5 import QtCore, QtGui, QtWidgets
+import sys
+import os
+import re
+import sqlite3
+import time
+import socket
+import threading
+import psutil
+import subprocess
+import random
+import requests
+import urllib.request
+import platform
+import res_rc
 from datetime import datetime
 from shutil import copy2
 from pathlib import Path
+from PyQt5 import QtCore, QtGui, QtWidgets
+import bin.SourceQuery as sq
+import bin.query as query
 from bin.isrt_gui import Ui_ISRT_Main_Window
 from bin.rn_gui import Ui_rn_window
 from bin.isrt_db_gui import Ui_db_importer_gui

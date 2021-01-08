@@ -87,7 +87,7 @@ class MainWindow(qtw.QMainWindow):
             return
 
         # Emit the signal
-        self.hash_requested.emit(file_root)
+        # self.hash_requested.emit(file_root)
 
 
 

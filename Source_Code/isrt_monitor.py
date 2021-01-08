@@ -1,8 +1,39 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
-import sys, sqlite3, time
+import sys
+import sqlite3
+import time
 from pathlib import Path
+from PyQt5 import QtCore, QtGui, QtWidgets
 from bin.isrt_monitor_gui import Ui_UI_Server_Monitor
 import bin.MonitorQuery as sq
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
