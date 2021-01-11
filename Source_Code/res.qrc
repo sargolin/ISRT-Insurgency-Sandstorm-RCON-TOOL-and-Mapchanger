@@ -16,6 +16,11 @@
     <file>img/maps/map_views.jpg</file>
   </qresource>
   <qresource prefix="map_thumbs">
+    <file>img/maps/thumbs/industrial_park.jpg</file>
+    <file>img/maps/thumbs/red_oasis.jpg</file>
+    <file>img/maps/thumbs/sector9.jpg</file>
+    <file>img/maps/thumbs/west.jpg</file>
+    <file>img/maps/thumbs/west_night.jpg</file>
     <file>img/maps/thumbs/airsoftministry.jpg</file>
     <file>img/maps/thumbs/ambush.jpg</file>
     <file>img/maps/thumbs/ambush_night.jpg</file>
