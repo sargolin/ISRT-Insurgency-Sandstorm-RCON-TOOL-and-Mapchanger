@@ -81,17 +81,16 @@ class mongui(QtWidgets.QWidget):
             self.mogui.tbl_server_overview.insertRow(row)
             for column, item in enumerate(form):
                 self.mogui.tbl_server_overview.setItem(row, column, QtWidgets.QTableWidgetItem(str(item)))
-        self.mogui.mon_progress_bar.setValue(0)
-        self.c.execute("SELECT alias FROM server")
-        self.conn.commit()
         self.server_alias_list = self.c.fetchall()
+
     #Query Servers from Aliases and push data into table
     def get_server_data(self):
+        self.mogui.mon_progress_bar.setValue(0)
         self.c.execute("SELECT alias FROM server")
-        self.conn.commit()
         self.server_alias_checklist = self.c.fetchall()
+        self.conn.commit()
         #check if anything changed in the server manager
-        if self.server_alias_list != self.server_alias_checklist:            
+        if self.server_alias_list != self.server_alias_checklist:
             self.mogui.tbl_server_overview.setRowCount(1)
             self.c.execute("SELECT alias FROM server")
             self.conn.commit()
@@ -103,9 +102,7 @@ class mongui(QtWidgets.QWidget):
             self.mogui.mon_progress_bar.setValue(0)
             self.server_alias_list = self.server_alias_checklist
         self.prepare_list_query()
-        self.mogui.mon_progress_bar.setValue(100)
-        time.sleep(0.3)
-        self.mogui.mon_progress_bar.setValue(0)
+
     
     
     
@@ -162,6 +159,8 @@ class mongui(QtWidgets.QWidget):
                 self.server_info.disconnect()
             i = i + 1
             progress_value = progress_value + progress_multiplier
+        self.mogui.mon_progress_bar.setValue(100)
+        self.mogui.mon_progress_bar.setValue(0)
     #Execute the query and return results
     def execute_query(self):
         self.server_info = sq.SourceQuery(self.serverhost, self.queryport)
