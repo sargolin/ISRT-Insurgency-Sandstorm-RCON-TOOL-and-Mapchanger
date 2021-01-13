@@ -7,12 +7,14 @@ from bin.isrt_monitor_gui import Ui_UI_Server_Monitor
 import bin.MonitorQuery as sq
 
 class Worker(QObject):
+    starter = pyqtSignal()
     finished = pyqtSignal()
     progress = pyqtSignal(int)
     server_queried = pyqtSignal(str, str)
     server_unreachable = pyqtSignal(str)
     
     def run(self, rowcount, alias_list):
+        self.starter.emit()
         self.dbdir = Path(__file__).absolute().parent
         self.conn = sqlite3.connect(str(self.dbdir / 'db/isrt_data.db'))
         self.c = self.conn.cursor()
@@ -21,22 +23,25 @@ class Worker(QObject):
         progress_value = int(progress_multiplier) + int(progress_multiplier)
         while counter <= rowcount:
             server_temp_alias = alias_list[counter]
-            print(counter, server_temp_alias, type(server_temp_alias))
+            # print(type(counter), counter, type(rowcount), rowcount)
+            # print(server_temp_alias, type(server_temp_alias))
             self.c.execute("SELECT ipaddress, queryport FROM server where alias=:temp_alias", {'temp_alias': server_temp_alias})
             monmap_ip = self.c.fetchone()
             self.conn.commit()
             serverhost = monmap_ip[0]
             queryport = monmap_ip[1]
-            # try:
-            #     server_info = sq.SourceQuery(serverhost, queryport)
-            #     server_info.disconnect()
-            #     self.server_queried.emit(server_info.get_info(), server_info.get_rules())
+            # print(serverhost, queryport)
+            try:
+                server_info = sq.SourceQuery(serverhost, queryport)
+                server_info.disconnect()
+                print(server_info.get_info())
+                # self.server_queried.emit(server_info.get_info(), server_info.get_rules())
                 
-            # except Exception:
-            #     self.server_unreachable.emit("Offline")
+            except Exception:
+                self.server_unreachable.emit("Offline")
             counter = counter + 1
             progress_value = progress_value + progress_multiplier
-        
+        self.finished.emit()
 
 
 class mongui(QtWidgets.QWidget):
@@ -80,25 +85,26 @@ class mongui(QtWidgets.QWidget):
             self.mogui.tbl_server_overview.insertRow(row)
             for column, item in enumerate(form):
                 self.mogui.tbl_server_overview.setItem(row, column, QtWidgets.QTableWidgetItem(str(item)))
+        self.server_alias_list = self.c.fetchall()
         
         
 
     def get_server_data(self):
         self.mogui.mon_progress_bar.setValue(0)
-        # self.c.execute("SELECT alias FROM server")
-        # self.server_alias_checklist = self.c.fetchall()
-        # self.conn.commit()
-        # if self.server_alias_list != self.server_alias_checklist:
-        #     self.mogui.tbl_server_overview.setRowCount(1)
-        #     self.c.execute("SELECT alias FROM server")
-        #     self.conn.commit()
-        #     for row, form in enumerate(self.c):
-        #         row = row + 1
-        #         self.mogui.tbl_server_overview.insertRow(row)
-        #         for column, item in enumerate(form):
-        #             self.mogui.tbl_server_overview.setItem(row, column, QtWidgets.QTableWidgetItem(str(item)))
-        #     self.mogui.mon_progress_bar.setValue(0)
-        #     self.server_alias_list = self.server_alias_checklist
+        self.c.execute("SELECT alias FROM server")
+        self.server_alias_checklist = self.c.fetchall()
+        self.conn.commit()
+        if self.server_alias_list != self.server_alias_checklist:
+            self.mogui.tbl_server_overview.setRowCount(1)
+            self.c.execute("SELECT alias FROM server")
+            self.conn.commit()
+            for row, form in enumerate(self.c):
+                row = row + 1
+                self.mogui.tbl_server_overview.insertRow(row)
+                for column, item in enumerate(form):
+                    self.mogui.tbl_server_overview.setItem(row, column, QtWidgets.QTableWidgetItem(str(item)))
+            self.mogui.mon_progress_bar.setValue(0)
+            self.server_alias_list = self.server_alias_checklist
         self.prepare_list_query()
 
     def reportProgress(self, n):
@@ -119,27 +125,33 @@ class mongui(QtWidgets.QWidget):
             self.alias_list.append(value_temp)
         
 
-        #server_temp_alias = (self.mogui.tbl_server_overview.item(self.counter,0)).text()
-        rowcount = self.mogui.tbl_server_overview.rowCount() - 2
+        # server_temp_alias = (self.mogui.tbl_server_overview.item(self.counter,0)).text()
+        rowcount = (self.mogui.tbl_server_overview.rowCount() - 2)
 
-        self.thread.started.connect(self.worker.run(rowcount, self.alias_list))
-        # self.worker.finished.connect(self.thread.quit)
-        # self.worker.finished.connect(self.worker.deleteLater)
-        # self.thread.finished.connect(self.thread.deleteLater)
-        # self.worker.progress.connect(self.reportProgress)
+        self.thread.started.connect(lambda: self.worker.run(rowcount, self.alias_list))
+        # self.worker.starter.connect(
+        #     lambda: self.mogui.btn_exec_overview_refresh.setEnabled(False)
+        # )
+        self.worker.finished.connect(self.thread.quit)
+        self.mogui.btn_exec_overview_refresh.setEnabled(False)
+        self.worker.finished.connect(self.worker.deleteLater)
+        self.thread.finished.connect(self.thread.deleteLater)
+        self.worker.progress.connect(self.reportProgress)
+        # self.worker.server_queried.connect(self.add_)
 
         self.thread.start()
 
         # Final resets
-        self.mogui.btn_exec_overview_refresh.setEnabled(False)
+        
         self.thread.finished.connect(
             lambda: self.mogui.btn_exec_overview_refresh.setEnabled(True)
         )
-        self.thread.finished.connect(
-            lambda: self.mogui.mon_progress_bar.setValue(0)
-        )
+        # self.thread.finished.connect(
+        #     lambda: self.mogui.mon_progress_bar.setValue(0)
+        # )
 
     # def add_data_to_table(self):
+
     #     self.serverhost = serverhost
     #     self.counter = counter
     #     self.resrules = resrules
