@@ -10,9 +10,8 @@ class Worker(QObject):
     starter = pyqtSignal()
     finished = pyqtSignal()
     progress = pyqtSignal(int)
-    server_queried = pyqtSignal(str, str)
-    server_unreachable = pyqtSignal(str)
-    
+    #server_queried = pyqtSignal(str, str)
+    #server_unreachable = pyqtSignal(str)
     def run(self, rowcount, alias_list):
         self.starter.emit()
         self.dbdir = Path(__file__).absolute().parent
@@ -34,9 +33,9 @@ class Worker(QObject):
                 server_info.disconnect()
                 print(server_info.get_info())
                 # self.server_queried.emit(server_info.get_info(), server_info.get_rules())
-                
             except Exception:
-                self.server_unreachable.emit("Offline")
+                print("Error")
+                #self.server_unreachable.emit("Offline")
             counter = counter + 1
             progress_value = progress_value + progress_multiplier
         self.finished.emit()
@@ -84,11 +83,10 @@ class mongui(QtWidgets.QWidget):
             for column, item in enumerate(form):
                 self.mogui.tbl_server_overview.setItem(row, column, QtWidgets.QTableWidgetItem(str(item)))
         self.server_alias_list = self.c.fetchall()
-        
-        
 
     def get_server_data(self):
         self.mogui.mon_progress_bar.setValue(0)
+        self.mogui.btn_exec_overview_refresh.setEnabled(False)
         self.c.execute("SELECT alias FROM server")
         self.server_alias_checklist = self.c.fetchall()
         self.conn.commit()
@@ -108,14 +106,10 @@ class mongui(QtWidgets.QWidget):
     def reportProgress(self, n):
         self.mogui.mon_progress_bar.setValue(n)
 
-    def set_button_on(self):
-        self.mogui.btn_exec_overview_refresh.setEnabled(True)
-
     def prepare_list_query(self):
         self.thread = QThread()
         self.worker = Worker()
         self.worker.moveToThread(self.thread)
-
         self.c.execute("SELECT alias FROM server")
         self.server_alias_checklist = self.c.fetchall()
         self.conn.commit()
@@ -124,9 +118,6 @@ class mongui(QtWidgets.QWidget):
             value_temp = server_alias[0]
             self.alias_list.append(value_temp)
         
-
-        self.worker.starter.connect(lambda: (self.mogui.btn_exec_overview_refresh.setEnabled(False)))
-        # server_temp_alias = (self.mogui.tbl_server_overview.item(self.counter,0)).text()
         rowcount = (self.mogui.tbl_server_overview.rowCount() - 2)
         self.thread.started.connect(lambda: self.worker.run(rowcount, self.alias_list))
         self.worker.finished.connect(self.thread.quit)
@@ -135,15 +126,9 @@ class mongui(QtWidgets.QWidget):
         self.worker.progress.connect(self.reportProgress)
         # self.worker.server_queried.connect(self.add_)
         
-
         self.thread.start()
 
-        # Final resets
-        
-        self.thread.finished.connect(self.set_button_on)
-        # self.thread.finished.connect(
-        #     lambda: self.mogui.mon_progress_bar.setValue(0)
-        # )
+        self.thread.finished.connect(lambda: self.mogui.btn_exec_overview_refresh.setEnabled(True))
 
     # def add_data_to_table(self):
 
