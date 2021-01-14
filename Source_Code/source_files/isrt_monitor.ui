@@ -50,6 +50,32 @@ selection-background-color: rgb(216, 216, 216);</string>
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QPushButton" name="btn_exec_overview_refresh_timer">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Refresh every 30 Seconds</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+         <property name="default">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
      <item>

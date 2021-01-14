@@ -2,7 +2,7 @@ import sys
 import time
 import sqlite3
 from pathlib import Path
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtGui, QtWidgets
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
 from bin.isrt_monitor_gui import Ui_UI_Server_Monitor
 import bin.MonitorQuery as sq
@@ -11,7 +11,7 @@ class Worker(QObject):
     starter = pyqtSignal()
     finished = pyqtSignal()
     progress = pyqtSignal(int)
-    #server_queried = pyqtSignal(str, str)
+    server_queried = pyqtSignal(dict, dict, str, int, int)
     #server_unreachable = pyqtSignal(str)
     def run(self, rowcount, alias_list):
         self.starter.emit()
@@ -31,12 +31,16 @@ class Worker(QObject):
             try:
                 server_info = sq.SourceQuery(serverhost, queryport)
                 server_info.disconnect()
-                print(server_info.get_info())
+                info = server_info.get_info()
+                rules = server_info.get_rules()
+                online = 1
                 self.progress.emit(progress_value)
-                # self.server_queried.emit(server_info.get_info(), server_info.get_rules())
+                self.server_queried.emit(info, rules, serverhost, counter, online)
             except Exception:
-                print("Error")
-                #self.server_unreachable.emit("Offline")
+                online = 0
+                info = {}
+                rules = {}
+                self.server_queried.emit(info, rules, serverhost, counter, online)
             counter = counter + 1
             progress_value = progress_value + progress_multiplier
         progress_value = 100
@@ -45,6 +49,7 @@ class Worker(QObject):
 
 
 class mongui(QtWidgets.QWidget):
+    server_query_requested = pyqtSignal(int, list)
     def __init__(self, *args, **kwargs):
         #Gui Setup
         super().__init__(*args, **kwargs)
@@ -55,6 +60,7 @@ class mongui(QtWidgets.QWidget):
         self.mogui.setupUi(self)
         self.mogui.mon_progress_bar.setValue(0)
         self.mogui.btn_exec_overview_refresh.clicked.connect(self.get_server_data)
+        self.mogui.btn_exec_overview_refresh_timer.clicked.connect(self.start_timer)
         self.mogui.tbl_server_overview.setRowCount(0)
         self.mogui.tbl_server_overview.insertRow(0)
         self.mogui.tbl_server_overview.setColumnWidth(0, 260)
@@ -87,6 +93,9 @@ class mongui(QtWidgets.QWidget):
                 self.mogui.tbl_server_overview.setItem(row, column, QtWidgets.QTableWidgetItem(str(item)))
         self.server_alias_list = self.c.fetchall()
 
+    def start_timer(self):
+        pass
+
     def get_server_data(self):
         self.mogui.mon_progress_bar.setValue(0)
         self.mogui.btn_exec_overview_refresh.setEnabled(False)
@@ -104,15 +113,6 @@ class mongui(QtWidgets.QWidget):
                     self.mogui.tbl_server_overview.setItem(row, column, QtWidgets.QTableWidgetItem(str(item)))
             self.mogui.mon_progress_bar.setValue(0)
             self.server_alias_list = self.server_alias_checklist
-        self.prepare_list_query()
-
-    def reportProgress(self, n):
-        self.mogui.mon_progress_bar.setValue(n)
-
-    def prepare_list_query(self):
-        self.thread = QThread()
-        self.worker = Worker()
-        self.worker.moveToThread(self.thread)
         self.c.execute("SELECT alias FROM server")
         self.server_alias_checklist = self.c.fetchall()
         self.conn.commit()
@@ -120,46 +120,58 @@ class mongui(QtWidgets.QWidget):
         for server_alias in self.server_alias_checklist:
             value_temp = server_alias[0]
             self.alias_list.append(value_temp)
-        
         rowcount = (self.mogui.tbl_server_overview.rowCount() - 2)
-        self.thread.started.connect(lambda: self.worker.run(rowcount, self.alias_list))
+        self.prepare_list_query(self.alias_list, rowcount)
+
+    def reportProgress(self, n):
+        self.mogui.mon_progress_bar.setValue(n)
+
+    def prepare_list_query(self, alias_list, rowcount):
+        self.alias_list = alias_list
+        self.rowcount = rowcount
+        self.thread = QThread()
+        self.worker = Worker()
+        self.worker.moveToThread(self.thread)
+        self.thread.started.connect(self.start_querying)
+        self.server_query_requested.connect(self.worker.run)
         self.worker.finished.connect(self.thread.quit)
-        self.worker.finished.connect(self.worker.deleteLater)
-        self.thread.finished.connect(self.thread.deleteLater)
         self.worker.progress.connect(self.reportProgress)
-        # self.worker.server_queried.connect(self.add_)
-        
+        self.worker.server_queried.connect(self.add_data_to_table)
         self.thread.start()
 
         self.thread.finished.connect(lambda: self.mogui.btn_exec_overview_refresh.setEnabled(True))
+
+    def start_querying(self):
+        self.server_query_requested.emit(self.rowcount, self.alias_list)
+
+    def add_data_to_table(self, n, m, o, p, q):
+        self.serverhost = o
+        self.counter = p + 1
+        self.resrules = m
+        self.resinfo = n
+        self.online = q
+        if self.online == 1:
+            lighting_val = self.resrules['Day_b']
+            if lighting_val == "true":
+                lighting = "Day"
+            else:
+                lighting = "Night"
+            self.mogui.tbl_server_overview.setItem(self.counter, 1, QtWidgets.QTableWidgetItem(self.serverhost +":" + str(self.resinfo['GamePort'])))
+            self.mogui.tbl_server_overview.setItem(self.counter, 5, QtWidgets.QTableWidgetItem(self.resinfo['Map'] + " (" + lighting + ")"))
+            self.mogui.tbl_server_overview.setItem(self.counter, 6, QtWidgets.QTableWidgetItem("%i/%i" % (self.resinfo['Players'], self.resinfo['MaxPlayers'])))
+            self.mogui.tbl_server_overview.setItem(self.counter, 3, QtWidgets.QTableWidgetItem("Online"))
+            self.mogui.tbl_server_overview.item(self.counter, 3).setBackground(QtGui.QColor(0,254,0))
+            self.mogui.tbl_server_overview.setItem(self.counter, 4, QtWidgets.QTableWidgetItem(str(self.resinfo['Ping']) + "ms"))
+            self.mogui.tbl_server_overview.setItem(self.counter, 2, QtWidgets.QTableWidgetItem(self.resrules['GameMode_s']))
+            if self.resinfo['Ping'] >= 80:
+                self.mogui.tbl_server_overview.item(self.counter, 4).setBackground(QtGui.QColor(254,85,0))
+            else:
+                self.mogui.tbl_server_overview.item(self.counter, 4).setBackground(QtGui.QColor(0,254,0))
         
-
-    # def add_data_to_table(self):
-
-    #     self.serverhost = serverhost
-    #     self.counter = counter
-    #     self.resrules = resrules
-    #     self.resinfo = resinfo
-    #     lighting_val = self.resrules['Day_b']
-    #     if lighting_val == "true":
-    #         lighting = "Day"
-    #     else:
-    #         lighting = "Night"
-    #     if self.resinfo:
-    #         self.mogui.tbl_server_overview.setItem(self.counter, 1, QtWidgets.QTableWidgetItem(self.serverhost +":" + str(self.resinfo['GamePort'])))
-    #         self.mogui.tbl_server_overview.setItem(self.counter, 5, QtWidgets.QTableWidgetItem(self.resinfo['Map'] + " (" + lighting + ")"))
-    #         self.mogui.tbl_server_overview.setItem(self.counter, 6, QtWidgets.QTableWidgetItem("%i/%i" % (self.resinfo['Players'], self.resinfo['MaxPlayers'])))
-    #         self.mogui.tbl_server_overview.setItem(self.counter, 3, QtWidgets.QTableWidgetItem("Online"))
-    #         self.mogui.tbl_server_overview.item(self.counter, 3).setBackground(QtGui.QColor(0,254,0))
-    #         self.mogui.tbl_server_overview.setItem(self.counter, 4, QtWidgets.QTableWidgetItem(str(self.resinfo['Ping']) + "ms"))
-    #         self.mogui.tbl_server_overview.setItem(self.counter, 2, QtWidgets.QTableWidgetItem(self.resrules['GameMode_s']))
-    #         if self.resinfo['Ping'] >= 80:
-    #             self.mogui.tbl_server_overview.item(self.counter, 4).setBackground(QtGui.QColor(254,85,0))
-    #         else:
-    #             self.mogui.tbl_server_overview.item(self.counter, 4).setBackground(QtGui.QColor(0,254,0))
-    #     else:
-    #         self.mogui.tbl_server_overview.setItem(self.counter, 3, QtWidgets.QTableWidgetItem("Offline"))
-    #         self.mogui.tbl_server_overview.item(self.counter, 3).setBackground(QtGui.QColor(254,0,0))
+        else:
+            self.mogui.tbl_server_overview.setItem(self.counter, 1, QtWidgets.QTableWidgetItem(self.serverhost))
+            self.mogui.tbl_server_overview.setItem(self.counter, 3, QtWidgets.QTableWidgetItem("Offline"))
+            self.mogui.tbl_server_overview.item(self.counter, 3).setBackground(QtGui.QColor(254,0,0))
 
     def closeEvent(self, event):
         self.conn.close()
