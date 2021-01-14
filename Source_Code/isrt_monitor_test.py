@@ -1,4 +1,5 @@
 import sys
+import time
 import sqlite3
 from pathlib import Path
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -27,17 +28,19 @@ class Worker(QObject):
             self.conn.commit()
             serverhost = monmap_ip[0]
             queryport = monmap_ip[1]
-            print(serverhost, queryport)
             try:
                 server_info = sq.SourceQuery(serverhost, queryport)
                 server_info.disconnect()
                 print(server_info.get_info())
+                self.progress.emit(progress_value)
                 # self.server_queried.emit(server_info.get_info(), server_info.get_rules())
             except Exception:
                 print("Error")
                 #self.server_unreachable.emit("Offline")
             counter = counter + 1
             progress_value = progress_value + progress_multiplier
+        progress_value = 100
+        self.progress.emit(progress_value)
         self.finished.emit()
 
 
@@ -129,6 +132,7 @@ class mongui(QtWidgets.QWidget):
         self.thread.start()
 
         self.thread.finished.connect(lambda: self.mogui.btn_exec_overview_refresh.setEnabled(True))
+        
 
     # def add_data_to_table(self):
 
