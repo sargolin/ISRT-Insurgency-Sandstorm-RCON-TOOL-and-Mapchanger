@@ -23,14 +23,12 @@ class Worker(QObject):
         progress_value = int(progress_multiplier) + int(progress_multiplier)
         while counter <= rowcount:
             server_temp_alias = alias_list[counter]
-            # print(type(counter), counter, type(rowcount), rowcount)
-            # print(server_temp_alias, type(server_temp_alias))
             self.c.execute("SELECT ipaddress, queryport FROM server where alias=:temp_alias", {'temp_alias': server_temp_alias})
             monmap_ip = self.c.fetchone()
             self.conn.commit()
             serverhost = monmap_ip[0]
             queryport = monmap_ip[1]
-            # print(serverhost, queryport)
+            print(serverhost, queryport)
             try:
                 server_info = sq.SourceQuery(serverhost, queryport)
                 server_info.disconnect()
@@ -110,6 +108,8 @@ class mongui(QtWidgets.QWidget):
     def reportProgress(self, n):
         self.mogui.mon_progress_bar.setValue(n)
 
+    def set_button_on(self):
+        self.mogui.btn_exec_overview_refresh.setEnabled(True)
 
     def prepare_list_query(self):
         self.thread = QThread()
@@ -125,27 +125,22 @@ class mongui(QtWidgets.QWidget):
             self.alias_list.append(value_temp)
         
 
+        self.worker.starter.connect(lambda: (self.mogui.btn_exec_overview_refresh.setEnabled(False)))
         # server_temp_alias = (self.mogui.tbl_server_overview.item(self.counter,0)).text()
         rowcount = (self.mogui.tbl_server_overview.rowCount() - 2)
-
         self.thread.started.connect(lambda: self.worker.run(rowcount, self.alias_list))
-        # self.worker.starter.connect(
-        #     lambda: self.mogui.btn_exec_overview_refresh.setEnabled(False)
-        # )
         self.worker.finished.connect(self.thread.quit)
-        self.mogui.btn_exec_overview_refresh.setEnabled(False)
         self.worker.finished.connect(self.worker.deleteLater)
         self.thread.finished.connect(self.thread.deleteLater)
         self.worker.progress.connect(self.reportProgress)
         # self.worker.server_queried.connect(self.add_)
+        
 
         self.thread.start()
 
         # Final resets
         
-        self.thread.finished.connect(
-            lambda: self.mogui.btn_exec_overview_refresh.setEnabled(True)
-        )
+        self.thread.finished.connect(self.set_button_on)
         # self.thread.finished.connect(
         #     lambda: self.mogui.mon_progress_bar.setValue(0)
         # )
