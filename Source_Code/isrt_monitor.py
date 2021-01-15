@@ -7,6 +7,14 @@ from PyQt5.QtCore import QObject, QThread, pyqtSignal
 from bin.isrt_monitor_gui import Ui_UI_Server_Monitor
 import bin.MonitorQuery as sq
 
+class Timer_Worker(QObject):
+    initiate_query = pyqtSignal()
+    def timer_start(self):
+        while True:
+            #self.initiate_query.emit()
+            print("Timer running")
+            time.sleep(10)
+
 class Worker(QObject):
     starter = pyqtSignal()
     finished = pyqtSignal()
@@ -50,6 +58,7 @@ class Worker(QObject):
 
 class mongui(QtWidgets.QWidget):
     server_query_requested = pyqtSignal(int, list)
+    timer_requested = pyqtSignal()
     def __init__(self, *args, **kwargs):
         #Gui Setup
         super().__init__(*args, **kwargs)
@@ -94,12 +103,33 @@ class mongui(QtWidgets.QWidget):
         self.server_alias_list = self.c.fetchall()
 
     def start_timer(self):
+        self.thread_refresh = QThread(parent=self)
+        self.worker_refresh = Timer_Worker()
+        self.worker_refresh.moveToThread(self.thread_refresh)
+        # self.thread_refresh.started.connect(self.start_querying)
+        self.timer_requested.connect(self.worker_refresh.timer_start)
+        # self.worker.finished.connect(self.thread.quit)
+        # self.worker.progress.connect(self.reportProgress)
+        # self.worker.server_queried.connect(self.add_data_to_table)
+        self.thread_refresh.start()
+
+
+        
         if self.mogui.btn_exec_overview_refresh_timer.text() == "Start refresh timer every 30 Seconds":
             self.mogui.btn_exec_overview_refresh_timer.setText("Stop refresh timer")
             self.mogui.btn_exec_overview_refresh_timer.setStyleSheet("background-color: rgb(200, 0, 0);\n" "color: rgb(255, 255, 255);")
+            print("Start")
+            self.timer_requested.emit()
         elif self.mogui.btn_exec_overview_refresh_timer.text() == "Stop refresh timer":
             self.mogui.btn_exec_overview_refresh_timer.setText("Start refresh timer every 30 Seconds")
             self.mogui.btn_exec_overview_refresh_timer.setStyleSheet("background-color: rgb(0, 170, 0);\n" "color: rgb(255, 255, 255);")
+            print("Stop")
+            self.thread_refresh.quit()
+            self.thread_refresh.wait()
+
+
+    
+
 
     def get_server_data(self):
         self.mogui.mon_progress_bar.setValue(0)
