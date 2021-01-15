@@ -44,6 +44,8 @@ class Ui_UI_Server_Monitor(object):
         font.setBold(True)
         font.setWeight(75)
         self.btn_exec_overview_refresh_timer.setFont(font)
+        self.btn_exec_overview_refresh_timer.setStyleSheet("background-color: rgb(0, 170, 0);\n"
+"color: rgb(255, 255, 255);")
         self.btn_exec_overview_refresh_timer.setCheckable(True)
         self.btn_exec_overview_refresh_timer.setAutoDefault(False)
         self.btn_exec_overview_refresh_timer.setDefault(False)
