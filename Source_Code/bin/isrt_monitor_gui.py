@@ -46,7 +46,7 @@ class Ui_UI_Server_Monitor(object):
         self.btn_exec_overview_refresh_timer.setFont(font)
         self.btn_exec_overview_refresh_timer.setStyleSheet("background-color: rgb(0, 170, 0);\n"
 "color: rgb(255, 255, 255);")
-        self.btn_exec_overview_refresh_timer.setCheckable(True)
+        self.btn_exec_overview_refresh_timer.setCheckable(False)
         self.btn_exec_overview_refresh_timer.setAutoDefault(False)
         self.btn_exec_overview_refresh_timer.setDefault(False)
         self.btn_exec_overview_refresh_timer.setFlat(False)
@@ -135,7 +135,7 @@ class Ui_UI_Server_Monitor(object):
         _translate = QtCore.QCoreApplication.translate
         UI_Server_Monitor.setWindowTitle(_translate("UI_Server_Monitor", "ISRT Server Monitor"))
         self.btn_exec_overview_refresh.setText(_translate("UI_Server_Monitor", "Refresh Server Infos"))
-        self.btn_exec_overview_refresh_timer.setText(_translate("UI_Server_Monitor", "Refresh every 30 Seconds"))
+        self.btn_exec_overview_refresh_timer.setText(_translate("UI_Server_Monitor", "Start refresh timer every 30 Seconds"))
         item = self.tbl_server_overview.verticalHeaderItem(0)
         item.setText(_translate("UI_Server_Monitor", "New Row"))
         item = self.tbl_server_overview.verticalHeaderItem(1)

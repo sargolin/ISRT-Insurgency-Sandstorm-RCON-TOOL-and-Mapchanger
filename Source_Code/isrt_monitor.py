@@ -94,7 +94,12 @@ class mongui(QtWidgets.QWidget):
         self.server_alias_list = self.c.fetchall()
 
     def start_timer(self):
-        pass
+        if self.mogui.btn_exec_overview_refresh_timer.text() == "Start refresh timer every 30 Seconds":
+            self.mogui.btn_exec_overview_refresh_timer.setText("Stop refresh timer")
+            self.mogui.btn_exec_overview_refresh_timer.setStyleSheet("background-color: rgb(200, 0, 0);\n" "color: rgb(255, 255, 255);")
+        elif self.mogui.btn_exec_overview_refresh_timer.text() == "Stop refresh timer":
+            self.mogui.btn_exec_overview_refresh_timer.setText("Start refresh timer every 30 Seconds")
+            self.mogui.btn_exec_overview_refresh_timer.setStyleSheet("background-color: rgb(0, 170, 0);\n" "color: rgb(255, 255, 255);")
 
     def get_server_data(self):
         self.mogui.mon_progress_bar.setValue(0)

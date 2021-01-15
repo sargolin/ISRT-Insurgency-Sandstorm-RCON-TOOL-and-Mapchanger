@@ -64,10 +64,10 @@ selection-background-color: rgb(216, 216, 216);</string>
 color: rgb(255, 255, 255);</string>
          </property>
          <property name="text">
-          <string>Refresh every 30 Seconds</string>
+          <string>Start refresh timer every 30 Seconds</string>
          </property>
          <property name="checkable">
-          <bool>true</bool>
+          <bool>false</bool>
          </property>
          <property name="autoDefault">
           <bool>false</bool>

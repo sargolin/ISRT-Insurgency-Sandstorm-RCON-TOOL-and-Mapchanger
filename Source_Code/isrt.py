@@ -175,7 +175,8 @@ class maingui(QtWidgets.QWidget):
             os_running = platform.system()
             #If in Dev Mode, use the Python variant
             if self.running_dev_mode == 1:
-                os.system(f"python {self.dbdir}/isrt_monitor.py")
+                #os.system(f"python {self.dbdir}/isrt_monitor.py")
+                subprocess.Popen(['python', f'{self.dbdir}/isrt_monitor.py'])
             else:
                 #If on Windows, use the exe-file
                 if os_running == "Windows":
