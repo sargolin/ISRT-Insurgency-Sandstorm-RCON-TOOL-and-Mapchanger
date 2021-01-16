@@ -45,8 +45,7 @@ selection-background-color: rgb(216, 216, 216);</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">border-image: url(:/img/img/monbck.jpg);
-background-color: rgb(247, 247, 247);</string>
+        <string notr="true">background-color: rgb(227, 227, 227);</string>
        </property>
        <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>
@@ -70,7 +69,10 @@ background-color: rgb(247, 247, 247);</string>
         <bool>true</bool>
        </property>
        <property name="selectionMode">
-        <enum>QAbstractItemView::NoSelection</enum>
+        <enum>QAbstractItemView::SingleSelection</enum>
+       </property>
+       <property name="selectionBehavior">
+        <enum>QAbstractItemView::SelectRows</enum>
        </property>
        <property name="textElideMode">
         <enum>Qt::ElideNone</enum>

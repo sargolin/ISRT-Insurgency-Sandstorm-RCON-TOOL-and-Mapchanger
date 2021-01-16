@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '.\source_files\isrt_db_importer_v0.7.ui'
+# Form implementation generated from reading ui file '.\source_files\isrt_db_importer.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.1
 #
@@ -84,7 +84,7 @@ class Ui_db_importer_gui(object):
     def retranslateUi(self, db_importer_gui):
         _translate = QtCore.QCoreApplication.translate
         db_importer_gui.setWindowTitle(_translate("db_importer_gui", "DB Importer"))
-        self.label.setText(_translate("db_importer_gui", "This the first start of ISRT - if you have a database from v0.5/6, you can import it the servers now. If you don\'t want to do that now, you can do that any time later in the Server Manager!"))
+        self.label.setText(_translate("db_importer_gui", "This the first start of ISRT - if you have a database from oder versions, you can import the servers now. If you don\'t want to do that now, you can do that any time later in the Server Manager!"))
         self.label_2.setText(_translate("db_importer_gui", "Step 1 - Select DB (Look for the \"db\" folder in your old ISRT directory)"))
         self.btn_dbi_select_database.setText(_translate("db_importer_gui", "Browse for old Database"))
         self.label_dbi_selected_db.setText(_translate("db_importer_gui", "Selected DB File"))

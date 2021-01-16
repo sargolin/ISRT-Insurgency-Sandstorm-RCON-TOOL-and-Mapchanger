@@ -105,30 +105,77 @@ class dbgui(QtWidgets.QWidget):
                 cidb.execute("select * FROM server")
                 dbimport_result = cidb.fetchall()
                 connimport.commit()
-                self.c.execute("DELETE FROM server")
-                self.conn.commit()
-                for import_result in dbimport_result:
-                    import_server_alias = import_result[0]
-                    import_server_ip = import_result[1]
-                    import_server_queryport = import_result[2]
-                    import_server_rconport = import_result[3]
-                    import_server_rconpw = import_result[4]
-                    self.c.execute("INSERT INTO server VALUES (:alias, :ipaddress, :queryport, :rconport, :rconpw)", {'alias': import_server_alias, 'ipaddress': import_server_ip, 'queryport': import_server_queryport, 'rconport': import_server_rconport, 'rconpw': import_server_rconpw})
-                self.conn.commit()
-                msg = QtWidgets.QMessageBox()
-                msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
-                msg.setIcon(QtWidgets.QMessageBox.Information)
-                msg.setWindowTitle("ISRT DB imported")
-                msg.setText("Server Import Successful\nRestarting ISRT!")
-                msg.exec_()
-                self.dbi_path = ''
-                #Database connection setup
-                self.dbi_path = None
-                dbgsetoff = 0
-                self.c.execute("UPDATE configuration SET import=:importval", {'importval' :dbgsetoff})
-                self.conn.commit()
-                self.conn.close()
-                restart_program()
+                try:
+                    cidb.execute("select version FROM configuration")
+                    dbi_result = cidb.fetchone()
+                    old_db_version = float(dbi_result[0])
+                    connimport.commit()
+                except Exception:
+                    old_db_version = None
+                if old_db_version:
+                    if old_db_version >= 0.8:
+                        self.c.execute("DELETE FROM server")
+                        self.conn.commit()
+                        for import_result in dbimport_result:
+                            import_id = import_result[0]
+                            import_server_alias = import_result[1]
+                            import_server_ip = import_result[2]
+                            import_server_queryport = import_result[3]
+                            import_server_rconport = import_result[4]
+                            import_server_rconpw = import_result[5]
+                            self.c.execute("INSERT INTO server VALUES (:id, :alias, :ipaddress, :queryport, :rconport, :rconpw)", {'id': import_id, 'alias': import_server_alias, 'ipaddress': import_server_ip, 'queryport': import_server_queryport, 'rconport': import_server_rconport, 'rconpw': import_server_rconpw})
+                        self.conn.commit()
+                        msg = QtWidgets.QMessageBox()
+                        msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
+                        msg.setIcon(QtWidgets.QMessageBox.Information)
+                        msg.setWindowTitle("ISRT DB imported")
+                        msg.setText("Server Import Successful\nRestarting ISRT!")
+                        msg.exec_()
+                        self.dbi_path = ''
+                        self.dbi_path = None
+                        dbgsetoff = 0
+                        self.c.execute("UPDATE configuration SET import=:importval", {'importval' :dbgsetoff})
+                        self.conn.commit()
+                        self.conn.close()
+                        restart_program()
+                    elif old_db_version == 0.7:
+                        self.c.execute("DELETE FROM server")
+                        self.conn.commit()
+                        id_counter = 1
+                        for import_result in dbimport_result:
+                            import_id = id_counter
+                            import_server_alias = import_result[0]
+                            import_server_ip = import_result[1]
+                            import_server_queryport = import_result[2]
+                            import_server_rconport = import_result[3]
+                            import_server_rconpw = import_result[4]
+                            self.c.execute("INSERT INTO server VALUES (:id, :alias, :ipaddress, :queryport, :rconport, :rconpw)", {'id': import_id, 'alias': import_server_alias, 'ipaddress': import_server_ip, 'queryport': import_server_queryport, 'rconport': import_server_rconport, 'rconpw': import_server_rconpw})
+                            id_counter += 1
+                        self.conn.commit()
+                        msg = QtWidgets.QMessageBox()
+                        msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
+                        msg.setIcon(QtWidgets.QMessageBox.Information)
+                        msg.setWindowTitle("ISRT DB imported")
+                        msg.setText("Server Import Successful\nRestarting ISRT!")
+                        msg.exec_()
+                        self.dbi_path = ''
+                        self.dbi_path = None
+                        dbgsetoff = 0
+                        self.c.execute("UPDATE configuration SET import=:importval", {'importval' :dbgsetoff})
+                        self.conn.commit()
+                        self.conn.close()
+                        restart_program()
+                else:
+                    msg = QtWidgets.QMessageBox()
+                    msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
+                    msg.setIcon(QtWidgets.QMessageBox.Warning)
+                    msg.setWindowTitle("ISRT Error Message")
+                    msg.setText("The database is from before v0.7 and is unfortunately\nnot compatible with this ISRT version. Sorry!")
+                    msg.exec_()
+
+
+
+                
             else:
                 msg = QtWidgets.QMessageBox()
                 msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
@@ -140,6 +187,9 @@ class dbgui(QtWidgets.QWidget):
     def close_dbg(self):
         self.dbi_path = None
         dbgsetoff = 0
+        self.dbdir = Path(__file__).absolute().parent
+        self.conn = sqlite3.connect(str(self.dbdir / 'db/isrt_data.db'))
+        self.c = self.conn.cursor()
         self.c.execute("UPDATE configuration SET import=:importval", {'importval' :dbgsetoff})
         self.conn.commit()
         self.conn.close()
@@ -148,6 +198,9 @@ class dbgui(QtWidgets.QWidget):
     def closeEvent(self, event):
         self.dbi_path = None
         dbgsetoff = 0
+        self.dbdir = Path(__file__).absolute().parent
+        self.conn = sqlite3.connect(str(self.dbdir / 'db/isrt_data.db'))
+        self.c = self.conn.cursor()
         self.c.execute("UPDATE configuration SET import=:importval", {'importval' :dbgsetoff})
         self.conn.commit()
         self.conn.close()
@@ -183,7 +236,7 @@ class maingui(QtWidgets.QWidget):
                     subprocess.Popen(["isrt_monitor.exe"])
                 else:
                     #If on Linux or Mac, use the python file
-                    os.system(f"python {self.dbdir}/isrt_monitor.py")
+                    subprocess.Popen(['python', f'{self.dbdir}/isrt_monitor.py'])
         #Open Explorer Backup Window
         def open_explorer():
             fulldir = (str(self.dbdir / 'db/'))
@@ -1300,7 +1353,7 @@ class maingui(QtWidgets.QWidget):
                     msgBox = QtWidgets.QMessageBox()
                     msgBox.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
                     msgBox.setIcon(QtWidgets.QMessageBox.Warning)
-                    msgBox.setText("Really replace all servers in the current DB with the imported DB Servers?\n\nConsider creating a backup of the DB file before clicking 'Yes':\n\n" + str(self.dbdir / 'db/isrt_data.db'))
+                    msgBox.setText("Really replace all servers in the current DB with the Servers from the given DB?\n\nConsider creating a backup of the DB file before clicking 'Yes':\n\n" + str(self.dbdir / 'db/isrt_data.db'))
                     msgBox.setWindowTitle("ISRT DB Import Warning")
                     msgBox.setStandardButtons(QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
                     msgBox.setDefaultButton(QtWidgets.QMessageBox.No)
