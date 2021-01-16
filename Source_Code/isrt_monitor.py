@@ -1,26 +1,16 @@
 import sys
-import time
 import sqlite3
 from pathlib import Path
 from PyQt5 import QtGui, QtWidgets
-from PyQt5.QtCore import QObject, QThread, pyqtSignal
+from PyQt5.QtCore import QObject, QThread, pyqtSignal, QTimer
 from bin.isrt_monitor_gui import Ui_UI_Server_Monitor
 import bin.MonitorQuery as sq
-
-class Timer_Worker(QObject):
-    initiate_query = pyqtSignal()
-    def timer_start(self):
-        while True:
-            #self.initiate_query.emit()
-            print("Timer running")
-            time.sleep(10)
 
 class Worker(QObject):
     starter = pyqtSignal()
     finished = pyqtSignal()
     progress = pyqtSignal(int)
     server_queried = pyqtSignal(dict, dict, str, int, int)
-    #server_unreachable = pyqtSignal(str)
     def run(self, rowcount, alias_list):
         self.starter.emit()
         self.dbdir = Path(__file__).absolute().parent
@@ -60,7 +50,6 @@ class mongui(QtWidgets.QWidget):
     server_query_requested = pyqtSignal(int, list)
     timer_requested = pyqtSignal()
     def __init__(self, *args, **kwargs):
-        #Gui Setup
         super().__init__(*args, **kwargs)
         self.dbdir = Path(__file__).absolute().parent
         self.conn = sqlite3.connect(str(self.dbdir / 'db/isrt_data.db'))
@@ -68,7 +57,6 @@ class mongui(QtWidgets.QWidget):
         self.mogui = Ui_UI_Server_Monitor()
         self.mogui.setupUi(self)
         self.mogui.mon_progress_bar.setValue(0)
-        self.mogui.btn_exec_overview_refresh.clicked.connect(self.get_server_data)
         self.mogui.btn_exec_overview_refresh_timer.clicked.connect(self.start_timer)
         self.mogui.tbl_server_overview.setRowCount(0)
         self.mogui.tbl_server_overview.insertRow(0)
@@ -101,39 +89,27 @@ class mongui(QtWidgets.QWidget):
             for column, item in enumerate(form):
                 self.mogui.tbl_server_overview.setItem(row, column, QtWidgets.QTableWidgetItem(str(item)))
         self.server_alias_list = self.c.fetchall()
+        self.start_timer()
+
+    def reset_buttons(self):
+        self.mogui.btn_exec_overview_refresh_timer.setEnabled(True)
 
     def start_timer(self):
-        self.thread_refresh = QThread(parent=self)
-        self.worker_refresh = Timer_Worker()
-        self.worker_refresh.moveToThread(self.thread_refresh)
-        # self.thread_refresh.started.connect(self.start_querying)
-        self.timer_requested.connect(self.worker_refresh.timer_start)
-        # self.worker.finished.connect(self.thread.quit)
-        # self.worker.progress.connect(self.reportProgress)
-        # self.worker.server_queried.connect(self.add_data_to_table)
-        self.thread_refresh.start()
-
-
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.get_server_data)
         
         if self.mogui.btn_exec_overview_refresh_timer.text() == "Start refresh timer every 30 Seconds":
             self.mogui.btn_exec_overview_refresh_timer.setText("Stop refresh timer")
             self.mogui.btn_exec_overview_refresh_timer.setStyleSheet("background-color: rgb(200, 0, 0);\n" "color: rgb(255, 255, 255);")
-            print("Start")
-            self.timer_requested.emit()
+            self.timer.start(10000)
+            self.get_server_data()
         elif self.mogui.btn_exec_overview_refresh_timer.text() == "Stop refresh timer":
             self.mogui.btn_exec_overview_refresh_timer.setText("Start refresh timer every 30 Seconds")
             self.mogui.btn_exec_overview_refresh_timer.setStyleSheet("background-color: rgb(0, 170, 0);\n" "color: rgb(255, 255, 255);")
-            print("Stop")
-            self.thread_refresh.quit()
-            self.thread_refresh.wait()
-
-
-    
-
+            self.timer.stop()
 
     def get_server_data(self):
         self.mogui.mon_progress_bar.setValue(0)
-        self.mogui.btn_exec_overview_refresh.setEnabled(False)
         self.c.execute("SELECT alias FROM server")
         self.server_alias_checklist = self.c.fetchall()
         self.conn.commit()
@@ -159,7 +135,10 @@ class mongui(QtWidgets.QWidget):
         self.prepare_list_query(self.alias_list, rowcount)
 
     def reportProgress(self, n):
-        self.mogui.mon_progress_bar.setValue(n)
+        if self.mogui.chkbx_show_progressbar.isChecked():
+            self.mogui.mon_progress_bar.setValue(n)
+        else:
+            self.mogui.mon_progress_bar.setValue(0)
 
     def prepare_list_query(self, alias_list, rowcount):
         self.alias_list = alias_list
@@ -173,8 +152,7 @@ class mongui(QtWidgets.QWidget):
         self.worker.progress.connect(self.reportProgress)
         self.worker.server_queried.connect(self.add_data_to_table)
         self.thread.start()
-
-        self.thread.finished.connect(lambda: self.mogui.btn_exec_overview_refresh.setEnabled(True))
+        self.thread.finished.connect(self.reset_buttons)
 
     def start_querying(self):
         self.server_query_requested.emit(self.rowcount, self.alias_list)
@@ -210,7 +188,7 @@ class mongui(QtWidgets.QWidget):
 
     def closeEvent(self, event):
         self.conn.close()
-        self.close() 
+        self.close()
 
 #Main definitions
 if __name__ == "__main__":
