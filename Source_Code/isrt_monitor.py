@@ -67,7 +67,13 @@ class mongui(QtWidgets.QWidget):
         self.mogui.tbl_server_overview.setColumnWidth(5, 74)
         self.mogui.tbl_server_overview.setStyleSheet("padding: 3px;")
         self.mogui.tbl_server_overview.setColumnWidth(6, 50)
-        
+        self.c.execute("select progressbar from configuration")
+        self.conn.commit()
+        self.progressbar_check = self.c.fetchone()
+        if self.progressbar_check[0] == 1:
+            self.mogui.chkbx_show_progressbar.setChecked(True)
+        else:
+            self.mogui.chkbx_show_progressbar.setChecked(False)
         self.c.execute("SELECT alias FROM server")
         self.conn.commit()
         for row, form in enumerate(self.c):
@@ -76,7 +82,23 @@ class mongui(QtWidgets.QWidget):
             for column, item in enumerate(form):
                 self.mogui.tbl_server_overview.setItem(row, column, QtWidgets.QTableWidgetItem(str(item)))
         self.server_alias_list = self.c.fetchall()
+        self.mogui.chkbx_show_progressbar.stateChanged.connect(self.save_checkbox_state)
         self.start_timer()
+
+    def save_checkbox_state(self):
+        print("Signal caught")
+        if self.mogui.chkbx_show_progressbar.isChecked():
+            checkstate = 1
+        else:
+            checkstate = 0
+        
+        self.c.execute("select progressbar from configuration")
+        self.conn.commit()
+        check_progressbar = self.c.fetchone()
+        if check_progressbar[0] != checkstate:
+            self.c.execute("update configuration set progressbar=:newstate",{'newstate': checkstate})
+            self.conn.commit()
+            print("Updated from ", check_progressbar[0], checkstate)
 
     def start_timer(self):
         self.timer = QTimer()
@@ -94,7 +116,6 @@ class mongui(QtWidgets.QWidget):
             self.c.execute("SELECT alias FROM server")
             self.conn.commit()
             for row, form in enumerate(self.c):
-                #row = row +1
                 self.mogui.tbl_server_overview.insertRow(row)
                 for column, item in enumerate(form):
                     self.mogui.tbl_server_overview.setItem(row, column, QtWidgets.QTableWidgetItem(str(item)))
@@ -113,14 +134,8 @@ class mongui(QtWidgets.QWidget):
     def reportProgress(self, n):
         if self.mogui.chkbx_show_progressbar.isChecked():
             self.mogui.mon_progress_bar.setValue(n)
-            # if n == 100:
-            #     self.timeout = QTimer()
-            #     self.timeout.timeout.connect(lambda: self.mogui.mon_progress_bar.setValue(0))
-            #     self.timeout.start(1000)
-
         else:
-            self.mogui.mon_progress_bar.setValue(0)
-        
+            self.mogui.mon_progress_bar.setValue(0)    
 
     def prepare_list_query(self, alias_list, rowcount):
         self.alias_list = alias_list
