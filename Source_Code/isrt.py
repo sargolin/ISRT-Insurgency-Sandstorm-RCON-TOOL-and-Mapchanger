@@ -1449,8 +1449,6 @@ class maingui(QtWidgets.QWidget):
                 showImport_Dialog()
             else:
                 self.gui.label_db_console.setText("Please select a database first!")
-                
-        
     #Backup current Server-DB
     def create_db_backup(self):
         #Define a timestamp format for backup
@@ -1461,7 +1459,21 @@ class maingui(QtWidgets.QWidget):
         copy2(str(db_source_filename), str(db_backup_filename))
         dbb_filename = db_backup_filename.replace("\\", "/")
         self.gui.label_db_console.setText("Backup created at: \n" + dbb_filename)
-
+    '''
+    ------------------------------------------------------------------
+    ------------------------------------------------------------------
+    '''
+    #Map Manager
+    #
+    #Fill Map Manager with DB data
+    def fill_map_manager(self):
+        pass
+    #Save modified map in DB
+    def save_existing_map(self):
+        pass
+    #Add new Map to Map database
+    def add_new_map(self):
+        pass
     '''
     ------------------------------------------------------------------
     ------------------------------------------------------------------

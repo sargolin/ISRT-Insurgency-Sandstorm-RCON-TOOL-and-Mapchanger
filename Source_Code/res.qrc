@@ -1,6 +1,7 @@
 <RCC>
   <qresource prefix="img">
     <file>img/online.png</file>
+    <file>img/mapmgr-bck.jpg</file>
     <file>img/help.png</file>
     <file>img/offline.png</file>
     <file>img/paypal.png</file>
