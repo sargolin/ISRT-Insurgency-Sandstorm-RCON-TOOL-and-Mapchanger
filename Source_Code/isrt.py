@@ -305,6 +305,7 @@ class maingui(QtWidgets.QWidget):
         self.fill_dropdown_custom_command()
         self.fill_list_custom_command()
         self.get_configuration_from_DB_and_set_settings()
+        self.fill_map_manager_dropdown()
         #Define the server manager tab
         self.gui.btn_server_add.clicked.connect(self.server_add)
         self.gui.btn_server_modify.clicked.connect(self.server_modify)
@@ -358,6 +359,7 @@ class maingui(QtWidgets.QWidget):
         self.gui.btn_replace_database.clicked.connect(lambda: self.DB_import("replace_db"))
         #Map and option assignment
         self.gui.dropdown_select_travelscenario.activated[str].connect(self.selected_map_switch)
+        self.gui.dropdown_mapmgr_selector.activated[str].connect(self.fill_map_manager_conf_tab)
         
 
     '''
@@ -1465,9 +1467,19 @@ class maingui(QtWidgets.QWidget):
     '''
     #Map Manager
     #
-    #Fill Map Manager with DB data
-    def fill_map_manager(self):
-        pass
+    #Fill Map Manager Dropdown with DB data
+    def fill_map_manager_dropdown(self):
+        self.gui.dropdown_mapmgr_selector.clear()
+        self.c.execute("Select map_name from map_config ORDER by map_name")
+        map_names_result = self.c.fetchall()
+        for map_name in map_names_result:
+            self.gui.dropdown_mapmgr_selector.addItem(map_name[0])
+    #Fill Map Manager configuration Tab with DB data
+    def fill_map_manager_conf_tab(self):
+        self.selected_map_conf = self.gui.dropdown_mapmgr_selector.currentText()
+        self.c.execute("select * from map_config where map_name=:selected_map", {'selected_map': self.selected_map_conf})
+        self.map_configuration = self.c.fetchall()
+        print(self.map_configuration)
     #Save modified map in DB
     def save_existing_map(self):
         pass
