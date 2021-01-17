@@ -39,6 +39,8 @@ from bin.rcon.console import Console
 ##################################################################################
 ##################################################################################
 running_dev_mode = 1
+running_dev_mode_dbi = 0
+running_dev_mode_rn = 0
 ##################################################################################
 ##################################################################################
 
@@ -170,7 +172,7 @@ class dbgui(QtWidgets.QWidget):
                     msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
                     msg.setIcon(QtWidgets.QMessageBox.Warning)
                     msg.setWindowTitle("ISRT Error Message")
-                    msg.setText("The database is from before v0.7 and is unfortunately\nnot compatible with this ISRT version. Sorry!")
+                    msg.setText("The database is from before v0.7, which cannot replace this version's DB.\n\nYou can import the old servers using 'Add'-Function in the Server Manager!")
                     msg.exec_()
 
 
@@ -222,6 +224,8 @@ class maingui(QtWidgets.QWidget):
         self.dbdir = Path(__file__).absolute().parent
         self.conn = sqlite3.connect(str(self.dbdir / 'db/isrt_data.db'))
         self.c = self.conn.cursor()
+        self.data_path = None
+        self.datapath = None
         #Setup ISRT Monitor Call
         def call_monitor():
             #Check which version of OS is ISRT running on
@@ -1313,39 +1317,60 @@ class maingui(QtWidgets.QWidget):
     def DB_import(self, db_action):
         if db_action == 'select_db':
             db_select_directory = (str(self.dbdir) + '\\db\\')
-            self.data_path=QtWidgets.QFileDialog.getOpenFileName(self,'Select Database', db_select_directory, '*.db',)
+            self.data_path = QtWidgets.QFileDialog.getOpenFileName(self,'Select Database', db_select_directory, '*.db',)
             self.gui.label_selected_db.setText(self.data_path[0])
+            self.datapath = self.data_path[0]
+
         elif db_action == 'add_db':
-            if self.data_path and self.data_path[0].endswith(".db"):
-                self.gui.label_db_console.setText("Adding Server from " + self.data_path[0] + " to current database")
+            if self.datapath != None and self.datapath.endswith(".db"):
+                self.gui.label_db_console.setText("Adding Server from " + self.datapath + " to current database")
                 #Database connection setup for Importing
-                dbimportdir = self.data_path[0]
+                dbimportdir = self.datapath
                 connimport = sqlite3.connect(dbimportdir)
                 cidb = connimport.cursor()
-                cidb.execute("select * FROM server")
+                cidb.execute("select alias,ipaddress,queryport,rconport,rconpw FROM server")
                 dbimport_result = cidb.fetchall()
                 connimport.commit()
+                self.c.execute("select count(*) FROM server")
+                dbcount_result = self.c.fetchone()
+                self.conn.commit()
+                importer_id = dbcount_result[0] + 1
                 for import_result in dbimport_result:
+                    import_id = importer_id
                     import_server_alias = import_result[0]
                     import_server_ip = import_result[1]
                     import_server_queryport = import_result[2]
                     import_server_rconport = import_result[3]
                     import_server_rconpw = import_result[4]
-                    self.c.execute("INSERT INTO server VALUES (:alias, :ipaddress, :queryport, :rconport, :rconpw)", {'alias': import_server_alias, 'ipaddress': import_server_ip, 'queryport': import_server_queryport, 'rconport': import_server_rconport, 'rconpw': import_server_rconpw})
-                    self.conn.commit()
+                    self.c.execute("INSERT INTO server VALUES (:id, :alias, :ipaddress, :queryport, :rconport, :rconpw)", {'id': import_id, 'alias': import_server_alias, 'ipaddress': import_server_ip, 'queryport': import_server_queryport, 'rconport': import_server_rconport, 'rconpw': import_server_rconpw})
+                    importer_id += 1
+                self.conn.commit()
                 self.gui.label_db_console.setText("Added Server from " + self.data_path[0] + " to current database")
+                self.gui.label_selected_db.clear()
+                self.fill_dropdown_server_box()
+                self.create_server_table_widget()
+                self.fill_server_table_widget()
+                self.datapath = None
             else:
                 self.gui.label_db_console.setText("Please select a database first!")
+
         elif db_action == 'replace_db':
-            if self.data_path and self.data_path[0].endswith(".db"):
-                self.gui.label_db_console.setText("Replacing Server from " + self.data_path[0] + " in current database")
+            if self.datapath != None and self.datapath.endswith(".db"):
+                self.gui.label_db_console.setText("Replacing Server from " + self.datapath + " in current database")
                 #Database connection setup for Importing
-                dbimportdir = self.data_path[0]
+                dbimportdir = self.datapath
                 connimport = sqlite3.connect(dbimportdir)
                 cidb = connimport.cursor()
                 cidb.execute("select * FROM server")
                 dbimport_result = cidb.fetchall()
                 connimport.commit()
+                try:
+                    cidb.execute("select version FROM configuration")
+                    dbi_result = cidb.fetchone()
+                    old_db_version = float(dbi_result[0])
+                    connimport.commit()
+                except Exception:
+                    old_db_version = None
                 #
                 #Show Import Dialog
                 #
@@ -1364,26 +1389,68 @@ class maingui(QtWidgets.QWidget):
                 #
                 def delete_and_import_db(i):
                     if i.text() == "&Yes":
-                        self.c.execute("DELETE FROM server")
-                        self.conn.commit()
-                        for import_result in dbimport_result:
-                            import_server_alias = import_result[0]
-                            import_server_ip = import_result[1]
-                            import_server_queryport = import_result[2]
-                            import_server_rconport = import_result[3]
-                            import_server_rconpw = import_result[4]
-                            self.c.execute("INSERT INTO server VALUES (:alias, :ipaddress, :queryport, :rconport, :rconpw)", {'alias': import_server_alias, 'ipaddress': import_server_ip, 'queryport': import_server_queryport, 'rconport': import_server_rconport, 'rconpw': import_server_rconpw})
-                        self.conn.commit()
-                        self.gui.label_db_console.setText("Replaced Server from " + self.data_path[0] + " in current database")
-                        self.gui.label_selected_db.clear()
+                        if old_db_version:
+                            if old_db_version >= 0.8:
+                                self.c.execute("DELETE FROM server")
+                                self.conn.commit()
+                                for import_result in dbimport_result:
+                                    import_id = import_result[0]
+                                    import_server_alias = import_result[1]
+                                    import_server_ip = import_result[2]
+                                    import_server_queryport = import_result[3]
+                                    import_server_rconport = import_result[4]
+                                    import_server_rconpw = import_result[5]
+                                    self.c.execute("INSERT INTO server VALUES (:id, :alias, :ipaddress, :queryport, :rconport, :rconpw)", {'id': import_id, 'alias': import_server_alias, 'ipaddress': import_server_ip, 'queryport': import_server_queryport, 'rconport': import_server_rconport, 'rconpw': import_server_rconpw})
+                                self.conn.commit()
+                                self.gui.label_db_console.setText("Replaced Server from " + self.data_path[0] + " in current database")
+                                self.gui.label_selected_db.clear()
+                                self.fill_dropdown_server_box()
+                                self.create_server_table_widget()
+                                self.fill_server_table_widget()
+                                self.datapath = None
+                            elif old_db_version == 0.7:
+                                self.c.execute("DELETE FROM server")
+                                self.conn.commit()
+                                id_counter = 1
+                                for import_result in dbimport_result:
+                                    import_id = id_counter
+                                    import_server_alias = import_result[0]
+                                    import_server_ip = import_result[1]
+                                    import_server_queryport = import_result[2]
+                                    import_server_rconport = import_result[3]
+                                    import_server_rconpw = import_result[4]
+                                    self.c.execute("INSERT INTO server VALUES (:id, :alias, :ipaddress, :queryport, :rconport, :rconpw)", {'id': import_id, 'alias': import_server_alias, 'ipaddress': import_server_ip, 'queryport': import_server_queryport, 'rconport': import_server_rconport, 'rconpw': import_server_rconpw})
+                                    id_counter += 1
+                                self.conn.commit()
+                                self.gui.label_db_console.setText("Replaced Server from " + self.data_path[0] + " in current database")
+                                self.gui.label_selected_db.clear()
+                                self.fill_dropdown_server_box()
+                                self.create_server_table_widget()
+                                self.fill_server_table_widget()
+                                self.datapath = None
+                            else:
+                                msg = QtWidgets.QMessageBox()
+                                msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
+                                msg.setIcon(QtWidgets.QMessageBox.Warning)
+                                msg.setWindowTitle("ISRT Error Message")
+                                msg.setText("The database is from before v0.7, which cannot replace this version's DB.\n\nYou can import the old servers using 'Add'-Function in the Server Manager!")
+                                msg.exec_()
+                        else:
+                            msg = QtWidgets.QMessageBox()
+                            msg.setWindowIcon(QtGui.QIcon(".\\img/isrt.ico"))
+                            msg.setIcon(QtWidgets.QMessageBox.Warning)
+                            msg.setWindowTitle("ISRT Error Message")
+                            msg.setText("The database is from before v0.7, which cannot replace this version's DB.\n\nYou can import the old servers using 'Add'-Function in the Server Manager!")
+                            msg.exec_()
                     else:
                         self.gui.label_db_console.setText("Import canceled!")
                         self.gui.label_selected_db.clear()
+                        
                 showImport_Dialog()
-                self.data_path = ''
             else:
                 self.gui.label_db_console.setText("Please select a database first!")
-        self.fill_dropdown_server_box()
+                
+        
     #Backup current Server-DB
     def create_db_backup(self):
         #Define a timestamp format for backup
@@ -1849,18 +1916,24 @@ if __name__ == "__main__":
                 updatemsg.addButton(updatemsg.Ok)
                 updatemsg.exec_()       
 
-        #Check if DB Importer shall be shown or not
-        if show_importer == 1:
-            db_gui = dbgui()
-            db_gui.show()
+        if running_dev_mode == 1:
+            if running_dev_mode_dbi == 1:
+                db_gui = dbgui()
+                db_gui.show()
+            if running_dev_mode_rn == 1:
+                rngui = rngui()
+                rngui.show()
         else:
-            pass
-        #Check if Release Notes shall be shown or not
-        if show_rn == 1:
-            rngui = rngui()
-            rngui.show()
-        else:
-            pass
+            #Check if DB Importer shall be shown or not
+            if show_importer == 1:
+                db_gui = dbgui()
+                db_gui.show()
+            #Check if Release Notes shall be shown or not
+            if show_rn == 1:
+                rngui = rngui()
+                rngui.show()
+
+
         #Restart on first DB-Import
         def restart_program():
             python = sys.executable

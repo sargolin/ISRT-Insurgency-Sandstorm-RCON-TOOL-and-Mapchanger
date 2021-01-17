@@ -17,6 +17,13 @@
     <file>img/maps/map_views.jpg</file>
   </qresource>
   <qresource prefix="map_thumbs">
+    <file>img/maps/thumbs/railride.jpg</file>
+    <file>img/maps/thumbs/dust2.jpg</file>
+    <file>img/maps/thumbs/factory.jpg</file>
+    <file>img/maps/thumbs/last_light.jpg</file>
+    <file>img/maps/thumbs/fire_frost.jpg</file>
+    <file>img/maps/thumbs/dust2_night.jpg</file>
+    <file>img/maps/thumbs/fire_frost_night.jpg</file>
     <file>img/maps/thumbs/industrial_park.jpg</file>
     <file>img/maps/thumbs/red_oasis.jpg</file>
     <file>img/maps/thumbs/sector9.jpg</file>
