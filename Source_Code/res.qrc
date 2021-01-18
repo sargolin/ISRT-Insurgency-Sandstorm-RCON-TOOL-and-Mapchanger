@@ -1,5 +1,8 @@
 <RCC>
   <qresource prefix="img">
+    <file>img/ausrufe-20.png</file>
+    <file>img/ausrufe-50.png</file>
+    <file>img/ausrufe-256.png</file>
     <file>img/online.png</file>
     <file>img/mapmgr-bck.jpg</file>
     <file>img/help.png</file>
@@ -15,6 +18,7 @@
     <file>img/sbck.png</file>
   </qresource>
   <qresource prefix="map_view">
+    <file>img/maps/map_views_night.jpg</file>
     <file>img/maps/map_views.jpg</file>
   </qresource>
   <qresource prefix="map_thumbs">
