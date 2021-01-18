@@ -1513,6 +1513,29 @@ class maingui(QtWidgets.QWidget):
             self.gui.le_mapmgr_alias.setText(self.map_name)
             self.gui.le_mapmgr_name.setText(self.map_alias)
 
+            #Function to change the day selector on state changed
+            def checkbox_day_change():
+                if self.gui.chkbox_mapmgr_day.isChecked():
+                    day_file = 1
+                else:
+                    day_file = 0
+                
+                if day_file == 1:
+                    self.gui.btn_mapmgr_select_day_image.setEnabled(True)
+                else:
+                    self.gui.btn_mapmgr_select_day_image.setEnabled(False)
+            #Function to change the night selector on state changed
+            def checkbox_night_change():
+                if self.gui.chkbox_mapmgr_night.isChecked():
+                    night_file = 1
+                else:
+                    night_file = 0
+                
+                if night_file == 1:
+                    self.gui.btn_mapmgr_select_night_image_2.setEnabled(True)
+                else:
+                    self.gui.btn_mapmgr_select_night_image_2.setEnabled(False)
+
             if self.map_self_added == 0:
                 self.gui.btn_mapmgr_delete.setEnabled(False)
                 self.gui.chkbox_mapmgr_day.setEnabled(False)
@@ -1526,8 +1549,8 @@ class maingui(QtWidgets.QWidget):
                 self.gui.btn_mapmgr_select_night_image_2.setEnabled(False)
             else:
                 self.gui.btn_mapmgr_delete.setEnabled(True)
-                self.gui.chkbox_mapmgr_day.stateChanged.connect(self.checkbox_day_change)
-                self.gui.chkbox_mapmgr_night.stateChanged.connect(self.checkbox_night_change)
+                self.gui.chkbox_mapmgr_day.stateChanged.connect(checkbox_day_change)
+                self.gui.chkbox_mapmgr_night.stateChanged.connect(checkbox_night_change)
             
             self.gui.chkbx_mapmgr_scenario_cp.setEnabled(True)
             self.gui.chkbx_mapmgr_scenario_cphc.setEnabled(True)
@@ -1884,33 +1907,18 @@ class maingui(QtWidgets.QWidget):
         else:
             self.gui.le_mapmgr_modid.setText(str(self.map_modid))
             set_map_mgr_conf_non_std()
-    #Function to change the day selector on state changed
-    def checkbox_day_change(self):
-        if self.gui.chkbox_mapmgr_day.isChecked():
-            day_file = 1
-        else:
-            day_file = 0
-        
-        if day_file == 1:
-            self.gui.btn_mapmgr_select_day_image.setEnabled(True)
-        else:
-            self.gui.btn_mapmgr_select_day_image.setEnabled(False)
-    #Function to change the night selector on state changed
-    def checkbox_night_change(self):
-        if self.gui.chkbox_mapmgr_night.isChecked():
-            night_file = 1
-        else:
-            night_file = 0
-        
-        if night_file == 1:
-            self.gui.btn_mapmgr_select_night_image_2.setEnabled(True)
-        else:
-            self.gui.btn_mapmgr_select_night_image_2.setEnabled(False)
     #Function to clear the map configuration page
     def clear_map_manager(self):
         self.gui.dropdown_mapmgr_selector.clear()
         self.gui.btn_mapmgr_delete.setEnabled(True)
         self.fill_map_manager_dropdown()
+        self.gui.le_mapmgr_alias.setEnabled(True)
+        self.gui.le_mapmgr_name.setEnabled(True)
+        self.gui.le_mapmgr_modid.setEnabled(True)
+        self.gui.le_mapmgr_selected_day_image.setEnabled(True)
+        self.gui.btn_mapmgr_select_day_image.setEnabled(True)
+        self.gui.le_mapmgr_selected_night_image.setEnabled(True)
+        self.gui.btn_mapmgr_select_night_image_2.setEnabled(True)
         self.gui.chkbx_mapmgr_scenario_cp.setEnabled(True)
         self.gui.chkbx_mapmgr_scenario_cphc.setEnabled(True)
         self.gui.chkbx_mapmgr_scenario_dom.setEnabled(True)
@@ -1924,6 +1932,10 @@ class maingui(QtWidgets.QWidget):
         self.gui.chkbx_mapmgr_scenario_cphcins.setEnabled(True)
         self.gui.chkbx_mapmgr_scenario_tdm.setEnabled(True)
         self.gui.chkbx_mapmgr_scenario_ffe.setEnabled(True)
+        self.gui.chkbox_mapmgr_day.setEnabled(True)
+        self.gui.chkbox_mapmgr_night.setEnabled(True)
+        self.gui.chkbox_mapmgr_day.setChecked(False)
+        self.gui.chkbox_mapmgr_night.setChecked(False)
         self.gui.le_mapmgr_scenario_cp.setEnabled(True)
         self.gui.le_mapmgr_scenario_cphc.setEnabled(True)
         self.gui.le_mapmgr_scenario_dom.setEnabled(True)
@@ -1937,21 +1949,22 @@ class maingui(QtWidgets.QWidget):
         self.gui.le_mapmgr_scenario_ffe.setEnabled(True)
         self.gui.le_mapmgr_scenario_op.setEnabled(True)
         self.gui.le_mapmgr_scenario_puins.setEnabled(True)
-        self.gui.chkbox_mapmgr_day.setEnabled(True)
-        self.gui.chkbox_mapmgr_night.setEnabled(True)
-        self.gui.le_mapmgr_alias.setEnabled(True)
-        self.gui.le_mapmgr_name.setEnabled(True)
-        self.gui.le_mapmgr_modid.setEnabled(True)
-        self.gui.le_mapmgr_selected_day_image.setEnabled(True)
-        self.gui.btn_mapmgr_select_day_image.setEnabled(True)
-        self.gui.le_mapmgr_selected_night_image.setEnabled(True)
-        self.gui.btn_mapmgr_select_night_image_2.setEnabled(True)
-
-        self.gui.chkbox_mapmgr_day.setChecked(False)
-        self.gui.chkbox_mapmgr_night.setChecked(False)
         self.gui.le_mapmgr_alias.setText("")
         self.gui.le_mapmgr_name.setText("")
         self.gui.le_mapmgr_modid.setText("")
+        self.gui.chkbx_mapmgr_scenario_cp.setChecked(False)
+        self.gui.chkbx_mapmgr_scenario_cphc.setChecked(False)
+        self.gui.chkbx_mapmgr_scenario_dom.setChecked(False)
+        self.gui.chkbx_mapmgr_scenario_ffw.setChecked(False)
+        self.gui.chkbx_mapmgr_scenario_fl.setChecked(False)
+        self.gui.chkbx_mapmgr_scenario_pu.setChecked(False)
+        self.gui.chkbx_mapmgr_scenario_puins.setChecked(False)
+        self.gui.chkbx_mapmgr_scenario_ski.setChecked(False)
+        self.gui.chkbx_mapmgr_scenario_op.setChecked(False)
+        self.gui.chkbx_mapmgr_scenario_cpins.setChecked(False)
+        self.gui.chkbx_mapmgr_scenario_cphcins.setChecked(False)
+        self.gui.chkbx_mapmgr_scenario_tdm.setChecked(False)
+        self.gui.chkbx_mapmgr_scenario_ffe.setChecked(False)
         self.gui.le_mapmgr_selected_day_image.setText("")
         self.gui.le_mapmgr_selected_night_image.setText("")
         self.gui.le_mapmgr_scenario_cp.setText("")
@@ -1967,85 +1980,77 @@ class maingui(QtWidgets.QWidget):
         self.gui.le_mapmgr_scenario_ffe.setText("")
         self.gui.le_mapmgr_scenario_op.setText("")
         self.gui.le_mapmgr_scenario_puins.setText("")
-
-        self.gui.chkbx_mapmgr_scenario_cp.setChecked(False)
-        self.gui.chkbx_mapmgr_scenario_cphc.setChecked(False)
-        self.gui.chkbx_mapmgr_scenario_dom.setChecked(False)
-        self.gui.chkbx_mapmgr_scenario_ffw.setChecked(False)
-        self.gui.chkbx_mapmgr_scenario_fl.setChecked(False)
-        self.gui.chkbx_mapmgr_scenario_pu.setChecked(False)
-        self.gui.chkbx_mapmgr_scenario_puins.setChecked(False)
-        self.gui.chkbx_mapmgr_scenario_ski.setChecked(False)
-        self.gui.chkbx_mapmgr_scenario_op.setChecked(False)
-        self.gui.chkbx_mapmgr_scenario_cpins.setChecked(False)
-        self.gui.chkbx_mapmgr_scenario_cphcins.setChecked(False)
-        self.gui.chkbx_mapmgr_scenario_tdm.setChecked(False)
-        self.gui.chkbx_mapmgr_scenario_ffe.setChecked(False)
     #Save modified map in DB
     def save_existing_map(self):
         pass
     #Add new Map to Map database
     def add_new_map(self):
+        def read_new_map_vars():
+            self.map_name = self.gui.le_mapmgr_alias.text()
+            self.map_alias = self.gui.le_mapmgr_name.text()
+            self.map_modid = self.gui.le_mapmgr_modid.text()
+            self.map_day_temp = self.gui.chkbox_mapmgr_day.isChecked()
+            self.map_night_temp = self.gui.chkbox_mapmgr_night.isChecked()
+            self.map_day_pic = self.gui.le_mapmgr_selected_day_image.text()
+            self.map_night_pic_temp = self.gui.le_mapmgr_selected_night_image.text()
+            self.map_night_pic = self.gui.le_mapmgr_selected_night_image.text()
+            self.map_scenario_cphc = self.gui.le_mapmgr_scenario_cphc.text()
+            self.map_scenario_cphcins = self.gui.le_mapmgr_scenario_cphcins.text()
+            self.map_scenario_cp = self.gui.le_mapmgr_scenario_cp.text()
+            self.map_scenario_cpins = self.gui.le_mapmgr_scenario_cpins.text()
+            self.map_scenario_dom = self.gui.le_mapmgr_scenario_dom.text()
+            self.map_scenario_ffe = self.gui.le_mapmgr_scenario_ffe.text()
+            self.map_scenario_ffw = self.gui.le_mapmgr_scenario_ffw.text()
+            self.map_scenario_fl = self.gui.le_mapmgr_scenario_fl.text()
+            self.map_scenario_op = self.gui.le_mapmgr_scenario_op.text()
+            self.map_scenario_pu = self.gui.le_mapmgr_scenario_pu.text()
+            self.map_scenario_puins = self.gui.le_mapmgr_scenario_puins.text()
+            self.map_scenario_ski = self.gui.le_mapmgr_scenario_ski.text()
+            self.map_scenario_tdm = self.gui.le_mapmgr_scenario_tdm.text()
+            self.map_self_added = 1
+            if self.map_day_temp == True:
+                    self.map_day = 1
+            else:
+                self.map_day = 0
+            if self.map_night_temp == True:
+                self.map_night = 1
+            else:
+                self.map_night = 0
+            self.map_dn = (str(self.map_day) + str(self.map_night))
 
-        self.map_name = self.gui.le_mapmgr_alias.text()
-        self.map_alias = self.gui.le_mapmgr_name.text()
-        self.map_modid = self.gui.le_mapmgr_modid.text()
-        self.map_day_temp = self.gui.chkbox_mapmgr_day.isChecked()
-        self.map_night_temp = self.gui.chkbox_mapmgr_night.isChecked()
-        self.map_day_pic = self.gui.le_mapmgr_selected_day_image.text()
-        self.map_night_pic_temp = le_mapmgr_selected_day_image.text()
-        self.map_night_pic = self.gui.le_mapmgr_selected_night_image.text()
-        self.map_scenario_cphc = self.gui.le_mapmgr_scenario_cphc.text()
-        self.map_scenario_cphcins = self.gui.le_mapmgr_scenario_cphcins.text()
-        self.map_scenario_cp = self.gui.le_mapmgr_scenario_cp.text()
-        self.map_scenario_cpins = self.gui.le_mapmgr_scenario_cpins.text()
-        self.map_scenario_dom = self.gui.le_mapmgr_scenario_dom.text().text()
-        self.map_scenario_ffe = self.gui.le_mapmgr_scenario_ffe.text()
-        self.map_scenario_ffw = self.gui.le_mapmgr_scenario_ffw.text()
-        self.map_scenario_fl = self.gui.le_mapmgr_scenario_fl.text()
-        self.map_scenario_op = self.gui.le_mapmgr_scenario_op.text()
-        self.map_scenario_pu = self.gui.le_mapmgr_scenario_pu.text()
-        self.map_scenario_puins = self.gui.le_mapmgr_scenario_puins.text()
-        self.map_scenario_ski = self.gui.le_mapmgr_scenario_ski.text()
-        self.map_scenario_tdm = self.gui.le_mapmgr_scenario_tdm.text()
-        self.map_self_added = 1
+        def check_for_blanks_in_vars():
+            res_check_blanks_alias = bool(re.search(r"\s", self.map_alias))
+            res_check_blanks_id = bool(re.search(r"\s", self.map_modid))
+            if res_check_blanks_alias == True:
+                icondir = Path(__file__).absolute().parent
+                warningmsg = QtWidgets.QMessageBox()
+                warningmsg.setIcon(QtWidgets.QMessageBox.Critical)
+                warningmsg.setWindowTitle("ISRT Map Manager Warning")
+                warningmsg.setWindowIcon(QtGui.QIcon(str(icondir / 'img/isrt.ico')))
+                warningmsg.setText("You map alias contains a blank space - remove it and try again")
+                warningmsg.addButton(warningmsg.Ok)
+                warningmsg.exec_()
+            if res_check_blanks_id == True:
+                icondir = Path(__file__).absolute().parent
+                warningmsg = QtWidgets.QMessageBox()
+                warningmsg.setIcon(QtWidgets.QMessageBox.Critical)
+                warningmsg.setWindowTitle("ISRT Map Manager Warning")
+                warningmsg.setWindowIcon(QtGui.QIcon(str(icondir / 'img/isrt.ico')))
+                warningmsg.setText("You map mod ID contains a blank space - remove it and try again")
+                warningmsg.addButton(warningmsg.Ok)
+                warningmsg.exec_()  
+        
+        read_new_map_vars()
+        check_for_blanks_in_vars()
 
-        if self.map_day_temp == True:
-            self.map_day = 1
-        else:
-            self.map_day = 0
+        
 
-        if self.map_night_temp == True:
-            self.map_night = 1
-        else:
-            self.map_night = 0
+        
 
-        self.map_dn = (str(self.map_day) + str(self.map_night))
-
-
-        res_check_blanks_alias = bool(re.search(r"\s", self.map_alias))
-        res_check_blanks_id = bool(re.search(r"\s", self.map_modid))
-
-        if res_check_blanks_alias == True:
-            icondir = Path(__file__).absolute().parent
-            warningmsg = QtWidgets.QMessageBox()
-            warningmsg.setIcon(QtWidgets.QMessageBox.Critical)
-            warningmsg.setWindowTitle("ISRT Map Manager Warning")
-            warningmsg.setWindowIcon(QtGui.QIcon(str(icondir / 'img/isrt.ico')))
-            warningmsg.setText("You map alias contains a blank space - remove it and try again")
-            warningmsg.addButton(warningmsg.Ok)
-            warningmsg.exec_()  
+        
                  
         
-        if res_check_blanks_id == True:
-            icondir = Path(__file__).absolute().parent
-            warningmsg = QtWidgets.QMessageBox()
-            warningmsg.setIcon(QtWidgets.QMessageBox.Critical)
-            warningmsg.setWindowTitle("ISRT Map Manager Warning")
-            warningmsg.setWindowIcon(QtGui.QIcon(str(icondir / 'img/isrt.ico')))
-            warningmsg.setText("You map mod ID contains a blank space - remove it and try again")
-            warningmsg.addButton(warningmsg.Ok)
-            warningmsg.exec_()  
+        
 
     '''
     ------------------------------------------------------------------
