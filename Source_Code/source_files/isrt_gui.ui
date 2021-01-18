@@ -2537,6 +2537,9 @@ p, li { white-space: pre-wrap; }
                    <property name="frame">
                     <bool>false</bool>
                    </property>
+                   <property name="readOnly">
+                    <bool>true</bool>
+                   </property>
                   </widget>
                  </item>
                  <item>
@@ -2605,6 +2608,9 @@ p, li { white-space: pre-wrap; }
                    </property>
                    <property name="frame">
                     <bool>false</bool>
+                   </property>
+                   <property name="readOnly">
+                    <bool>true</bool>
                    </property>
                   </widget>
                  </item>
@@ -2680,6 +2686,9 @@ p, li { white-space: pre-wrap; }
                    </property>
                    <property name="frame">
                     <bool>false</bool>
+                   </property>
+                   <property name="readOnly">
+                    <bool>true</bool>
                    </property>
                   </widget>
                  </item>
@@ -2757,13 +2766,16 @@ p, li { white-space: pre-wrap; }
                     <string notr="true">color: rgb(44, 44, 44);</string>
                    </property>
                    <property name="text">
-                    <string>Lighting Scearios:</string>
+                    <string>Lighting Scenarios:</string>
                    </property>
                    <property name="frame">
                     <bool>false</bool>
                    </property>
                    <property name="alignment">
                     <set>Qt::AlignCenter</set>
+                   </property>
+                   <property name="readOnly">
+                    <bool>true</bool>
                    </property>
                   </widget>
                  </item>
@@ -2850,6 +2862,9 @@ p, li { white-space: pre-wrap; }
                  <property name="text">
                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Select the scenarios and modes, the map provides. You can only change scenarios for custom maps!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                  </property>
+                 <property name="textInteractionFlags">
+                  <set>Qt::NoTextInteraction</set>
+                 </property>
                 </widget>
                </item>
                <item>
@@ -2894,6 +2909,9 @@ the map does not provide. It can break the Map or the Map changer!</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignCenter</set>
+                 </property>
+                 <property name="textInteractionFlags">
+                  <set>Qt::NoTextInteraction</set>
                  </property>
                 </widget>
                </item>
@@ -3543,6 +3561,9 @@ the map does not provide. It can break the Map or the Map changer!</string>
                   <string notr="true">background-color: rgb(255, 255, 255);</string>
                  </property>
                  <property name="text">
+                  <string/>
+                 </property>
+                 <property name="placeholderText">
                   <string>Map Image Name Day</string>
                  </property>
                 </widget>
@@ -3592,6 +3613,9 @@ the map does not provide. It can break the Map or the Map changer!</string>
                  <property name="alignment">
                   <set>Qt::AlignCenter</set>
                  </property>
+                 <property name="textInteractionFlags">
+                  <set>Qt::NoTextInteraction</set>
+                 </property>
                 </widget>
                </item>
                <item>
@@ -3632,6 +3656,9 @@ the map does not provide. It can break the Map or the Map changer!</string>
                   <string notr="true">background-color: rgb(255, 255, 255);</string>
                  </property>
                  <property name="text">
+                  <string/>
+                 </property>
+                 <property name="placeholderText">
                   <string>Map Image Name Night</string>
                  </property>
                 </widget>
@@ -3660,6 +3687,9 @@ the map does not provide. It can break the Map or the Map changer!</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignCenter</set>
+                 </property>
+                 <property name="textInteractionFlags">
+                  <set>Qt::NoTextInteraction</set>
                  </property>
                 </widget>
                </item>
@@ -3770,6 +3800,9 @@ the map does not provide. It can break the Map or the Map changer!</string>
                  <property name="alignment">
                   <set>Qt::AlignCenter</set>
                  </property>
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
                 </widget>
                </item>
               </layout>
@@ -3821,6 +3854,9 @@ the map does not provide. It can break the Map or the Map changer!</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignCenter</set>
+                 </property>
+                 <property name="readOnly">
+                  <bool>true</bool>
                  </property>
                 </widget>
                </item>
