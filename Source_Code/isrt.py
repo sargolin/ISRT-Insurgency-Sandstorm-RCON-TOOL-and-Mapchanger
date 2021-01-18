@@ -1480,6 +1480,7 @@ class maingui(QtWidgets.QWidget):
         self.selected_map_conf = self.gui.dropdown_mapmgr_selector.currentText()
         self.c.execute("select * from map_config where map_name=:selected_map", {'selected_map': self.selected_map_conf})
         self.map_conf_result = self.c.fetchall()
+        self.gui.label_db_console_2.append(f"Map {self.selected_map_conf} loaded")
         self.map_configuration = self.map_conf_result[0]
         self.map_modid = self.map_configuration[2]
 
@@ -1510,8 +1511,9 @@ class maingui(QtWidgets.QWidget):
 
             self.gui.le_mapmgr_alias.setText(self.map_name)
             self.gui.le_mapmgr_name.setText(self.map_alias)
-            
+
             if self.map_self_added == 0:
+                self.gui.btn_mapmgr_delete.setEnabled(False)
                 self.gui.chkbox_mapmgr_day.setEnabled(False)
                 self.gui.chkbox_mapmgr_night.setEnabled(False)
                 self.gui.le_mapmgr_alias.setEnabled(False)
@@ -1522,6 +1524,7 @@ class maingui(QtWidgets.QWidget):
                 self.gui.le_mapmgr_selected_night_image.setEnabled(False)
                 self.gui.btn_mapmgr_select_night_image_2.setEnabled(False)
             else:
+                self.gui.btn_mapmgr_delete.setEnabled(True)
                 self.gui.chkbox_mapmgr_day.stateChanged.connect(self.checkbox_day_change)
                 self.gui.chkbox_mapmgr_night.stateChanged.connect(self.checkbox_night_change)
             
@@ -1714,6 +1717,7 @@ class maingui(QtWidgets.QWidget):
             self.map_self_added = self.map_configuration[19]
 
             if self.map_self_added == 0:
+                self.gui.btn_mapmgr_delete.setEnabled(False)
                 self.gui.chkbox_mapmgr_day.setEnabled(False)
                 self.gui.chkbox_mapmgr_night.setEnabled(False)
                 self.gui.le_mapmgr_alias.setEnabled(False)
@@ -1723,6 +1727,8 @@ class maingui(QtWidgets.QWidget):
                 self.gui.btn_mapmgr_select_day_image.setEnabled(False)
                 self.gui.le_mapmgr_selected_night_image.setEnabled(False)
                 self.gui.btn_mapmgr_select_night_image_2.setEnabled(False)
+            else:
+                self.gui.btn_mapmgr_delete.setEnabled(True)
 
             self.gui.le_mapmgr_alias.setText(self.map_name)
             self.gui.le_mapmgr_name.setText(self.map_alias)
@@ -1877,10 +1883,7 @@ class maingui(QtWidgets.QWidget):
         else:
             self.gui.le_mapmgr_modid.setText(str(self.map_modid))
             set_map_mgr_conf_non_std()
-        
-
-
-
+    #Function to change the day selector on state changed
     def checkbox_day_change(self):
         if self.gui.chkbox_mapmgr_day.isChecked():
             day_file = 1
@@ -1891,7 +1894,7 @@ class maingui(QtWidgets.QWidget):
             self.gui.btn_mapmgr_select_day_image.setEnabled(True)
         else:
             self.gui.btn_mapmgr_select_day_image.setEnabled(False)
-
+    #Function to change the night selector on state changed
     def checkbox_night_change(self):
         if self.gui.chkbox_mapmgr_night.isChecked():
             night_file = 1
@@ -1902,8 +1905,11 @@ class maingui(QtWidgets.QWidget):
             self.gui.btn_mapmgr_select_night_image_2.setEnabled(True)
         else:
             self.gui.btn_mapmgr_select_night_image_2.setEnabled(False)
-
+    #Function to clear the map configuration page
     def clear_map_manager(self):
+        self.gui.dropdown_mapmgr_selector.clear()
+        self.gui.btn_mapmgr_delete.setEnabled(True)
+        self.fill_map_manager_dropdown()
         self.gui.chkbx_mapmgr_scenario_cp.setEnabled(True)
         self.gui.chkbx_mapmgr_scenario_cphc.setEnabled(True)
         self.gui.chkbx_mapmgr_scenario_dom.setEnabled(True)
@@ -1961,6 +1967,19 @@ class maingui(QtWidgets.QWidget):
         self.gui.le_mapmgr_scenario_op.setText("")
         self.gui.le_mapmgr_scenario_puins.setText("")
 
+        self.gui.chkbx_mapmgr_scenario_cp.setChecked(False)
+        self.gui.chkbx_mapmgr_scenario_cphc.setChecked(False)
+        self.gui.chkbx_mapmgr_scenario_dom.setChecked(False)
+        self.gui.chkbx_mapmgr_scenario_ffw.setChecked(False)
+        self.gui.chkbx_mapmgr_scenario_fl.setChecked(False)
+        self.gui.chkbx_mapmgr_scenario_pu.setChecked(False)
+        self.gui.chkbx_mapmgr_scenario_puins.setChecked(False)
+        self.gui.chkbx_mapmgr_scenario_ski.setChecked(False)
+        self.gui.chkbx_mapmgr_scenario_op.setChecked(False)
+        self.gui.chkbx_mapmgr_scenario_cpins.setChecked(False)
+        self.gui.chkbx_mapmgr_scenario_cphcins.setChecked(False)
+        self.gui.chkbx_mapmgr_scenario_tdm.setChecked(False)
+        self.gui.chkbx_mapmgr_scenario_ffe.setChecked(False)
     #Save modified map in DB
     def save_existing_map(self):
         pass

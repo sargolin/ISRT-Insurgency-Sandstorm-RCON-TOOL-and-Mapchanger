@@ -2492,6 +2492,16 @@ p, li { white-space: pre-wrap; }
                  </property>
                 </widget>
                </item>
+               <item>
+                <widget class="QPushButton" name="btn_mapmgr_delete">
+                 <property name="styleSheet">
+                  <string notr="true">background-color:rgb(228, 228, 228)</string>
+                 </property>
+                 <property name="text">
+                  <string>Delete Map from Database</string>
+                 </property>
+                </widget>
+               </item>
               </layout>
              </item>
              <item>
@@ -2870,11 +2880,11 @@ p, li { white-space: pre-wrap; }
                   </size>
                  </property>
                  <property name="toolTip">
-                  <string> Be aware, that no blank spaces are allowed in the scenario names! Also, never activate a scenario,
+                  <string>Be aware, that no blank spaces are allowed in the scenario names! Also, never activate a scenario,
 the map does not provide. It can break the Map or the Map changer!</string>
                  </property>
                  <property name="statusTip">
-                  <string> Be aware, that no blank spaces are allowed in the scenario names! Also, never activate a scenario,\nthe map does not provide. It can break the Map or the Map changer!</string>
+                  <string>Be aware, that no blank spaces are allowed in the scenario names! Also, never activate a scenario,\nthe map does not provide. It can break the Map or the Map changer!</string>
                  </property>
                  <property name="text">
                   <string/>
@@ -3894,6 +3904,9 @@ background-repeat: no-repeat;</string>
               <enum>QFrame::StyledPanel</enum>
              </property>
              <property name="verticalScrollBarPolicy">
+              <enum>Qt::ScrollBarAsNeeded</enum>
+             </property>
+             <property name="horizontalScrollBarPolicy">
               <enum>Qt::ScrollBarAlwaysOff</enum>
              </property>
              <property name="readOnly">
