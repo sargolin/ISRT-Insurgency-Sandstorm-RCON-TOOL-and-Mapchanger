@@ -24,6 +24,7 @@ import requests
 import urllib.request
 import platform
 import res_rc
+from PIL import Image as pilimg
 from datetime import datetime
 from shutil import copy2
 from pathlib import Path
@@ -1486,7 +1487,6 @@ class maingui(QtWidgets.QWidget):
         self.gui.label_db_console_2.append(f"Map {self.selected_map_conf} loaded")
         self.map_configuration = self.map_conf_result[0]
         self.map_modid = self.map_configuration[2]
-        
 
         def set_map_mgr_conf_non_std():
             self.map_name = self.map_configuration[0]
@@ -2118,24 +2118,59 @@ class maingui(QtWidgets.QWidget):
                 pass
             else:
                 self.gui.label_db_console_2.append("You have to provide at least one map scenario!")
-                self.check_val_add_map_error += 170
+                self.check_val_add_map_error += 161
 
             if self.gui.chkbx_mapmgr_scenario_cp.isChecked() and self.gui.le_mapmgr_scenario_cp.text() == "":
                 self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
+                self.check_val_add_map_error += 170
+
+            if self.gui.chkbx_mapmgr_scenario_cpins.isChecked() and self.gui.le_mapmgr_scenario_cpins.text() == "":
+                self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
+                self.check_val_add_map_error += 171
+            
+            if self.gui.chkbx_mapmgr_scenario_cphc.isChecked() and self.gui.le_mapmgr_scenario_cphc.text() == "":
+                self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
+                self.check_val_add_map_error += 172
+            
+            if self.gui.chkbx_mapmgr_scenario_cphcins.isChecked() and self.gui.le_mapmgr_scenario_cphcins.text() == "":
+                self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
+                self.check_val_add_map_error += 173
+
+            if self.gui.chkbx_mapmgr_scenario_dom.isChecked() and self.gui.le_mapmgr_scenario_dom.text() == "":
+                self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
+                self.check_val_add_map_error += 174
+            
+            if self.gui.chkbx_mapmgr_scenario_tdm.isChecked() and self.gui.le_mapmgr_scenario_tdm.text() == "":
+                self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
+                self.check_val_add_map_error += 175
+
+            if self.gui.chkbx_mapmgr_scenario_ffw.isChecked() and self.gui.le_mapmgr_scenario_ffw.text() == "":
+                self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
+                self.check_val_add_map_error += 176
+            
+            if self.gui.chkbx_mapmgr_scenario_ffe.isChecked() and self.gui.le_mapmgr_scenario_ffe.text() == "":
+                self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
+                self.check_val_add_map_error += 177
+            
+            if self.gui.chkbx_mapmgr_scenario_fl.isChecked() and self.gui.le_mapmgr_scenario_fl.text() == "":
+                self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
+                self.check_val_add_map_error += 178
+
+            if self.gui.chkbx_mapmgr_scenario_op.isChecked() and self.gui.le_mapmgr_scenario_op.text() == "":
+                self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
+                self.check_val_add_map_error += 179
+
+            if self.gui.chkbx_mapmgr_scenario_pu.isChecked() and self.gui.le_mapmgr_scenario_pu.text() == "":
+                self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
                 self.check_val_add_map_error += 180
 
+            if self.gui.chkbx_mapmgr_scenario_puins.isChecked() and self.gui.le_mapmgr_scenario_puins.text() == "":
+                self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
+                self.check_val_add_map_error += 170
 
-
-
-
-
-
-
-
-
-
-
-
+            if self.gui.chkbx_mapmgr_scenario_ski.isChecked() and self.gui.le_mapmgr_scenario_ski.text() == "":
+                self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
+                self.check_val_add_map_error += 181
 
 
             if self.map_day_pic:
@@ -2143,9 +2178,15 @@ class maingui(QtWidgets.QWidget):
                 res_day_pic_check2 = bool(re.search(r".JPG", self.map_day_pic))
                 if res_day_pic_check == False and res_day_pic_check2 == False:
                     self.gui.label_db_console_2.append("Please provide a JPG file with the ending .jpg as day image!")
-                    self.check_val_add_map_error += 190
-            else:
-                self.check_val_add_map_error += 224
+                    self.check_val_add_map_error += 254
+                day_image = pilimg.open(self.map_day_pic)
+                wid, hgt = day_image.size
+                day_width = str(wid)
+                day_height = str(hgt)
+                day_image_size = (day_width[0:2] + "x" + day_height[0:2])
+                if day_image_size != "25x15":
+                    self.gui.label_db_console_2.append("The map image does not have the correct size => 25X x 15X pixel!")
+                    self.check_val_add_map_error = 531
 
             if self.map_night_pic:
                 res_night_pic_check = bool(re.search(r".jpg", self.map_night_pic))
@@ -2153,40 +2194,87 @@ class maingui(QtWidgets.QWidget):
                 if res_night_pic_check == False and res_night_pic_check2 == False:
                     self.gui.label_db_console_2.append("Please provide a JPG file with the ending .jpg as night image!")
                     self.check_val_add_map_error += 201
-            else:
-                self.check_val_add_map_error += 223
+                night_image = pilimg.open(self.map_night_pic)
+                wid, hgt = night_image.size
+                night_width = str(wid)
+                night_height = str(hgt)
+                night_image_size = (night_width[0:2] + "x" + night_height[0:2])
+                if night_image_size != "25x15":
+                    self.gui.label_db_console_2.append("The map image does not have the correct size => 25X x 15X pixel!")
+                    self.check_val_add_map_error = 571
 
-
-
-
-                
 
         def copy_pics():
-
             target_image_folder = (str(self.dbdir) + '\\img\\custom_map_pics\\')
             target_day_image_file = (target_image_folder + self.map_alias + ".jpg")
             target_night_image_file = (target_image_folder + self.map_alias + "_night" + ".jpg")
-            try:
-                copy2(self.map_day_pic, target_day_image_file)
-                copy2(self.map_night_pic, target_night_image_file)
-            except PermissionError:
-                icondir = Path(__file__).absolute().parent
-                warningmsg = QtWidgets.QMessageBox()
-                warningmsg.setIcon(QtWidgets.QMessageBox.Critical)
-                warningmsg.setWindowTitle("ISRT Map Manager Warning")
-                warningmsg.setWindowIcon(QtGui.QIcon(str(icondir / 'img/isrt.ico')))
-                warningmsg.setText("Permission Error!\nSomething went wrong while copying the images. Please check the correct\naccess to the source and target directory!")
-                warningmsg.addButton(warningmsg.Ok)
-                warningmsg.exec_()
-        
+            if self.map_day_pic and target_day_image_file and self.map_day == 1:
+                try:
+                    copy2(self.map_day_pic, target_day_image_file)
+                    self.gui.img_view_day_map.setStyleSheet(f"border-image: url({self.map_day_pic});")
+                except PermissionError:
+                    icondir = Path(__file__).absolute().parent
+                    warningmsg = QtWidgets.QMessageBox()
+                    warningmsg.setIcon(QtWidgets.QMessageBox.Critical)
+                    warningmsg.setWindowTitle("ISRT Map Manager Warning")
+                    warningmsg.setWindowIcon(QtGui.QIcon(str(icondir / 'img/isrt.ico')))
+                    warningmsg.setText("Permission Error!\nSomething went wrong while copying the images. Please check the correct\naccess to the source and target directory!")
+                    warningmsg.addButton(warningmsg.Ok)
+                    warningmsg.exec_()
+                    
+
+            if self.map_night_pic and target_night_image_file and self.map_night == 1:
+                try:
+                    copy2(self.map_night_pic, target_night_image_file)
+                    self.gui.img_view_night_map.setStyleSheet(f"border-image: url({self.map_night_pic});")
+                except PermissionError:
+                    icondir = Path(__file__).absolute().parent
+                    warningmsg = QtWidgets.QMessageBox()
+                    warningmsg.setIcon(QtWidgets.QMessageBox.Critical)
+                    warningmsg.setWindowTitle("ISRT Map Manager Warning")
+                    warningmsg.setWindowIcon(QtGui.QIcon(str(icondir / 'img/isrt.ico')))
+                    warningmsg.setText("Permission Error!\nSomething went wrong while copying the images. Please check the correct\naccess to the source and target directory!")
+                    warningmsg.addButton(warningmsg.Ok)
+                    warningmsg.exec_()
+
         read_new_map_vars()
         check_for_blanks_in_vars()
         check_if_map_info_complete()
 
         def add_new_map_to_database():
-            day_pic_array = self.map_day_pic.split("\\")
-            # self.map_night_pic
-            print(day_pic_array)
+            if self.map_day_pic:
+                day_pic_array = self.map_day_pic.split("/")
+                day_pic_name = day_pic_array[-1]
+            if self.map_night_pic:
+                night_pic_array = self.map_night_pic.split("/")
+                night_pic = night_pic_array[-1]
+            
+            val_map_name = 
+            val_map_alias = 
+            val_map_modid = 
+            val_map_day = 
+            val_map_night = 
+            val_map_map_pic = 
+            val_map_cphc = 
+            val_map_cphcins = 
+            val_map_cp = 
+            val_map_cpins = 
+            val_map_dom = 
+            val_map_ffe = 
+            val_map_ffw = 
+            val_map_fl = 
+            val_map_op = 
+            val_map_pu = 
+            val_map_puins = 
+            val_map_ski = 
+            val_map_tdm = 
+            val_map_self_added = 
+
+
+            self.c.execute("INSERT INTO map_config VALUES (:map_name, :map_alias, :modid, :day, :night, :map_pic, :checkpointhardcore, :checkpointhardcore_ins, :checkpoint, :checkpoint_ins, :domination, :firefight_east, :firefight_west, :frontline, :outpost, :push, :push_ins, :skirmish, :teamdeathmatch, :self_added)", 
+                {'map_name': val_map_name, 'map_alias': val_map_alias, 'modid': val_map_modid, 'day': val_map_day, 'night': val_map_night, 'map_pic': val_map_map_pic, 'checkpointhardcore': val_map_cphc, 'checkpointhardcore_ins': val_map_cphcins, 'checkpoint': val_map_cp, 'checkpoint_ins': val_map_cpins, 'domination': val_map_dom, 'firefight_east': val_map_ffe, 'firefight_west': val_map_ffw, 'frontline': val_map_fl, 'outpost': val_map_op, 'push': val_map_pu, 'push_ins': val_map_puins, 'skirmish': val_map_ski, 'teamdeathmatch': val_map_tdm, 'self_added': val_map_self_added})
+            self.conn.commit()
+
 
         if self.check_val_add_map_error == 0:
             self.gui.label_db_console_2.clear()
@@ -2196,22 +2284,17 @@ class maingui(QtWidgets.QWidget):
             self.gui.dropdown_mapmgr_selector.clear()
             self.fill_map_manager_dropdown()
             self.gui.label_db_console_2.append("Map successfully added to database - DB reloaded!")
-            
         else:
             icondir = Path(__file__).absolute().parent
             warningmsg = QtWidgets.QMessageBox()
             warningmsg.setIcon(QtWidgets.QMessageBox.Critical)
             warningmsg.setWindowTitle("ISRT Map Manager Warning")
             warningmsg.setWindowIcon(QtGui.QIcon(str(icondir / 'img/isrt.ico')))
-            warningmsg.setText(f"Something went wrong while importing the map.\nPlease check the error message in the console!\n\nError-Code: {self.check_val_add_map_error}")
+            warningmsg.setText(f"Something went wrong while importing the map.\nPlease check the error message in the console!\n\nError Code: {self.check_val_add_map_error}")
             warningmsg.addButton(warningmsg.Ok)
             warningmsg.exec_()  
         
-        
 
-        
-                 
-        
         
 
     '''
