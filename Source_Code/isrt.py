@@ -255,6 +255,8 @@ class maingui(QtWidgets.QWidget):
         self.gui.btn_cust_delete_all.clicked.connect(self.custom_command_clear_all)
         self.gui.btn_save_settings.clicked.connect(self.save_settings)
         self.gui.btn_mapmgr_add.clicked.connect(self.add_new_map)
+        self.gui.btn_mapmgr_select_day_image.clicked.connect(lambda: self.select_map_pic("day"))
+        self.gui.btn_mapmgr_select_night_image_2.clicked.connect(lambda: self.select_map_pic("night"))
         #self.gui.btn_main_copytoclipboard.clicked.connect(self.copy2clipboard)
         self.gui.btn_main_drcon_changemap.clicked.connect(self.map_changer)
         self.gui.btn_add_cust_command.clicked.connect(self.add_custom_command_manually)
@@ -1484,6 +1486,7 @@ class maingui(QtWidgets.QWidget):
         self.gui.label_db_console_2.append(f"Map {self.selected_map_conf} loaded")
         self.map_configuration = self.map_conf_result[0]
         self.map_modid = self.map_configuration[2]
+        
 
         def set_map_mgr_conf_non_std():
             self.map_name = self.map_configuration[0]
@@ -1537,7 +1540,8 @@ class maingui(QtWidgets.QWidget):
                     self.gui.btn_mapmgr_select_night_image_2.setEnabled(False)
 
             if self.map_self_added == 0:
-                self.gui.btn_mapmgr_delete.setEnabled(False)
+                self.gui.btn_mapmgr_add.setEnabled(False)
+                self.gui.btn_mapmgr_save.setEnabled(True)
                 self.gui.chkbox_mapmgr_day.setEnabled(False)
                 self.gui.chkbox_mapmgr_night.setEnabled(False)
                 self.gui.le_mapmgr_alias.setEnabled(False)
@@ -1548,7 +1552,9 @@ class maingui(QtWidgets.QWidget):
                 self.gui.le_mapmgr_selected_night_image.setEnabled(False)
                 self.gui.btn_mapmgr_select_night_image_2.setEnabled(False)
             else:
+                self.gui.btn_mapmgr_add.setEnabled(True)
                 self.gui.btn_mapmgr_delete.setEnabled(True)
+                self.gui.btn_mapmgr_save.setEnabled(True)
                 self.gui.chkbox_mapmgr_day.stateChanged.connect(checkbox_day_change)
                 self.gui.chkbox_mapmgr_night.stateChanged.connect(checkbox_night_change)
             
@@ -1742,6 +1748,8 @@ class maingui(QtWidgets.QWidget):
 
             if self.map_self_added == 0:
                 self.gui.btn_mapmgr_delete.setEnabled(False)
+                self.gui.btn_mapmgr_add.setEnabled(False)
+                self.gui.btn_mapmgr_save.setEnabled(False)
                 self.gui.chkbox_mapmgr_day.setEnabled(False)
                 self.gui.chkbox_mapmgr_night.setEnabled(False)
                 self.gui.le_mapmgr_alias.setEnabled(False)
@@ -1910,7 +1918,9 @@ class maingui(QtWidgets.QWidget):
     #Function to clear the map configuration page
     def clear_map_manager(self):
         self.gui.dropdown_mapmgr_selector.clear()
-        self.gui.btn_mapmgr_delete.setEnabled(True)
+        self.gui.btn_mapmgr_delete.setEnabled(False)
+        self.gui.btn_mapmgr_add.setEnabled(True)
+        self.gui.btn_mapmgr_save.setEnabled(True)
         self.fill_map_manager_dropdown()
         self.gui.le_mapmgr_alias.setEnabled(True)
         self.gui.le_mapmgr_name.setEnabled(True)
@@ -1983,8 +1993,22 @@ class maingui(QtWidgets.QWidget):
     #Save modified map in DB
     def save_existing_map(self):
         pass
+    #Select map Pics
+    def select_map_pic(self, map_light):
+        if map_light == "day":
+            img_day_select_directory = (str(self.dbdir) + '\\img\\')
+            self.day_data_path = QtWidgets.QFileDialog.getOpenFileName(self,'Select Image File', img_day_select_directory, '*.jpg',)
+            self.gui.le_mapmgr_selected_day_image.setText(self.day_data_path[0])
+            self.day_datapath = self.day_data_path[0]
+        elif map_light == "night":
+            img_night_select_directory = (str(self.dbdir) + '\\img\\')
+            self.night_data_path = QtWidgets.QFileDialog.getOpenFileName(self,'Select Image File', img_night_select_directory, '*.jpg',)
+            self.gui.le_mapmgr_selected_night_image.setText(self.night_data_path[0])
+            self.night_datapath = self.night_data_path[0]
+
     #Add new Map to Map database
     def add_new_map(self):
+
         def read_new_map_vars():
             self.map_name = self.gui.le_mapmgr_alias.text()
             self.map_alias = self.gui.le_mapmgr_name.text()
@@ -2008,14 +2032,16 @@ class maingui(QtWidgets.QWidget):
             self.map_scenario_ski = self.gui.le_mapmgr_scenario_ski.text()
             self.map_scenario_tdm = self.gui.le_mapmgr_scenario_tdm.text()
             self.map_self_added = 1
+            
             if self.map_day_temp == True:
-                    self.map_day = 1
+                self.map_day = 1
             else:
                 self.map_day = 0
             if self.map_night_temp == True:
                 self.map_night = 1
             else:
                 self.map_night = 0
+            
             self.map_dn = (str(self.map_day) + str(self.map_night))
 
         def check_for_blanks_in_vars():
@@ -2039,12 +2065,148 @@ class maingui(QtWidgets.QWidget):
                 warningmsg.setText("You map mod ID contains a blank space - remove it and try again")
                 warningmsg.addButton(warningmsg.Ok)
                 warningmsg.exec_()  
+
+        def check_if_map_info_complete():
+            self.check_val_add_map_error = 0
+            
+            if self.map_name:
+                pass
+            else:
+                self.gui.label_db_console_2.append("Please enter an alias for the map!")
+                self.check_val_add_map_error += 110
+
+        
+            if self.map_alias:
+                pass
+            else:
+                self.gui.label_db_console_2.append("Please enter a name for the map!")
+                self.check_val_add_map_error += 120
+        
+            if self.map_modid:
+                pass
+            else:
+                self.gui.label_db_console_2.append("Please enter the MOD.io ID for the map!")
+                self.check_val_add_map_error += 130
+
+            if self.gui.chkbox_mapmgr_day.isChecked() or self.gui.chkbox_mapmgr_night.isChecked():
+                pass
+            else:
+                self.gui.label_db_console_2.append("Select one lighting scenario at least!")
+                self.check_val_add_map_error += 140
+
+            if self.map_day == 1 and self.map_day_pic == "":
+                self.gui.label_db_console_2.append("Please provide a day map pic, if you select day as lighting scenario!")
+                self.check_val_add_map_error += 150
+
+            if self.map_night == 1 and self.map_night_pic == "":
+                self.gui.label_db_console_2.append("Please provide a night map pic, if you select night as lighting scenario!")
+                self.check_val_add_map_error += 160
+            
+            if (self.gui.chkbx_mapmgr_scenario_cp.isChecked() or 
+                self.gui.chkbx_mapmgr_scenario_cphc.isChecked() or 
+                self.gui.chkbx_mapmgr_scenario_dom.isChecked() or 
+                self.gui.chkbx_mapmgr_scenario_ffw.isChecked() or 
+                self.gui.chkbx_mapmgr_scenario_ffe.isChecked() or 
+                self.gui.chkbx_mapmgr_scenario_puins.isChecked() or 
+                self.gui.chkbx_mapmgr_scenario_pu.isChecked() or 
+                self.gui.chkbx_mapmgr_scenario_cpins.isChecked() or 
+                self.gui.chkbx_mapmgr_scenario_cphcins.isChecked() or 
+                self.gui.chkbx_mapmgr_scenario_tdm.isChecked() or 
+                self.gui.chkbx_mapmgr_scenario_ski.isChecked() or 
+                self.gui.chkbx_mapmgr_scenario_op.isChecked() or 
+                self.gui.chkbx_mapmgr_scenario_fl.isChecked()):
+                pass
+            else:
+                self.gui.label_db_console_2.append("You have to provide at least one map scenario!")
+                self.check_val_add_map_error += 170
+
+            if self.gui.chkbx_mapmgr_scenario_cp.isChecked() and self.gui.le_mapmgr_scenario_cp.text() == "":
+                self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
+                self.check_val_add_map_error += 180
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            if self.map_day_pic:
+                res_day_pic_check = bool(re.search(r".jpg", self.map_day_pic))
+                res_day_pic_check2 = bool(re.search(r".JPG", self.map_day_pic))
+                if res_day_pic_check == False and res_day_pic_check2 == False:
+                    self.gui.label_db_console_2.append("Please provide a JPG file with the ending .jpg as day image!")
+                    self.check_val_add_map_error += 190
+            else:
+                self.check_val_add_map_error += 224
+
+            if self.map_night_pic:
+                res_night_pic_check = bool(re.search(r".jpg", self.map_night_pic))
+                res_night_pic_check2 = bool(re.search(r".JPG", self.map_night_pic))
+                if res_night_pic_check == False and res_night_pic_check2 == False:
+                    self.gui.label_db_console_2.append("Please provide a JPG file with the ending .jpg as night image!")
+                    self.check_val_add_map_error += 201
+            else:
+                self.check_val_add_map_error += 223
+
+
+
+
+                
+
+        def copy_pics():
+
+            target_image_folder = (str(self.dbdir) + '\\img\\custom_map_pics\\')
+            target_day_image_file = (target_image_folder + self.map_alias + ".jpg")
+            target_night_image_file = (target_image_folder + self.map_alias + "_night" + ".jpg")
+            try:
+                copy2(self.map_day_pic, target_day_image_file)
+                copy2(self.map_night_pic, target_night_image_file)
+            except PermissionError:
+                icondir = Path(__file__).absolute().parent
+                warningmsg = QtWidgets.QMessageBox()
+                warningmsg.setIcon(QtWidgets.QMessageBox.Critical)
+                warningmsg.setWindowTitle("ISRT Map Manager Warning")
+                warningmsg.setWindowIcon(QtGui.QIcon(str(icondir / 'img/isrt.ico')))
+                warningmsg.setText("Permission Error!\nSomething went wrong while copying the images. Please check the correct\naccess to the source and target directory!")
+                warningmsg.addButton(warningmsg.Ok)
+                warningmsg.exec_()
         
         read_new_map_vars()
         check_for_blanks_in_vars()
+        check_if_map_info_complete()
 
+        def add_new_map_to_database():
+            day_pic_array = self.map_day_pic.split("\\")
+            # self.map_night_pic
+            print(day_pic_array)
+
+        if self.check_val_add_map_error == 0:
+            self.gui.label_db_console_2.clear()
+            copy_pics()
+            self.gui.label_db_console_2.append("Images copied!")
+            add_new_map_to_database()
+            self.gui.dropdown_mapmgr_selector.clear()
+            self.fill_map_manager_dropdown()
+            self.gui.label_db_console_2.append("Map successfully added to database - DB reloaded!")
+            
+        else:
+            icondir = Path(__file__).absolute().parent
+            warningmsg = QtWidgets.QMessageBox()
+            warningmsg.setIcon(QtWidgets.QMessageBox.Critical)
+            warningmsg.setWindowTitle("ISRT Map Manager Warning")
+            warningmsg.setWindowIcon(QtGui.QIcon(str(icondir / 'img/isrt.ico')))
+            warningmsg.setText(f"Something went wrong while importing the map.\nPlease check the error message in the console!\n\nError-Code: {self.check_val_add_map_error}")
+            warningmsg.addButton(warningmsg.Ok)
+            warningmsg.exec_()  
         
-
         
 
         
