@@ -702,7 +702,10 @@ class maingui(QtWidgets.QWidget):
         self.vaccheck = (self.servergamedetails['server_vac_secured'])
         self.ranked = (self.serverruledetails['RankedServer_b'])
         self.coop = (self.serverruledetails['Coop_b'])
-        self.mods = (self.serverruledetails['Mutated_b'])    
+        self.mods = (self.serverruledetails['Mutated_b'])
+        if running_dev_mode == 1:
+            self.mutators = (self.serverruledetails['Mutators_s'])
+            print(self.mutators)
         self.day = (self.serverruledetails['Day_b'])
         if  self.mods == "true":
             self.servermodcheck = "Yes"
@@ -930,9 +933,9 @@ class maingui(QtWidgets.QWidget):
 
 
             if val_frenzy_switch == 2:
-                command = ("travel " + val_map_alias_result + "?Scenario=" + val_travel_alias_result + "?Lighting=" + val_light + "?game=" + val_gamemode)
+                command = ("travel " + val_map_alias_result + "?Scenario=" + val_travel_alias_result + "?Lighting=" + val_light + "?game=" + val_gamemode + "?Mutators=Frenzy")
             elif val_frenzy_switch == 0:
-                command = ("travel " + val_map_alias_result + "?Scenario=" + val_travel_alias_result + "?Lighting=" + val_light + "?game=" + val_gamemode)
+                command = ("travel " + val_map_alias_result + "?Scenario=" + val_travel_alias_result + "?Lighting=" + val_light + "?game=" + val_gamemode + "?Mutators=None")
             else:
                 command = ("travel " + val_map_alias_result + "?Scenario=" + val_travel_alias_result + "?Lighting=" + val_light + "?game=" + val_gamemode)
 
