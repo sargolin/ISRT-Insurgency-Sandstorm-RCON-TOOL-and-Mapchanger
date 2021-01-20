@@ -1405,7 +1405,7 @@ class Ui_ISRT_Main_Window(object):
         self.label_db_console_2.setMinimumSize(QtCore.QSize(0, 100))
         self.label_db_console_2.setMaximumSize(QtCore.QSize(16777215, 166655))
         font = QtGui.QFont()
-        font.setPointSize(11)
+        font.setPointSize(10)
         font.setBold(True)
         font.setWeight(75)
         font.setKerning(True)
@@ -2048,7 +2048,7 @@ class Ui_ISRT_Main_Window(object):
         self.label_db_console_2.setHtml(_translate("ISRT_Main_Window", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:11pt; font-weight:600; font-style:normal;\">\n"
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:10pt; font-weight:600; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:7pt; font-weight:400;\"><br /></p></body></html>"))
         self.label_db_console_2.setPlaceholderText(_translate("ISRT_Main_Window", "Map Manager Console Output"))
         self.TabWidget_Main_overall.setTabText(self.TabWidget_Main_overall.indexOf(self.Tab_Map), _translate("ISRT_Main_Window", "Map Manager"))

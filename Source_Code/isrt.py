@@ -258,6 +258,7 @@ class maingui(QtWidgets.QWidget):
         self.gui.btn_mapmgr_add.clicked.connect(self.add_new_map)
         self.gui.btn_mapmgr_select_day_image.clicked.connect(lambda: self.select_map_pic("day"))
         self.gui.btn_mapmgr_select_night_image_2.clicked.connect(lambda: self.select_map_pic("night"))
+        self.gui.btn_mapmgr_delete.clicked.connect(self.delete_custom_map)
         #self.gui.btn_main_copytoclipboard.clicked.connect(self.copy2clipboard)
         self.gui.btn_main_drcon_changemap.clicked.connect(self.map_changer)
         self.gui.btn_add_cust_command.clicked.connect(self.add_custom_command_manually)
@@ -759,16 +760,32 @@ class maingui(QtWidgets.QWidget):
             mapname = dpmap_split[0]
             ending = dpmap_split[1]
    	    
+            self.c.execute("select self_added FROM map_config WHERE map_alias=:map_view_result", {'map_view_result': map_view_pic})
+            self_added_temp = self.c.fetchone()
+            self_added_check = self_added_temp[0]
+
             if self.lighting_map == "Day":
                 mapview_pic = (mapname + "." + ending)
             else:
                 mapview_pic = (mapname + "_night." + ending)
             self.conn.commit()
-            if dpmap_alias:
-                self.gui.label_map_view.setStyleSheet(f"border-image: url(:map_thumbs/img/maps/thumbs/{mapview_pic}); background-color: #f0f0f0;background-position: center;background-repeat: no-repeat;")
+
+            if self_added_check == 0:
+                if dpmap_alias:
+                    self.gui.label_map_view.setStyleSheet(f"border-image: url(:map_thumbs/img/maps/thumbs/{mapview_pic}); background-color: #f0f0f0;background-position: center;background-repeat: no-repeat;")
+                else:
+                    self.gui.label_output_window.setText("No Map Image available - referring to placeholder!") 
+                    self.gui.label_map_view.setStyleSheet("border-image: url(:/map_view/img/maps/map_views.jpg); background-color: #f0f0f0;background-position: center;background-repeat: no-repeat;")
             else:
-                self.gui.label_output_window.setText("No Map Image available - referring to placeholder!") 
-                self.gui.label_map_view.setStyleSheet("border-image: url(:/map_view/img/maps/map_views.jpg); background-color: #f0f0f0;background-position: center;background-repeat: no-repeat;")        
+                if dpmap_alias:
+                    custom_map_pic_temp = (str(self.dbdir) + '\\img\\custom_map_pics\\' + mapview_pic)
+                    custom_map_pic = custom_map_pic_temp.replace("\\", "/")
+                    self.gui.label_map_view.setStyleSheet(f"border-image: url({custom_map_pic}); background-color: #f0f0f0;background-position: center;background-repeat: no-repeat;")
+                else:
+                    self.gui.label_output_window.setText("No Map Image available - referring to placeholder!") 
+                    self.gui.label_map_view.setStyleSheet("border-image: url(:/map_view/img/maps/map_views.jpg); background-color: #f0f0f0;background-position: center;background-repeat: no-repeat;")
+
+
         assign_map_view_pic(self)
         self.fill_dropdown_map_box()
     #Get fancy returned Playerlist
@@ -1481,13 +1498,93 @@ class maingui(QtWidgets.QWidget):
             self.gui.dropdown_mapmgr_selector.addItem(map_name[0])
     #Fill Map Manager configuration Tab with DB data
     def fill_map_manager_conf_tab(self):
+        def clear_map_conf_inserts():
+            self.gui.chkbx_mapmgr_scenario_cp.setEnabled(True)
+            self.gui.chkbx_mapmgr_scenario_cphc.setEnabled(True)
+            self.gui.chkbx_mapmgr_scenario_dom.setEnabled(True)
+            self.gui.chkbx_mapmgr_scenario_ffw.setEnabled(True)
+            self.gui.chkbx_mapmgr_scenario_fl.setEnabled(True)
+            self.gui.chkbx_mapmgr_scenario_pu.setEnabled(True)
+            self.gui.chkbx_mapmgr_scenario_puins.setEnabled(True)
+            self.gui.chkbx_mapmgr_scenario_ski.setEnabled(True)
+            self.gui.chkbx_mapmgr_scenario_op.setEnabled(True)
+            self.gui.chkbx_mapmgr_scenario_cpins.setEnabled(True)
+            self.gui.chkbx_mapmgr_scenario_cphcins.setEnabled(True)
+            self.gui.chkbx_mapmgr_scenario_tdm.setEnabled(True)
+            self.gui.chkbx_mapmgr_scenario_ffe.setEnabled(True)
+            self.gui.chkbox_mapmgr_day.setEnabled(True)
+            self.gui.chkbox_mapmgr_night.setEnabled(True)
+            self.gui.chkbox_mapmgr_day.setChecked(False)
+            self.gui.chkbox_mapmgr_night.setChecked(False)
+            self.gui.le_mapmgr_scenario_cp.setEnabled(True)
+            self.gui.le_mapmgr_scenario_cphc.setEnabled(True)
+            self.gui.le_mapmgr_scenario_dom.setEnabled(True)
+            self.gui.le_mapmgr_scenario_ffw.setEnabled(True)
+            self.gui.le_mapmgr_scenario_fl.setEnabled(True)
+            self.gui.le_mapmgr_scenario_pu.setEnabled(True)
+            self.gui.le_mapmgr_scenario_ski.setEnabled(True)
+            self.gui.le_mapmgr_scenario_cpins.setEnabled(True)
+            self.gui.le_mapmgr_scenario_cphcins.setEnabled(True)
+            self.gui.le_mapmgr_scenario_tdm.setEnabled(True)
+            self.gui.le_mapmgr_scenario_ffe.setEnabled(True)
+            self.gui.le_mapmgr_scenario_op.setEnabled(True)
+            self.gui.le_mapmgr_scenario_puins.setEnabled(True)
+            self.gui.le_mapmgr_alias.setText("")
+            self.gui.le_mapmgr_name.setText("")
+            self.gui.le_mapmgr_modid.setText("")
+            self.gui.chkbx_mapmgr_scenario_cp.setChecked(False)
+            self.gui.chkbx_mapmgr_scenario_cphc.setChecked(False)
+            self.gui.chkbx_mapmgr_scenario_dom.setChecked(False)
+            self.gui.chkbx_mapmgr_scenario_ffw.setChecked(False)
+            self.gui.chkbx_mapmgr_scenario_fl.setChecked(False)
+            self.gui.chkbx_mapmgr_scenario_pu.setChecked(False)
+            self.gui.chkbx_mapmgr_scenario_puins.setChecked(False)
+            self.gui.chkbx_mapmgr_scenario_ski.setChecked(False)
+            self.gui.chkbx_mapmgr_scenario_op.setChecked(False)
+            self.gui.chkbx_mapmgr_scenario_cpins.setChecked(False)
+            self.gui.chkbx_mapmgr_scenario_cphcins.setChecked(False)
+            self.gui.chkbx_mapmgr_scenario_tdm.setChecked(False)
+            self.gui.chkbx_mapmgr_scenario_ffe.setChecked(False)
+            self.gui.le_mapmgr_selected_day_image.setText("")
+            self.gui.le_mapmgr_selected_night_image.setText("")
+            self.gui.le_mapmgr_scenario_cp.setText("")
+            self.gui.le_mapmgr_scenario_cphc.setText("")
+            self.gui.le_mapmgr_scenario_dom.setText("")
+            self.gui.le_mapmgr_scenario_ffw.setText("")
+            self.gui.le_mapmgr_scenario_fl.setText("")
+            self.gui.le_mapmgr_scenario_pu.setText("")
+            self.gui.le_mapmgr_scenario_ski.setText("")
+            self.gui.le_mapmgr_scenario_cpins.setText("")
+            self.gui.le_mapmgr_scenario_cphcins.setText("")
+            self.gui.le_mapmgr_scenario_tdm.setText("")
+            self.gui.le_mapmgr_scenario_ffe.setText("")
+            self.gui.le_mapmgr_scenario_op.setText("")
+            self.gui.le_mapmgr_scenario_puins.setText("")
+            self.gui.le_mapmgr_selected_day_image.setText("")
+            self.gui.le_mapmgr_selected_night_image.setText("")
+            self.gui.le_mapmgr_scenario_cp.setPlaceholderText("Checkpoint Scenario Security")
+            self.gui.le_mapmgr_scenario_cphc.setPlaceholderText("Checkpoint Hardcore Scenario Security")
+            self.gui.le_mapmgr_scenario_dom.setPlaceholderText("Domination Scenario")
+            self.gui.le_mapmgr_scenario_ffw.setPlaceholderText("Firefight West Scenario")
+            self.gui.le_mapmgr_scenario_fl.setPlaceholderText("Frontline Scenario")
+            self.gui.le_mapmgr_scenario_pu.setPlaceholderText("Push Scenario Security")
+            self.gui.le_mapmgr_scenario_ski.setPlaceholderText("Skirmish Scenario")
+            self.gui.le_mapmgr_scenario_cpins.setPlaceholderText("Checkpoint Scenario Insurgents")
+            self.gui.le_mapmgr_scenario_cphcins.setPlaceholderText("Checkpoint Hardcore Scenario Insurgents")
+            self.gui.le_mapmgr_scenario_tdm.setPlaceholderText("Team Deathmatch Scenario")
+            self.gui.le_mapmgr_scenario_ffe.setPlaceholderText("Firefight East Scenario")
+            self.gui.le_mapmgr_scenario_op.setPlaceholderText("Outpost Scenario")
+            self.gui.le_mapmgr_scenario_puins.setPlaceholderText("Push Scenario Insurgents")
+            self.gui.le_mapmgr_selected_day_image.setPlaceholderText("Map Image Name Day")
+            self.gui.le_mapmgr_selected_night_image.setPlaceholderText("Map Image Name Night")
+        clear_map_conf_inserts()
         self.selected_map_conf = self.gui.dropdown_mapmgr_selector.currentText()
         self.c.execute("select * from map_config where map_name=:selected_map", {'selected_map': self.selected_map_conf})
         self.map_conf_result = self.c.fetchall()
         self.gui.label_db_console_2.append(f"Map {self.selected_map_conf} loaded")
         self.map_configuration = self.map_conf_result[0]
         self.map_modid = self.map_configuration[2]
-
+        #Set the configuration in case the called map is a non-Standard map
         def set_map_mgr_conf_non_std():
             self.map_name = self.map_configuration[0]
             self.map_alias = self.map_configuration[1]
@@ -1495,9 +1592,9 @@ class maingui(QtWidgets.QWidget):
             self.map_day = self.map_configuration[3]
             self.map_night = self.map_configuration[4]
             self.map_dn = (str(self.map_configuration[3]) + str(self.map_configuration[4]))
-            self.map_day_pic = self.map_configuration[5]
-            self.map_night_pic_temp = self.map_day_pic.split(".")
-            self.map_night_pic = (self.map_night_pic_temp[0] + "_night.jpg")
+            self.map_day_pic_show = self.map_configuration[5]
+            self.map_night_pic_temp = self.map_day_pic_show.split(".")
+            self.map_night_pic_show = (self.map_night_pic_temp[0] + "_night.jpg")
             self.map_scenario_cphc = self.map_configuration[6]
             self.map_scenario_cphcins = self.map_configuration[7]
             self.map_scenario_cp = self.map_configuration[8]
@@ -1512,7 +1609,6 @@ class maingui(QtWidgets.QWidget):
             self.map_scenario_ski = self.map_configuration[17]
             self.map_scenario_tdm = self.map_configuration[18]
             self.map_self_added = self.map_configuration[19]
-
             self.gui.le_mapmgr_alias.setText(self.map_name)
             self.gui.le_mapmgr_name.setText(self.map_alias)
 
@@ -1601,130 +1697,146 @@ class maingui(QtWidgets.QWidget):
             else:
                 self.gui.chkbox_mapmgr_night.setChecked(False)
 
-            if self.map_day == 1:
-                self.gui.le_mapmgr_selected_day_image.setText(self.map_day_pic)
-                self.gui.img_view_day_map.setStyleSheet(f"border-image: url(:/map_thumbs/img/maps/thumbs/{self.map_day_pic});")
-            else:
-                self.gui.img_view_day_map.setStyleSheet(f"border-image: url(:/map_view/img/maps/map_views.jpg);")
-                self.gui.btn_mapmgr_select_day_image.setEnabled(False)
-                self.gui.le_mapmgr_selected_day_image.setText("")
+            if self.map_self_added == 0:
+                if self.map_day == 1:
+                    self.gui.le_mapmgr_selected_day_image.setText(self.map_day_pic_show)
+                    self.gui.btn_mapmgr_delete.setEnabled(False)
+                    self.gui.img_view_day_map.setStyleSheet(f"border-image: url(:/map_thumbs/img/maps/thumbs/{self.map_day_pic_show});")
+                else:
+                    self.gui.img_view_day_map.setStyleSheet(f"border-image: url(:/map_view/img/maps/map_views.jpg);")
+                    self.gui.btn_mapmgr_select_day_image.setEnabled(False)
+                    self.gui.btn_mapmgr_delete.setEnabled(False)
+                    self.gui.le_mapmgr_selected_day_image.setText("")
 
-            if self.map_night == 1:
-                self.gui.img_view_night_map.setStyleSheet(f"border-image: url(:/map_thumbs/img/maps/thumbs/{self.map_night_pic});")
-                self.gui.le_mapmgr_selected_night_image.setText(self.map_night_pic)
+                if self.map_night == 1:
+                    self.gui.img_view_night_map.setStyleSheet(f"border-image: url(:/map_thumbs/img/maps/thumbs/{self.map_night_pic_show});")
+                    self.gui.le_mapmgr_selected_night_image.setText(self.map_night_pic_show)
+                    self.gui.btn_mapmgr_delete.setEnabled(False)
+                else:
+                    self.gui.img_view_night_map.setStyleSheet(f"border-image: url(:/map_view/img/maps/map_views_night.jpg);")
+                    self.gui.le_mapmgr_selected_night_image.setText("")
+                    self.gui.btn_mapmgr_select_night_image_2.setEnabled(False)
+                    self.gui.btn_mapmgr_delete.setEnabled(False)
             else:
-                self.gui.img_view_night_map.setStyleSheet(f"border-image: url(:/map_view/img/maps/map_views_night.jpg);")
-                self.gui.le_mapmgr_selected_night_image.setText("")
-                self.gui.btn_mapmgr_select_night_image_2.setEnabled(False)
+                custom_image_folder = (str(self.dbdir) + '\\img\\custom_map_pics\\')
+                custom_day_pic_temp = (str(self.dbdir) + '\\img\\custom_map_pics\\' + self.map_day_pic_show)
+                custom_night_pic_temp = (str(self.dbdir) + '\\img\\custom_map_pics\\' + self.map_night_pic_show)
+
+                self.gui.btn_mapmgr_delete.setEnabled(True)
+
+                custom_day_pic = custom_day_pic_temp.replace("\\", "/")
+                custom_night_pic = custom_night_pic_temp.replace("\\", "/")
+
+                if self.map_day == 1:
+                    self.gui.le_mapmgr_selected_day_image.setText(self.map_day_pic_show)
+                    self.gui.img_view_day_map.setStyleSheet(f"border-image: url({custom_day_pic});")
+                else:
+                    self.gui.img_view_day_map.setStyleSheet(f"border-image: url(:/map_view/img/maps/map_views.jpg);")
+                    self.gui.btn_mapmgr_select_day_image.setEnabled(False)
+                    self.gui.le_mapmgr_selected_day_image.setText("")
+
+                if self.map_night == 1:
+                    self.gui.img_view_night_map.setStyleSheet(f"border-image: url({custom_night_pic});")
+                    self.gui.le_mapmgr_selected_night_image.setText(self.map_night_pic_show)
+                else:
+                    self.gui.img_view_night_map.setStyleSheet(f"border-image: url(:/map_view/img/maps/map_views_night.jpg);")
+                    self.gui.le_mapmgr_selected_night_image.setText("")
+                    self.gui.btn_mapmgr_select_night_image_2.setEnabled(False)
 
             if self.map_scenario_cphc:
                 self.gui.le_mapmgr_scenario_cphc.setText(self.map_scenario_cphc)
                 self.gui.chkbx_mapmgr_scenario_cphc.setChecked(True)
             else:
-                self.gui.le_mapmgr_scenario_cphc.setText("N/A")
-
+                self.gui.le_mapmgr_scenario_cphc.setPlaceholderText("N/A")
                 self.gui.chkbx_mapmgr_scenario_cphc.setChecked(False)
 
             if self.map_scenario_cp:
                 self.gui.le_mapmgr_scenario_cp.setText(self.map_scenario_cp)
                 self.gui.chkbx_mapmgr_scenario_cp.setChecked(True)
             else:
-                self.gui.le_mapmgr_scenario_cp.setText("N/A")
-
+                self.gui.le_mapmgr_scenario_cp.setPlaceholderText("N/A")
                 self.gui.chkbx_mapmgr_scenario_cp.setChecked(False)
 
             if self.map_scenario_cpins:
                 self.gui.le_mapmgr_scenario_cpins.setText(self.map_scenario_cpins)
                 self.gui.chkbx_mapmgr_scenario_cpins.setChecked(True)
             else:
-                self.gui.le_mapmgr_scenario_cpins.setText("N/A")
-   
+                self.gui.le_mapmgr_scenario_cpins.setPlaceholderText("N/A")
                 self.gui.chkbx_mapmgr_scenario_cpins.setChecked(False)
 
             if self.map_scenario_cphcins:
                 self.gui.le_mapmgr_scenario_cphcins.setText(self.map_scenario_cphcins)
                 self.gui.chkbx_mapmgr_scenario_cphcins.setChecked(True)
             else:
-                self.gui.le_mapmgr_scenario_cphcins.setText("N/A")
-
+                self.gui.le_mapmgr_scenario_cphcins.setPlaceholderText("N/A")
                 self.gui.chkbx_mapmgr_scenario_cphcins.setChecked(False)
 
             if self.map_scenario_dom:
                 self.gui.le_mapmgr_scenario_dom.setText(self.map_scenario_dom)
                 self.gui.chkbx_mapmgr_scenario_dom.setChecked(True)
             else:
-                self.gui.le_mapmgr_scenario_dom.setText("N/A")
-    
+                self.gui.le_mapmgr_scenario_dom.setPlaceholderText("N/A")
                 self.gui.chkbx_mapmgr_scenario_dom.setChecked(False)            
 
             if self.map_scenario_ffw:
                 self.gui.le_mapmgr_scenario_ffw.setText(self.map_scenario_ffw)
                 self.gui.chkbx_mapmgr_scenario_ffw.setChecked(True)
             else:
-                self.gui.le_mapmgr_scenario_ffw.setText("N/A")
-
+                self.gui.le_mapmgr_scenario_ffw.setPlaceholderText("N/A")
                 self.gui.chkbx_mapmgr_scenario_ffw.setChecked(False) 
 
             if self.map_scenario_ffe:
                 self.gui.le_mapmgr_scenario_ffe.setText(self.map_scenario_ffe)
                 self.gui.chkbx_mapmgr_scenario_ffe.setChecked(True)
             else:
-                self.gui.le_mapmgr_scenario_ffe.setText("N/A")
-      
+                self.gui.le_mapmgr_scenario_ffe.setPlaceholderText("N/A")
                 self.gui.chkbx_mapmgr_scenario_ffe.setChecked(False) 
             
             if self.map_scenario_fl:
                 self.gui.le_mapmgr_scenario_fl.setText(self.map_scenario_fl)
                 self.gui.chkbx_mapmgr_scenario_fl.setChecked(True)
             else:
-                self.gui.le_mapmgr_scenario_fl.setText("N/A")
-            
+                self.gui.le_mapmgr_scenario_fl.setPlaceholderText("N/A")
                 self.gui.chkbx_mapmgr_scenario_fl.setChecked(False)
 
             if self.map_scenario_pu:
                 self.gui.le_mapmgr_scenario_pu.setText(self.map_scenario_pu)
                 self.gui.chkbx_mapmgr_scenario_pu.setChecked(True)
             else:
-                self.gui.le_mapmgr_scenario_pu.setText("N/A")
-            
+                self.gui.le_mapmgr_scenario_pu.setPlaceholderText("N/A")
                 self.gui.chkbx_mapmgr_scenario_pu.setChecked(False)
 
             if self.map_scenario_puins:
                 self.gui.le_mapmgr_scenario_puins.setText(self.map_scenario_puins)
                 self.gui.chkbx_mapmgr_scenario_puins.setChecked(True)
             else:
-                self.gui.le_mapmgr_scenario_puins.setText("N/A")
-     
+                self.gui.le_mapmgr_scenario_puins.setPlaceholderText("N/A")
                 self.gui.chkbx_mapmgr_scenario_puins.setChecked(False)
 
             if self.map_scenario_ski:
                 self.gui.le_mapmgr_scenario_ski.setText(self.map_scenario_ski)
                 self.gui.chkbx_mapmgr_scenario_ski.setChecked(True)
             else:
-                self.gui.le_mapmgr_scenario_ski.setText("N/A")
-        
+                self.gui.le_mapmgr_scenario_ski.setPlaceholderText("N/A")
                 self.gui.chkbx_mapmgr_scenario_ski.setChecked(False)
 
             if self.map_scenario_op:
                 self.gui.le_mapmgr_scenario_op.setText(self.map_scenario_op)
                 self.gui.chkbx_mapmgr_scenario_op.setChecked(True)
             else:
-                self.gui.le_mapmgr_scenario_op.setText("N/A")
-              
+                self.gui.le_mapmgr_scenario_op.setPlaceholderText("N/A")
                 self.gui.chkbx_mapmgr_scenario_op.setChecked(False)
 
             if self.map_scenario_tdm:
                 self.gui.le_mapmgr_scenario_tdm.setText(self.map_scenario_tdm)
                 self.gui.chkbx_mapmgr_scenario_tdm.setChecked(True)
             else:
-                self.gui.le_mapmgr_scenario_tdm.setText("N/A")
-     
+                self.gui.le_mapmgr_scenario_tdm.setPlaceholderText("N/A")
                 self.gui.chkbx_mapmgr_scenario_tdm.setChecked(False)
-
+        #Set the configuration in case the called map is a Standard map
         def set_map_mgr_conf_std():
             self.map_name = self.map_configuration[0]
             self.map_alias = self.map_configuration[1]
-            
             self.map_day = self.map_configuration[3]
             self.map_night = self.map_configuration[4]
             self.map_dn = (str(self.map_configuration[3]) + str(self.map_configuration[4]))
@@ -1745,7 +1857,6 @@ class maingui(QtWidgets.QWidget):
             self.map_scenario_ski = self.map_configuration[17]
             self.map_scenario_tdm = self.map_configuration[18]
             self.map_self_added = self.map_configuration[19]
-
             if self.map_self_added == 0:
                 self.gui.btn_mapmgr_delete.setEnabled(False)
                 self.gui.btn_mapmgr_add.setEnabled(False)
@@ -1795,91 +1906,91 @@ class maingui(QtWidgets.QWidget):
                 self.gui.le_mapmgr_scenario_cphc.setText(self.map_scenario_cphc)
                 self.gui.chkbx_mapmgr_scenario_cphc.setChecked(True)
             else:
-                self.gui.le_mapmgr_scenario_cphc.setText("N/A")
+                self.gui.le_mapmgr_scenario_cphc.setPlaceholderText("N/A")
                 self.gui.chkbx_mapmgr_scenario_cphc.setChecked(False)
 
             if self.map_scenario_cp:
                 self.gui.le_mapmgr_scenario_cp.setText(self.map_scenario_cp)
                 self.gui.chkbx_mapmgr_scenario_cp.setChecked(True)
             else:
-                self.gui.le_mapmgr_scenario_cp.setText("N/A")
+                self.gui.le_mapmgr_scenario_cp.setPlaceholderText("N/A")
                 self.gui.chkbx_mapmgr_scenario_cp.setChecked(False)
 
             if self.map_scenario_cpins:
                 self.gui.le_mapmgr_scenario_cpins.setText(self.map_scenario_cpins)
                 self.gui.chkbx_mapmgr_scenario_cpins.setChecked(True)
             else:
-                self.gui.le_mapmgr_scenario_cpins.setText("N/A")
+                self.gui.le_mapmgr_scenario_cpins.setPlaceholderText("N/A")
                 self.gui.chkbx_mapmgr_scenario_cpins.setChecked(False)
 
             if self.map_scenario_cphcins:
                 self.gui.le_mapmgr_scenario_cphcins.setText(self.map_scenario_cphcins)
                 self.gui.chkbx_mapmgr_scenario_cphcins.setChecked(True)
             else:
-                self.gui.le_mapmgr_scenario_cphcins.setText("N/A")
+                self.gui.le_mapmgr_scenario_cphcins.setPlaceholderText("N/A")
                 self.gui.chkbx_mapmgr_scenario_cphcins.setChecked(False)
 
             if self.map_scenario_dom:
                 self.gui.le_mapmgr_scenario_dom.setText(self.map_scenario_dom)
                 self.gui.chkbx_mapmgr_scenario_dom.setChecked(True)
             else:
-                self.gui.le_mapmgr_scenario_dom.setText("N/A")
+                self.gui.le_mapmgr_scenario_dom.setPlaceholderText("N/A")
                 self.gui.chkbx_mapmgr_scenario_dom.setChecked(False)            
 
             if self.map_scenario_ffw:
                 self.gui.le_mapmgr_scenario_ffw.setText(self.map_scenario_ffw)
                 self.gui.chkbx_mapmgr_scenario_ffw.setChecked(True)
             else:
-                self.gui.le_mapmgr_scenario_ffw.setText("N/A")
+                self.gui.le_mapmgr_scenario_ffw.setPlaceholderText("N/A")
                 self.gui.chkbx_mapmgr_scenario_ffw.setChecked(False) 
 
             if self.map_scenario_ffe:
                 self.gui.le_mapmgr_scenario_ffe.setText(self.map_scenario_ffe)
                 self.gui.chkbx_mapmgr_scenario_ffe.setChecked(True)
             else:
-                self.gui.le_mapmgr_scenario_ffe.setText("N/A")
+                self.gui.le_mapmgr_scenario_ffe.setPlaceholderText("N/A")
                 self.gui.chkbx_mapmgr_scenario_ffe.setChecked(False) 
             
             if self.map_scenario_fl:
                 self.gui.le_mapmgr_scenario_fl.setText(self.map_scenario_fl)
                 self.gui.chkbx_mapmgr_scenario_fl.setChecked(True)
             else:
-                self.gui.le_mapmgr_scenario_fl.setText("N/A")
+                self.gui.le_mapmgr_scenario_fl.setPlaceholderText("N/A")
                 self.gui.chkbx_mapmgr_scenario_fl.setChecked(False)
 
             if self.map_scenario_pu:
                 self.gui.le_mapmgr_scenario_pu.setText(self.map_scenario_pu)
                 self.gui.chkbx_mapmgr_scenario_pu.setChecked(True)
             else:
-                self.gui.le_mapmgr_scenario_pu.setText("N/A")
+                self.gui.le_mapmgr_scenario_pu.setPlaceholderText("N/A")
                 self.gui.chkbx_mapmgr_scenario_pu.setChecked(False)
 
             if self.map_scenario_puins:
                 self.gui.le_mapmgr_scenario_puins.setText(self.map_scenario_puins)
                 self.gui.chkbx_mapmgr_scenario_puins.setChecked(True)
             else:
-                self.gui.le_mapmgr_scenario_puins.setText("N/A")
+                self.gui.le_mapmgr_scenario_puins.setPlaceholderText("N/A")
                 self.gui.chkbx_mapmgr_scenario_puins.setChecked(False)
 
             if self.map_scenario_ski:
                 self.gui.le_mapmgr_scenario_ski.setText(self.map_scenario_ski)
                 self.gui.chkbx_mapmgr_scenario_ski.setChecked(True)
             else:
-                self.gui.le_mapmgr_scenario_ski.setText("N/A")
+                self.gui.le_mapmgr_scenario_ski.setPlaceholderText("N/A")
                 self.gui.chkbx_mapmgr_scenario_ski.setChecked(False)
 
             if self.map_scenario_op:
                 self.gui.le_mapmgr_scenario_op.setText(self.map_scenario_op)
                 self.gui.chkbx_mapmgr_scenario_op.setChecked(True)
             else:
-                self.gui.le_mapmgr_scenario_op.setText("N/A")
+                self.gui.le_mapmgr_scenario_op.setPlaceholderText("N/A")
                 self.gui.chkbx_mapmgr_scenario_op.setChecked(False)
 
             if self.map_scenario_tdm:
                 self.gui.le_mapmgr_scenario_tdm.setText(self.map_scenario_tdm)
                 self.gui.chkbx_mapmgr_scenario_tdm.setChecked(True)
             else:
-                self.gui.le_mapmgr_scenario_tdm.setText("N/A")
+                self.gui.le_mapmgr_scenario_tdm.setPlaceholderText("N/A")
                 self.gui.chkbx_mapmgr_scenario_tdm.setChecked(False)
 
             self.gui.chkbx_mapmgr_scenario_cp.setEnabled(False)
@@ -1908,7 +2019,7 @@ class maingui(QtWidgets.QWidget):
             self.gui.le_mapmgr_scenario_ffe.setEnabled(False)
             self.gui.le_mapmgr_scenario_op.setEnabled(False)
             self.gui.le_mapmgr_scenario_puins.setEnabled(False)
-
+        #Set the correct ID for Standard Maps
         if self.map_modid == 0:
             self.gui.le_mapmgr_modid.setText("Std")
             set_map_mgr_conf_std()
@@ -1990,6 +2101,23 @@ class maingui(QtWidgets.QWidget):
         self.gui.le_mapmgr_scenario_ffe.setText("")
         self.gui.le_mapmgr_scenario_op.setText("")
         self.gui.le_mapmgr_scenario_puins.setText("")
+        self.gui.le_mapmgr_selected_day_image.setText("")
+        self.gui.le_mapmgr_selected_night_image.setText("")
+        self.gui.le_mapmgr_scenario_cp.setPlaceholderText("Checkpoint Scenario Security")
+        self.gui.le_mapmgr_scenario_cphc.setPlaceholderText("Checkpoint Hardcore Scenario Security")
+        self.gui.le_mapmgr_scenario_dom.setPlaceholderText("Domination Scenario")
+        self.gui.le_mapmgr_scenario_ffw.setPlaceholderText("Firefight West Scenario")
+        self.gui.le_mapmgr_scenario_fl.setPlaceholderText("Frontline Scenario")
+        self.gui.le_mapmgr_scenario_pu.setPlaceholderText("Push Scenario Security")
+        self.gui.le_mapmgr_scenario_ski.setPlaceholderText("Skirmish Scenario")
+        self.gui.le_mapmgr_scenario_cpins.setPlaceholderText("Checkpoint Scenario Insurgents")
+        self.gui.le_mapmgr_scenario_cphcins.setPlaceholderText("Checkpoint Hardcore Scenario Insurgents")
+        self.gui.le_mapmgr_scenario_tdm.setPlaceholderText("Team Deathmatch Scenario")
+        self.gui.le_mapmgr_scenario_ffe.setPlaceholderText("Firefight East Scenario")
+        self.gui.le_mapmgr_scenario_op.setPlaceholderText("Outpost Scenario")
+        self.gui.le_mapmgr_scenario_puins.setPlaceholderText("Push Scenario Insurgents")
+        self.gui.le_mapmgr_selected_day_image.setPlaceholderText("Map Image Name Day")
+        self.gui.le_mapmgr_selected_night_image.setPlaceholderText("Map Image Name Night")
     #Save modified map in DB
     def save_existing_map(self):
         pass
@@ -2005,10 +2133,10 @@ class maingui(QtWidgets.QWidget):
             self.night_data_path = QtWidgets.QFileDialog.getOpenFileName(self,'Select Image File', img_night_select_directory, '*.jpg',)
             self.gui.le_mapmgr_selected_night_image.setText(self.night_data_path[0])
             self.night_datapath = self.night_data_path[0]
-
     #Add new Map to Map database
     def add_new_map(self):
-
+        self.check_val_add_map_error = 0
+        #Read the new Map variables and assign them
         def read_new_map_vars():
             self.map_name = self.gui.le_mapmgr_alias.text()
             self.map_alias = self.gui.le_mapmgr_name.text()
@@ -2043,32 +2171,34 @@ class maingui(QtWidgets.QWidget):
                 self.map_night = 0
             
             self.map_dn = (str(self.map_day) + str(self.map_night))
-
+        #Check for blanks in the Map Name/Alias and ModID
         def check_for_blanks_in_vars():
             res_check_blanks_alias = bool(re.search(r"\s", self.map_alias))
             res_check_blanks_id = bool(re.search(r"\s", self.map_modid))
             if res_check_blanks_alias == True:
-                icondir = Path(__file__).absolute().parent
-                warningmsg = QtWidgets.QMessageBox()
-                warningmsg.setIcon(QtWidgets.QMessageBox.Critical)
-                warningmsg.setWindowTitle("ISRT Map Manager Warning")
-                warningmsg.setWindowIcon(QtGui.QIcon(str(icondir / 'img/isrt.ico')))
-                warningmsg.setText("You map alias contains a blank space - remove it and try again")
-                warningmsg.addButton(warningmsg.Ok)
-                warningmsg.exec_()
+                # icondir = Path(__file__).absolute().parent
+                # warningmsg = QtWidgets.QMessageBox()
+                # warningmsg.setIcon(QtWidgets.QMessageBox.Critical)
+                # warningmsg.setWindowTitle("ISRT Map Manager Warning")
+                # warningmsg.setWindowIcon(QtGui.QIcon(str(icondir / 'img/isrt.ico')))
+                # warningmsg.setText("You map alias contains a blank space - remove it and try again")
+                # warningmsg.addButton(warningmsg.Ok)
+                self.gui.label_db_console_2.append("You map alias contains a blank space - remove it and try again!")
+                self.check_val_add_map_error = 731
+                # warningmsg.exec_()
             if res_check_blanks_id == True:
-                icondir = Path(__file__).absolute().parent
-                warningmsg = QtWidgets.QMessageBox()
-                warningmsg.setIcon(QtWidgets.QMessageBox.Critical)
-                warningmsg.setWindowTitle("ISRT Map Manager Warning")
-                warningmsg.setWindowIcon(QtGui.QIcon(str(icondir / 'img/isrt.ico')))
-                warningmsg.setText("You map mod ID contains a blank space - remove it and try again")
-                warningmsg.addButton(warningmsg.Ok)
-                warningmsg.exec_()  
-
-        def check_if_map_info_complete():
-            self.check_val_add_map_error = 0
-            
+                # icondir = Path(__file__).absolute().parent
+                # warningmsg = QtWidgets.QMessageBox()
+                # warningmsg.setIcon(QtWidgets.QMessageBox.Critical)
+                # warningmsg.setWindowTitle("ISRT Map Manager Warning")
+                # warningmsg.setWindowIcon(QtGui.QIcon(str(icondir / 'img/isrt.ico')))
+                # warningmsg.setText("You map mod ID contains a blank space - remove it and try again")
+                # warningmsg.addButton(warningmsg.Ok)
+                self.gui.label_db_console_2.append("You map mod ID contains a blank space - remove it and try again!")
+                self.check_val_add_map_error = 732
+                # warningmsg.exec_()
+        #Check if all required information has been entered
+        def check_if_map_info_complete():            
             if self.map_name:
                 pass
             else:
@@ -2202,15 +2332,29 @@ class maingui(QtWidgets.QWidget):
                 if night_image_size != "25x15":
                     self.gui.label_db_console_2.append("The map image does not have the correct size => 25X x 15X pixel!")
                     self.check_val_add_map_error = 571
+        #Check if the map name or alias are already in the database
+        def check_if_already_existing():
+            check_name = self.map_name
+            check_alias = self.map_alias
 
-
+            self.c.execute("select map_name,map_alias from map_config")
+            self.conn.commit()
+            result_check_name_alias = self.c.fetchall()
+            for check_names_and_aliases in result_check_name_alias:
+                if check_names_and_aliases[0] == check_name:
+                    self.gui.label_db_console_2.append("Map Alias already exists, please choose another one!")
+                    self.check_val_add_map_error += 810
+                if check_names_and_aliases[1] == check_alias:
+                    self.gui.label_db_console_2.append("Map Name already exists, please choose another one!")
+                    self.check_val_add_map_error += 811
+        #Copy the map images to the custom folder, if all checks above completed seccuessfully
         def copy_pics():
             target_image_folder = (str(self.dbdir) + '\\img\\custom_map_pics\\')
-            target_day_image_file = (target_image_folder + self.map_alias + ".jpg")
-            target_night_image_file = (target_image_folder + self.map_alias + "_night" + ".jpg")
-            if self.map_day_pic and target_day_image_file and self.map_day == 1:
+            self.target_day_image_file = (target_image_folder + self.map_alias + ".jpg")
+            self.target_night_image_file = (target_image_folder + self.map_alias + "_night" + ".jpg")
+            if self.map_day_pic and self.target_day_image_file and self.map_day == 1:
                 try:
-                    copy2(self.map_day_pic, target_day_image_file)
+                    copy2(self.map_day_pic, self.target_day_image_file)
                     self.gui.img_view_day_map.setStyleSheet(f"border-image: url({self.map_day_pic});")
                 except PermissionError:
                     icondir = Path(__file__).absolute().parent
@@ -2220,12 +2364,13 @@ class maingui(QtWidgets.QWidget):
                     warningmsg.setWindowIcon(QtGui.QIcon(str(icondir / 'img/isrt.ico')))
                     warningmsg.setText("Permission Error!\nSomething went wrong while copying the images. Please check the correct\naccess to the source and target directory!")
                     warningmsg.addButton(warningmsg.Ok)
+                    self.check_val_add_map_error = 991
                     warningmsg.exec_()
                     
 
-            if self.map_night_pic and target_night_image_file and self.map_night == 1:
+            if self.map_night_pic and self.target_night_image_file and self.map_night == 1:
                 try:
-                    copy2(self.map_night_pic, target_night_image_file)
+                    copy2(self.map_night_pic, self.target_night_image_file)
                     self.gui.img_view_night_map.setStyleSheet(f"border-image: url({self.map_night_pic});")
                 except PermissionError:
                     icondir = Path(__file__).absolute().parent
@@ -2235,47 +2380,120 @@ class maingui(QtWidgets.QWidget):
                     warningmsg.setWindowIcon(QtGui.QIcon(str(icondir / 'img/isrt.ico')))
                     warningmsg.setText("Permission Error!\nSomething went wrong while copying the images. Please check the correct\naccess to the source and target directory!")
                     warningmsg.addButton(warningmsg.Ok)
+                    self.check_val_add_map_error = 992
                     warningmsg.exec_()
-
+        #Call the above preliminary functions
         read_new_map_vars()
         check_for_blanks_in_vars()
         check_if_map_info_complete()
-
+        check_if_already_existing()
+        #Define what needs to be done to add the map to the database
         def add_new_map_to_database():
-            if self.map_day_pic:
-                day_pic_array = self.map_day_pic.split("/")
-                day_pic_name = day_pic_array[-1]
-            if self.map_night_pic:
-                night_pic_array = self.map_night_pic.split("/")
-                night_pic = night_pic_array[-1]
-            
-            val_map_name = 
-            val_map_alias = 
-            val_map_modid = 
-            val_map_day = 
-            val_map_night = 
-            val_map_map_pic = 
-            val_map_cphc = 
-            val_map_cphcins = 
-            val_map_cp = 
-            val_map_cpins = 
-            val_map_dom = 
-            val_map_ffe = 
-            val_map_ffw = 
-            val_map_fl = 
-            val_map_op = 
-            val_map_pu = 
-            val_map_puins = 
-            val_map_ski = 
-            val_map_tdm = 
-            val_map_self_added = 
+            if self.target_day_image_file:
+                day_pic_array = self.target_day_image_file.split("\\")
+                self.day_pic_name = day_pic_array[-1]
+            if self.target_night_image_file:
+                night_pic_array = self.target_night_image_file.split("\\")
+                self.night_pic = night_pic_array[-1]
+                self.night_pic_name = night_pic_array[-1]
 
+            def assign_new_map_variables():
+                self.val_map_name = self.map_name
+                self.val_map_alias = self.map_alias
+                self.val_map_modid = self.map_modid
+                self.val_map_day = self.map_day
+                self.val_map_night = self.map_night
+                self.val_map_map_pic = self.day_pic_name
+                self.val_map_cphc = self.map_scenario_cphc
+                self.val_map_cphcins = self.map_scenario_cphcins
+                self.val_map_cp = self.map_scenario_cp
+                self.val_map_cpins = self.map_scenario_cpins
+                self.val_map_dom = self.map_scenario_dom
+                self.val_map_ffe = self.map_scenario_ffe
+                self.val_map_ffw = self.map_scenario_ffw
+                self.val_map_fl = self.map_scenario_fl
+                self.val_map_op = self.map_scenario_op
+                self.val_map_pu = self.map_scenario_pu
+                self.val_map_puins = self.map_scenario_puins
+                self.val_map_ski = self.map_scenario_ski
+                self.val_map_tdm = self.map_scenario_tdm
+                self.val_map_self_added = self.map_self_added
+                self.val_map_dn = self.map_dn
+
+                if self.map_scenario_cphc:
+                    self.val_map_check_cphc = 1
+                else:
+                    self.val_map_check_cphc = 0
+
+                if self.map_scenario_cp:
+                    self.val_map_check_cp = 1
+                else:
+                    self.val_map_check_cp = 0
+
+                if self.map_scenario_cpins:
+                    self.val_map_check_cpins = 1
+                else:
+                    self.val_map_check_cpins = 0
+
+                if self.map_scenario_cphcins:
+                    self.val_map_check_cphcins = 1
+                else:
+                    self.val_map_check_cphcins = 0
+
+                if self.map_scenario_dom:
+                    self.val_map_check_dom = 1
+                else:
+                    self.val_map_check_dom = 0
+
+                if self.map_scenario_ffe:
+                    self.val_map_check_ffe = 1
+                else:
+                    self.val_map_check_ffe = 0
+
+                if self.map_scenario_ffw:
+                    self.val_map_check_ffw = 1
+                else:
+                    self.val_map_check_ffw = 0
+
+                if self.map_scenario_fl:
+                    self.val_map_check_fl = 1
+                else:
+                    self.val_map_check_fl = 0
+
+                if self.map_scenario_op:
+                    self.val_map_check_op = 1
+                else:
+                    self.val_map_check_op = 0
+
+                if self.map_scenario_pu:
+                    self.val_map_check_pu = 1
+                else:
+                    self.val_map_check_pu = 0
+
+                if self.map_scenario_puins:
+                    self.val_map_check_puins = 1
+                else:
+                    self.val_map_check_puins = 0
+
+                if self.map_scenario_ski:
+                    self.val_map_check_ski = 1
+                else:
+                    self.val_map_check_ski = 0
+
+                if self.map_scenario_tdm:
+                    self.val_map_check_tdm = 1
+                else:
+                    self.val_map_check_tdm = 0
+
+            assign_new_map_variables()
 
             self.c.execute("INSERT INTO map_config VALUES (:map_name, :map_alias, :modid, :day, :night, :map_pic, :checkpointhardcore, :checkpointhardcore_ins, :checkpoint, :checkpoint_ins, :domination, :firefight_east, :firefight_west, :frontline, :outpost, :push, :push_ins, :skirmish, :teamdeathmatch, :self_added)", 
-                {'map_name': val_map_name, 'map_alias': val_map_alias, 'modid': val_map_modid, 'day': val_map_day, 'night': val_map_night, 'map_pic': val_map_map_pic, 'checkpointhardcore': val_map_cphc, 'checkpointhardcore_ins': val_map_cphcins, 'checkpoint': val_map_cp, 'checkpoint_ins': val_map_cpins, 'domination': val_map_dom, 'firefight_east': val_map_ffe, 'firefight_west': val_map_ffw, 'frontline': val_map_fl, 'outpost': val_map_op, 'push': val_map_pu, 'push_ins': val_map_puins, 'skirmish': val_map_ski, 'teamdeathmatch': val_map_tdm, 'self_added': val_map_self_added})
+                {'map_name': self.val_map_name, 'map_alias': self.val_map_alias, 'modid': self.val_map_modid, 'day': self.val_map_day, 'night': self.val_map_night, 'map_pic': self.day_pic_name, 'checkpointhardcore': self.val_map_cphc, 'checkpointhardcore_ins': self.val_map_cphcins, 'checkpoint': self.val_map_cp, 'checkpoint_ins': self.val_map_cpins, 'domination': self.val_map_dom, 'firefight_east': self.val_map_ffe, 'firefight_west': self.val_map_ffw, 'frontline': self.val_map_fl, 'outpost': self.val_map_op, 'push': self.val_map_pu, 'push_ins': self.val_map_puins, 'skirmish': self.val_map_ski, 'teamdeathmatch': self.val_map_tdm, 'self_added': self.val_map_self_added})
             self.conn.commit()
-
-
+            self.c.execute("INSERT INTO map_modes VALUES (:map_alias, :dn, :cp, :cp_ins, :cphc, :cphc_ins, :dom, :ffe, :ffw, :fl, :op, :pu, :pu_ins, :ski, :tdm)", 
+                {'map_alias': self.val_map_name, 'dn': self.val_map_dn, 'cp': self.val_map_check_cp,'cp_ins': self.val_map_check_cpins,'cphc': self.val_map_check_cphc,'cphc_ins': self.val_map_check_cphcins,'dom': self.val_map_check_dom,'ffe': self.val_map_check_ffe,'ffw': self.val_map_check_ffw,'fl': self.val_map_check_fl,'op': self.val_map_check_op,'pu': self.val_map_check_pu,'pu_ins': self.val_map_check_puins,'ski': self.val_map_check_ski,'tdm': self.val_map_check_tdm})
+            self.conn.commit()
+        #Check for any errors in the above methods and if 0 really add map
         if self.check_val_add_map_error == 0:
             self.gui.label_db_console_2.clear()
             copy_pics()
@@ -2284,6 +2502,7 @@ class maingui(QtWidgets.QWidget):
             self.gui.dropdown_mapmgr_selector.clear()
             self.fill_map_manager_dropdown()
             self.gui.label_db_console_2.append("Map successfully added to database - DB reloaded!")
+        #If errors throw message and error code
         else:
             icondir = Path(__file__).absolute().parent
             warningmsg = QtWidgets.QMessageBox()
@@ -2293,10 +2512,38 @@ class maingui(QtWidgets.QWidget):
             warningmsg.setText(f"Something went wrong while importing the map.\nPlease check the error message in the console!\n\nError Code: {self.check_val_add_map_error}")
             warningmsg.addButton(warningmsg.Ok)
             warningmsg.exec_()  
-        
+    #Delete Map from Mapmanager
+    def delete_custom_map(self):
+        to_be_deleted_map = self.gui.le_mapmgr_alias.text()
+        daypic = self.gui.le_mapmgr_selected_day_image.text()
+        nightpic = self.gui.le_mapmgr_selected_night_image.text()
+        if to_be_deleted_map:
+            self.c.execute("delete from map_config where map_name=:map_name_delete", {'map_name_delete': to_be_deleted_map})
+            self.c.execute("delete from map_modes where map_alias=:map_alias_delete", {'map_alias_delete': to_be_deleted_map})
+            self.conn.commit()
+            self.gui.label_db_console_2.append(f"Map {to_be_deleted_map} deleted from database!")
+            if daypic:
+                custom_image_folder_delete = (str(self.dbdir) + '\\img\\custom_map_pics\\')
+                custom_day_pic_delete = (custom_image_folder_delete + daypic)
+                os.remove(custom_day_pic_delete)
+            if nightpic:
+                custom_image_folder_delete = (str(self.dbdir) + '\\img\\custom_map_pics\\')
+                custom_night_pic_delete = (custom_image_folder_delete + nightpic)
+                os.remove(custom_night_pic_delete)
+            self.gui.label_db_console_2.append(f"Map images deleted from hard drive!")
 
-        
-
+            self.gui.dropdown_mapmgr_selector.clear()
+            self.fill_map_manager_dropdown()
+            self.clear_map_manager()
+        else:
+            icondir = Path(__file__).absolute().parent
+            warningmsg = QtWidgets.QMessageBox()
+            warningmsg.setIcon(QtWidgets.QMessageBox.Critical)
+            warningmsg.setWindowTitle("ISRT Map Manager Warning")
+            warningmsg.setWindowIcon(QtGui.QIcon(str(icondir / 'img/isrt.ico')))
+            warningmsg.setText("No map chosen for deletion - please select a customly added map first!")
+            warningmsg.addButton(warningmsg.Ok)
+            warningmsg.exec_()   
     '''
     ------------------------------------------------------------------
     ------------------------------------------------------------------
