@@ -541,10 +541,10 @@ class maingui(QtWidgets.QWidget):
     def custom_command_clear_selected(self):
         delete_commands = self.gui.list_custom_commands_console.selectedItems()
         if delete_commands:
-         for row in delete_commands:
-             self.c.execute("DELETE FROM cust_commands WHERE commands=:delcommand", {'delcommand': row.text()})
-         else:
-             pass
+            for row in delete_commands:
+                self.c.execute("DELETE FROM cust_commands WHERE commands=:delcommand", {'delcommand': row.text()})
+        else:
+            pass
         self.conn.commit()
         self.fill_list_custom_command()
         self.fill_dropdown_custom_command()
@@ -952,9 +952,9 @@ class maingui(QtWidgets.QWidget):
         #Check if an rcon command is passed        
         if command:
             self.gui.label_rconcommand.setText(command)
-            self.checkandgorcon()  
+            self.checkandgorcon()
         else:
-           self.gui.label_output_window.setText("Something went wrong with the RCON command, please report it!")  
+            self.gui.label_output_window.setText("Something went wrong with the RCON command, please report it!")  
     #Check for the format string and go for the rcon command, but only if rcon port and rcon password are given
     def checkandgorcon(self):
         #Check IP
