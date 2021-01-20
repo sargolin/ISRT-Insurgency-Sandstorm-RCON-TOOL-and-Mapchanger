@@ -82,7 +82,7 @@ selection-background-color: rgb(216, 216, 216);</string>
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <property name="elideMode">
       <enum>Qt::ElideNone</enum>
@@ -966,7 +966,7 @@ background-repeat: no-repeat;</string>
                     <widget class="QComboBox" name="dropdown_select_travelscenario">
                      <property name="minimumSize">
                       <size>
-                       <width>100</width>
+                       <width>120</width>
                        <height>20</height>
                       </size>
                      </property>
@@ -997,7 +997,7 @@ background-repeat: no-repeat;</string>
                     <widget class="QComboBox" name="dropdown_select_gamemode">
                      <property name="minimumSize">
                       <size>
-                       <width>180</width>
+                       <width>170</width>
                        <height>20</height>
                       </size>
                      </property>
@@ -1025,23 +1025,10 @@ background-repeat: no-repeat;</string>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QComboBox" name="dropdown_select_frenzy">
-                     <property name="minimumSize">
-                      <size>
-                       <width>80</width>
-                       <height>0</height>
-                      </size>
-                     </property>
-                     <property name="placeholderText">
-                      <string>No Frenzy</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
                     <widget class="QComboBox" name="dropdown_select_lighting">
                      <property name="minimumSize">
                       <size>
-                       <width>65</width>
+                       <width>60</width>
                        <height>0</height>
                       </size>
                      </property>
@@ -1066,6 +1053,37 @@ background-repeat: no-repeat;</string>
                      <property name="placeholderText">
                       <string>Lighting</string>
                      </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QComboBox" name="dropdown_select_frenzy">
+                     <property name="minimumSize">
+                      <size>
+                       <width>75</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="currentText">
+                      <string>Frenzy Mutator</string>
+                     </property>
+                     <property name="placeholderText">
+                      <string>Frenzy Mutator</string>
+                     </property>
+                     <item>
+                      <property name="text">
+                       <string>Leave as it is!</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Activate Frenzy</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Deactivate Frenzy</string>
+                      </property>
+                     </item>
                     </widget>
                    </item>
                    <item>

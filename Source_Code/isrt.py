@@ -472,7 +472,7 @@ class maingui(QtWidgets.QWidget):
             pass
         else:
             if self.mutator_id_list[0]:
-                self.gui.dropdown_select_travelscenario.addItem("------Custom Maps------")
+                self.gui.dropdown_select_travelscenario.addItem("---Custom Maps---")
                 for custom_maps in self.mutator_id_list:
                     self.c.execute("select map_name FROM map_config WHERE modid=:mod_id ORDER by Map_name", {'mod_id':custom_maps})
                     dm2_alias = self.c.fetchone()   
@@ -881,6 +881,7 @@ class maingui(QtWidgets.QWidget):
         val_map = self.gui.dropdown_select_travelscenario.currentText()
         val_gamemode = self.gui.dropdown_select_gamemode.currentText()
         val_light = self.gui.dropdown_select_lighting.currentText()
+        val_frenzy = self.gui.dropdown_select_frenzy.currentText()
         if val_gamemode == "CheckPoint Security":
             val_gamemode = "checkpoint"
         elif val_gamemode == "CheckPoint Insurgents":
@@ -907,7 +908,15 @@ class maingui(QtWidgets.QWidget):
             val_gamemode = "skirmish"
         elif val_gamemode == "TeamDeathMatch":
             val_gamemode = "teamdeathmath"
-        if val_map.startswith("Select") or val_map.startswith("---"):
+
+        if val_frenzy == "Activate Frenzy":
+            val_frenzy_switch = 2
+        elif val_frenzy == "Deactivate Frenzy":
+            val_frenzy_switch = 0
+        else:
+            val_frenzy_switch = 1
+
+        if val_map.startswith("Select") or val_map.startswith("--"):
             self.gui.label_output_window.setText("This is not a valid map, please chose one first!")
         else:
             self.c.execute("select map_alias FROM map_config WHERE map_name=:sql_map_name", {'sql_map_name':val_map})
@@ -918,12 +927,21 @@ class maingui(QtWidgets.QWidget):
             val_travel_alias = self.c.fetchone()
             val_travel_alias_result = (str(val_travel_alias[0]))
             self.conn.commit()
-            command = ("travel " + val_map_alias_result + "?Scenario=" + val_travel_alias_result + "?Lighting=" + val_light + "?game=" + val_gamemode)
+
+
+            if val_frenzy_switch == 2:
+                command = ("travel " + val_map_alias_result + "?Scenario=" + val_travel_alias_result + "?Lighting=" + val_light + "?game=" + val_gamemode)
+            elif val_frenzy_switch == 0:
+                command = ("travel " + val_map_alias_result + "?Scenario=" + val_travel_alias_result + "?Lighting=" + val_light + "?game=" + val_gamemode)
+            else:
+                command = ("travel " + val_map_alias_result + "?Scenario=" + val_travel_alias_result + "?Lighting=" + val_light + "?game=" + val_gamemode)
+
             if command:
                 self.gui.label_rconcommand.setText(command)
             else:
                 self.gui.label_output_window.setText("Something went wrong with the Travel command, please check above and report it!")  
             self.checkandgorcon()
+            time.sleep(0.2)
             self.checkandgoquery()
             self.gui.progressbar_map_changer.setProperty("value", 0)
     #Direct RCON Command handling
