@@ -1511,6 +1511,8 @@ class maingui(QtWidgets.QWidget):
     #Fill Map Manager Dropdown with DB data
     def fill_map_manager_dropdown(self):
         self.gui.dropdown_mapmgr_selector.clear()
+        self.gui.btn_mapmgr_delete.setEnabled(False)
+        self.gui.btn_mapmgr_save.setEnabled(False)
         self.c.execute("Select map_name from map_config ORDER by map_name")
         map_names_result = self.c.fetchall()
         for map_name in map_names_result:
@@ -1632,25 +1634,24 @@ class maingui(QtWidgets.QWidget):
                 self.gui.btn_mapmgr_select_day_image.setEnabled(False)
                 self.gui.le_mapmgr_selected_night_image.setEnabled(False)
                 self.gui.btn_mapmgr_select_night_image_2.setEnabled(False)
+                self.gui.btn_mapmgr_select_day_image.setEnabled(False)
+                self.gui.le_mapmgr_selected_day_image.setEnabled(False)
+                self.gui.btn_mapmgr_select_night_image_2.setEnabled(False)
+
                 if self.map_day == 1:
                     self.gui.le_mapmgr_selected_day_image.setText(self.map_day_pic_show)
-                    self.gui.btn_mapmgr_delete.setEnabled(False)
                     self.gui.img_view_day_map.setStyleSheet(f"border-image: url(:/map_thumbs/img/maps/thumbs/{self.map_day_pic_show});")
                 else:
                     self.gui.img_view_day_map.setStyleSheet(f"border-image: url(:/map_view/img/maps/map_views.jpg);")
-                    self.gui.btn_mapmgr_select_day_image.setEnabled(False)
-                    self.gui.btn_mapmgr_delete.setEnabled(False)
                     self.gui.le_mapmgr_selected_day_image.setText("")
 
                 if self.map_night == 1:
                     self.gui.img_view_night_map.setStyleSheet(f"border-image: url(:/map_thumbs/img/maps/thumbs/{self.map_night_pic_show});")
                     self.gui.le_mapmgr_selected_night_image.setText(self.map_night_pic_show)
-                    self.gui.btn_mapmgr_delete.setEnabled(False)
                 else:
                     self.gui.img_view_night_map.setStyleSheet(f"border-image: url(:/map_view/img/maps/map_views_night.jpg);")
                     self.gui.le_mapmgr_selected_night_image.setText("")
-                    self.gui.btn_mapmgr_select_night_image_2.setEnabled(False)
-                    self.gui.btn_mapmgr_delete.setEnabled(False)
+                    
             else:
                 self.gui.le_mapmgr_alias.setEnabled(False)
                 self.gui.le_mapmgr_name.setEnabled(False)
@@ -1910,6 +1911,7 @@ class maingui(QtWidgets.QWidget):
                 self.gui.le_mapmgr_scenario_tdm.setText(self.map_scenario_tdm)
             else:
                 self.gui.le_mapmgr_scenario_tdm.setPlaceholderText("N/A")
+        
         #Set the correct ID for Standard Maps
         if self.map_modid == 0:
             self.gui.le_mapmgr_modid.setText("Std")
@@ -1917,6 +1919,20 @@ class maingui(QtWidgets.QWidget):
         else:
             self.gui.le_mapmgr_modid.setText(str(self.map_modid))
             set_map_mgr_conf_non_std()
+        
+        self.gui.le_mapmgr_scenario_cp.setCursorPosition(1)
+        self.gui.le_mapmgr_scenario_cphc.setCursorPosition(1)
+        self.gui.le_mapmgr_scenario_dom.setCursorPosition(1)
+        self.gui.le_mapmgr_scenario_ffw.setCursorPosition(1)
+        self.gui.le_mapmgr_scenario_fl.setCursorPosition(1)
+        self.gui.le_mapmgr_scenario_pu.setCursorPosition(1)
+        self.gui.le_mapmgr_scenario_ski.setCursorPosition(1)
+        self.gui.le_mapmgr_scenario_cpins.setCursorPosition(1)
+        self.gui.le_mapmgr_scenario_cphcins.setCursorPosition(1)
+        self.gui.le_mapmgr_scenario_tdm.setCursorPosition(1)
+        self.gui.le_mapmgr_scenario_ffe.setCursorPosition(1)
+        self.gui.le_mapmgr_scenario_op.setCursorPosition(1)
+        self.gui.le_mapmgr_scenario_puins.setCursorPosition(1)
     #Function to clear the map configuration page
     def clear_map_manager(self):
         self.gui.dropdown_mapmgr_selector.clear()
@@ -1985,6 +2001,7 @@ class maingui(QtWidgets.QWidget):
         self.gui.le_mapmgr_selected_night_image.setPlaceholderText("Map Image Name Night")
     #Save modified map in DB
     def save_existing_map(self):
+        self.gui.label_db_console_2.clear()
         self.check_val_update_map_error = 0
         def get_changed_variables():
             self.val_map_alias = self.gui.le_mapmgr_name.text()
@@ -2133,7 +2150,6 @@ class maingui(QtWidgets.QWidget):
             warningmsg.setText(f"Something went wrong while updating the map variables.\nPlease check the error message in the console!\n\nError Code: {self.check_val_update_map_error}")
             warningmsg.addButton(warningmsg.Ok)
             warningmsg.exec_()  
-
     #Select map Pics
     def select_map_pic(self, map_light):
         if map_light == "day":
@@ -2148,6 +2164,7 @@ class maingui(QtWidgets.QWidget):
             self.night_datapath = self.night_data_path[0]
     #Add new Map to Map database
     def add_new_map(self):
+        self.gui.label_db_console_2.clear()
         self.check_val_add_map_error = 0
         #Read the new Map variables and assign them
         def read_new_map_vars():
@@ -2460,6 +2477,18 @@ class maingui(QtWidgets.QWidget):
             self.gui.dropdown_mapmgr_selector.clear()
             self.fill_map_manager_dropdown()
             self.gui.label_db_console_2.append("Map successfully added to database - DB reloaded!")
+            self.gui.le_mapmgr_alias.setEnabled(False)
+            self.gui.le_mapmgr_name.setEnabled(False)
+            self.gui.le_mapmgr_modid.setEnabled(False)
+            self.gui.chkbox_mapmgr_day.setEnabled(False)
+            self.gui.chkbox_mapmgr_night.setEnabled(False)
+            self.gui.btn_mapmgr_add.setEnabled(False)
+            self.gui.btn_mapmgr_select_day_image.setEnabled(False)
+            self.gui.btn_mapmgr_select_night_image_2.setEnabled(False)
+            self.gui.le_mapmgr_selected_day_image.setEnabled(False)
+            self.gui.le_mapmgr_selected_night_image.setEnabled(False)
+            self.gui.btn_mapmgr_save.setEnabled(True)
+            self.gui.btn_mapmgr_delete.setEnabled(True)
         #If errors throw message and error code
         else:
             icondir = Path(__file__).absolute().parent
@@ -2472,10 +2501,21 @@ class maingui(QtWidgets.QWidget):
             warningmsg.exec_()  
     #Delete Map from Mapmanager
     def delete_custom_map(self):
+        self.gui.label_db_console_2.clear()
         to_be_deleted_map = self.gui.le_mapmgr_alias.text()
         daypic = self.gui.le_mapmgr_selected_day_image.text()
         nightpic = self.gui.le_mapmgr_selected_night_image.text()
-        if to_be_deleted_map:
+
+        self.c.execute("select map_alias from map_config")
+        map_aliases = self.c.fetchall()
+        self.conn.commit()
+        self.map_already_there = 0
+        for alias_check in map_aliases:
+            if to_be_deleted_map == alias_check[0]:
+                self.map_already_there = 1
+        
+
+        if to_be_deleted_map and self.map_already_there == 1:
             self.c.execute("delete from map_config where map_name=:map_name_delete", {'map_name_delete': to_be_deleted_map})
             self.c.execute("delete from map_modes where map_alias=:map_alias_delete", {'map_alias_delete': to_be_deleted_map})
             self.conn.commit()
@@ -2499,7 +2539,7 @@ class maingui(QtWidgets.QWidget):
             warningmsg.setIcon(QtWidgets.QMessageBox.Critical)
             warningmsg.setWindowTitle("ISRT Map Manager Warning")
             warningmsg.setWindowIcon(QtGui.QIcon(str(icondir / 'img/isrt.ico')))
-            warningmsg.setText("No map chosen for deletion - please select a customly added map first!")
+            warningmsg.setText("No map chosen for deletion or map does not exist in DB.\nPlease select a customly added map first!")
             warningmsg.addButton(warningmsg.Ok)
             warningmsg.exec_()   
     '''
