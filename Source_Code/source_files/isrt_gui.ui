@@ -82,7 +82,7 @@ selection-background-color: rgb(216, 216, 216);</string>
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>4</number>
      </property>
      <property name="elideMode">
       <enum>Qt::ElideNone</enum>
@@ -2855,10 +2855,10 @@ p, li { white-space: pre-wrap; }
                   </size>
                  </property>
                  <property name="toolTip">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the scenarios and modes, the map provides. You can only change scenarios for custom maps!&lt;/p&gt;&lt;p&gt;Be aware, that no blank spaces are allowed in the scenario names! &lt;/p&gt;&lt;p&gt;Also, never activate a scenario, the map does not provide. It can break the Map or the Map changer!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter the scenarios and modes, the map provides. You can only change scenarios for custom maps!&lt;/p&gt;&lt;p&gt;Be aware, that no blank spaces are allowed in the scenario names! &lt;/p&gt;&lt;p&gt;Also, never put in a scenario, the map does not provide. It can break the Map or the Map changer!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                  </property>
                  <property name="statusTip">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the scenarios and modes, the map provides. You can only change scenarios for custom maps!&lt;/p&gt;&lt;p&gt;Be aware, that no blank spaces are allowed in the scenario names! &lt;/p&gt;&lt;p&gt;Also, never activate a scenario, the map does not provide. It can break the Map or the Map changer!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter the scenarios and modes, the map provides. You can only change scenarios for custom maps!&lt;/p&gt;&lt;p&gt;Be aware, that no blank spaces are allowed in the scenario names! &lt;/p&gt;&lt;p&gt;Also, never put in a scenario, the map does not provide. It can break the Map or the Map changer!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                  </property>
                  <property name="text">
                   <string/>
@@ -2883,15 +2883,24 @@ p, li { white-space: pre-wrap; }
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_34">
                    <item>
-                    <widget class="QCheckBox" name="chkbx_mapmgr_scenario_cp">
+                    <widget class="QLineEdit" name="lineEdit_5">
                      <property name="minimumSize">
                       <size>
                        <width>115</width>
                        <height>0</height>
                       </size>
                      </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>115</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
                      <property name="text">
                       <string>Checkpoint</string>
+                     </property>
+                     <property name="frame">
+                      <bool>false</bool>
                      </property>
                     </widget>
                    </item>
@@ -2925,15 +2934,24 @@ p, li { white-space: pre-wrap; }
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_35">
                    <item>
-                    <widget class="QCheckBox" name="chkbx_mapmgr_scenario_cphc">
+                    <widget class="QLineEdit" name="lineEdit_6">
                      <property name="minimumSize">
                       <size>
                        <width>115</width>
                        <height>0</height>
                       </size>
                      </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>115</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
                      <property name="text">
                       <string>Checkpoint HC</string>
+                     </property>
+                     <property name="frame">
+                      <bool>false</bool>
                      </property>
                     </widget>
                    </item>
@@ -2967,15 +2985,24 @@ p, li { white-space: pre-wrap; }
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_36">
                    <item>
-                    <widget class="QCheckBox" name="chkbx_mapmgr_scenario_dom">
+                    <widget class="QLineEdit" name="lineEdit_7">
                      <property name="minimumSize">
                       <size>
                        <width>115</width>
                        <height>0</height>
                       </size>
                      </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>115</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
                      <property name="text">
                       <string>Domination</string>
+                     </property>
+                     <property name="frame">
+                      <bool>false</bool>
                      </property>
                     </widget>
                    </item>
@@ -3009,15 +3036,24 @@ p, li { white-space: pre-wrap; }
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_37">
                    <item>
-                    <widget class="QCheckBox" name="chkbx_mapmgr_scenario_ffw">
+                    <widget class="QLineEdit" name="lineEdit_8">
                      <property name="minimumSize">
                       <size>
                        <width>115</width>
                        <height>0</height>
                       </size>
                      </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>115</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
                      <property name="text">
                       <string>Firefight West</string>
+                     </property>
+                     <property name="frame">
+                      <bool>false</bool>
                      </property>
                     </widget>
                    </item>
@@ -3051,15 +3087,24 @@ p, li { white-space: pre-wrap; }
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_38">
                    <item>
-                    <widget class="QCheckBox" name="chkbx_mapmgr_scenario_fl">
+                    <widget class="QLineEdit" name="lineEdit_9">
                      <property name="minimumSize">
                       <size>
                        <width>115</width>
                        <height>0</height>
                       </size>
                      </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>115</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
                      <property name="text">
                       <string>Frontline</string>
+                     </property>
+                     <property name="frame">
+                      <bool>false</bool>
                      </property>
                     </widget>
                    </item>
@@ -3093,15 +3138,24 @@ p, li { white-space: pre-wrap; }
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_39">
                    <item>
-                    <widget class="QCheckBox" name="chkbx_mapmgr_scenario_pu">
+                    <widget class="QLineEdit" name="lineEdit_10">
                      <property name="minimumSize">
                       <size>
                        <width>115</width>
                        <height>0</height>
                       </size>
                      </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>115</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
                      <property name="text">
                       <string>Push</string>
+                     </property>
+                     <property name="frame">
+                      <bool>false</bool>
                      </property>
                     </widget>
                    </item>
@@ -3135,15 +3189,24 @@ p, li { white-space: pre-wrap; }
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_40">
                    <item>
-                    <widget class="QCheckBox" name="chkbx_mapmgr_scenario_ski">
+                    <widget class="QLineEdit" name="lineEdit_11">
                      <property name="minimumSize">
                       <size>
                        <width>115</width>
                        <height>0</height>
                       </size>
                      </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>115</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
                      <property name="text">
                       <string>Skirmish</string>
+                     </property>
+                     <property name="frame">
+                      <bool>false</bool>
                      </property>
                     </widget>
                    </item>
@@ -3188,15 +3251,24 @@ p, li { white-space: pre-wrap; }
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_41">
                    <item>
-                    <widget class="QCheckBox" name="chkbx_mapmgr_scenario_cpins">
+                    <widget class="QLineEdit" name="lineEdit_12">
                      <property name="minimumSize">
                       <size>
                        <width>115</width>
                        <height>0</height>
                       </size>
                      </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>115</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
                      <property name="text">
                       <string>Checkpint INS</string>
+                     </property>
+                     <property name="frame">
+                      <bool>false</bool>
                      </property>
                     </widget>
                    </item>
@@ -3230,15 +3302,24 @@ p, li { white-space: pre-wrap; }
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_42">
                    <item>
-                    <widget class="QCheckBox" name="chkbx_mapmgr_scenario_cphcins">
+                    <widget class="QLineEdit" name="lineEdit_13">
                      <property name="minimumSize">
                       <size>
                        <width>115</width>
                        <height>0</height>
                       </size>
                      </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>115</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
                      <property name="text">
                       <string>Checkpoint HC INS</string>
+                     </property>
+                     <property name="frame">
+                      <bool>false</bool>
                      </property>
                     </widget>
                    </item>
@@ -3272,15 +3353,24 @@ p, li { white-space: pre-wrap; }
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_43">
                    <item>
-                    <widget class="QCheckBox" name="chkbx_mapmgr_scenario_tdm">
+                    <widget class="QLineEdit" name="lineEdit_14">
                      <property name="minimumSize">
                       <size>
                        <width>115</width>
                        <height>0</height>
                       </size>
                      </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>115</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
                      <property name="text">
                       <string>Team Deathmatch</string>
+                     </property>
+                     <property name="frame">
+                      <bool>false</bool>
                      </property>
                     </widget>
                    </item>
@@ -3314,15 +3404,24 @@ p, li { white-space: pre-wrap; }
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_44">
                    <item>
-                    <widget class="QCheckBox" name="chkbx_mapmgr_scenario_ffe">
+                    <widget class="QLineEdit" name="lineEdit_15">
                      <property name="minimumSize">
                       <size>
                        <width>115</width>
                        <height>0</height>
                       </size>
                      </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>115</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
                      <property name="text">
                       <string>Firefight East</string>
+                     </property>
+                     <property name="frame">
+                      <bool>false</bool>
                      </property>
                     </widget>
                    </item>
@@ -3356,15 +3455,24 @@ p, li { white-space: pre-wrap; }
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_45">
                    <item>
-                    <widget class="QCheckBox" name="chkbx_mapmgr_scenario_op">
+                    <widget class="QLineEdit" name="lineEdit_16">
                      <property name="minimumSize">
                       <size>
                        <width>115</width>
                        <height>0</height>
                       </size>
                      </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>115</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
                      <property name="text">
                       <string>Outpost</string>
+                     </property>
+                     <property name="frame">
+                      <bool>false</bool>
                      </property>
                     </widget>
                    </item>
@@ -3398,15 +3506,24 @@ p, li { white-space: pre-wrap; }
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_46">
                    <item>
-                    <widget class="QCheckBox" name="chkbx_mapmgr_scenario_puins">
+                    <widget class="QLineEdit" name="lineEdit_17">
                      <property name="minimumSize">
                       <size>
                        <width>115</width>
                        <height>0</height>
                       </size>
                      </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>115</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
                      <property name="text">
                       <string>Push INS</string>
+                     </property>
+                     <property name="frame">
+                      <bool>false</bool>
                      </property>
                     </widget>
                    </item>
@@ -4070,7 +4187,7 @@ p, li { white-space: pre-wrap; }
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="chkbox_chec_updates">
+          <widget class="QCheckBox" name="chkbox_check_updates">
            <property name="text">
             <string>Check for Updates, when starting the program</string>
            </property>

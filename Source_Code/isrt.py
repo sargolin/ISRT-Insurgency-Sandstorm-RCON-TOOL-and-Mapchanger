@@ -256,6 +256,7 @@ class maingui(QtWidgets.QWidget):
         self.gui.btn_cust_delete_all.clicked.connect(self.custom_command_clear_all)
         self.gui.btn_save_settings.clicked.connect(self.save_settings)
         self.gui.btn_mapmgr_add.clicked.connect(self.add_new_map)
+        self.gui.btn_mapmgr_save.clicked.connect(self.save_existing_map)
         self.gui.btn_mapmgr_select_day_image.clicked.connect(lambda: self.select_map_pic("day"))
         self.gui.btn_mapmgr_select_night_image_2.clicked.connect(lambda: self.select_map_pic("night"))
         self.gui.btn_mapmgr_delete.clicked.connect(self.delete_custom_map)
@@ -703,9 +704,6 @@ class maingui(QtWidgets.QWidget):
         self.ranked = (self.serverruledetails['RankedServer_b'])
         self.coop = (self.serverruledetails['Coop_b'])
         self.mods = (self.serverruledetails['Mutated_b'])
-        if running_dev_mode == 1:
-            self.mutators = (self.serverruledetails['Mutators_s'])
-            print(self.mutators)
         self.day = (self.serverruledetails['Day_b'])
         if  self.mods == "true":
             self.servermodcheck = "Yes"
@@ -1520,19 +1518,6 @@ class maingui(QtWidgets.QWidget):
     #Fill Map Manager configuration Tab with DB data
     def fill_map_manager_conf_tab(self):
         def clear_map_conf_inserts():
-            self.gui.chkbx_mapmgr_scenario_cp.setEnabled(True)
-            self.gui.chkbx_mapmgr_scenario_cphc.setEnabled(True)
-            self.gui.chkbx_mapmgr_scenario_dom.setEnabled(True)
-            self.gui.chkbx_mapmgr_scenario_ffw.setEnabled(True)
-            self.gui.chkbx_mapmgr_scenario_fl.setEnabled(True)
-            self.gui.chkbx_mapmgr_scenario_pu.setEnabled(True)
-            self.gui.chkbx_mapmgr_scenario_puins.setEnabled(True)
-            self.gui.chkbx_mapmgr_scenario_ski.setEnabled(True)
-            self.gui.chkbx_mapmgr_scenario_op.setEnabled(True)
-            self.gui.chkbx_mapmgr_scenario_cpins.setEnabled(True)
-            self.gui.chkbx_mapmgr_scenario_cphcins.setEnabled(True)
-            self.gui.chkbx_mapmgr_scenario_tdm.setEnabled(True)
-            self.gui.chkbx_mapmgr_scenario_ffe.setEnabled(True)
             self.gui.chkbox_mapmgr_day.setEnabled(True)
             self.gui.chkbox_mapmgr_night.setEnabled(True)
             self.gui.chkbox_mapmgr_day.setChecked(False)
@@ -1553,19 +1538,6 @@ class maingui(QtWidgets.QWidget):
             self.gui.le_mapmgr_alias.setText("")
             self.gui.le_mapmgr_name.setText("")
             self.gui.le_mapmgr_modid.setText("")
-            self.gui.chkbx_mapmgr_scenario_cp.setChecked(False)
-            self.gui.chkbx_mapmgr_scenario_cphc.setChecked(False)
-            self.gui.chkbx_mapmgr_scenario_dom.setChecked(False)
-            self.gui.chkbx_mapmgr_scenario_ffw.setChecked(False)
-            self.gui.chkbx_mapmgr_scenario_fl.setChecked(False)
-            self.gui.chkbx_mapmgr_scenario_pu.setChecked(False)
-            self.gui.chkbx_mapmgr_scenario_puins.setChecked(False)
-            self.gui.chkbx_mapmgr_scenario_ski.setChecked(False)
-            self.gui.chkbx_mapmgr_scenario_op.setChecked(False)
-            self.gui.chkbx_mapmgr_scenario_cpins.setChecked(False)
-            self.gui.chkbx_mapmgr_scenario_cphcins.setChecked(False)
-            self.gui.chkbx_mapmgr_scenario_tdm.setChecked(False)
-            self.gui.chkbx_mapmgr_scenario_ffe.setChecked(False)
             self.gui.le_mapmgr_selected_day_image.setText("")
             self.gui.le_mapmgr_selected_night_image.setText("")
             self.gui.le_mapmgr_scenario_cp.setText("")
@@ -1633,61 +1605,6 @@ class maingui(QtWidgets.QWidget):
             self.gui.le_mapmgr_alias.setText(self.map_name)
             self.gui.le_mapmgr_name.setText(self.map_alias)
 
-            #Function to change the day selector on state changed
-            def checkbox_day_change():
-                if self.gui.chkbox_mapmgr_day.isChecked():
-                    day_file = 1
-                else:
-                    day_file = 0
-                
-                if day_file == 1:
-                    self.gui.btn_mapmgr_select_day_image.setEnabled(True)
-                else:
-                    self.gui.btn_mapmgr_select_day_image.setEnabled(False)
-            #Function to change the night selector on state changed
-            def checkbox_night_change():
-                if self.gui.chkbox_mapmgr_night.isChecked():
-                    night_file = 1
-                else:
-                    night_file = 0
-                
-                if night_file == 1:
-                    self.gui.btn_mapmgr_select_night_image_2.setEnabled(True)
-                else:
-                    self.gui.btn_mapmgr_select_night_image_2.setEnabled(False)
-
-            if self.map_self_added == 0:
-                self.gui.btn_mapmgr_add.setEnabled(False)
-                self.gui.btn_mapmgr_save.setEnabled(True)
-                self.gui.chkbox_mapmgr_day.setEnabled(False)
-                self.gui.chkbox_mapmgr_night.setEnabled(False)
-                self.gui.le_mapmgr_alias.setEnabled(False)
-                self.gui.le_mapmgr_name.setEnabled(False)
-                self.gui.le_mapmgr_modid.setEnabled(False)
-                self.gui.le_mapmgr_selected_day_image.setEnabled(False)
-                self.gui.btn_mapmgr_select_day_image.setEnabled(False)
-                self.gui.le_mapmgr_selected_night_image.setEnabled(False)
-                self.gui.btn_mapmgr_select_night_image_2.setEnabled(False)
-            else:
-                self.gui.btn_mapmgr_add.setEnabled(True)
-                self.gui.btn_mapmgr_delete.setEnabled(True)
-                self.gui.btn_mapmgr_save.setEnabled(True)
-                self.gui.chkbox_mapmgr_day.stateChanged.connect(checkbox_day_change)
-                self.gui.chkbox_mapmgr_night.stateChanged.connect(checkbox_night_change)
-            
-            self.gui.chkbx_mapmgr_scenario_cp.setEnabled(True)
-            self.gui.chkbx_mapmgr_scenario_cphc.setEnabled(True)
-            self.gui.chkbx_mapmgr_scenario_dom.setEnabled(True)
-            self.gui.chkbx_mapmgr_scenario_ffw.setEnabled(True)
-            self.gui.chkbx_mapmgr_scenario_fl.setEnabled(True)
-            self.gui.chkbx_mapmgr_scenario_pu.setEnabled(True)
-            self.gui.chkbx_mapmgr_scenario_puins.setEnabled(True)
-            self.gui.chkbx_mapmgr_scenario_ski.setEnabled(True)
-            self.gui.chkbx_mapmgr_scenario_op.setEnabled(True)
-            self.gui.chkbx_mapmgr_scenario_cpins.setEnabled(True)
-            self.gui.chkbx_mapmgr_scenario_cphcins.setEnabled(True)
-            self.gui.chkbx_mapmgr_scenario_tdm.setEnabled(True)
-            self.gui.chkbx_mapmgr_scenario_ffe.setEnabled(True)
             self.gui.le_mapmgr_scenario_cp.setEnabled(True)
             self.gui.le_mapmgr_scenario_cphc.setEnabled(True)
             self.gui.le_mapmgr_scenario_dom.setEnabled(True)
@@ -1702,23 +1619,19 @@ class maingui(QtWidgets.QWidget):
             self.gui.le_mapmgr_scenario_op.setEnabled(True)
             self.gui.le_mapmgr_scenario_puins.setEnabled(True)
 
-
-            if self.map_modid == 0:
-                self.gui.le_mapmgr_modid.setText("Std")
-            else:
-                self.gui.le_mapmgr_modid.setText(str(self.map_modid))
-
-            if self.map_day == 1:
-                self.gui.chkbox_mapmgr_day.setChecked(True)
-            else:
-                self.gui.chkbox_mapmgr_day.setChecked(False)
-
-            if self.map_night == 1:
-                self.gui.chkbox_mapmgr_night.setChecked(True)
-            else:
-                self.gui.chkbox_mapmgr_night.setChecked(False)
-
             if self.map_self_added == 0:
+                self.gui.le_mapmgr_name.setEnabled(False)
+                self.gui.btn_mapmgr_add.setEnabled(False)
+                self.gui.btn_mapmgr_save.setEnabled(True)
+                self.gui.chkbox_mapmgr_day.setEnabled(False)
+                self.gui.chkbox_mapmgr_night.setEnabled(False)
+                self.gui.le_mapmgr_alias.setEnabled(False)
+                self.gui.le_mapmgr_name.setEnabled(False)
+                self.gui.le_mapmgr_modid.setEnabled(False)
+                self.gui.le_mapmgr_selected_day_image.setEnabled(False)
+                self.gui.btn_mapmgr_select_day_image.setEnabled(False)
+                self.gui.le_mapmgr_selected_night_image.setEnabled(False)
+                self.gui.btn_mapmgr_select_night_image_2.setEnabled(False)
                 if self.map_day == 1:
                     self.gui.le_mapmgr_selected_day_image.setText(self.map_day_pic_show)
                     self.gui.btn_mapmgr_delete.setEnabled(False)
@@ -1739,11 +1652,17 @@ class maingui(QtWidgets.QWidget):
                     self.gui.btn_mapmgr_select_night_image_2.setEnabled(False)
                     self.gui.btn_mapmgr_delete.setEnabled(False)
             else:
+                self.gui.le_mapmgr_alias.setEnabled(False)
+                self.gui.le_mapmgr_name.setEnabled(False)
+                self.gui.btn_mapmgr_add.setEnabled(False)
+                self.gui.le_mapmgr_modid.setEnabled(False)
+                self.gui.chkbox_mapmgr_day.setEnabled(False)
+                self.gui.chkbox_mapmgr_night.setEnabled(False)
+                self.gui.btn_mapmgr_delete.setEnabled(True)
+                self.gui.btn_mapmgr_save.setEnabled(True)
                 custom_image_folder = (str(self.dbdir) + '\\img\\custom_map_pics\\')
                 custom_day_pic_temp = (str(self.dbdir) + '\\img\\custom_map_pics\\' + self.map_day_pic_show)
                 custom_night_pic_temp = (str(self.dbdir) + '\\img\\custom_map_pics\\' + self.map_night_pic_show)
-
-                self.gui.btn_mapmgr_delete.setEnabled(True)
 
                 custom_day_pic = custom_day_pic_temp.replace("\\", "/")
                 custom_night_pic = custom_night_pic_temp.replace("\\", "/")
@@ -1764,96 +1683,85 @@ class maingui(QtWidgets.QWidget):
                     self.gui.le_mapmgr_selected_night_image.setText("")
                     self.gui.btn_mapmgr_select_night_image_2.setEnabled(False)
 
+            if self.map_modid == 0:
+                self.gui.le_mapmgr_modid.setText("Std")
+            else:
+                self.gui.le_mapmgr_modid.setText(str(self.map_modid))
+
+            if self.map_day == 1:
+                self.gui.chkbox_mapmgr_day.setChecked(True)
+            else:
+                self.gui.chkbox_mapmgr_day.setChecked(False)
+
+            if self.map_night == 1:
+                self.gui.chkbox_mapmgr_night.setChecked(True)
+            else:
+                self.gui.chkbox_mapmgr_night.setChecked(False)
+
             if self.map_scenario_cphc:
                 self.gui.le_mapmgr_scenario_cphc.setText(self.map_scenario_cphc)
-                self.gui.chkbx_mapmgr_scenario_cphc.setChecked(True)
             else:
                 self.gui.le_mapmgr_scenario_cphc.setPlaceholderText("N/A")
-                self.gui.chkbx_mapmgr_scenario_cphc.setChecked(False)
 
             if self.map_scenario_cp:
                 self.gui.le_mapmgr_scenario_cp.setText(self.map_scenario_cp)
-                self.gui.chkbx_mapmgr_scenario_cp.setChecked(True)
             else:
                 self.gui.le_mapmgr_scenario_cp.setPlaceholderText("N/A")
-                self.gui.chkbx_mapmgr_scenario_cp.setChecked(False)
 
             if self.map_scenario_cpins:
                 self.gui.le_mapmgr_scenario_cpins.setText(self.map_scenario_cpins)
-                self.gui.chkbx_mapmgr_scenario_cpins.setChecked(True)
             else:
                 self.gui.le_mapmgr_scenario_cpins.setPlaceholderText("N/A")
-                self.gui.chkbx_mapmgr_scenario_cpins.setChecked(False)
 
             if self.map_scenario_cphcins:
                 self.gui.le_mapmgr_scenario_cphcins.setText(self.map_scenario_cphcins)
-                self.gui.chkbx_mapmgr_scenario_cphcins.setChecked(True)
             else:
                 self.gui.le_mapmgr_scenario_cphcins.setPlaceholderText("N/A")
-                self.gui.chkbx_mapmgr_scenario_cphcins.setChecked(False)
 
             if self.map_scenario_dom:
                 self.gui.le_mapmgr_scenario_dom.setText(self.map_scenario_dom)
-                self.gui.chkbx_mapmgr_scenario_dom.setChecked(True)
             else:
                 self.gui.le_mapmgr_scenario_dom.setPlaceholderText("N/A")
-                self.gui.chkbx_mapmgr_scenario_dom.setChecked(False)            
-
+          
             if self.map_scenario_ffw:
                 self.gui.le_mapmgr_scenario_ffw.setText(self.map_scenario_ffw)
-                self.gui.chkbx_mapmgr_scenario_ffw.setChecked(True)
             else:
                 self.gui.le_mapmgr_scenario_ffw.setPlaceholderText("N/A")
-                self.gui.chkbx_mapmgr_scenario_ffw.setChecked(False) 
 
             if self.map_scenario_ffe:
                 self.gui.le_mapmgr_scenario_ffe.setText(self.map_scenario_ffe)
-                self.gui.chkbx_mapmgr_scenario_ffe.setChecked(True)
             else:
                 self.gui.le_mapmgr_scenario_ffe.setPlaceholderText("N/A")
-                self.gui.chkbx_mapmgr_scenario_ffe.setChecked(False) 
             
             if self.map_scenario_fl:
                 self.gui.le_mapmgr_scenario_fl.setText(self.map_scenario_fl)
-                self.gui.chkbx_mapmgr_scenario_fl.setChecked(True)
             else:
                 self.gui.le_mapmgr_scenario_fl.setPlaceholderText("N/A")
-                self.gui.chkbx_mapmgr_scenario_fl.setChecked(False)
 
             if self.map_scenario_pu:
                 self.gui.le_mapmgr_scenario_pu.setText(self.map_scenario_pu)
-                self.gui.chkbx_mapmgr_scenario_pu.setChecked(True)
             else:
                 self.gui.le_mapmgr_scenario_pu.setPlaceholderText("N/A")
-                self.gui.chkbx_mapmgr_scenario_pu.setChecked(False)
 
             if self.map_scenario_puins:
                 self.gui.le_mapmgr_scenario_puins.setText(self.map_scenario_puins)
-                self.gui.chkbx_mapmgr_scenario_puins.setChecked(True)
             else:
                 self.gui.le_mapmgr_scenario_puins.setPlaceholderText("N/A")
-                self.gui.chkbx_mapmgr_scenario_puins.setChecked(False)
 
             if self.map_scenario_ski:
                 self.gui.le_mapmgr_scenario_ski.setText(self.map_scenario_ski)
-                self.gui.chkbx_mapmgr_scenario_ski.setChecked(True)
             else:
                 self.gui.le_mapmgr_scenario_ski.setPlaceholderText("N/A")
-                self.gui.chkbx_mapmgr_scenario_ski.setChecked(False)
 
             if self.map_scenario_op:
                 self.gui.le_mapmgr_scenario_op.setText(self.map_scenario_op)
-                self.gui.chkbx_mapmgr_scenario_op.setChecked(True)
             else:
                 self.gui.le_mapmgr_scenario_op.setPlaceholderText("N/A")
-                self.gui.chkbx_mapmgr_scenario_op.setChecked(False)
 
             if self.map_scenario_tdm:
                 self.gui.le_mapmgr_scenario_tdm.setText(self.map_scenario_tdm)
-                self.gui.chkbx_mapmgr_scenario_tdm.setChecked(True)
             else:
                 self.gui.le_mapmgr_scenario_tdm.setPlaceholderText("N/A")
-                self.gui.chkbx_mapmgr_scenario_tdm.setChecked(False)
         #Set the configuration in case the called map is a Standard map
         def set_map_mgr_conf_std():
             self.map_name = self.map_configuration[0]
@@ -1878,6 +1786,21 @@ class maingui(QtWidgets.QWidget):
             self.map_scenario_ski = self.map_configuration[17]
             self.map_scenario_tdm = self.map_configuration[18]
             self.map_self_added = self.map_configuration[19]
+
+            self.gui.le_mapmgr_scenario_cp.setEnabled(False)
+            self.gui.le_mapmgr_scenario_cphc.setEnabled(False)
+            self.gui.le_mapmgr_scenario_dom.setEnabled(False)
+            self.gui.le_mapmgr_scenario_ffw.setEnabled(False)
+            self.gui.le_mapmgr_scenario_fl.setEnabled(False)
+            self.gui.le_mapmgr_scenario_pu.setEnabled(False)
+            self.gui.le_mapmgr_scenario_ski.setEnabled(False)
+            self.gui.le_mapmgr_scenario_cpins.setEnabled(False)
+            self.gui.le_mapmgr_scenario_cphcins.setEnabled(False)
+            self.gui.le_mapmgr_scenario_tdm.setEnabled(False)
+            self.gui.le_mapmgr_scenario_ffe.setEnabled(False)
+            self.gui.le_mapmgr_scenario_op.setEnabled(False)
+            self.gui.le_mapmgr_scenario_puins.setEnabled(False)
+
             if self.map_self_added == 0:
                 self.gui.btn_mapmgr_delete.setEnabled(False)
                 self.gui.btn_mapmgr_add.setEnabled(False)
@@ -1925,121 +1848,68 @@ class maingui(QtWidgets.QWidget):
 
             if self.map_scenario_cphc:
                 self.gui.le_mapmgr_scenario_cphc.setText(self.map_scenario_cphc)
-                self.gui.chkbx_mapmgr_scenario_cphc.setChecked(True)
             else:
                 self.gui.le_mapmgr_scenario_cphc.setPlaceholderText("N/A")
-                self.gui.chkbx_mapmgr_scenario_cphc.setChecked(False)
 
             if self.map_scenario_cp:
                 self.gui.le_mapmgr_scenario_cp.setText(self.map_scenario_cp)
-                self.gui.chkbx_mapmgr_scenario_cp.setChecked(True)
             else:
                 self.gui.le_mapmgr_scenario_cp.setPlaceholderText("N/A")
-                self.gui.chkbx_mapmgr_scenario_cp.setChecked(False)
 
             if self.map_scenario_cpins:
                 self.gui.le_mapmgr_scenario_cpins.setText(self.map_scenario_cpins)
-                self.gui.chkbx_mapmgr_scenario_cpins.setChecked(True)
             else:
                 self.gui.le_mapmgr_scenario_cpins.setPlaceholderText("N/A")
-                self.gui.chkbx_mapmgr_scenario_cpins.setChecked(False)
 
             if self.map_scenario_cphcins:
                 self.gui.le_mapmgr_scenario_cphcins.setText(self.map_scenario_cphcins)
-                self.gui.chkbx_mapmgr_scenario_cphcins.setChecked(True)
             else:
                 self.gui.le_mapmgr_scenario_cphcins.setPlaceholderText("N/A")
-                self.gui.chkbx_mapmgr_scenario_cphcins.setChecked(False)
 
             if self.map_scenario_dom:
                 self.gui.le_mapmgr_scenario_dom.setText(self.map_scenario_dom)
-                self.gui.chkbx_mapmgr_scenario_dom.setChecked(True)
             else:
                 self.gui.le_mapmgr_scenario_dom.setPlaceholderText("N/A")
-                self.gui.chkbx_mapmgr_scenario_dom.setChecked(False)            
 
             if self.map_scenario_ffw:
                 self.gui.le_mapmgr_scenario_ffw.setText(self.map_scenario_ffw)
-                self.gui.chkbx_mapmgr_scenario_ffw.setChecked(True)
             else:
                 self.gui.le_mapmgr_scenario_ffw.setPlaceholderText("N/A")
-                self.gui.chkbx_mapmgr_scenario_ffw.setChecked(False) 
 
             if self.map_scenario_ffe:
                 self.gui.le_mapmgr_scenario_ffe.setText(self.map_scenario_ffe)
-                self.gui.chkbx_mapmgr_scenario_ffe.setChecked(True)
             else:
                 self.gui.le_mapmgr_scenario_ffe.setPlaceholderText("N/A")
-                self.gui.chkbx_mapmgr_scenario_ffe.setChecked(False) 
             
             if self.map_scenario_fl:
                 self.gui.le_mapmgr_scenario_fl.setText(self.map_scenario_fl)
-                self.gui.chkbx_mapmgr_scenario_fl.setChecked(True)
             else:
                 self.gui.le_mapmgr_scenario_fl.setPlaceholderText("N/A")
-                self.gui.chkbx_mapmgr_scenario_fl.setChecked(False)
 
             if self.map_scenario_pu:
                 self.gui.le_mapmgr_scenario_pu.setText(self.map_scenario_pu)
-                self.gui.chkbx_mapmgr_scenario_pu.setChecked(True)
             else:
                 self.gui.le_mapmgr_scenario_pu.setPlaceholderText("N/A")
-                self.gui.chkbx_mapmgr_scenario_pu.setChecked(False)
 
             if self.map_scenario_puins:
                 self.gui.le_mapmgr_scenario_puins.setText(self.map_scenario_puins)
-                self.gui.chkbx_mapmgr_scenario_puins.setChecked(True)
             else:
                 self.gui.le_mapmgr_scenario_puins.setPlaceholderText("N/A")
-                self.gui.chkbx_mapmgr_scenario_puins.setChecked(False)
 
             if self.map_scenario_ski:
                 self.gui.le_mapmgr_scenario_ski.setText(self.map_scenario_ski)
-                self.gui.chkbx_mapmgr_scenario_ski.setChecked(True)
             else:
                 self.gui.le_mapmgr_scenario_ski.setPlaceholderText("N/A")
-                self.gui.chkbx_mapmgr_scenario_ski.setChecked(False)
 
             if self.map_scenario_op:
                 self.gui.le_mapmgr_scenario_op.setText(self.map_scenario_op)
-                self.gui.chkbx_mapmgr_scenario_op.setChecked(True)
             else:
                 self.gui.le_mapmgr_scenario_op.setPlaceholderText("N/A")
-                self.gui.chkbx_mapmgr_scenario_op.setChecked(False)
 
             if self.map_scenario_tdm:
                 self.gui.le_mapmgr_scenario_tdm.setText(self.map_scenario_tdm)
-                self.gui.chkbx_mapmgr_scenario_tdm.setChecked(True)
             else:
                 self.gui.le_mapmgr_scenario_tdm.setPlaceholderText("N/A")
-                self.gui.chkbx_mapmgr_scenario_tdm.setChecked(False)
-
-            self.gui.chkbx_mapmgr_scenario_cp.setEnabled(False)
-            self.gui.chkbx_mapmgr_scenario_cphc.setEnabled(False)
-            self.gui.chkbx_mapmgr_scenario_dom.setEnabled(False)
-            self.gui.chkbx_mapmgr_scenario_ffw.setEnabled(False)
-            self.gui.chkbx_mapmgr_scenario_fl.setEnabled(False)
-            self.gui.chkbx_mapmgr_scenario_pu.setEnabled(False)
-            self.gui.chkbx_mapmgr_scenario_puins.setEnabled(False)
-            self.gui.chkbx_mapmgr_scenario_ski.setEnabled(False)
-            self.gui.chkbx_mapmgr_scenario_op.setEnabled(False)
-            self.gui.chkbx_mapmgr_scenario_cpins.setEnabled(False)
-            self.gui.chkbx_mapmgr_scenario_cphcins.setEnabled(False)
-            self.gui.chkbx_mapmgr_scenario_tdm.setEnabled(False)
-            self.gui.chkbx_mapmgr_scenario_ffe.setEnabled(False)
-            self.gui.le_mapmgr_scenario_cp.setEnabled(False)
-            self.gui.le_mapmgr_scenario_cphc.setEnabled(False)
-            self.gui.le_mapmgr_scenario_dom.setEnabled(False)
-            self.gui.le_mapmgr_scenario_ffw.setEnabled(False)
-            self.gui.le_mapmgr_scenario_fl.setEnabled(False)
-            self.gui.le_mapmgr_scenario_pu.setEnabled(False)
-            self.gui.le_mapmgr_scenario_ski.setEnabled(False)
-            self.gui.le_mapmgr_scenario_cpins.setEnabled(False)
-            self.gui.le_mapmgr_scenario_cphcins.setEnabled(False)
-            self.gui.le_mapmgr_scenario_tdm.setEnabled(False)
-            self.gui.le_mapmgr_scenario_ffe.setEnabled(False)
-            self.gui.le_mapmgr_scenario_op.setEnabled(False)
-            self.gui.le_mapmgr_scenario_puins.setEnabled(False)
         #Set the correct ID for Standard Maps
         if self.map_modid == 0:
             self.gui.le_mapmgr_modid.setText("Std")
@@ -2061,19 +1931,6 @@ class maingui(QtWidgets.QWidget):
         self.gui.btn_mapmgr_select_day_image.setEnabled(True)
         self.gui.le_mapmgr_selected_night_image.setEnabled(True)
         self.gui.btn_mapmgr_select_night_image_2.setEnabled(True)
-        self.gui.chkbx_mapmgr_scenario_cp.setEnabled(True)
-        self.gui.chkbx_mapmgr_scenario_cphc.setEnabled(True)
-        self.gui.chkbx_mapmgr_scenario_dom.setEnabled(True)
-        self.gui.chkbx_mapmgr_scenario_ffw.setEnabled(True)
-        self.gui.chkbx_mapmgr_scenario_fl.setEnabled(True)
-        self.gui.chkbx_mapmgr_scenario_pu.setEnabled(True)
-        self.gui.chkbx_mapmgr_scenario_puins.setEnabled(True)
-        self.gui.chkbx_mapmgr_scenario_ski.setEnabled(True)
-        self.gui.chkbx_mapmgr_scenario_op.setEnabled(True)
-        self.gui.chkbx_mapmgr_scenario_cpins.setEnabled(True)
-        self.gui.chkbx_mapmgr_scenario_cphcins.setEnabled(True)
-        self.gui.chkbx_mapmgr_scenario_tdm.setEnabled(True)
-        self.gui.chkbx_mapmgr_scenario_ffe.setEnabled(True)
         self.gui.chkbox_mapmgr_day.setEnabled(True)
         self.gui.chkbox_mapmgr_night.setEnabled(True)
         self.gui.chkbox_mapmgr_day.setChecked(False)
@@ -2094,19 +1951,6 @@ class maingui(QtWidgets.QWidget):
         self.gui.le_mapmgr_alias.setText("")
         self.gui.le_mapmgr_name.setText("")
         self.gui.le_mapmgr_modid.setText("")
-        self.gui.chkbx_mapmgr_scenario_cp.setChecked(False)
-        self.gui.chkbx_mapmgr_scenario_cphc.setChecked(False)
-        self.gui.chkbx_mapmgr_scenario_dom.setChecked(False)
-        self.gui.chkbx_mapmgr_scenario_ffw.setChecked(False)
-        self.gui.chkbx_mapmgr_scenario_fl.setChecked(False)
-        self.gui.chkbx_mapmgr_scenario_pu.setChecked(False)
-        self.gui.chkbx_mapmgr_scenario_puins.setChecked(False)
-        self.gui.chkbx_mapmgr_scenario_ski.setChecked(False)
-        self.gui.chkbx_mapmgr_scenario_op.setChecked(False)
-        self.gui.chkbx_mapmgr_scenario_cpins.setChecked(False)
-        self.gui.chkbx_mapmgr_scenario_cphcins.setChecked(False)
-        self.gui.chkbx_mapmgr_scenario_tdm.setChecked(False)
-        self.gui.chkbx_mapmgr_scenario_ffe.setChecked(False)
         self.gui.le_mapmgr_selected_day_image.setText("")
         self.gui.le_mapmgr_selected_night_image.setText("")
         self.gui.le_mapmgr_scenario_cp.setText("")
@@ -2141,7 +1985,155 @@ class maingui(QtWidgets.QWidget):
         self.gui.le_mapmgr_selected_night_image.setPlaceholderText("Map Image Name Night")
     #Save modified map in DB
     def save_existing_map(self):
-        pass
+        self.check_val_update_map_error = 0
+        def get_changed_variables():
+            self.val_map_alias = self.gui.le_mapmgr_name.text()
+
+            self.c.execute("select map_alias from map_config")
+            map_aliases = self.c.fetchall()
+            self.conn.commit()
+            self.map_already_there = 0
+            for alias_check in map_aliases:
+                if self.val_map_alias == alias_check[0]:
+                    self.map_already_there = 1
+            
+            if self.map_already_there == 0:
+                self.check_val_update_map_error = 599
+                self.gui.label_db_console_2.append("Map does not exist in DB - add it first!")
+                
+
+            self.val_map_cphc = self.gui.le_mapmgr_scenario_cphc.text()
+            self.val_map_cphcins = self.gui.le_mapmgr_scenario_cphcins.text()
+            self.val_map_cp = self.gui.le_mapmgr_scenario_cp.text()
+            self.val_map_cpins = self.gui.le_mapmgr_scenario_cpins.text()
+            self.val_map_dom = self.gui.le_mapmgr_scenario_dom.text()
+            self.val_map_ffe = self.gui.le_mapmgr_scenario_ffe.text()
+            self.val_map_ffw = self.gui.le_mapmgr_scenario_ffw.text()
+            self.val_map_fl = self.gui.le_mapmgr_scenario_fl.text()
+            self.val_map_op = self.gui.le_mapmgr_scenario_op.text()
+            self.val_map_pu = self.gui.le_mapmgr_scenario_pu.text()
+            self.val_map_puins = self.gui.le_mapmgr_scenario_puins.text()
+            self.val_map_ski = self.gui.le_mapmgr_scenario_ski.text()
+            self.val_map_tdm = self.gui.le_mapmgr_scenario_tdm.text()
+
+
+
+            # if self.gui.chkbx_mapmgr_scenario_cp.isChecked() and self.gui.le_mapmgr_scenario_cp.text() == "":
+            #     self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
+            #     self.check_val_update_map_error += 2170
+
+        def create_new_map_modes():
+            if self.val_map_cphc:
+                self.val_map_check_cphc = 1
+            else:
+                self.val_map_check_cphc = 0
+
+            if self.val_map_cp:
+                self.val_map_check_cp = 1
+            else:
+                self.val_map_check_cp = 0
+
+            if self.val_map_cpins:
+                self.val_map_check_cpins = 1
+            else:
+                self.val_map_check_cpins = 0
+
+            if self.val_map_cphcins:
+                self.val_map_check_cphcins = 1
+            else:
+                self.val_map_check_cphcins = 0
+
+            if self.val_map_dom:
+                self.val_map_check_dom = 1
+            else:
+                self.val_map_check_dom = 0
+
+            if self.val_map_ffe:
+                self.val_map_check_ffe = 1
+            else:
+                self.val_map_check_ffe = 0
+
+            if self.val_map_ffw:
+                self.val_map_check_ffw = 1
+            else:
+                self.val_map_check_ffw = 0
+
+            if self.val_map_fl:
+                self.val_map_check_fl = 1
+            else:
+                self.val_map_check_fl = 0
+
+            if self.val_map_op:
+                self.val_map_check_op = 1
+            else:
+                self.val_map_check_op = 0
+
+            if self.val_map_pu:
+                self.val_map_check_pu = 1
+            else:
+                self.val_map_check_pu = 0
+
+            if self.val_map_puins:
+                self.val_map_check_puins = 1
+            else:
+                self.val_map_check_puins = 0
+
+            if self.val_map_ski:
+                self.val_map_check_ski = 1
+            else:
+                self.val_map_check_ski = 0
+
+            if self.val_map_tdm:
+                self.val_map_check_tdm = 1
+            else:
+                self.val_map_check_tdm = 0
+
+        def check_if_map_info_complete_change():
+            if (self.gui.le_mapmgr_scenario_cp.text() == "" and 
+                self.gui.le_mapmgr_scenario_cpins.text() == "" and 
+                self.gui.le_mapmgr_scenario_cphc.text() == "" and 
+                self.gui.le_mapmgr_scenario_cphcins.text() == "" and 
+                self.gui.le_mapmgr_scenario_dom.text() == "" and 
+                self.gui.le_mapmgr_scenario_tdm.text() == "" and 
+                self.gui.le_mapmgr_scenario_ffw.text() == "" and 
+                self.gui.le_mapmgr_scenario_ffe.text() == "" and 
+                self.gui.le_mapmgr_scenario_fl.text() == "" and 
+                self.gui.le_mapmgr_scenario_op.text() == "" and 
+                self.gui.le_mapmgr_scenario_pu.text() == "" and 
+                self.gui.le_mapmgr_scenario_puins.text() == "" and 
+                self.gui.le_mapmgr_scenario_ski.text() == ""):
+                self.gui.label_db_console_2.append("You have to provide at least one map scenario!")
+                self.check_val_update_map_error += 161
+
+        get_changed_variables()
+        create_new_map_modes()
+        check_if_map_info_complete_change()
+
+        def update_changed_map_vars():
+            
+            self.c.execute("UPDATE map_config SET checkpointhardcore=:checkpointhardcore, checkpointhardcore_ins=:checkpointhardcore_ins, checkpoint=:checkpoint, checkpoint_ins=:checkpoint_ins, domination=:domination, firefight_east=:firefight_east, firefight_west=:firefight_west, frontline=:frontline, outpost=:outpost, push=:push, push_ins=:push_ins, skirmish=:skirmish, teamdeathmatch=:teamdeathmatch WHERE map_alias=:map_alias",
+                {'map_alias': self.val_map_alias, 'checkpointhardcore': self.val_map_cphc, 'checkpointhardcore_ins': self.val_map_cphcins, 'checkpoint': self.val_map_cp, 'checkpoint_ins': self.val_map_cpins, 'domination': self.val_map_dom, 'firefight_east': self.val_map_ffe, 'firefight_west': self.val_map_ffw, 'frontline': self.val_map_fl, 'outpost': self.val_map_op, 'push': self.val_map_pu, 'push_ins': self.val_map_puins, 'skirmish': self.val_map_ski, 'teamdeathmatch': self.val_map_tdm })
+            self.conn.commit()
+            # self.c.execute("INSERT INTO map_modes VALUES (:map_alias, :dn, :cp, :cp_ins, :cphc, :cphc_ins, :dom, :ffe, :ffw, :fl, :op, :pu, :pu_ins, :ski, :tdm)", 
+            #     {'map_alias': self.val_map_name, 'dn': self.val_map_dn, 'cp': self.val_map_check_cp,'cp_ins': self.val_map_check_cpins,'cphc': self.val_map_check_cphc,'cphc_ins': self.val_map_check_cphcins,'dom': self.val_map_check_dom,'ffe': self.val_map_check_ffe,'ffw': self.val_map_check_ffw,'fl': self.val_map_check_fl,'op': self.val_map_check_op,'pu': self.val_map_check_pu,'pu_ins': self.val_map_check_puins,'ski': self.val_map_check_ski,'tdm': self.val_map_check_tdm})
+            # self.conn.commit()
+    
+        #Check for any errors in the above methods and if 0 really add map
+        if self.check_val_update_map_error == 0:
+            self.gui.label_db_console_2.clear()
+            update_changed_map_vars()
+            self.gui.label_db_console_2.append("Map successfully updated in database!")
+        #If errors throw message and error code
+        else:
+            icondir = Path(__file__).absolute().parent
+            warningmsg = QtWidgets.QMessageBox()
+            warningmsg.setIcon(QtWidgets.QMessageBox.Critical)
+            warningmsg.setWindowTitle("ISRT Map Manager Warning")
+            warningmsg.setWindowIcon(QtGui.QIcon(str(icondir / 'img/isrt.ico')))
+            warningmsg.setText(f"Something went wrong while updating the map variables.\nPlease check the error message in the console!\n\nError Code: {self.check_val_update_map_error}")
+            warningmsg.addButton(warningmsg.Ok)
+            warningmsg.exec_()  
+
     #Select map Pics
     def select_map_pic(self, map_light):
         if map_light == "day":
@@ -2253,77 +2245,22 @@ class maingui(QtWidgets.QWidget):
                 self.gui.label_db_console_2.append("Please provide a night map pic, if you select night as lighting scenario!")
                 self.check_val_add_map_error += 160
             
-            if (self.gui.chkbx_mapmgr_scenario_cp.isChecked() or 
-                self.gui.chkbx_mapmgr_scenario_cphc.isChecked() or 
-                self.gui.chkbx_mapmgr_scenario_dom.isChecked() or 
-                self.gui.chkbx_mapmgr_scenario_ffw.isChecked() or 
-                self.gui.chkbx_mapmgr_scenario_ffe.isChecked() or 
-                self.gui.chkbx_mapmgr_scenario_puins.isChecked() or 
-                self.gui.chkbx_mapmgr_scenario_pu.isChecked() or 
-                self.gui.chkbx_mapmgr_scenario_cpins.isChecked() or 
-                self.gui.chkbx_mapmgr_scenario_cphcins.isChecked() or 
-                self.gui.chkbx_mapmgr_scenario_tdm.isChecked() or 
-                self.gui.chkbx_mapmgr_scenario_ski.isChecked() or 
-                self.gui.chkbx_mapmgr_scenario_op.isChecked() or 
-                self.gui.chkbx_mapmgr_scenario_fl.isChecked()):
-                pass
-            else:
+            if (self.gui.le_mapmgr_scenario_cp.text() == "" and 
+                self.gui.le_mapmgr_scenario_cpins.text() == "" and 
+                self.gui.le_mapmgr_scenario_cphc.text() == "" and 
+                self.gui.le_mapmgr_scenario_cphcins.text() == "" and 
+                self.gui.le_mapmgr_scenario_dom.text() == "" and 
+                self.gui.le_mapmgr_scenario_tdm.text() == "" and 
+                self.gui.le_mapmgr_scenario_ffw.text() == "" and 
+                self.gui.le_mapmgr_scenario_ffe.text() == "" and 
+                self.gui.le_mapmgr_scenario_fl.text() == "" and 
+                self.gui.le_mapmgr_scenario_op.text() == "" and 
+                self.gui.le_mapmgr_scenario_pu.text() == "" and 
+                self.gui.le_mapmgr_scenario_puins.text() == "" and 
+                self.gui.le_mapmgr_scenario_ski.text() == ""):
                 self.gui.label_db_console_2.append("You have to provide at least one map scenario!")
                 self.check_val_add_map_error += 161
-
-            if self.gui.chkbx_mapmgr_scenario_cp.isChecked() and self.gui.le_mapmgr_scenario_cp.text() == "":
-                self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
-                self.check_val_add_map_error += 170
-
-            if self.gui.chkbx_mapmgr_scenario_cpins.isChecked() and self.gui.le_mapmgr_scenario_cpins.text() == "":
-                self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
-                self.check_val_add_map_error += 171
-            
-            if self.gui.chkbx_mapmgr_scenario_cphc.isChecked() and self.gui.le_mapmgr_scenario_cphc.text() == "":
-                self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
-                self.check_val_add_map_error += 172
-            
-            if self.gui.chkbx_mapmgr_scenario_cphcins.isChecked() and self.gui.le_mapmgr_scenario_cphcins.text() == "":
-                self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
-                self.check_val_add_map_error += 173
-
-            if self.gui.chkbx_mapmgr_scenario_dom.isChecked() and self.gui.le_mapmgr_scenario_dom.text() == "":
-                self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
-                self.check_val_add_map_error += 174
-            
-            if self.gui.chkbx_mapmgr_scenario_tdm.isChecked() and self.gui.le_mapmgr_scenario_tdm.text() == "":
-                self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
-                self.check_val_add_map_error += 175
-
-            if self.gui.chkbx_mapmgr_scenario_ffw.isChecked() and self.gui.le_mapmgr_scenario_ffw.text() == "":
-                self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
-                self.check_val_add_map_error += 176
-            
-            if self.gui.chkbx_mapmgr_scenario_ffe.isChecked() and self.gui.le_mapmgr_scenario_ffe.text() == "":
-                self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
-                self.check_val_add_map_error += 177
-            
-            if self.gui.chkbx_mapmgr_scenario_fl.isChecked() and self.gui.le_mapmgr_scenario_fl.text() == "":
-                self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
-                self.check_val_add_map_error += 178
-
-            if self.gui.chkbx_mapmgr_scenario_op.isChecked() and self.gui.le_mapmgr_scenario_op.text() == "":
-                self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
-                self.check_val_add_map_error += 179
-
-            if self.gui.chkbx_mapmgr_scenario_pu.isChecked() and self.gui.le_mapmgr_scenario_pu.text() == "":
-                self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
-                self.check_val_add_map_error += 180
-
-            if self.gui.chkbx_mapmgr_scenario_puins.isChecked() and self.gui.le_mapmgr_scenario_puins.text() == "":
-                self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
-                self.check_val_add_map_error += 170
-
-            if self.gui.chkbx_mapmgr_scenario_ski.isChecked() and self.gui.le_mapmgr_scenario_ski.text() == "":
-                self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
-                self.check_val_add_map_error += 181
-
-
+ 
             if self.map_day_pic:
                 res_day_pic_check = bool(re.search(r".jpg", self.map_day_pic))
                 res_day_pic_check2 = bool(re.search(r".JPG", self.map_day_pic))
@@ -2424,7 +2361,7 @@ class maingui(QtWidgets.QWidget):
                 self.val_map_modid = self.map_modid
                 self.val_map_day = self.map_day
                 self.val_map_night = self.map_night
-                self.val_map_map_pic = self.day_pic_name
+                self.val_map_pic = self.day_pic_name
                 self.val_map_cphc = self.map_scenario_cphc
                 self.val_map_cphcins = self.map_scenario_cphcins
                 self.val_map_cp = self.map_scenario_cp
@@ -2615,9 +2552,9 @@ class maingui(QtWidgets.QWidget):
         update_setting = self.c.fetchone()
         self.conn.commit()
         if update_setting[0] == 1:
-            self.gui.chkbox_chec_updates.setChecked(True)
+            self.gui.chkbox_check_updates.setChecked(True)
         else:
-            self.gui.chkbox_chec_updates.setChecked(False)
+            self.gui.chkbox_check_updates.setChecked(False)
     #Save changed settings
     def save_settings(self):
         #Assign new vairbales for check and update
@@ -2874,12 +2811,12 @@ class maingui(QtWidgets.QWidget):
         self.c.execute("select check_updates from configuration")
         self.conn.commit()
         update_result = self.c.fetchone()
-        if self.gui.chkbox_chec_updates.isChecked():
+        if self.gui.chkbox_check_updates.isChecked():
             check_updateapp = 1
         else:
             check_updateapp = 0
         if update_result[0] != check_updateapp:
-            if self.gui.chkbox_chec_updates.isChecked():
+            if self.gui.chkbox_check_updates.isChecked():
                 self.c.execute("UPDATE configuration SET check_updates=1")
                 self.conn.commit()
             else:
