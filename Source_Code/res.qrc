@@ -22,6 +22,8 @@
     <file>img/maps/map_views.jpg</file>
   </qresource>
   <qresource prefix="map_thumbs">
+    <file>img/maps/thumbs/mintaqah.jpg</file>
+    <file>img/maps/thumbs/safehouse.jpg</file>
     <file>img/maps/thumbs/coastline.jpg</file>
     <file>img/maps/thumbs/diplomacy.jpg</file>
     <file>img/maps/thumbs/railride.jpg</file>

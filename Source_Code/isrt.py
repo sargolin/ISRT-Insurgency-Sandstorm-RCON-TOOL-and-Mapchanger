@@ -465,7 +465,7 @@ class maingui(QtWidgets.QWidget):
     def fill_dropdown_map_box(self):
         self.c.execute("select map_name FROM map_config WHERE modid = '0' ORDER by Map_name")
         dm_alias = self.c.fetchall()
-        self.conn.commit() 
+        self.conn.commit()
         self.gui.dropdown_select_travelscenario.clear()
         for rowmaps in dm_alias:
             self.gui.dropdown_select_travelscenario.addItems(rowmaps)
@@ -847,7 +847,7 @@ class maingui(QtWidgets.QWidget):
         var_dn = (str(light_day) + str(light_night))
         self.gui.dropdown_select_lighting.clear()
         self.gui.dropdown_select_gamemode.clear()
-        if var_dn == 10:
+        if var_dn == "10":
             self.gui.dropdown_select_lighting.addItem("Day")
         else:
             var_dn_list = ("Day", "Night")
@@ -1624,23 +1624,21 @@ class maingui(QtWidgets.QWidget):
             self.gui.le_mapmgr_scenario_ffe.setEnabled(True)
             self.gui.le_mapmgr_scenario_op.setEnabled(True)
             self.gui.le_mapmgr_scenario_puins.setEnabled(True)
+            self.gui.le_mapmgr_selected_day_image.setEnabled(False)
+            self.gui.btn_mapmgr_select_day_image.setEnabled(False)
+            self.gui.le_mapmgr_selected_night_image.setEnabled(False)
+            self.gui.btn_mapmgr_select_night_image_2.setEnabled(False)
+            self.gui.le_mapmgr_selected_night_image.setEnabled(False)
+            self.gui.le_mapmgr_name.setEnabled(False)
+            self.gui.btn_mapmgr_add.setEnabled(False)
+            self.gui.btn_mapmgr_save.setEnabled(True)
+            self.gui.chkbox_mapmgr_day.setEnabled(False)
+            self.gui.chkbox_mapmgr_night.setEnabled(False)
+            self.gui.le_mapmgr_alias.setEnabled(False)
+            self.gui.le_mapmgr_modid.setEnabled(False)
 
             if self.map_self_added == 0:
-                self.gui.le_mapmgr_name.setEnabled(False)
-                self.gui.btn_mapmgr_add.setEnabled(False)
-                self.gui.btn_mapmgr_save.setEnabled(True)
-                self.gui.chkbox_mapmgr_day.setEnabled(False)
-                self.gui.chkbox_mapmgr_night.setEnabled(False)
-                self.gui.le_mapmgr_alias.setEnabled(False)
-                self.gui.le_mapmgr_name.setEnabled(False)
-                self.gui.le_mapmgr_modid.setEnabled(False)
-                self.gui.le_mapmgr_selected_day_image.setEnabled(False)
-                self.gui.btn_mapmgr_select_day_image.setEnabled(False)
-                self.gui.le_mapmgr_selected_night_image.setEnabled(False)
-                self.gui.btn_mapmgr_select_night_image_2.setEnabled(False)
-                self.gui.btn_mapmgr_select_day_image.setEnabled(False)
-                self.gui.le_mapmgr_selected_day_image.setEnabled(False)
-                self.gui.btn_mapmgr_select_night_image_2.setEnabled(False)
+                self.gui.btn_mapmgr_delete.setEnabled(False)
 
                 if self.map_day == 1:
                     self.gui.le_mapmgr_selected_day_image.setText(self.map_day_pic_show)
@@ -1657,14 +1655,7 @@ class maingui(QtWidgets.QWidget):
                     self.gui.le_mapmgr_selected_night_image.setText("")
                     
             else:
-                self.gui.le_mapmgr_alias.setEnabled(False)
-                self.gui.le_mapmgr_name.setEnabled(False)
-                self.gui.btn_mapmgr_add.setEnabled(False)
-                self.gui.le_mapmgr_modid.setEnabled(False)
-                self.gui.chkbox_mapmgr_day.setEnabled(False)
-                self.gui.chkbox_mapmgr_night.setEnabled(False)
                 self.gui.btn_mapmgr_delete.setEnabled(True)
-                self.gui.btn_mapmgr_save.setEnabled(True)
                 custom_image_folder = (str(self.dbdir) + '\\img\\custom_map_pics\\')
                 custom_day_pic_temp = (str(self.dbdir) + '\\img\\custom_map_pics\\' + self.map_day_pic_show)
                 custom_night_pic_temp = (str(self.dbdir) + '\\img\\custom_map_pics\\' + self.map_night_pic_show)
