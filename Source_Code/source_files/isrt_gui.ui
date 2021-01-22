@@ -967,7 +967,7 @@ background-repeat: no-repeat;</string>
                      <property name="minimumSize">
                       <size>
                        <width>120</width>
-                       <height>20</height>
+                       <height>22</height>
                       </size>
                      </property>
                      <property name="maximumSize">
@@ -997,8 +997,8 @@ background-repeat: no-repeat;</string>
                     <widget class="QComboBox" name="dropdown_select_gamemode">
                      <property name="minimumSize">
                       <size>
-                       <width>170</width>
-                       <height>20</height>
+                       <width>150</width>
+                       <height>22</height>
                       </size>
                      </property>
                      <property name="maximumSize">
@@ -1028,8 +1028,8 @@ background-repeat: no-repeat;</string>
                     <widget class="QComboBox" name="dropdown_select_lighting">
                      <property name="minimumSize">
                       <size>
-                       <width>60</width>
-                       <height>0</height>
+                       <width>50</width>
+                       <height>22</height>
                       </size>
                      </property>
                      <property name="maximumSize">
@@ -1048,10 +1048,10 @@ background-repeat: no-repeat;</string>
                       <string notr="true">background-color:rgb(248, 248, 248);</string>
                      </property>
                      <property name="currentText">
-                      <string>Lighting</string>
+                      <string>Light</string>
                      </property>
                      <property name="placeholderText">
-                      <string>Lighting</string>
+                      <string>Light</string>
                      </property>
                     </widget>
                    </item>
@@ -1059,8 +1059,8 @@ background-repeat: no-repeat;</string>
                     <widget class="QComboBox" name="dropdown_select_frenzy">
                      <property name="minimumSize">
                       <size>
-                       <width>75</width>
-                       <height>0</height>
+                       <width>110</width>
+                       <height>22</height>
                       </size>
                      </property>
                      <property name="currentText">
@@ -1071,7 +1071,7 @@ background-repeat: no-repeat;</string>
                      </property>
                      <item>
                       <property name="text">
-                       <string>Leave as it is!</string>
+                       <string>No Frenzy change</string>
                       </property>
                      </item>
                      <item>

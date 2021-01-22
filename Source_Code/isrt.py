@@ -857,9 +857,9 @@ class maingui(QtWidgets.QWidget):
         if var_cpins:
             self.gui.dropdown_select_gamemode.addItem("CheckPoint Insurgents")
         if var_cphc:
-            self.gui.dropdown_select_gamemode.addItem("CheckPoint Hardcore Security")
+            self.gui.dropdown_select_gamemode.addItem("CheckPoint HC Security")
         if var_cphcins:
-            self.gui.dropdown_select_gamemode.addItem("CheckPoint Hardcore Insurgents")
+            self.gui.dropdown_select_gamemode.addItem("CheckPoint HC Insurgents")
         if var_dom:
             self.gui.dropdown_select_gamemode.addItem("Domination")
         if var_ffe:
@@ -878,7 +878,7 @@ class maingui(QtWidgets.QWidget):
             self.gui.dropdown_select_gamemode.addItem("Skirmish")
         if var_tdm:
             self.gui.dropdown_select_gamemode.addItem("TeamDeathMatch")
-        self.gui.dropdown_select_gamemode.setCurrentText("CheckPoint Hardcore Security")
+        self.gui.dropdown_select_gamemode.setCurrentText("CheckPoint HC Security")
         self.gui.dropdown_select_lighting.setCurrentText("Day")
     #Mapchanger
     def map_changer(self):
@@ -891,9 +891,9 @@ class maingui(QtWidgets.QWidget):
             val_gamemode = "checkpoint"
         elif val_gamemode == "CheckPoint Insurgents":
             val_gamemode = "checkpoint_ins"
-        elif val_gamemode == "CheckPoint Hardcore Security":
+        elif val_gamemode == "CheckPoint HC Security":
             val_gamemode = "checkpointhardcore"
-        elif val_gamemode == "CheckPoint Hardcore Insurgents":
+        elif val_gamemode == "CheckPoint HC Insurgents":
             val_gamemode = "checkpointhardcore_ins"
         elif val_gamemode == "Domination":
             val_gamemode = "domination"
@@ -937,7 +937,7 @@ class maingui(QtWidgets.QWidget):
             if val_frenzy_switch == 2:
                 command = ("travel " + val_map_alias_result + "?Scenario=" + val_travel_alias_result + "?Lighting=" + val_light + "?game=" + val_gamemode + "?Mutators=Frenzy")
             elif val_frenzy_switch == 0:
-                command = ("travel " + val_map_alias_result + "?Scenario=" + val_travel_alias_result + "?Lighting=" + val_light + "?game=" + val_gamemode + "?Mutators=None")
+                command = ("travel " + val_map_alias_result + "?Scenario=" + val_travel_alias_result + "?Lighting=" + val_light + "?game=" + val_gamemode + "?Mutators=?")
             else:
                 command = ("travel " + val_map_alias_result + "?Scenario=" + val_travel_alias_result + "?Lighting=" + val_light + "?game=" + val_gamemode)
 
