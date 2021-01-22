@@ -823,24 +823,28 @@ class maingui(QtWidgets.QWidget):
         dsma_alias = self.c.fetchone()
         self.conn.commit() 
         var_selected_map = (dsma_alias[0])
-        self.c.execute("select * from map_modes where map_alias=:varselmap", {'varselmap': var_selected_map})        
+
+        self.c.execute("select * from map_config where map_alias=:varselmap", {'varselmap': var_selected_map})
         dsmam_alias = self.c.fetchall()
         self.conn.commit()
         dsmam_list = (dsmam_alias[0])
-        var_dn = dsmam_list[1]
-        var_cp = dsmam_list[2]
-        var_cp_ins = dsmam_list[3]
-        var_cphc = dsmam_list[4]
-        var_cphc_ins = dsmam_list[5]
-        var_dom = dsmam_list[6]
-        var_ffe = dsmam_list[7]
-        var_ffw = dsmam_list[8]
-        var_fl = dsmam_list[9]
-        var_op = dsmam_list[10]
-        var_pu = dsmam_list[11]
-        var_pu_ins = dsmam_list[12]
-        var_ski = dsmam_list[13]
-        var_tdm = dsmam_list[14]
+        light_day = dsmam_list[3]
+        light_night = dsmam_list[4]
+        var_cp = dsmam_list[6]
+        var_cpins = dsmam_list[7]
+        var_cphc = dsmam_list[8]
+        var_cphcins = dsmam_list[9]
+        var_dom = dsmam_list[10]
+        var_ffe = dsmam_list[11]
+        var_ffw = dsmam_list[12]
+        var_fl = dsmam_list[13]
+        var_op = dsmam_list[14]
+        var_pu = dsmam_list[15]
+        var_puins = dsmam_list[16]
+        var_ski = dsmam_list[17]
+        var_tdm = dsmam_list[18]
+
+        var_dn = (str(light_day) + str(light_night))
         self.gui.dropdown_select_lighting.clear()
         self.gui.dropdown_select_gamemode.clear()
         if var_dn == 10:
@@ -848,31 +852,31 @@ class maingui(QtWidgets.QWidget):
         else:
             var_dn_list = ("Day", "Night")
             self.gui.dropdown_select_lighting.addItems(var_dn_list)
-        if var_cp == 1:
+        if var_cp:
             self.gui.dropdown_select_gamemode.addItem("CheckPoint Security")
-        if var_cp_ins == 1:
+        if var_cpins:
             self.gui.dropdown_select_gamemode.addItem("CheckPoint Insurgents")
-        if var_cphc == 1:
+        if var_cphc:
             self.gui.dropdown_select_gamemode.addItem("CheckPoint Hardcore Security")
-        if var_cphc_ins == 1:
+        if var_cphcins:
             self.gui.dropdown_select_gamemode.addItem("CheckPoint Hardcore Insurgents")
-        if var_dom == 1:
+        if var_dom:
             self.gui.dropdown_select_gamemode.addItem("Domination")
-        if var_ffe == 1:
+        if var_ffe:
             self.gui.dropdown_select_gamemode.addItem("Firefight East")
-        if var_ffw == 1:
+        if var_ffw:
             self.gui.dropdown_select_gamemode.addItem("Firefight West")
-        if var_fl == 1:
+        if var_fl:
             self.gui.dropdown_select_gamemode.addItem("Frontline")
-        if var_op == 1:
+        if var_op:
             self.gui.dropdown_select_gamemode.addItem("Outpost")
-        if var_pu == 1:
+        if var_pu:
             self.gui.dropdown_select_gamemode.addItem("Push Security")
-        if var_pu_ins == 1:
+        if var_puins:
             self.gui.dropdown_select_gamemode.addItem("Push Insurgents")
-        if var_ski == 1:
+        if var_ski:
             self.gui.dropdown_select_gamemode.addItem("Skirmish")
-        if var_tdm == 1:
+        if var_tdm:
             self.gui.dropdown_select_gamemode.addItem("TeamDeathMatch")
         self.gui.dropdown_select_gamemode.setCurrentText("CheckPoint Hardcore Security")
         self.gui.dropdown_select_lighting.setCurrentText("Day")
@@ -2017,7 +2021,6 @@ class maingui(QtWidgets.QWidget):
             if self.map_already_there == 0:
                 self.check_val_update_map_error = 599
                 self.gui.label_db_console_2.append("Map does not exist in DB - add it first!")
-                
 
             self.val_map_cphc = self.gui.le_mapmgr_scenario_cphc.text()
             self.val_map_cphcins = self.gui.le_mapmgr_scenario_cphcins.text()
@@ -2032,78 +2035,6 @@ class maingui(QtWidgets.QWidget):
             self.val_map_puins = self.gui.le_mapmgr_scenario_puins.text()
             self.val_map_ski = self.gui.le_mapmgr_scenario_ski.text()
             self.val_map_tdm = self.gui.le_mapmgr_scenario_tdm.text()
-
-
-
-            # if self.gui.chkbx_mapmgr_scenario_cp.isChecked() and self.gui.le_mapmgr_scenario_cp.text() == "":
-            #     self.gui.label_db_console_2.append("Checkpoint Scenario is checked, but no scenario provided - please validate!")
-            #     self.check_val_update_map_error += 2170
-
-        def create_new_map_modes():
-            if self.val_map_cphc:
-                self.val_map_check_cphc = 1
-            else:
-                self.val_map_check_cphc = 0
-
-            if self.val_map_cp:
-                self.val_map_check_cp = 1
-            else:
-                self.val_map_check_cp = 0
-
-            if self.val_map_cpins:
-                self.val_map_check_cpins = 1
-            else:
-                self.val_map_check_cpins = 0
-
-            if self.val_map_cphcins:
-                self.val_map_check_cphcins = 1
-            else:
-                self.val_map_check_cphcins = 0
-
-            if self.val_map_dom:
-                self.val_map_check_dom = 1
-            else:
-                self.val_map_check_dom = 0
-
-            if self.val_map_ffe:
-                self.val_map_check_ffe = 1
-            else:
-                self.val_map_check_ffe = 0
-
-            if self.val_map_ffw:
-                self.val_map_check_ffw = 1
-            else:
-                self.val_map_check_ffw = 0
-
-            if self.val_map_fl:
-                self.val_map_check_fl = 1
-            else:
-                self.val_map_check_fl = 0
-
-            if self.val_map_op:
-                self.val_map_check_op = 1
-            else:
-                self.val_map_check_op = 0
-
-            if self.val_map_pu:
-                self.val_map_check_pu = 1
-            else:
-                self.val_map_check_pu = 0
-
-            if self.val_map_puins:
-                self.val_map_check_puins = 1
-            else:
-                self.val_map_check_puins = 0
-
-            if self.val_map_ski:
-                self.val_map_check_ski = 1
-            else:
-                self.val_map_check_ski = 0
-
-            if self.val_map_tdm:
-                self.val_map_check_tdm = 1
-            else:
-                self.val_map_check_tdm = 0
 
         def check_if_map_info_complete_change():
             if (self.gui.le_mapmgr_scenario_cp.text() == "" and 
@@ -2123,17 +2054,12 @@ class maingui(QtWidgets.QWidget):
                 self.check_val_update_map_error += 161
 
         get_changed_variables()
-        create_new_map_modes()
         check_if_map_info_complete_change()
 
         def update_changed_map_vars():
-            
             self.c.execute("UPDATE map_config SET checkpointhardcore=:checkpointhardcore, checkpointhardcore_ins=:checkpointhardcore_ins, checkpoint=:checkpoint, checkpoint_ins=:checkpoint_ins, domination=:domination, firefight_east=:firefight_east, firefight_west=:firefight_west, frontline=:frontline, outpost=:outpost, push=:push, push_ins=:push_ins, skirmish=:skirmish, teamdeathmatch=:teamdeathmatch WHERE map_alias=:map_alias",
                 {'map_alias': self.val_map_alias, 'checkpointhardcore': self.val_map_cphc, 'checkpointhardcore_ins': self.val_map_cphcins, 'checkpoint': self.val_map_cp, 'checkpoint_ins': self.val_map_cpins, 'domination': self.val_map_dom, 'firefight_east': self.val_map_ffe, 'firefight_west': self.val_map_ffw, 'frontline': self.val_map_fl, 'outpost': self.val_map_op, 'push': self.val_map_pu, 'push_ins': self.val_map_puins, 'skirmish': self.val_map_ski, 'teamdeathmatch': self.val_map_tdm })
             self.conn.commit()
-            # self.c.execute("INSERT INTO map_modes VALUES (:map_alias, :dn, :cp, :cp_ins, :cphc, :cphc_ins, :dom, :ffe, :ffw, :fl, :op, :pu, :pu_ins, :ski, :tdm)", 
-            #     {'map_alias': self.val_map_name, 'dn': self.val_map_dn, 'cp': self.val_map_check_cp,'cp_ins': self.val_map_check_cpins,'cphc': self.val_map_check_cphc,'cphc_ins': self.val_map_check_cphcins,'dom': self.val_map_check_dom,'ffe': self.val_map_check_ffe,'ffw': self.val_map_check_ffw,'fl': self.val_map_check_fl,'op': self.val_map_check_op,'pu': self.val_map_check_pu,'pu_ins': self.val_map_check_puins,'ski': self.val_map_check_ski,'tdm': self.val_map_check_tdm})
-            # self.conn.commit()
     
         #Check for any errors in the above methods and if 0 really add map
         if self.check_val_update_map_error == 0:
@@ -2206,27 +2132,11 @@ class maingui(QtWidgets.QWidget):
             res_check_blanks_alias = bool(re.search(r"\s", self.map_alias))
             res_check_blanks_id = bool(re.search(r"\s", self.map_modid))
             if res_check_blanks_alias == True:
-                # icondir = Path(__file__).absolute().parent
-                # warningmsg = QtWidgets.QMessageBox()
-                # warningmsg.setIcon(QtWidgets.QMessageBox.Critical)
-                # warningmsg.setWindowTitle("ISRT Map Manager Warning")
-                # warningmsg.setWindowIcon(QtGui.QIcon(str(icondir / 'img/isrt.ico')))
-                # warningmsg.setText("You map alias contains a blank space - remove it and try again")
-                # warningmsg.addButton(warningmsg.Ok)
                 self.gui.label_db_console_2.append("You map alias contains a blank space - remove it and try again!")
                 self.check_val_add_map_error = 731
-                # warningmsg.exec_()
             if res_check_blanks_id == True:
-                # icondir = Path(__file__).absolute().parent
-                # warningmsg = QtWidgets.QMessageBox()
-                # warningmsg.setIcon(QtWidgets.QMessageBox.Critical)
-                # warningmsg.setWindowTitle("ISRT Map Manager Warning")
-                # warningmsg.setWindowIcon(QtGui.QIcon(str(icondir / 'img/isrt.ico')))
-                # warningmsg.setText("You map mod ID contains a blank space - remove it and try again")
-                # warningmsg.addButton(warningmsg.Ok)
                 self.gui.label_db_console_2.append("You map mod ID contains a blank space - remove it and try again!")
                 self.check_val_add_map_error = 732
-                # warningmsg.exec_()
         #Check if all required information has been entered
         def check_if_map_info_complete():            
             if self.map_name:
@@ -2311,7 +2221,6 @@ class maingui(QtWidgets.QWidget):
         def check_if_already_existing():
             check_name = self.map_name
             check_alias = self.map_alias
-
             self.c.execute("select map_name,map_alias from map_config")
             self.conn.commit()
             result_check_name_alias = self.c.fetchall()
@@ -2326,11 +2235,12 @@ class maingui(QtWidgets.QWidget):
         def copy_pics():
             target_image_folder = (str(self.dbdir) + '\\img\\custom_map_pics\\')
             self.target_day_image_file = (target_image_folder + self.map_alias + ".jpg")
-            self.target_night_image_file = (target_image_folder + self.map_alias + "_night" + ".jpg")
+            self.target_night_image_file = (target_image_folder + self.map_alias + "_night.jpg")
             if self.map_day_pic and self.target_day_image_file and self.map_day == 1:
                 try:
                     copy2(self.map_day_pic, self.target_day_image_file)
                     self.gui.img_view_day_map.setStyleSheet(f"border-image: url({self.map_day_pic});")
+                    self.gui.le_mapmgr_selected_day_image.setText(self.map_alias + ".jpg")
                 except PermissionError:
                     icondir = Path(__file__).absolute().parent
                     warningmsg = QtWidgets.QMessageBox()
@@ -2341,12 +2251,11 @@ class maingui(QtWidgets.QWidget):
                     warningmsg.addButton(warningmsg.Ok)
                     self.check_val_add_map_error = 991
                     warningmsg.exec_()
-                    
-
             if self.map_night_pic and self.target_night_image_file and self.map_night == 1:
                 try:
                     copy2(self.map_night_pic, self.target_night_image_file)
                     self.gui.img_view_night_map.setStyleSheet(f"border-image: url({self.map_night_pic});")
+                    self.gui.le_mapmgr_selected_night_image.setText(self.map_alias + "_night.jpg")
                 except PermissionError:
                     icondir = Path(__file__).absolute().parent
                     warningmsg = QtWidgets.QMessageBox()
@@ -2393,81 +2302,13 @@ class maingui(QtWidgets.QWidget):
                 self.val_map_ski = self.map_scenario_ski
                 self.val_map_tdm = self.map_scenario_tdm
                 self.val_map_self_added = self.map_self_added
-                self.val_map_dn = self.map_dn
-
-                if self.map_scenario_cphc:
-                    self.val_map_check_cphc = 1
-                else:
-                    self.val_map_check_cphc = 0
-
-                if self.map_scenario_cp:
-                    self.val_map_check_cp = 1
-                else:
-                    self.val_map_check_cp = 0
-
-                if self.map_scenario_cpins:
-                    self.val_map_check_cpins = 1
-                else:
-                    self.val_map_check_cpins = 0
-
-                if self.map_scenario_cphcins:
-                    self.val_map_check_cphcins = 1
-                else:
-                    self.val_map_check_cphcins = 0
-
-                if self.map_scenario_dom:
-                    self.val_map_check_dom = 1
-                else:
-                    self.val_map_check_dom = 0
-
-                if self.map_scenario_ffe:
-                    self.val_map_check_ffe = 1
-                else:
-                    self.val_map_check_ffe = 0
-
-                if self.map_scenario_ffw:
-                    self.val_map_check_ffw = 1
-                else:
-                    self.val_map_check_ffw = 0
-
-                if self.map_scenario_fl:
-                    self.val_map_check_fl = 1
-                else:
-                    self.val_map_check_fl = 0
-
-                if self.map_scenario_op:
-                    self.val_map_check_op = 1
-                else:
-                    self.val_map_check_op = 0
-
-                if self.map_scenario_pu:
-                    self.val_map_check_pu = 1
-                else:
-                    self.val_map_check_pu = 0
-
-                if self.map_scenario_puins:
-                    self.val_map_check_puins = 1
-                else:
-                    self.val_map_check_puins = 0
-
-                if self.map_scenario_ski:
-                    self.val_map_check_ski = 1
-                else:
-                    self.val_map_check_ski = 0
-
-                if self.map_scenario_tdm:
-                    self.val_map_check_tdm = 1
-                else:
-                    self.val_map_check_tdm = 0
 
             assign_new_map_variables()
 
             self.c.execute("INSERT INTO map_config VALUES (:map_name, :map_alias, :modid, :day, :night, :map_pic, :checkpointhardcore, :checkpointhardcore_ins, :checkpoint, :checkpoint_ins, :domination, :firefight_east, :firefight_west, :frontline, :outpost, :push, :push_ins, :skirmish, :teamdeathmatch, :self_added)", 
                 {'map_name': self.val_map_name, 'map_alias': self.val_map_alias, 'modid': self.val_map_modid, 'day': self.val_map_day, 'night': self.val_map_night, 'map_pic': self.day_pic_name, 'checkpointhardcore': self.val_map_cphc, 'checkpointhardcore_ins': self.val_map_cphcins, 'checkpoint': self.val_map_cp, 'checkpoint_ins': self.val_map_cpins, 'domination': self.val_map_dom, 'firefight_east': self.val_map_ffe, 'firefight_west': self.val_map_ffw, 'frontline': self.val_map_fl, 'outpost': self.val_map_op, 'push': self.val_map_pu, 'push_ins': self.val_map_puins, 'skirmish': self.val_map_ski, 'teamdeathmatch': self.val_map_tdm, 'self_added': self.val_map_self_added})
             self.conn.commit()
-            self.c.execute("INSERT INTO map_modes VALUES (:map_alias, :dn, :cp, :cp_ins, :cphc, :cphc_ins, :dom, :ffe, :ffw, :fl, :op, :pu, :pu_ins, :ski, :tdm)", 
-                {'map_alias': self.val_map_name, 'dn': self.val_map_dn, 'cp': self.val_map_check_cp,'cp_ins': self.val_map_check_cpins,'cphc': self.val_map_check_cphc,'cphc_ins': self.val_map_check_cphcins,'dom': self.val_map_check_dom,'ffe': self.val_map_check_ffe,'ffw': self.val_map_check_ffw,'fl': self.val_map_check_fl,'op': self.val_map_check_op,'pu': self.val_map_check_pu,'pu_ins': self.val_map_check_puins,'ski': self.val_map_check_ski,'tdm': self.val_map_check_tdm})
-            self.conn.commit()
+
         #Check for any errors in the above methods and if 0 really add map
         if self.check_val_add_map_error == 0:
             self.gui.label_db_console_2.clear()
@@ -2503,8 +2344,18 @@ class maingui(QtWidgets.QWidget):
     def delete_custom_map(self):
         self.gui.label_db_console_2.clear()
         to_be_deleted_map = self.gui.le_mapmgr_alias.text()
-        daypic = self.gui.le_mapmgr_selected_day_image.text()
-        nightpic = self.gui.le_mapmgr_selected_night_image.text()
+
+        self.c.execute("select night from map_config where map_alias=:tbd_map", {'tbd_map': to_be_deleted_map})
+        temp_night = self.c.fetchone()
+        is_night_there = temp_night[0]
+        self.conn.commit()
+
+        daypic = (to_be_deleted_map + ".jpg")
+
+        if is_night_there == 1:
+            nightpic = (to_be_deleted_map + "_night.jpg")
+        else:
+            nightpic = ""
 
         self.c.execute("select map_alias from map_config")
         map_aliases = self.c.fetchall()
@@ -2517,7 +2368,6 @@ class maingui(QtWidgets.QWidget):
 
         if to_be_deleted_map and self.map_already_there == 1:
             self.c.execute("delete from map_config where map_name=:map_name_delete", {'map_name_delete': to_be_deleted_map})
-            self.c.execute("delete from map_modes where map_alias=:map_alias_delete", {'map_alias_delete': to_be_deleted_map})
             self.conn.commit()
             self.gui.label_db_console_2.append(f"Map {to_be_deleted_map} deleted from database!")
             if daypic:
