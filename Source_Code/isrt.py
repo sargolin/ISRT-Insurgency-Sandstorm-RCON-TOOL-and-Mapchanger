@@ -2132,11 +2132,67 @@ class maingui(QtWidgets.QWidget):
             res_check_blanks_alias = bool(re.search(r"\s", self.map_alias))
             res_check_blanks_id = bool(re.search(r"\s", self.map_modid))
             if res_check_blanks_alias == True:
-                self.gui.label_db_console_2.append("You map alias contains a blank space - remove it and try again!")
+                self.gui.label_db_console_2.append("The map alias contains a blank space - remove it and try again!")
                 self.check_val_add_map_error = 731
             if res_check_blanks_id == True:
-                self.gui.label_db_console_2.append("You map mod ID contains a blank space - remove it and try again!")
+                self.gui.label_db_console_2.append("The map mod ID contains a blank space - remove it and try again!")
                 self.check_val_add_map_error = 732
+            
+            res_check_blanks_cp = bool(re.search(r"\s", self.map_scenario_cp))
+            res_check_blanks_cphcins = bool(re.search(r"\s", self.map_scenario_cphcins))
+            res_check_blanks_cphc = bool(re.search(r"\s", self.map_scenario_cphc))
+            res_check_blanks_cpins = bool(re.search(r"\s", self.map_scenario_cpins))
+            res_check_blanks_dom = bool(re.search(r"\s", self.map_scenario_dom))
+            res_check_blanks_ffe = bool(re.search(r"\s", self.map_scenario_ffe))
+            res_check_blanks_ffw = bool(re.search(r"\s", self.map_scenario_ffw))
+            res_check_blanks_fl = bool(re.search(r"\s", self.map_scenario_fl))
+            res_check_blanks_op = bool(re.search(r"\s", self.map_scenario_op))
+            res_check_blanks_pu = bool(re.search(r"\s", self.map_scenario_pu))
+            res_check_blanks_puins = bool(re.search(r"\s", self.map_scenario_puins))
+            res_check_blanks_ski = bool(re.search(r"\s", self.map_scenario_ski))
+            res_check_blanks_tdm = bool(re.search(r"\s", self.map_scenario_tdm))
+
+            if res_check_blanks_cp == True:
+                self.gui.label_db_console_2.append("The map scenario for Checkpoint Security contains a blank space - remove it and try again!")
+                self.check_val_add_map_error = 601
+            if res_check_blanks_cpins == True:
+                self.gui.label_db_console_2.append("The map scenario for Checkpoint Insurgenty contains a blank space - remove it and try again!")
+                self.check_val_add_map_error = 602
+            if res_check_blanks_cphc == True:
+                self.gui.label_db_console_2.append("The map scenario for Checkpoint Hardcore Security contains a blank space - remove it and try again!")
+                self.check_val_add_map_error = 604
+            if res_check_blanks_cphcins == True:
+                self.gui.label_db_console_2.append("The map scenario for Checkpoint Hardcore Insurgents contains a blank space - remove it and try again!")
+                self.check_val_add_map_error = 604
+            if res_check_blanks_dom == True:
+                self.gui.label_db_console_2.append("The map scenario for Domination contains a blank space - remove it and try again!")
+                self.check_val_add_map_error = 605
+            if res_check_blanks_ffe == True:
+                self.gui.label_db_console_2.append("The map scenario for Firefight East contains a blank space - remove it and try again!")
+                self.check_val_add_map_error = 606
+            if res_check_blanks_ffw == True:
+                self.gui.label_db_console_2.append("The map scenario for Firefight West contains a blank space - remove it and try again!")
+                self.check_val_add_map_error = 607
+            if res_check_blanks_fl == True:
+                self.gui.label_db_console_2.append("The map scenario for Frontline contains a blank space - remove it and try again!")
+                self.check_val_add_map_error = 608
+            if res_check_blanks_op == True:
+                self.gui.label_db_console_2.append("The map scenario for Outpost contains a blank space - remove it and try again!")
+                self.check_val_add_map_error = 609
+            if res_check_blanks_pu == True:
+                self.gui.label_db_console_2.append("The map scenario for Push Security contains a blank space - remove it and try again!")
+                self.check_val_add_map_error = 610
+            if res_check_blanks_puins == True:
+                self.gui.label_db_console_2.append("The map scenario for Push Insurgents contains a blank space - remove it and try again!")
+                self.check_val_add_map_error = 611
+            if res_check_blanks_ski == True:
+                self.gui.label_db_console_2.append("The map scenario for Skirmish contains a blank space - remove it and try again!")
+                self.check_val_add_map_error = 612
+            if res_check_blanks_tdm == True:
+                self.gui.label_db_console_2.append("The map scenario for Team Death Match contains a blank space - remove it and try again!")
+                self.check_val_add_map_error = 613
+
+
         #Check if all required information has been entered
         def check_if_map_info_complete():            
             if self.map_name:
@@ -2145,19 +2201,24 @@ class maingui(QtWidgets.QWidget):
                 self.gui.label_db_console_2.append("Please enter an alias for the map!")
                 self.check_val_add_map_error += 110
 
-        
             if self.map_alias:
                 pass
             else:
                 self.gui.label_db_console_2.append("Please enter a name for the map!")
                 self.check_val_add_map_error += 120
-        
+
             if self.map_modid:
                 pass
             else:
                 self.gui.label_db_console_2.append("Please enter the MOD.io ID for the map!")
                 self.check_val_add_map_error += 130
 
+            if self.map_modid:
+                check_numbers = str(self.map_modid)
+                if check_numbers.isnumeric() == False:
+                    self.gui.label_db_console_2.append("The Mod.io ID is not numeric - please verify and try again!")
+                    self.check_val_add_map_error = 777
+            
             if self.gui.chkbox_mapmgr_day.isChecked() or self.gui.chkbox_mapmgr_night.isChecked():
                 pass
             else:
@@ -2171,7 +2232,7 @@ class maingui(QtWidgets.QWidget):
             if self.map_night == 1 and self.map_night_pic == "":
                 self.gui.label_db_console_2.append("Please provide a night map pic, if you select night as lighting scenario!")
                 self.check_val_add_map_error += 160
-            
+
             if (self.gui.le_mapmgr_scenario_cp.text() == "" and 
                 self.gui.le_mapmgr_scenario_cpins.text() == "" and 
                 self.gui.le_mapmgr_scenario_cphc.text() == "" and 
@@ -2343,12 +2404,11 @@ class maingui(QtWidgets.QWidget):
     #Delete Map from Mapmanager
     def delete_custom_map(self):
         self.gui.label_db_console_2.clear()
-        to_be_deleted_map = self.gui.le_mapmgr_alias.text()
-
+        to_be_deleted_map = self.gui.le_mapmgr_name.text()
         self.c.execute("select night from map_config where map_alias=:tbd_map", {'tbd_map': to_be_deleted_map})
         temp_night = self.c.fetchone()
-        is_night_there = temp_night[0]
         self.conn.commit()
+        is_night_there = temp_night[0]
 
         daypic = (to_be_deleted_map + ".jpg")
 
@@ -2367,19 +2427,29 @@ class maingui(QtWidgets.QWidget):
         
 
         if to_be_deleted_map and self.map_already_there == 1:
-            self.c.execute("delete from map_config where map_name=:map_name_delete", {'map_name_delete': to_be_deleted_map})
-            self.conn.commit()
-            self.gui.label_db_console_2.append(f"Map {to_be_deleted_map} deleted from database!")
+            try:
+                self.c.execute("delete from map_config where map_alias=:map_alias_delete", {'map_alias_delete': to_be_deleted_map})
+                self.conn.commit()
+                self.gui.label_db_console_2.append(f"Map {to_be_deleted_map} deleted from database!")
+            except Exception:
+                self.gui.label_db_console_2.append(f"There was an error deleting {to_be_deleted_map} from database!")
             if daypic:
                 custom_image_folder_delete = (str(self.dbdir) + '\\img\\custom_map_pics\\')
                 custom_day_pic_delete = (custom_image_folder_delete + daypic)
-                os.remove(custom_day_pic_delete)
+                try:
+                    os.remove(custom_day_pic_delete)
+                    self.gui.label_db_console_2.append(f"Map day image deleted from hard drive!")
+                except FileNotFoundError:
+                    self.gui.label_db_console_2.append(f"Map image {custom_day_pic_delete} not found - ignoring!")
             if nightpic:
                 custom_image_folder_delete = (str(self.dbdir) + '\\img\\custom_map_pics\\')
                 custom_night_pic_delete = (custom_image_folder_delete + nightpic)
-                os.remove(custom_night_pic_delete)
-            self.gui.label_db_console_2.append(f"Map images deleted from hard drive!")
-
+                try:
+                    os.remove(custom_night_pic_delete)
+                    self.gui.label_db_console_2.append(f"Map night image deleted from hard drive!")
+                except FileNotFoundError:
+                    self.gui.label_db_console_2.append(f"Map image {custom_day_pic_delete} not found - ignoring!")
+            
             self.gui.dropdown_mapmgr_selector.clear()
             self.fill_map_manager_dropdown()
             self.clear_map_manager()
