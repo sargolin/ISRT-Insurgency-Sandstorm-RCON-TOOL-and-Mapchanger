@@ -1256,51 +1256,65 @@ class maingui(QtWidgets.QWidget):
                 self.gui.label_db_console.append("Could not add Server, it is not responding or Alias already exists\nPlease manually enter an Alias and click Add!")
     #Modify a server in DB
     def server_modify(self):
-        val_id = self.unique_modifier_id
         val_alias = self.gui.server_alias.text()
-        val_ipaddress = self.gui.server_ip.text()
-        val_queryport = self.gui.server_query.text()
-        val_rconport = self.gui.server_rconport.text()
-        val_rconpw = self.gui.server_rconpw.text()
-        #Check IP
-        self.regexip = r'''^(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
-        25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
-        25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
-        25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)$'''
-        self.regexport = r'''^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$'''
-        self.c.execute("select alias FROM server")
-        check_alias = self.c.fetchall()
-        self.c.execute("select alias, ipaddress, queryport, rconport, rconpw from server where id=:fid", {'fid': val_id})
-        check_changes = self.c.fetchone()
-        check_changes_alias = check_changes[0]
-        check_changes_ip = check_changes[1]
-        check_changes_qport = str(check_changes[2])
-        check_changes_rport = str(check_changes[3])
-        check_changes_rpw = check_changes[4]
-        self.conn.commit()
-        nothing_to_change = 0
-        if val_alias == check_changes_alias and val_ipaddress == check_changes_ip == val_ipaddress and val_queryport == check_changes_qport and val_rconport == check_changes_rport and val_rconpw == check_changes_rpw:
-            nothing_to_change = 1
-        else:
+
+        if val_alias:
+            val_id = self.unique_modifier_id
+            val_ipaddress = self.gui.server_ip.text()
+            val_queryport = self.gui.server_query.text()
+            val_rconport = self.gui.server_rconport.text()
+            val_rconpw = self.gui.server_rconpw.text()
+            #Check IP
+            self.regexip = r'''^(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.( 
+            25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
+            25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)\.( 
+            25[0-5]|2[0-5][0-9]|[0-1]?[0-9][0-9]?)$'''
+            self.regexport = r'''^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$'''
+            self.c.execute("select alias FROM server")
+            check_alias = self.c.fetchall()
+            self.c.execute("select alias, ipaddress, queryport, rconport, rconpw from server where id=:fid", {'fid': val_id})
+            check_changes = self.c.fetchone()
+            check_changes_alias = check_changes[0]
+            check_changes_ip = check_changes[1]
+            check_changes_qport = str(check_changes[2])
+            check_changes_rport = str(check_changes[3])
+            check_changes_rpw = check_changes[4]
+            self.conn.commit()
             nothing_to_change = 0
+            if val_alias == check_changes_alias and val_ipaddress == check_changes_ip == val_ipaddress and val_queryport == check_changes_qport and val_rconport == check_changes_rport and val_rconpw == check_changes_rpw:
+                nothing_to_change = 1
+            else:
+                nothing_to_change = 0
 
-        alias_nogocheck = 0
-        alias_gocheck = 0                
-        for check in check_alias:
-            for item in check:
-                if item and val_alias != item:
-                    alias_gocheck = 1
-                else:
-                    alias_nogocheck = 0
+            alias_nogocheck = 0
+            alias_gocheck = 0                
+            for check in check_alias:
+                for item in check:
+                    if item and val_alias != item:
+                        alias_gocheck = 1
+                    else:
+                        alias_nogocheck = 0
 
-        if nothing_to_change == 1:
-            self.gui.label_db_console.append("No changes made - nothing to do!")
-        else:
-            if alias_gocheck == 1 and alias_nogocheck == 0:
-                if val_ipaddress and (re.search(self.regexip, val_ipaddress)): 
-                    if val_queryport and (re.search(self.regexport, val_queryport)):
-                        if val_rconport:
-                            if (re.search(self.regexport, val_rconport)):
+            if nothing_to_change == 1:
+                self.gui.label_db_console.append("No changes made - nothing to do!")
+            else:
+                if alias_gocheck == 1 and alias_nogocheck == 0:
+                    if val_ipaddress and (re.search(self.regexip, val_ipaddress)): 
+                        if val_queryport and (re.search(self.regexport, val_queryport)):
+                            if val_rconport:
+                                if (re.search(self.regexport, val_rconport)):
+                                    if val_ipaddress and val_queryport and val_alias and val_id:
+                                        try:        
+                                            self.c.execute("UPDATE server SET alias=:alias, ipaddress=:ipaddress, queryport=:queryport, rconport=:rconport, rconpw=:rconpw WHERE id=:mid", {'alias': val_alias, 'ipaddress': val_ipaddress, 'queryport': val_queryport, 'rconport': val_rconport, 'rconpw': val_rconpw, 'mid': val_id})
+                                            self.conn.commit()
+                                            self.gui.label_db_console.append("Server successfully updated")
+                                        except sqlite3.Error as error:
+                                            self.gui.label_db_console.append("Failed to update server in database " + str(error))
+                                    else:
+                                        self.gui.label_db_console.append("At least Alias, IP-Adress and Query Port have to contain a value!")
+                                else:
+                                    self.gui.label_db_console.append(val_rconport + " is no valid RCON Port - please check and retry!")
+                            else:
                                 if val_ipaddress and val_queryport and val_alias and val_id:
                                     try:        
                                         self.c.execute("UPDATE server SET alias=:alias, ipaddress=:ipaddress, queryport=:queryport, rconport=:rconport, rconpw=:rconpw WHERE id=:mid", {'alias': val_alias, 'ipaddress': val_ipaddress, 'queryport': val_queryport, 'rconport': val_rconport, 'rconpw': val_rconpw, 'mid': val_id})
@@ -1310,56 +1324,52 @@ class maingui(QtWidgets.QWidget):
                                         self.gui.label_db_console.append("Failed to update server in database " + str(error))
                                 else:
                                     self.gui.label_db_console.append("At least Alias, IP-Adress and Query Port have to contain a value!")
-                            else:
-                                self.gui.label_db_console.append(val_rconport + " is no valid RCON Port - please check and retry!")
                         else:
-                            if val_ipaddress and val_queryport and val_alias and val_id:
-                                try:        
-                                    self.c.execute("UPDATE server SET alias=:alias, ipaddress=:ipaddress, queryport=:queryport, rconport=:rconport, rconpw=:rconpw WHERE id=:mid", {'alias': val_alias, 'ipaddress': val_ipaddress, 'queryport': val_queryport, 'rconport': val_rconport, 'rconpw': val_rconpw, 'mid': val_id})
-                                    self.conn.commit()
-                                    self.gui.label_db_console.append("Server successfully updated")
-                                except sqlite3.Error as error:
-                                    self.gui.label_db_console.append("Failed to update server in database " + str(error))
-                            else:
-                                self.gui.label_db_console.append("At least Alias, IP-Adress and Query Port have to contain a value!")
+                            self.gui.label_db_console.append(val_queryport + " is no valid Query Port - please check and retry!")
                     else:
-                        self.gui.label_db_console.append(val_queryport + " is no valid Query Port - please check and retry!")
+                        self.gui.label_db_console.append(val_ipaddress + " is no valid IP address - please check and retry!")
                 else:
-                    self.gui.label_db_console.append(val_ipaddress + " is no valid IP address - please check and retry!")
-            else:
-                self.gui.label_db_console.append("Alias " + val_alias + " already exists in DB, please choose another one!")
-        self.create_server_table_widget()
-        self.fill_server_table_widget()
-        self.fill_dropdown_server_box()
+                    self.gui.label_db_console.append("Alias " + val_alias + " already exists in DB, please choose another one!")
+            self.create_server_table_widget()
+            self.fill_server_table_widget()
+            self.fill_dropdown_server_box()
+        else:
+            self.gui.label_db_console.append("Please choose a server first!")
+
     #Delete a Server from DB
     def server_delete(self):
         val_alias = self.gui.server_alias.text()
-        self.c.execute("SELECT id FROM server WHERE alias=:alias", {'alias': val_alias})
-        self.conn.commit()
-        delete_selected_id = self.c.fetchone()
-        start_update_id = delete_selected_id[0] + 1
-        self.c.execute("SELECT COALESCE(MAX(id), 0) FROM server")
-        raw_end_update_id = self.c.fetchone()
-        self.conn.commit()
-        end_update_id = raw_end_update_id[0] + 1
-        self.conn.commit()
-        if start_update_id and end_update_id:
-            try:
-                self.c.execute("DELETE FROM server WHERE id=:val_id", {'val_id': delete_selected_id[0]})
-                self.conn.commit()
-                for i in range(start_update_id, end_update_id):
-                    seti = i - 1
-                    self.c.execute("UPDATE server SET id=:vid WHERE id=:rowdid", {'vid': seti, 'rowdid': i})
+
+        if val_alias:
+            self.c.execute("SELECT id FROM server WHERE alias=:alias", {'alias': val_alias})
+            self.conn.commit()
+            delete_selected_id = self.c.fetchone()
+            start_update_id = delete_selected_id[0] + 1
+            self.c.execute("SELECT COALESCE(MAX(id), 0) FROM server")
+            raw_end_update_id = self.c.fetchone()
+            self.conn.commit()
+            end_update_id = raw_end_update_id[0] + 1
+            self.conn.commit()
+            if start_update_id and end_update_id:
+                try:
+                    self.c.execute("DELETE FROM server WHERE id=:val_id", {'val_id': delete_selected_id[0]})
                     self.conn.commit()
-                self.gui.label_db_console.append("Record successfully deleted")
-            except sqlite3.Error as error:
-                self.gui.label_db_console.append("Failed to delete data from database " + str(error))
-                pass
+                    for i in range(start_update_id, end_update_id):
+                        seti = i - 1
+                        self.c.execute("UPDATE server SET id=:vid WHERE id=:rowdid", {'vid': seti, 'rowdid': i})
+                        self.conn.commit()
+                    self.gui.label_db_console.append("Record successfully deleted")
+                except sqlite3.Error as error:
+                    self.gui.label_db_console.append("Failed to delete data from database " + str(error))
+                    pass
+            else:
+                self.gui.label_db_console.append("At least Alias has to contain a value!")
+            self.fill_dropdown_server_box()
+            self.create_server_table_widget()
+            self.fill_server_table_widget()
         else:
-            self.gui.label_db_console.append("At least Alias has to contain a value!")
-        self.fill_dropdown_server_box()
-        self.create_server_table_widget()
-        self.fill_server_table_widget()
+            self.gui.label_db_console.append("Please choose a server first!")
+
     #Import Database Routines
     def DB_import(self, db_action):
         if db_action == 'select_db':
