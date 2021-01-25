@@ -2828,8 +2828,8 @@ if __name__ == "__main__":
     startvars = check_startvars[0]
     conn.commit()
     startcounter = startvars[0]
-    client_id = startvars[1]
-    current_version = str(startvars[2])
+    current_version = str(startvars[1])
+    client_id = startvars[2]
     show_rn = startvars[3]
     show_importer = startvars[4]
     check_updates_ok = startvars[5]
@@ -2852,27 +2852,25 @@ if __name__ == "__main__":
             datestamp = datetime.now().strftime(FORMAT)
             client_os = platform.system()
             client_id_new = ("ISRT_" + current_version + "_" + client_os + "_" + datestamp + "_" + str(client_hash))
-            c.execute("update configuration set client_id=:cid",{'cid': str(client_id_new)})
-            conn.commit
+            c.execute("UPDATE configuration SET client_id=:cid", {'cid': str(client_id_new)})
+            conn.commit()
             client_id = client_id_new
             register = f'http://www.isrt.info/version/regtest.php?clientid={client_id}'
             register_post = requests.post(register)
         else:
             #Check if Client ID is already existing
-            if client_id:
-                pass
-            #If no client ID is there, create one and register with the server
-            else:
+            if client_id == "" or client_id == None:
                 client_hash = random.getrandbits(128)
                 FORMAT = '%Y%m%d%H%M%S'
                 datestamp = datetime.now().strftime(FORMAT)
                 client_os = platform.system()
                 client_id_new = ("ISRT_" + current_version + "_" + client_os + "_" + datestamp + "_" + str(client_hash))
-                c.execute("update configuration set client_id=:cid",{'cid': str(client_id_new)})
-                conn.commit
+                c.execute("update configuration set client_id=:cid", {'cid': str(client_id_new)})
+                conn.commit()
                 client_id = client_id_new
                 register = f'http://www.isrt.info/version/register.php?clientid={client_id}'
                 register_post = requests.post(register)
+                print(client_id)
     else:
         for pid in psutil.pids():
             try:
