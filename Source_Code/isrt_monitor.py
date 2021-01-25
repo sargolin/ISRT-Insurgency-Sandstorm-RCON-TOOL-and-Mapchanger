@@ -19,7 +19,10 @@ class Worker(QObject):
         self.conn = sqlite3.connect(str(self.dbdir / 'db/isrt_data.db'))
         self.c = self.conn.cursor()
         counter = 0
-        progress_multiplier = int(100/rowcount)
+        rowcount2 = rowcount
+        if rowcount2 <= 0:
+            rowcount2 += 1
+        progress_multiplier = int(100/rowcount2)
         progress_value = int(progress_multiplier) + int(progress_multiplier)
         while counter <= rowcount:
             server_temp_alias = alias_list[counter]
