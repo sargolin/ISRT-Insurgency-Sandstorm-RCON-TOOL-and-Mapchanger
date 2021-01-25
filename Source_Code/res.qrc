@@ -22,6 +22,13 @@
     <file>img/maps/map_views.jpg</file>
   </qresource>
   <qresource prefix="map_thumbs">
+    <file>img/maps/thumbs/abandoned.jpg</file>
+    <file>img/maps/thumbs/blood_gulch.jpg</file>
+    <file>img/maps/thumbs/gateway.jpg</file>
+    <file>img/maps/thumbs/oasis.jpg</file>
+    <file>img/maps/thumbs/tell_classic.jpg</file>
+    <file>img/maps/thumbs/snowworld.jpg</file>
+    <file>img/maps/thumbs/snowworld_night.jpg</file>
     <file>img/maps/thumbs/mintaqah.jpg</file>
     <file>img/maps/thumbs/safehouse.jpg</file>
     <file>img/maps/thumbs/coastline.jpg</file>

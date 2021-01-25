@@ -1994,6 +1994,10 @@ class maingui(QtWidgets.QWidget):
         self.gui.le_mapmgr_scenario_puins.setPlaceholderText("Push Scenario Insurgents")
         self.gui.le_mapmgr_selected_day_image.setPlaceholderText("Map Image Name Day")
         self.gui.le_mapmgr_selected_night_image.setPlaceholderText("Map Image Name Night")
+        self.gui.img_view_day_map.setStyleSheet("border-image: url(:/map_thumbs/img/maps/thumbs/crossing.jpg);")
+        self.gui.img_view_night_map.setStyleSheet("border-image: url(:/map_thumbs/img/maps/thumbs/crossing_night.jpg);")
+
+
     #Save modified map in DB
     def save_existing_map(self):
         self.gui.label_db_console_2.clear()
