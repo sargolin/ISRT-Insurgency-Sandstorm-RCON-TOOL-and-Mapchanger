@@ -22,6 +22,7 @@
     <file>img/maps/map_views.jpg</file>
   </qresource>
   <qresource prefix="map_thumbs">
+    <file>img/maps/thumbs/payout.jpg</file>
     <file>img/maps/thumbs/abandoned.jpg</file>
     <file>img/maps/thumbs/blood_gulch.jpg</file>
     <file>img/maps/thumbs/gateway.jpg</file>
