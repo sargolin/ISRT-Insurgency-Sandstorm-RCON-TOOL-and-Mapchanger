@@ -552,6 +552,8 @@ class maingui(QtWidgets.QWidget):
         dm_alias = self.c.fetchall()
         self.conn.commit()
         self.gui.dropdown_select_travelscenario.clear()
+        self.gui.dropdown_select_gamemode.clear()
+        self.gui.dropdown_select_lighting.clear()
         for rowmaps in dm_alias:
             self.gui.dropdown_select_travelscenario.addItems(rowmaps)
         if self.mutator_id_list == "None":
@@ -1082,12 +1084,15 @@ class maingui(QtWidgets.QWidget):
                            'sql_map_name': val_map})
             val_map_alias = self.c.fetchone()
             val_map_alias_result = (str(val_map_alias[0]))
-            query = ("select " + val_gamemode +
+            query2 = ("select " + val_gamemode +
                      " FROM map_config WHERE map_alias=:sqlmap_alias")
-            self.c.execute(query, {'sqlmap_alias': val_map_alias_result})
+            self.c.execute(query2, {'sqlmap_alias': val_map_alias_result})
             val_travel_alias = self.c.fetchone()
             val_travel_alias_result = (str(val_travel_alias[0]))
             self.conn.commit()
+
+            if val_gamemode == "checkpointhardcore_ins":
+                val_gamemode = "checkpointhardcore"
 
             if val_frenzy_switch == 2:
                 command = ("travel " + val_map_alias_result + "?Scenario=" + val_travel_alias_result +
