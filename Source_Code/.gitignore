@@ -4,4 +4,3 @@ __pycache__
 .github
 .pylintrc
 settings.json
-compiler.py
