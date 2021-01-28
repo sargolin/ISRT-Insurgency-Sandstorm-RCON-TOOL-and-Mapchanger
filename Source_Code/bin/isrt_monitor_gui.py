@@ -126,5 +126,5 @@ class Ui_UI_Server_Monitor(object):
         item = self.tbl_server_overview.horizontalHeaderItem(6)
         item.setText(_translate("UI_Server_Monitor", "Ping"))
         self.lineEdit.setText(_translate("UI_Server_Monitor", "Monitor automatically refreshes all 30 seconds"))
-        self.chkbx_show_progressbar.setText(_translate("UI_Server_Monitor", "Show Progress Bar"))
+        self.chkbx_show_progressbar.setText(_translate("UI_Server_Monitor", "Show/Hide Progress"))
 import res_rc

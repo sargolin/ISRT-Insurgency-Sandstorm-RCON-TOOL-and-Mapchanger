@@ -2479,6 +2479,12 @@ p, li { white-space: pre-wrap; }
               <layout class="QHBoxLayout" name="horizontalLayout_9">
                <item>
                 <widget class="QComboBox" name="dropdown_mapmgr_selector">
+                 <property name="toolTip">
+                  <string>Select existing Map from Register</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>Select existing Map from Register</string>
+                 </property>
                  <property name="styleSheet">
                   <string notr="true">background-color: rgb(255, 255, 255);</string>
                  </property>
@@ -2492,16 +2498,28 @@ p, li { white-space: pre-wrap; }
                </item>
                <item>
                 <widget class="QPushButton" name="btn_mapmgr_clear">
+                 <property name="toolTip">
+                  <string>Clear all fields (no maps will be deleted)</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>Clear all fields (no maps will be deleted)</string>
+                 </property>
                  <property name="styleSheet">
                   <string notr="true">background-color:rgb(228, 228, 228)</string>
                  </property>
                  <property name="text">
-                  <string>Clear All</string>
+                  <string>Clear current</string>
                  </property>
                 </widget>
                </item>
                <item>
                 <widget class="QPushButton" name="btn_mapmgr_save">
+                 <property name="toolTip">
+                  <string>Save the current Map and Scenarios</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>Save the current Map and Scenarios</string>
+                 </property>
                  <property name="styleSheet">
                   <string notr="true">background-color:rgb(228, 228, 228)</string>
                  </property>
@@ -2512,6 +2530,12 @@ p, li { white-space: pre-wrap; }
                </item>
                <item>
                 <widget class="QPushButton" name="btn_mapmgr_add">
+                 <property name="toolTip">
+                  <string>Add the below infos to existing Map</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>Add the below infos to existing Map</string>
+                 </property>
                  <property name="styleSheet">
                   <string notr="true">background-color:rgb(228, 228, 228)</string>
                  </property>
@@ -2522,6 +2546,12 @@ p, li { white-space: pre-wrap; }
                </item>
                <item>
                 <widget class="QPushButton" name="btn_mapmgr_delete">
+                 <property name="toolTip">
+                  <string>Delete the Map from Map register</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>Delete the Map from Map register</string>
+                 </property>
                  <property name="styleSheet">
                   <string notr="true">background-color:rgb(228, 228, 228)</string>
                  </property>
@@ -2549,7 +2579,7 @@ p, li { white-space: pre-wrap; }
                 </font>
                </property>
                <property name="text">
-                <string>General Map Information</string>
+                <string>Map Information</string>
                </property>
               </widget>
              </item>
@@ -3616,7 +3646,7 @@ p, li { white-space: pre-wrap; }
                   </size>
                  </property>
                  <property name="toolTip">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Only JPGs can be used for better loading performance.&lt;/p&gt;&lt;p&gt;Ensure the correct sizes (255x155) as you can see in the examples below! &lt;/p&gt;&lt;p&gt;You can only change map images for your own maps or maps you have added.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Only JPGs can be used for better loading performance.&lt;/p&gt;&lt;p&gt;Ensure the correct sizes (255x155) +/- 5 Pixel as you can see in the examples below! &lt;/p&gt;&lt;p&gt;You can only change map images for your own maps or maps you have added.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                  </property>
                  <property name="statusTip">
                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Only JPGs can be used for better loading performance.&lt;/p&gt;&lt;p&gt;Ensure the correct sizes (255x155) as you can see in the examples below! &lt;/p&gt;&lt;p&gt;You can only change map images for your own maps or maps you have added.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -3651,16 +3681,28 @@ p, li { white-space: pre-wrap; }
                        <height>0</height>
                       </size>
                      </property>
+                     <property name="toolTip">
+                      <string>Select a JPG file only</string>
+                     </property>
+                     <property name="statusTip">
+                      <string>Select a JPG file only</string>
+                     </property>
                      <property name="styleSheet">
                       <string notr="true">background-color:rgb(228, 228, 228)</string>
                      </property>
                      <property name="text">
-                      <string>Select Day Image</string>
+                      <string>Select JPG Day</string>
                      </property>
                     </widget>
                    </item>
                    <item>
                     <widget class="QLineEdit" name="le_mapmgr_selected_day_image">
+                     <property name="toolTip">
+                      <string>Day Image JPG</string>
+                     </property>
+                     <property name="statusTip">
+                      <string>Day Image JPG</string>
+                     </property>
                      <property name="styleSheet">
                       <string notr="true">background-color: rgb(255, 255, 255);</string>
                      </property>
@@ -3696,16 +3738,28 @@ p, li { white-space: pre-wrap; }
                        <height>0</height>
                       </size>
                      </property>
+                     <property name="toolTip">
+                      <string>Select a JPG file only</string>
+                     </property>
+                     <property name="statusTip">
+                      <string>Select a JPG file only</string>
+                     </property>
                      <property name="styleSheet">
                       <string notr="true">background-color:rgb(228, 228, 228)</string>
                      </property>
                      <property name="text">
-                      <string>Select Night Image</string>
+                      <string>Select JPG Night</string>
                      </property>
                     </widget>
                    </item>
                    <item>
                     <widget class="QLineEdit" name="le_mapmgr_selected_night_image">
+                     <property name="toolTip">
+                      <string>Night Image JPG</string>
+                     </property>
+                     <property name="statusTip">
+                      <string>Night Image JPG</string>
+                     </property>
                      <property name="styleSheet">
                       <string notr="true">background-color: rgb(255, 255, 255);</string>
                      </property>
@@ -3775,26 +3829,7 @@ p, li { white-space: pre-wrap; }
                       </size>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">border-image: url(:/map_thumbs/img/maps/thumbs/crossing.jpg);</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="lineEdit_20">
-                     <property name="styleSheet">
-                      <string notr="true">color: rgb(115, 115, 115);</string>
-                     </property>
-                     <property name="text">
-                      <string>Example Day image - Size must be: 255px * 155px</string>
-                     </property>
-                     <property name="frame">
-                      <bool>false</bool>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignCenter</set>
-                     </property>
-                     <property name="readOnly">
-                      <bool>true</bool>
+                      <string notr="true">border-image: url(:/img/img/day.jpg);</string>
                      </property>
                     </widget>
                    </item>
@@ -3830,26 +3865,7 @@ p, li { white-space: pre-wrap; }
                       </size>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">border-image: url(:/map_thumbs/img/maps/thumbs/crossing_night.jpg);</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="lineEdit_21">
-                     <property name="styleSheet">
-                      <string notr="true">color: rgb(115, 115, 115);</string>
-                     </property>
-                     <property name="text">
-                      <string>Example Night image - Size must be: 255px * 155px</string>
-                     </property>
-                     <property name="frame">
-                      <bool>false</bool>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignCenter</set>
-                     </property>
-                     <property name="readOnly">
-                      <bool>true</bool>
+                      <string notr="true">border-image: url(:/img/img/night.jpg);</string>
                      </property>
                     </widget>
                    </item>
@@ -3871,20 +3887,23 @@ p, li { white-space: pre-wrap; }
                 </layout>
                </item>
                <item>
-                <spacer name="verticalSpacer_9">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
+                <widget class="QLineEdit" name="lineEdit_20">
+                 <property name="styleSheet">
+                  <string notr="true">color: rgb(115, 115, 115);</string>
                  </property>
-                 <property name="sizeType">
-                  <enum>QSizePolicy::Fixed</enum>
+                 <property name="text">
+                  <string>Example images - JPG only - Size must be: 255px * 155px (+/-5 Pixel)</string>
                  </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>20</width>
-                   <height>13</height>
-                  </size>
+                 <property name="frame">
+                  <bool>false</bool>
                  </property>
-                </spacer>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
+                </widget>
                </item>
                <item>
                 <widget class="QTextEdit" name="label_db_console_2">
@@ -3897,7 +3916,7 @@ p, li { white-space: pre-wrap; }
                  <property name="minimumSize">
                   <size>
                    <width>0</width>
-                   <height>100</height>
+                   <height>80</height>
                   </size>
                  </property>
                  <property name="maximumSize">
@@ -3960,20 +3979,17 @@ p, li { white-space: pre-wrap; }
           </layout>
          </item>
          <item>
-          <spacer name="verticalSpacer_14">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
+          <widget class="QLabel" name="label_11">
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#aa0000;&quot;&gt;You can &lt;/span&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline; color:#aa0000;&quot;&gt;only change scenarios&lt;/span&gt;&lt;span style=&quot; font-weight:600; color:#aa0000;&quot;&gt; for custom maps and maps that you added yourself for security and functionality reasons!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Fixed</enum>
+           <property name="textFormat">
+            <enum>Qt::RichText</enum>
            </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>13</height>
-            </size>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
-          </spacer>
+          </widget>
          </item>
         </layout>
        </item>

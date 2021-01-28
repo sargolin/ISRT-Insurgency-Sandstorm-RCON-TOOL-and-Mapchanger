@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="img">
+    <file>img/day.jpg</file>
+    <file>img/night.jpg</file>
     <file>img/ausrufe-20.png</file>
     <file>img/ausrufe-50.png</file>
     <file>img/ausrufe-256.png</file>

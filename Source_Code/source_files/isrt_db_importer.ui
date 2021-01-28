@@ -40,7 +40,7 @@
         </font>
        </property>
        <property name="text">
-        <string>This the first start of ISRT - if you have a database from oder versions, you can import the servers now. If you don't want to do that now, you can do that any time later in the Server Manager!</string>
+        <string>This the first start of ISRT - if you have a database from another version, you can import the servers now. If you don't want to do that now, you may any time later in the Server Manager!</string>
        </property>
        <property name="wordWrap">
         <bool>true</bool>

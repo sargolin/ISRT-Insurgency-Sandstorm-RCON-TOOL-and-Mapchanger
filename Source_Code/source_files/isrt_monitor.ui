@@ -223,7 +223,7 @@ selection-background-color: rgb(216, 216, 216);</string>
         </size>
        </property>
        <property name="text">
-        <string>Show Progress Bar</string>
+        <string>Show/Hide Progress</string>
        </property>
        <property name="checked">
         <bool>true</bool>
