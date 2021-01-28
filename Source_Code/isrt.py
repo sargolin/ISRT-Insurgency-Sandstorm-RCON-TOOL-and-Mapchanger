@@ -521,10 +521,11 @@ class maingui(QtWidgets.QWidget):
 
         def prepare_update_server(item):
             self.selected_row = item.row()
+            self.resitem = self.gui.tbl_server_manager.item(self.selected_row, 0)
             if self.selected_row != 0:
                 try:
                     self.c.execute("SELECT alias, ipaddress, queryport, rconport, rconpw FROM server where id=:sel_id", {
-                                   'sel_id': self.selected_row})
+                                   'sel_id': self.resitem.text()})
                     select_result = self.c.fetchone()
                     self.conn.commit()
                     self.gui.server_alias.setText(select_result[0])
@@ -533,16 +534,20 @@ class maingui(QtWidgets.QWidget):
                     self.gui.server_query.setText(str(select_result[2]))
                     self.gui.server_rconport.setText(str(select_result[3]))
                     self.gui.server_rconpw.setText(select_result[4])
-                    self.c.execute("SELECT id FROM server where alias=:sel_alias", {
-                                   'sel_alias': select_result[0]})
-                    select_id_result = self.c.fetchone()
-                    self.unique_modifier_id = select_id_result[0]
+                    # self.c.execute("SELECT id FROM server where alias=:sel_alias", {
+                    #                'sel_alias': select_result[0]})
+                    # select_id_result = self.c.fetchone()
+                    self.unique_modifier_id = self.resitem.text()
                     self.conn.commit()
                 except Exception:
                     self.gui.label_db_console.append(
                         f"No server with ID {self.selected_row} exists")
             else:
-                pass
+                self.gui.server_alias.clear()
+                self.gui.server_ip.clear()
+                self.gui.server_query.clear()
+                self.gui.server_rconport.clear()
+                self.gui.server_rconpw.clear()
         self.gui.tbl_server_manager.clicked.connect(prepare_update_server)
     # Fill Dropdown Menu for Mapchanging from scratch
 
@@ -1573,14 +1578,12 @@ class maingui(QtWidgets.QWidget):
 
     # Delete a Server from DB
     def server_delete(self):
-        val_alias = self.gui.server_alias.text()
+      
+        server_delete_id = int(self.resitem.text())
 
-        if val_alias:
-            self.c.execute("SELECT id FROM server WHERE alias=:alias", {
-                           'alias': val_alias})
-            self.conn.commit()
-            delete_selected_id = self.c.fetchone()
-            start_update_id = delete_selected_id[0] + 1
+
+        if server_delete_id:
+            start_update_id = server_delete_id + 1
             self.c.execute("SELECT COALESCE(MAX(id), 0) FROM server")
             raw_end_update_id = self.c.fetchone()
             self.conn.commit()
@@ -1589,7 +1592,7 @@ class maingui(QtWidgets.QWidget):
             if start_update_id and end_update_id:
                 try:
                     self.c.execute("DELETE FROM server WHERE id=:val_id", {
-                                   'val_id': delete_selected_id[0]})
+                                   'val_id': server_delete_id})
                     self.conn.commit()
                     for i in range(start_update_id, end_update_id):
                         seti = i - 1
@@ -1942,7 +1945,7 @@ class maingui(QtWidgets.QWidget):
                         f"border-image: url(:/map_thumbs/img/maps/thumbs/{self.map_day_pic_show});")
                 else:
                     self.gui.img_view_day_map.setStyleSheet(
-                        f"border-image: url(:/map_view/img/maps/map_views.jpg);")
+                        f"background-color: rgb(240, 240, 240); border-width: 0px; border-style: solid")
                     self.gui.le_mapmgr_selected_day_image.setText("")
 
                 if self.map_night == 1:
@@ -1952,7 +1955,7 @@ class maingui(QtWidgets.QWidget):
                         self.map_night_pic_show)
                 else:
                     self.gui.img_view_night_map.setStyleSheet(
-                        f"border-image: url(:/map_view/img/maps/map_views_night.jpg);")
+                        f"background-color: rgb(240, 240, 240); border-width: 0px; border-style: solid")
                     self.gui.le_mapmgr_selected_night_image.setText("")
 
             else:
@@ -2333,9 +2336,9 @@ class maingui(QtWidgets.QWidget):
         self.gui.le_mapmgr_selected_night_image.setPlaceholderText(
             "Map Image Name Night")
         self.gui.img_view_day_map.setStyleSheet(
-            "border-image: url(:/map_thumbs/img/maps/thumbs/crossing.jpg);")
+            "border-image: url(:/img/img/day.jpg);")
         self.gui.img_view_night_map.setStyleSheet(
-            "border-image: url(:/map_thumbs/img/maps/thumbs/crossing_night.jpg);")
+            "border-image: url(:/img/img/night.jpg);")
 
     # Save modified map in DB
 

@@ -82,7 +82,7 @@ selection-background-color: rgb(216, 216, 216);</string>
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <property name="elideMode">
       <enum>Qt::ElideNone</enum>
@@ -3865,7 +3865,8 @@ p, li { white-space: pre-wrap; }
                       </size>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">border-image: url(:/img/img/night.jpg);</string>
+                      <string notr="true">border-image: url(:/img/img/night.jpg);
+</string>
                      </property>
                     </widget>
                    </item>

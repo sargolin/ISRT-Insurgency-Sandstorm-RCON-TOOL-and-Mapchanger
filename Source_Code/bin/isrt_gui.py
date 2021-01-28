@@ -1402,7 +1402,8 @@ class Ui_ISRT_Main_Window(object):
         self.img_view_night_map = QtWidgets.QGraphicsView(self.Tab_Map)
         self.img_view_night_map.setMinimumSize(QtCore.QSize(255, 155))
         self.img_view_night_map.setMaximumSize(QtCore.QSize(255, 155))
-        self.img_view_night_map.setStyleSheet("border-image: url(:/img/img/night.jpg);")
+        self.img_view_night_map.setStyleSheet("border-image: url(:/img/img/night.jpg);\n"
+"")
         self.img_view_night_map.setObjectName("img_view_night_map")
         self.verticalLayout_30.addWidget(self.img_view_night_map)
         self.horizontalLayout_33.addLayout(self.verticalLayout_30)
@@ -1843,7 +1844,7 @@ class Ui_ISRT_Main_Window(object):
         self.verticalLayout_23.addWidget(self.TabWidget_Main_overall)
 
         self.retranslateUi(ISRT_Main_Window)
-        self.TabWidget_Main_overall.setCurrentIndex(0)
+        self.TabWidget_Main_overall.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(ISRT_Main_Window)
 
     def retranslateUi(self, ISRT_Main_Window):

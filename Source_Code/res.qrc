@@ -24,12 +24,19 @@
     <file>img/maps/map_views.jpg</file>
   </qresource>
   <qresource prefix="map_thumbs">
+    <file>img/maps/thumbs/favela.jpg</file>
+    <file>img/maps/thumbs/firefightquarry.jpg</file>
+    <file>img/maps/thumbs/international.jpg</file>
+    <file>img/maps/thumbs/liberationtower.jpg</file>
+    <file>img/maps/thumbs/templehq.jpg</file>
+    <file>img/maps/thumbs/redridge_night.jpg</file>
+    <file>img/maps/thumbs/yemenhillside.jpg</file>
     <file>img/maps/thumbs/payout.jpg</file>
     <file>img/maps/thumbs/abandoned.jpg</file>
-    <file>img/maps/thumbs/blood_gulch.jpg</file>
     <file>img/maps/thumbs/gateway.jpg</file>
+    <file>img/maps/thumbs/bloodgulch.jpg</file>
+    <file>img/maps/thumbs/tell2.jpg</file>
     <file>img/maps/thumbs/oasis.jpg</file>
-    <file>img/maps/thumbs/tell_classic.jpg</file>
     <file>img/maps/thumbs/snowworld.jpg</file>
     <file>img/maps/thumbs/snowworld_night.jpg</file>
     <file>img/maps/thumbs/mintaqah.jpg</file>
