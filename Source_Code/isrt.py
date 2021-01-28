@@ -256,6 +256,15 @@ class maingui(QtWidgets.QWidget):
         self.c = self.conn.cursor()
         self.data_path = None
         self.datapath = None
+
+        # Setup Version number and set in About and Main Title
+        self.c.execute("Select version from configuration")
+        version_temp = self.c.fetchone()
+        self.conn.commit()
+        version = ("v" + version_temp[0])
+        self.setWindowTitle(QtCore.QCoreApplication.translate("ISRT_Main_Window", f"ISRT - Insurgency Sandstorm RCON Tool {version}"))
+        self.gui.aboutbody.setText(QtCore.QCoreApplication.translate("ISRT_Main_Window", f"<html><head/><body><p align=\"center\"><span style=\" font-size:22pt; font-weight:600;\">ISRT {version}</span></p><p align=\"center\"><br/></p><p align=\"center\"><span style=\" font-size:16pt;\">Insurgency Sandstorm RCON/Query Tool</span></p><p align=\"center\"><span style=\" font-size:16pt;\">by Olli E. aka </span><a href=\"mailto:madman@isrt.info\"><span style=\" font-size:18pt; text-decoration: underline; color:#0000ff;\">Madman@isrt.info</span></a></p><p align=\"center\"><br/></p><p align=\"center\"><br/></p><p align=\"center\"><span style=\" font-size:16pt;\">Get Support: </span><a href=\"http://www.isrt.info\"><span style=\" font-size:16pt; text-decoration: underline; color:#0000ff;\">http://www.isrt.info</span></a></p><p align=\"center\"><a href=\"https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool\"><span style=\" font-size:16pt; text-decoration: underline; color:#0000ff;\">GitHub</span></a></p><p align=\"center\"><br/></p><p align=\"center\"><span style=\" font-size:14pt;\">Donate for the development of ISRT!</span></p><p align=\"center\"><br/></p><p align=\"center\"><a href=\"https://www.paypal.com/donate?hosted_button_id=RLSPYUNWLYA9Y\"><img src=\":/img/img/paypal.png\"/></a></p><p align=\"center\"><br/></p><p align=\"center\"><span style=\" font-size:16pt;\">Report issues </span><a href=\"https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/issues\"><span style=\" font-size:16pt; text-decoration: underline; color:#0000ff;\">here</span></a><br/></p><p align=\"center\"><a href=\"https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool/blob/main/LICENSE\"><span style=\" font-size:14pt; text-decoration: underline; color:#0000ff;\">GNU/Public License Software</span></a></p></body></html>"))
+        
         # Setup ISRT Monitor Call
 
         def call_monitor():
@@ -278,6 +287,7 @@ class maingui(QtWidgets.QWidget):
         def open_explorer():
             fulldir = (str(self.dbdir / 'db/'))
             os.system(f'start %windir%\\explorer.exe "{fulldir}"')
+
         # Define buttons and menu items including their functionalities
         self.gui.btn_main_adminsay.clicked.connect(self.adminsay)
         self.gui.btn_main_exec_query.clicked.connect(self.checkandgoquery)
