@@ -2349,7 +2349,6 @@ class maingui(QtWidgets.QWidget):
             "border-image: url(:/img/img/day.jpg);")
         self.gui.img_view_night_map.setStyleSheet(
             "border-image: url(:/img/img/night.jpg);")
-
     # Save modified map in DB
 
     def save_existing_map(self):
@@ -2440,6 +2439,7 @@ class maingui(QtWidgets.QWidget):
             self.gui.le_mapmgr_selected_day_image.setText(
                 self.day_data_path[0])
             self.day_datapath = self.day_data_path[0]
+            img_night_select_directory = (self.day_data_path[0])
         elif map_light == "night":
             img_night_select_directory = (str(self.dbdir) + '\\img\\')
             self.night_data_path = QtWidgets.QFileDialog.getOpenFileName(

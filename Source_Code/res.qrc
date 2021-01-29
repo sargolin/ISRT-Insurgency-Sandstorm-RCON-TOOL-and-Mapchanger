@@ -24,6 +24,8 @@
     <file>img/maps/map_views.jpg</file>
   </qresource>
   <qresource prefix="map_thumbs">
+    <file>img/maps/thumbs/return.jpg</file>
+    <file>img/maps/thumbs/ismcdesmall.jpg</file>
     <file>img/maps/thumbs/favela.jpg</file>
     <file>img/maps/thumbs/firefightquarry.jpg</file>
     <file>img/maps/thumbs/international.jpg</file>

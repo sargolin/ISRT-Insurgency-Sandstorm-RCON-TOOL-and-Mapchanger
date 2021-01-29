@@ -90,7 +90,6 @@ class mongui(QtWidgets.QWidget):
         self.start_timer()
 
     def save_checkbox_state(self):
-        print("Signal caught")
         if self.mogui.chkbx_show_progressbar.isChecked():
             checkstate = 1
         else:
@@ -102,7 +101,6 @@ class mongui(QtWidgets.QWidget):
         if check_progressbar[0] != checkstate:
             self.c.execute("update configuration set progressbar=:newstate",{'newstate': checkstate})
             self.conn.commit()
-            print("Updated from ", check_progressbar[0], checkstate)
 
     def start_timer(self):
         self.timer = QTimer()
