@@ -63,13 +63,13 @@ class mongui(QtWidgets.QWidget):
         self.mogui.setupUi(self)
         self.mogui.mon_progress_bar.setValue(0)
         self.mogui.tbl_server_overview.setRowCount(0)
-        self.mogui.tbl_server_overview.setColumnWidth(0, 250)
-        self.mogui.tbl_server_overview.setColumnWidth(1, 130)
-        self.mogui.tbl_server_overview.setColumnWidth(2, 130)
-        self.mogui.tbl_server_overview.setColumnWidth(3, 150)
-        self.mogui.tbl_server_overview.setColumnWidth(4, 50)
-        self.mogui.tbl_server_overview.setColumnWidth(5, 74)
+        self.mogui.tbl_server_overview.setColumnWidth(0, 74)
         self.mogui.tbl_server_overview.setStyleSheet("padding: 3px;")
+        self.mogui.tbl_server_overview.setColumnWidth(1, 250)
+        self.mogui.tbl_server_overview.setColumnWidth(2, 130)
+        self.mogui.tbl_server_overview.setColumnWidth(3, 130)
+        self.mogui.tbl_server_overview.setColumnWidth(4, 150)
+        self.mogui.tbl_server_overview.setColumnWidth(5, 50)
         self.mogui.tbl_server_overview.setColumnWidth(6, 50)
         self.c.execute("select progressbar from configuration")
         self.conn.commit()
@@ -84,7 +84,7 @@ class mongui(QtWidgets.QWidget):
             row = row + 1
             self.mogui.tbl_server_overview.insertRow(row)
             for column, item in enumerate(form):
-                self.mogui.tbl_server_overview.setItem(row, column, QtWidgets.QTableWidgetItem(str(item)))
+                self.mogui.tbl_server_overview.setItem(row, 1, QtWidgets.QTableWidgetItem(str(item)))
         self.server_alias_list = self.c.fetchall()
         self.mogui.chkbx_show_progressbar.stateChanged.connect(self.save_checkbox_state)
         self.start_timer()
@@ -120,7 +120,7 @@ class mongui(QtWidgets.QWidget):
             for row, form in enumerate(self.c):
                 self.mogui.tbl_server_overview.insertRow(row)
                 for column, item in enumerate(form):
-                    self.mogui.tbl_server_overview.setItem(row, column, QtWidgets.QTableWidgetItem(str(item)))
+                    self.mogui.tbl_server_overview.setItem(row, 1, QtWidgets.QTableWidgetItem(str(item)))
             self.mogui.mon_progress_bar.setValue(0)
             self.server_alias_list = self.server_alias_checklist
         self.c.execute("SELECT alias FROM server")
@@ -168,27 +168,37 @@ class mongui(QtWidgets.QWidget):
                 lighting = "Day"
             else:
                 lighting = "Night"
-            self.mogui.tbl_server_overview.setItem(self.counter, 1, QtWidgets.QTableWidgetItem(self.serverhost +":" + str(self.resinfo['GamePort'])))
+            # imagelabel = QtWidgets.QLabel()
+            # imagelabel.setText("")
+            # imagelabel.setScaledContents(True)
+            # pixmap = QtGui.QPixmap(":/img/img/online.png")
+            # picmain = pixmap
+            # imagelabel.setPixmap(picmain)
+            # self.mogui.tbl_server_overview.setCellWidget(self.counter, 0, imagelabel)
+            item67 = QtWidgets.QTableWidgetItem("ON")
+            item67.setFont(QtGui.QFont("MS Shell Dlg 2"))
+            item67.setForeground(QtGui.QColor(0,180,0))
+            item67.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+            self.mogui.tbl_server_overview.setItem(self.counter, 0, item67)
+
+            self.mogui.tbl_server_overview.setItem(self.counter, 2, QtWidgets.QTableWidgetItem(self.serverhost +":" + str(self.resinfo['GamePort'])))
             item1 = QtWidgets.QTableWidgetItem(self.resinfo['Map'] + " (" + lighting + ")")
             item1.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
-            self.mogui.tbl_server_overview.setItem(self.counter, 3, item1)
+
+            self.mogui.tbl_server_overview.setItem(self.counter, 4, item1)
+
             if self.resinfo['Players'] == 0:
                 item2 = QtWidgets.QTableWidgetItem("%i/%i" % (self.resinfo['Players'], self.resinfo['MaxPlayers']))
                 item2.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
-                self.mogui.tbl_server_overview.setItem(self.counter, 4, item2)
+                self.mogui.tbl_server_overview.setItem(self.counter, 5, item2)
             else:
                 item2 = QtWidgets.QTableWidgetItem("%i/%i" % (self.resinfo['Players'], self.resinfo['MaxPlayers']))
                 item2.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
                 item2.setFont(QtGui.QFont("MS Shell Dlg 2",weight=QtGui.QFont.Bold))
-                self.mogui.tbl_server_overview.setItem(self.counter, 4, item2)
+                self.mogui.tbl_server_overview.setItem(self.counter, 5, item2)
             
-            imagelabel = QtWidgets.QLabel()
-            imagelabel.setText("")
-            imagelabel.setScaledContents(True)
-            pixmap = QtGui.QPixmap(":/img/img/online.png")
-            picmain = pixmap
-            imagelabel.setPixmap(picmain)
-            self.mogui.tbl_server_overview.setCellWidget(self.counter, 5, imagelabel)
+            
+            
             
             item4 = QtWidgets.QTableWidgetItem(str(self.resinfo['Ping']) + "ms")
             if self.resinfo['Ping'] >= 80:
@@ -202,17 +212,40 @@ class mongui(QtWidgets.QWidget):
             
             item5 = QtWidgets.QTableWidgetItem(self.resrules['GameMode_s'])
             item5.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
-            self.mogui.tbl_server_overview.setItem(self.counter, 2, item5)
+            self.mogui.tbl_server_overview.setItem(self.counter, 3, item5)
             
         else:
-            self.mogui.tbl_server_overview.setItem(self.counter, 1, QtWidgets.QTableWidgetItem(self.serverhost))
-            imagelabel2 = QtWidgets.QLabel()
-            imagelabel2.setText("")
-            imagelabel2.setScaledContents(True)
-            pixmap2 = QtGui.QPixmap(":/img/img/offline.png")
-            picmain2 = pixmap2
-            imagelabel2.setPixmap(picmain2)
-            self.mogui.tbl_server_overview.setCellWidget(self.counter, 5, imagelabel2)
+            self.mogui.tbl_server_overview.setItem(self.counter, 2, QtWidgets.QTableWidgetItem(self.serverhost))
+            self.mogui.tbl_server_overview.setItem(self.counter, 3, QtWidgets.QTableWidgetItem(""))
+            self.mogui.tbl_server_overview.setItem(self.counter, 4, QtWidgets.QTableWidgetItem(""))
+            self.mogui.tbl_server_overview.setItem(self.counter, 5, QtWidgets.QTableWidgetItem(""))
+            self.mogui.tbl_server_overview.setItem(self.counter, 6, QtWidgets.QTableWidgetItem(""))
+            self.mogui.tbl_server_overview.item(self.counter, 1).setBackground(QtGui.QColor(210,210,210))
+            self.mogui.tbl_server_overview.item(self.counter, 1).setForeground(QtGui.QColor(130,130,130))
+            self.mogui.tbl_server_overview.item(self.counter, 2).setBackground(QtGui.QColor(210,210,210))
+            self.mogui.tbl_server_overview.item(self.counter, 2).setForeground(QtGui.QColor(130,130,130))
+            self.mogui.tbl_server_overview.item(self.counter, 3).setBackground(QtGui.QColor(210,210,210))
+            self.mogui.tbl_server_overview.item(self.counter, 3).setForeground(QtGui.QColor(130,130,130))
+            self.mogui.tbl_server_overview.item(self.counter, 4).setBackground(QtGui.QColor(210,210,210))
+            self.mogui.tbl_server_overview.item(self.counter, 4).setForeground(QtGui.QColor(130,130,130))
+            self.mogui.tbl_server_overview.item(self.counter, 5).setBackground(QtGui.QColor(210,210,210))
+            self.mogui.tbl_server_overview.item(self.counter, 5).setForeground(QtGui.QColor(130,130,130))
+            self.mogui.tbl_server_overview.item(self.counter, 6).setBackground(QtGui.QColor(210,210,210))
+            self.mogui.tbl_server_overview.item(self.counter, 6).setForeground(QtGui.QColor(130,130,130))
+
+            # imagelabel2 = QtWidgets.QLabel()
+            # imagelabel2.setText(" On")
+            # imagelabel2.setScaledContents(True)
+            # pixmap2 = QtGui.QPixmap(":/img/img/offline.png")
+            # picmain2 = pixmap2
+            # imagelabel2.setPixmap(picmain2)
+            # self.mogui.tbl_server_overview.setCellWidget(self.counter, 0, imagelabel2)
+            item66 = QtWidgets.QTableWidgetItem("OFF")
+            item66.setFont(QtGui.QFont("MS Shell Dlg 2"))
+            item66.setForeground(QtGui.QColor(130,130,130))
+            item66.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+            item66.setBackground(QtGui.QColor(210,210,210))
+            self.mogui.tbl_server_overview.setItem(self.counter, 0, item66)
 
     def closeEvent(self, event):
         self.conn.close()

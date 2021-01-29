@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>863</width>
-    <height>469</height>
+    <width>920</width>
+    <height>519</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,8 +35,8 @@ selection-background-color: rgb(216, 216, 216);</string>
        </property>
        <property name="minimumSize">
         <size>
-         <width>840</width>
-         <height>400</height>
+         <width>900</width>
+         <height>450</height>
         </size>
        </property>
        <property name="font">
@@ -66,7 +66,7 @@ selection-background-color: rgb(216, 216, 216);</string>
         <set>QAbstractItemView::NoEditTriggers</set>
        </property>
        <property name="alternatingRowColors">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="selectionMode">
         <enum>QAbstractItemView::SingleSelection</enum>
@@ -122,6 +122,26 @@ selection-background-color: rgb(216, 216, 216);</string>
        <attribute name="verticalHeaderStretchLastSection">
         <bool>false</bool>
        </attribute>
+       <row>
+        <property name="text">
+         <string>New Row</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>New Row</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>New Row</string>
+        </property>
+       </row>
+       <column>
+        <property name="text">
+         <string>Status</string>
+        </property>
+       </column>
        <column>
         <property name="text">
          <string>Alias</string>
@@ -155,14 +175,54 @@ selection-background-color: rgb(216, 216, 216);</string>
        </column>
        <column>
         <property name="text">
-         <string>Status</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
          <string>Ping</string>
         </property>
        </column>
+       <item row="0" column="0">
+        <property name="text">
+         <string>dfs</string>
+        </property>
+       </item>
+       <item row="0" column="1">
+        <property name="text">
+         <string>sfe</string>
+        </property>
+       </item>
+       <item row="0" column="2">
+        <property name="text">
+         <string>fdf</string>
+        </property>
+       </item>
+       <item row="1" column="0">
+        <property name="text">
+         <string>fd</string>
+        </property>
+       </item>
+       <item row="1" column="1">
+        <property name="text">
+         <string>d</string>
+        </property>
+       </item>
+       <item row="1" column="2">
+        <property name="text">
+         <string>ds</string>
+        </property>
+       </item>
+       <item row="2" column="0">
+        <property name="text">
+         <string>sdf</string>
+        </property>
+       </item>
+       <item row="2" column="1">
+        <property name="text">
+         <string>fsd</string>
+        </property>
+       </item>
+       <item row="2" column="2">
+        <property name="text">
+         <string>fds</string>
+        </property>
+       </item>
       </widget>
      </item>
      <item>
