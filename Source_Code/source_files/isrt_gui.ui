@@ -1487,7 +1487,7 @@ background-repeat: no-repeat;</string>
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>200</height>
+             <height>220</height>
             </size>
            </property>
            <property name="font">
@@ -1582,7 +1582,7 @@ background-repeat: no-repeat;</string>
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>210</height>
+             <height>200</height>
             </size>
            </property>
            <property name="maximumSize">
