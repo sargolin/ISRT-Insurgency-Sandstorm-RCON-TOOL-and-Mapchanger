@@ -298,6 +298,8 @@ class maingui(QtWidgets.QWidget):
             self.gui.server_query.clear()
             self.gui.server_rconport.clear()
             self.gui.server_rconpw.clear()
+            self.gui.btn_server_delete.setEnabled(False)
+            self.gui.btn_server_modify.setEnabled(False)
 
         # Define buttons and menu items including their functionalities
         self.gui.btn_main_adminsay.clicked.connect(self.adminsay)
@@ -451,6 +453,9 @@ class maingui(QtWidgets.QWidget):
             self.selected_map_switch)
         self.gui.dropdown_mapmgr_selector.activated[str].connect(
             self.fill_map_manager_conf_tab)
+        self.unique_modifier_id = ""
+        self.gui.btn_server_delete.setEnabled(False)
+        self.gui.btn_server_modify.setEnabled(False)
 
     '''
     ------------------------------------------------------------------
@@ -546,8 +551,8 @@ class maingui(QtWidgets.QWidget):
             self.selected_row = item.row()
             self.resitem = self.gui.tbl_server_manager.item(self.selected_row, 0)
             if self.selected_row != 0:
-                self.gui.btn_server_modify.setEnabled(True)
                 self.gui.btn_server_delete.setEnabled(True)
+                self.gui.btn_server_modify.setEnabled(True)
                 try:
                     self.c.execute("SELECT alias, ipaddress, queryport, rconport, rconpw FROM server where id=:sel_id", {
                                    'sel_id': self.resitem.text()})
@@ -563,6 +568,7 @@ class maingui(QtWidgets.QWidget):
                     #                'sel_alias': select_result[0]})
                     # select_id_result = self.c.fetchone()
                     self.unique_modifier_id = self.resitem.text()
+                    print(self.unique_modifier_id)
                     self.conn.commit()
                 except Exception:
                     self.gui.label_db_console.append(
@@ -573,8 +579,8 @@ class maingui(QtWidgets.QWidget):
                 self.gui.server_query.clear()
                 self.gui.server_rconport.clear()
                 self.gui.server_rconpw.clear()
-        self.gui.btn_server_modify.setEnabled(False)
-        self.gui.btn_server_delete.setEnabled(False)
+        # self.gui.btn_server_modify.setEnabled(False)
+        # self.gui.btn_server_delete.setEnabled(False)
         self.gui.tbl_server_manager.clicked.connect(prepare_update_server)
     # Fill Dropdown Menu for Mapchanging from scratch
 
@@ -1348,6 +1354,8 @@ class maingui(QtWidgets.QWidget):
         self.fill_dropdown_server_box()
         self.create_server_table_widget()
         self.fill_server_table_widget()
+        self.gui.btn_server_delete.setEnabled(False)
+        self.gui.btn_server_modify.setEnabled(False)
         
     # Add a server to DB
 
@@ -1516,8 +1524,12 @@ class maingui(QtWidgets.QWidget):
 
     def server_modify(self):
         val_alias = self.gui.server_alias.text()
-        if val_alias:
+        print(self.unique_modifier_id)
+        if self.unique_modifier_id == "":
+            val_id = ""
+        else:
             val_id = self.unique_modifier_id
+        if val_alias and val_id:
             val_ipaddress = self.gui.server_ip.text()
             val_queryport = self.gui.server_query.text()
             val_rconport = self.gui.server_rconport.text()
@@ -1606,16 +1618,16 @@ class maingui(QtWidgets.QWidget):
             self.fill_server_table_widget()
             self.fill_dropdown_server_box()
         else:
-            self.gui.label_db_console.append("Please choose a server first!")
+            self.gui.label_db_console.append("Server does not exist in DB - add it or choose a server first!")
 
     # Delete a Server from DB
     def server_delete(self):
       
-        server_delete_id = int(self.resitem.text())
+        server_delete_id = self.unique_modifier_id
 
 
         if server_delete_id:
-            start_update_id = server_delete_id + 1
+            start_update_id = int(server_delete_id) + 1
             self.c.execute("SELECT COALESCE(MAX(id), 0) FROM server")
             raw_end_update_id = self.c.fetchone()
             self.conn.commit()
@@ -1645,6 +1657,14 @@ class maingui(QtWidgets.QWidget):
             self.fill_server_table_widget()
         else:
             self.gui.label_db_console.append("Please choose a server first!")
+
+        self.gui.server_alias.clear()
+        self.gui.server_ip.clear()
+        self.gui.server_query.clear()
+        self.gui.server_rconport.clear()
+        self.gui.server_rconpw.clear()
+        self.gui.btn_server_delete.setEnabled(False)
+        self.gui.btn_server_modify.setEnabled(False)
 
     # Import Database Routines
     def DB_import(self, db_action):
