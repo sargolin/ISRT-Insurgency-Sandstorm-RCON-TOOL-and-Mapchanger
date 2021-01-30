@@ -1688,7 +1688,7 @@ p, li { white-space: pre-wrap; }
             <widget class="QLineEdit" name="label_rconcommand">
              <property name="minimumSize">
               <size>
-               <width>400</width>
+               <width>300</width>
                <height>21</height>
               </size>
              </property>
@@ -1719,10 +1719,27 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
+            <widget class="QPushButton" name="btn_main_clear_rcon">
+             <property name="minimumSize">
+              <size>
+               <width>50</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:rgb(228, 228, 228)
+</string>
+             </property>
+             <property name="text">
+              <string>Clear</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QPushButton" name="btn_main_exec_rcon">
              <property name="minimumSize">
               <size>
-               <width>120</width>
+               <width>100</width>
                <height>0</height>
               </size>
              </property>
@@ -1784,7 +1801,7 @@ p, li { white-space: pre-wrap; }
               <widget class="QLineEdit" name="server_alias">
                <property name="minimumSize">
                 <size>
-                 <width>200</width>
+                 <width>180</width>
                  <height>25</height>
                 </size>
                </property>
@@ -1814,7 +1831,7 @@ p, li { white-space: pre-wrap; }
               <widget class="QLineEdit" name="server_ip">
                <property name="minimumSize">
                 <size>
-                 <width>150</width>
+                 <width>130</width>
                  <height>25</height>
                 </size>
                </property>
@@ -1936,6 +1953,17 @@ p, li { white-space: pre-wrap; }
                </property>
                <property name="placeholderText">
                 <string>RCON Password</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_server_clear">
+               <property name="styleSheet">
+                <string notr="true">background-color:rgb(228, 228, 228)
+</string>
+               </property>
+               <property name="text">
+                <string>Clear</string>
                </property>
               </widget>
              </item>

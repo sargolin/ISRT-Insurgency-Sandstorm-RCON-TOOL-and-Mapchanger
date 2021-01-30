@@ -288,9 +288,22 @@ class maingui(QtWidgets.QWidget):
             fulldir = (str(self.dbdir / 'db/'))
             os.system(f'start %windir%\\explorer.exe "{fulldir}"')
 
+        def clear_main_rcon():
+            self.gui.label_output_window.clear()
+            self.gui.label_rconcommand.clear()
+        
+        def clear_server_manager():
+            self.gui.server_alias.clear()
+            self.gui.server_ip.clear()
+            self.gui.server_query.clear()
+            self.gui.server_rconport.clear()
+            self.gui.server_rconpw.clear()
+
         # Define buttons and menu items including their functionalities
         self.gui.btn_main_adminsay.clicked.connect(self.adminsay)
         self.gui.btn_main_exec_query.clicked.connect(self.checkandgoquery)
+        self.gui.btn_main_clear_rcon.clicked.connect(clear_main_rcon)
+        self.gui.btn_server_clear.clicked.connect(clear_server_manager)
         self.gui.btn_exec_open_bck_dir.clicked.connect(open_explorer)
         self.gui.btn_main_open_server_monitor.clicked.connect(call_monitor)
         self.gui.btn_main_exec_rcon.clicked.connect(self.checkandgorcon)
@@ -533,6 +546,8 @@ class maingui(QtWidgets.QWidget):
             self.selected_row = item.row()
             self.resitem = self.gui.tbl_server_manager.item(self.selected_row, 0)
             if self.selected_row != 0:
+                self.gui.btn_server_modify.setEnabled(True)
+                self.gui.btn_server_delete.setEnabled(True)
                 try:
                     self.c.execute("SELECT alias, ipaddress, queryport, rconport, rconpw FROM server where id=:sel_id", {
                                    'sel_id': self.resitem.text()})
@@ -558,6 +573,8 @@ class maingui(QtWidgets.QWidget):
                 self.gui.server_query.clear()
                 self.gui.server_rconport.clear()
                 self.gui.server_rconpw.clear()
+        self.gui.btn_server_modify.setEnabled(False)
+        self.gui.btn_server_delete.setEnabled(False)
         self.gui.tbl_server_manager.clicked.connect(prepare_update_server)
     # Fill Dropdown Menu for Mapchanging from scratch
 
@@ -1155,7 +1172,7 @@ class maingui(QtWidgets.QWidget):
             self.gui.label_output_window.setText(
                 "Due to a Windows connection problem, 127.0.0.1 cannot be used currently, please use your LAN IP-Address!")
         else:
-            if self.gui.entry_rconpw.text() and command_check.startswith("quit") or command_check.startswith("exit") or command_check.startswith("help") or command_check.startswith("listplayers") or command_check.startswith("kick") or command_check.startswith("permban") or command_check.startswith("travel") or command_check.startswith("ban") or command_check.startswith("banid") or command_check.startswith("listbans") or command_check.startswith("unban") or command_check.startswith("say") or command_check.startswith("restartround") or command_check.startswith("maps") or command_check.startswith("scenarios") or command_check.startswith("travelscenario") or command_check.startswith("gamemodeproperty") or command_check.startswith("listgamemodeproperties"):
+            if self.gui.entry_rconpw.text() and command_check.startswith("gamever") or command_check.startswith("quit") or command_check.startswith("exit") or command_check.startswith("help") or command_check.startswith("listplayers") or command_check.startswith("kick") or command_check.startswith("permban") or command_check.startswith("travel") or command_check.startswith("ban") or command_check.startswith("banid") or command_check.startswith("listbans") or command_check.startswith("unban") or command_check.startswith("say") or command_check.startswith("restartround") or command_check.startswith("maps") or command_check.startswith("scenarios") or command_check.startswith("travelscenario") or command_check.startswith("gamemodeproperty") or command_check.startswith("listgamemodeproperties"):
                 if re.search(self.regexip, self.gui.entry_ip.text()):
                     self.serverhost = self.gui.entry_ip.text()
                     try:
@@ -1320,12 +1337,18 @@ class maingui(QtWidgets.QWidget):
                 self.conn.commit()
                 self.gui.label_db_console.append(
                     "Server successfully inserted")
+                self.gui.server_alias.clear()
+                self.gui.server_ip.clear()
+                self.gui.server_query.clear()
+                self.gui.server_rconport.clear()
+                self.gui.server_rconpw.clear()
             except sqlite3.Error as error:
                 self.gui.label_db_console.append(
                     "Failed to insert server into database " + str(error))
         self.fill_dropdown_server_box()
         self.create_server_table_widget()
         self.fill_server_table_widget()
+        
     # Add a server to DB
 
     def server_add_main(self):
@@ -1493,7 +1516,6 @@ class maingui(QtWidgets.QWidget):
 
     def server_modify(self):
         val_alias = self.gui.server_alias.text()
-
         if val_alias:
             val_id = self.unique_modifier_id
             val_ipaddress = self.gui.server_ip.text()
