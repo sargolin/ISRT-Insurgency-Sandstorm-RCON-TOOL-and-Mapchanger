@@ -519,7 +519,6 @@ class maingui(QtWidgets.QWidget):
             0, 3, QtWidgets.QTableWidgetItem("Query Port"))
         self.gui.tbl_server_manager.item(
             0, 3).setBackground(QtGui.QColor(254, 254, 254))
-
         self.gui.tbl_server_manager.setItem(
             0, 4, QtWidgets.QTableWidgetItem("RCON Port"))
         self.gui.tbl_server_manager.item(
@@ -564,9 +563,6 @@ class maingui(QtWidgets.QWidget):
                     self.gui.server_query.setText(str(select_result[2]))
                     self.gui.server_rconport.setText(str(select_result[3]))
                     self.gui.server_rconpw.setText(select_result[4])
-                    # self.c.execute("SELECT id FROM server where alias=:sel_alias", {
-                    #                'sel_alias': select_result[0]})
-                    # select_id_result = self.c.fetchone()
                     self.unique_modifier_id = self.resitem.text()
                     print(self.unique_modifier_id)
                     self.conn.commit()
@@ -579,8 +575,6 @@ class maingui(QtWidgets.QWidget):
                 self.gui.server_query.clear()
                 self.gui.server_rconport.clear()
                 self.gui.server_rconpw.clear()
-        # self.gui.btn_server_modify.setEnabled(False)
-        # self.gui.btn_server_delete.setEnabled(False)
         self.gui.tbl_server_manager.clicked.connect(prepare_update_server)
     # Fill Dropdown Menu for Mapchanging from scratch
 
@@ -658,8 +652,6 @@ class maingui(QtWidgets.QWidget):
                 msg.setText(
                     f"Something went wrong: \n\n {new__manual_custom_command} is no new valid custom RCON command! \n\n Please try again!")
                 msg.exec_()
-        else:
-            pass
         self.fill_list_custom_command()
         self.fill_dropdown_custom_command()
     # Clear all Custom Commands
@@ -678,8 +670,6 @@ class maingui(QtWidgets.QWidget):
             for row in delete_commands:
                 self.c.execute("DELETE FROM cust_commands WHERE commands=:delcommand", {
                                'delcommand': row.text()})
-        else:
-            pass
         self.conn.commit()
         self.fill_list_custom_command()
         self.fill_dropdown_custom_command()
@@ -1622,10 +1612,7 @@ class maingui(QtWidgets.QWidget):
 
     # Delete a Server from DB
     def server_delete(self):
-      
         server_delete_id = self.unique_modifier_id
-
-
         if server_delete_id:
             start_update_id = int(server_delete_id) + 1
             self.c.execute("SELECT COALESCE(MAX(id), 0) FROM server")
@@ -1648,7 +1635,6 @@ class maingui(QtWidgets.QWidget):
                 except sqlite3.Error as error:
                     self.gui.label_db_console.append(
                         "Failed to delete data from database " + str(error))
-                    pass
             else:
                 self.gui.label_db_console.append(
                     "At least Alias has to contain a value!")
@@ -1657,7 +1643,6 @@ class maingui(QtWidgets.QWidget):
             self.fill_server_table_widget()
         else:
             self.gui.label_db_console.append("Please choose a server first!")
-
         self.gui.server_alias.clear()
         self.gui.server_ip.clear()
         self.gui.server_query.clear()

@@ -157,7 +157,6 @@ class mongui(QtWidgets.QWidget):
 
     def add_data_to_table(self, n, m, o, p, q):
         self.serverhost = o
-        #self.counter = p + 1
         self.counter = p
         self.resrules = m
         self.resinfo = n
@@ -168,13 +167,6 @@ class mongui(QtWidgets.QWidget):
                 lighting = "Day"
             else:
                 lighting = "Night"
-            # imagelabel = QtWidgets.QLabel()
-            # imagelabel.setText("")
-            # imagelabel.setScaledContents(True)
-            # pixmap = QtGui.QPixmap(":/img/img/online.png")
-            # picmain = pixmap
-            # imagelabel.setPixmap(picmain)
-            # self.mogui.tbl_server_overview.setCellWidget(self.counter, 0, imagelabel)
             item67 = QtWidgets.QTableWidgetItem("ON")
             item67.setFont(QtGui.QFont("MS Shell Dlg 2"))
             item67.setForeground(QtGui.QColor(0,180,0))
@@ -233,13 +225,6 @@ class mongui(QtWidgets.QWidget):
             self.mogui.tbl_server_overview.item(self.counter, 6).setBackground(QtGui.QColor(210,210,210))
             self.mogui.tbl_server_overview.item(self.counter, 6).setForeground(QtGui.QColor(130,130,130))
 
-            # imagelabel2 = QtWidgets.QLabel()
-            # imagelabel2.setText(" On")
-            # imagelabel2.setScaledContents(True)
-            # pixmap2 = QtGui.QPixmap(":/img/img/offline.png")
-            # picmain2 = pixmap2
-            # imagelabel2.setPixmap(picmain2)
-            # self.mogui.tbl_server_overview.setCellWidget(self.counter, 0, imagelabel2)
             item66 = QtWidgets.QTableWidgetItem("OFF")
             item66.setFont(QtGui.QFont("MS Shell Dlg 2"))
             item66.setForeground(QtGui.QColor(130,130,130))
