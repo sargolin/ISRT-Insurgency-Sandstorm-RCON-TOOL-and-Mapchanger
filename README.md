@@ -1,4 +1,4 @@
-# ISRT Insurgency Sandstorm RCON TOOL v0.7 released
+# ISRT Insurgency Sandstorm RCON TOOL v0.8 released
 This is a python3 and PyQt5/SQLite3-based RCON Tool for mapchanging, server monitoring and other basic RCON functionalities that help administering and controlling Insurgency Sandstorm Servers. I just released version 0.7 of it, again coming with a lot of hopefully good changes! I implemented all your feature requests, wishes and a couple of things I found convenient, like importing your v0.5/6 server database or having customizable commands and so on - see below! Of course I would love, if you test it and let me know, in case you find bugs or have additional feature or change requests! So, if you like, give it a shot. It only takes a couple of minutes to try it out - please watch the known error below. 
 
 ## For even more Information, look here: http://www.isrt.info
@@ -8,33 +8,18 @@ Report any bug or feature/change requests here or send me an e-mail/steam messag
 ### For Installation How-to, common problems, issue reporting, commands and the general usage, visit the Wiki pages via the link below: 
 https://www.isrt.info/?page_id=2
 
-<center><img src="http://src.isrt.info/isrt_v0.7-1.jpg"></center>
+<center><img src="http://src.isrt.info/isrt_v0.8-1.JPG"></center>
 
-<center><img src="http://src.isrt.info/isrt_v0.7-2.jpg"></center>
+<center><img src="http://src.isrt.info/isrt_v0.8-2.JPG"></center>
+
+<center><img src="http://src.isrt.info/isrt_v0.8-3.JPG"></center>
 
 #### Status: Slowly reaching end of development phase - still open for all ideas
 
 ## 1. Release Notes
-- Implemented Day/Night display with night vision map pics
-- Renamed a couple of items for better understanding
-- RCON commands are now automatically saved if not already in the history
-- Inserted Security/Insurgents DropDown Menu for selecting travel commands
-- Changed the Tell Map picture for better identification
-- Added rcon commands quit and exit as valid commands
-- Removed the automatic execution of custom commands on selection
-- Added DB Table View to Server Manager for easier overview
-- Discarded Night-View Maps, because you can't actually see anything in them
-- Re-Designed the server info box and a couple other GUI elements
-- Integrated Password Image display, removed the text display
-- Added DB Table View for online players directly on query execution
-- Aggregated the VAC/Ranked view
-- Implemented Threading for monitor to prevent app freeze
-- Added Maps Sheds, Stork_Castle_x Map, Frost, Temple, TORO and Bap
-- Changed the Mapchanger so the Scenarios are based on what the server provides
-- Removed the Side-Selector in the Mapchanger - now done by selecting the specific scenario.
-- Modified 127.0.0.1 handling to auto-switch to LAN IP, due to a Windows bug.
-- Removed auto-execution of commands selected from the Cutom Commands Dropdown menu
-- Added server monitor to view all saved servers in one table overview
+- Added 65 new custom maps to ISRT
+- Implemented the new Map Manager for adding/changing custom maps
+- Integrated a Frenzy Mutator Switch in the Map Changer
 
 ## 2. Known bugs
 - When chosing random map change, the map is not updated correctly (NWI Server Bug reported - I unfortunately can't change false reporting on server side...)
