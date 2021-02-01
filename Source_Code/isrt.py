@@ -42,7 +42,7 @@ from bin.rn_gui import Ui_rn_window
 # Set Dev Mode during development here, to not mix the register and other stuff
 ##################################################################################
 ##################################################################################
-running_dev_mode = 1
+running_dev_mode = 0
 running_dev_mode_dbi = 0
 running_dev_mode_rn = 0
 ##################################################################################
