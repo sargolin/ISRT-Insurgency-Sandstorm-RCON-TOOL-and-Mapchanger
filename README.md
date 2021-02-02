@@ -2,4 +2,4 @@
 
 *Discontinued on GitHUB - please go to http://www.isrt.info*
 
-Bug Tracker is still in use, thoough.
+For issue reporting or bug tracking, use this tieckting system: https://www.isrt.info/?page_id=661
