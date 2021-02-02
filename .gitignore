@@ -1,8 +1,0 @@
-__pycache__
-.vscode
-.git
-.github
-.pylintrc
-settings.json
-compiler.py
-compiler_gui.py
