@@ -42,7 +42,7 @@ from bin.rn_gui import Ui_rn_window
 # Set Dev Mode during development here, to not mix the register and other stuff
 ##################################################################################
 ##################################################################################
-running_dev_mode = 0
+running_dev_mode = 1
 running_dev_mode_dbi = 0
 running_dev_mode_rn = 0
 ##################################################################################
@@ -3405,7 +3405,7 @@ if __name__ == "__main__":
             else:
                 new_version = current_version
             # If new version available show Messagebox
-            if check_updates_ok == 1 and new_version >= current_version:
+            if check_updates_ok == 1 and new_version > current_version:
                 def open_website():
                     os.system(
                         f'start %windir%\\explorer.exe "http://www.isrt.info/?page_id=50"')
