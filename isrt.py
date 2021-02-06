@@ -1,9 +1,9 @@
 '''
-ISRT - Insurgency Sandstorm RCON Tool; 01.02.2021, Madman
+ISRT - Insurgency Sandstorm RCON Tool; 06.02.2021, Madman
 In case of questions: isrt@edelmeier.org
 Website: http://www.isrt.info
 Git: https://github.com/olli-e/ISRT-Insurgency-Sandstorm-RCON-Query-Tool
-Current Version: v0.8
+Current Version: v0.8.1
 Database: ./db/isrt_data.db
 Monitor: ./isrt_monitor.py/exe
 This is open Source, you may use, copy, modify it as you wish - feel free!
@@ -1006,14 +1006,15 @@ class maingui(QtWidgets.QWidget):
         self.c.execute("select * from map_config where map_alias=:varselmap",
                        {'varselmap': var_selected_map})
         dsmam_alias = self.c.fetchall()
+
         self.conn.commit()
         dsmam_list = (dsmam_alias[0])
         light_day = dsmam_list[3]
         light_night = dsmam_list[4]
-        var_cp = dsmam_list[6]
-        var_cpins = dsmam_list[7]
-        var_cphc = dsmam_list[8]
-        var_cphcins = dsmam_list[9]
+        var_cp = dsmam_list[8]
+        var_cpins = dsmam_list[9]
+        var_cphc = dsmam_list[6]
+        var_cphcins = dsmam_list[7]
         var_dom = dsmam_list[10]
         var_ffe = dsmam_list[11]
         var_ffw = dsmam_list[12]
